@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'LibTessSwift_Example' do
+  pod 'LibTessSwift', :path => '../'
+
+  target 'LibTessSwift_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
