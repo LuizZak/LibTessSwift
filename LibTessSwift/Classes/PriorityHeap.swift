@@ -42,7 +42,7 @@ internal class PriorityHeap<TValue> where TValue : AnyObject {
     
     private var _leq: LessOrEqual
     private var _nodes: [Int]
-    private var _handles: [HandleElem<TValue>?]
+    private var _handles: ContiguousArray<HandleElem<TValue>?>
     private var _size: Int = 0, _max: Int = 0
     private var _freeList = 0
     private var _initialized = false
@@ -53,7 +53,7 @@ internal class PriorityHeap<TValue> where TValue : AnyObject {
         _leq = leq
         
         _nodes = Array(repeating: 0, count: initialSize + 1)
-        _handles = Array(repeating: nil, count: initialSize + 1)
+        _handles = ContiguousArray(repeating: nil, count: initialSize + 1)
 
         _size = 0
         _max = initialSize
@@ -136,7 +136,7 @@ internal class PriorityHeap<TValue> where TValue : AnyObject {
             let diffH = _handles.count - _max + 1
             
             let subN: [Int] = Array(repeating: 0, count: diffN)
-            let subH: [HandleElem<TValue>?] = Array(repeating: nil, count: diffH)
+            let subH = ContiguousArray<HandleElem<TValue>?>(repeating: nil, count: diffH)
             
             _nodes.append(contentsOf: subN)
             _handles.append(contentsOf: subH)

@@ -25,15 +25,11 @@ fileprivate class StackItem {
 internal class PriorityQueue<TValue> where TValue: AnyObject {
     private var _leq: PriorityHeap<TValue>.LessOrEqual
     private var _heap: PriorityHeap<TValue>
-    private var _keys: [TValue?]
+    private var _keys: ContiguousArray<TValue?>
     private var _order: [Int] = []
     
     private var _size = 0, _max = 0
     private var _initialized = false
-    
-    public var test: [TValue?] {
-        return _keys
-    }
     
     public var Empty: Bool {
         return _size == 0 && _heap.Empty
@@ -43,7 +39,7 @@ internal class PriorityQueue<TValue> where TValue: AnyObject {
         _leq = leq
         _heap = PriorityHeap<TValue>(initialSize, leq)
         
-        _keys = Array<TValue?>(repeating: nil, count: initialSize)
+        _keys = ContiguousArray<TValue?>(repeating: nil, count: initialSize)
         
         _size = 0
         _max = initialSize
@@ -92,10 +88,10 @@ internal class PriorityQueue<TValue> where TValue: AnyObject {
                 repeat {
                     repeat {
                         i += 1
-                    } while (!_leq(_keys[_order[i]], _keys[piv]))
+                    } while (!_leq(keyForOrderAt(index: i), keyAt(index: piv)))
                     repeat {
                         j -= 1
-                    } while (!_leq(_keys[piv], _keys[_order[j]]))
+                    } while (!_leq(keyAt(index: piv), keyForOrderAt(index: j)))
                     
                     if(i != j) {
                         swap(&_order[i], &_order[j])
@@ -121,7 +117,7 @@ internal class PriorityQueue<TValue> where TValue: AnyObject {
                 
                 j = i
                 
-                while j > p && !_leq(_keys[piv], _keys[_order[j - 1]]) {
+                while j > p && !_leq(keyAt(index: piv), keyForOrderAt(index: j - 1)) {
                     _order[j] = _order[j - 1]
                     j -= 1
                 }
@@ -158,7 +154,7 @@ internal class PriorityQueue<TValue> where TValue: AnyObject {
             _max <<= 1
             
             let diffK = _keys.count - _max + 1
-            let subK: [TValue?] = Array(repeating: nil, count: diffK)
+            let subK = ContiguousArray<TValue?>(repeating: nil, count: diffK)
             
             _keys.append(contentsOf: subK)
         }
@@ -229,11 +225,11 @@ internal class PriorityQueue<TValue> where TValue: AnyObject {
         return _keys[index]
     }
     
-    private func keyFor(orderAtIndex index: Int) -> TValue? {
+    private func keyForOrderAt(index index: Int) -> TValue? {
         return keyAt(index: _order[index])
     }
     
     private func lastKey() -> TValue? {
-        return keyFor(orderAtIndex: _size - 1)
+        return keyForOrderAt(index: _size - 1)
     }
 }

@@ -124,9 +124,9 @@ public class Tess {
         var v = _mesh!._vHead._next!
 
         var minVal: [CGFloat] = [ v._coords.X, v._coords.Y, v._coords.Z ]
-        var minVert: [MeshUtils.Vertex] = [ v, v, v ]
+        var minVert: ContiguousArray<MeshUtils.Vertex> = [ v, v, v ]
         var maxVal: [CGFloat] = [ v._coords.X, v._coords.Y, v._coords.Z ]
-        var maxVert: [MeshUtils.Vertex] = [ v, v, v ]
+        var maxVert: ContiguousArray<MeshUtils.Vertex> = [ v, v, v ]
         
         func subMinMax(_ index: Int) -> CGFloat {
             return maxVal[index] - minVal[index]
@@ -594,32 +594,24 @@ public class Tess {
 
     private func OutputContours() {
         var f: MeshUtils.Face
-        var edge: MeshUtils.Edge
-        var start: MeshUtils.Edge
         var startVert = 0
         var vertCount = 0
 
         _vertexCount = 0
         _elementCount = 0
-
-        f = _mesh._fHead._next
-        while f !== _mesh._fHead {
-            defer {
-                f = f._next!
-            }
-            
+        
+        _mesh.forEachFace { f in
             if (!f._inside) {
-                continue
+                return
             }
             
-            start = f._anEdge
-            edge = f._anEdge
+            let start = f._anEdge!
+            var edge = f._anEdge!
             repeat {
                 _vertexCount += 1
                 edge = edge._Lnext!
-            }
-            while (edge !== start)
-
+            } while (edge !== start)
+            
             _elementCount += 1
         }
 
@@ -631,20 +623,14 @@ public class Tess {
         
         startVert = 0
         
-        
-        f = _mesh._fHead._next
-        while f !== _mesh._fHead {
-            defer {
-                f = f._next
+        _mesh.forEachFace { f in
+            if (!f._inside) {
+                return
             }
             
-            if (!f._inside) {
-                continue
-            }
-
             vertCount = 0
-            start = f._anEdge
-            edge = f._anEdge
+            let start = f._anEdge!
+            var edge = f._anEdge!
             repeat {
                 _vertices[vertIndex].Position = edge._Org._coords
                 _vertices[vertIndex].Data = edge._Org._data
@@ -652,12 +638,12 @@ public class Tess {
                 vertCount += 1
                 edge = edge._Lnext!
             } while (edge !== start)
-
+            
             _elements[elementIndex] = startVert
             elementIndex += 1
             _elements[elementIndex] = vertCount
             elementIndex += 1
-
+            
             startVert += vertCount
         }
     }
