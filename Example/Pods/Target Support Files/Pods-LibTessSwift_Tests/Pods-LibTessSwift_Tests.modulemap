@@ -1,0 +1,6 @@
+framework module Pods_LibTessSwift_Tests {
+  umbrella header "Pods-LibTessSwift_Tests-umbrella.h"
+
+  export *
+  module * { export * }
+}

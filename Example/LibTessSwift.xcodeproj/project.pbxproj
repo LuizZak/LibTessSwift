@@ -12,7 +12,76 @@
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
-		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
+		A00AE31D1E64D21D0052E418 /* 2.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE2F11E64D2190052E418 /* 2.testdat */; };
+		A00AE31E1E64D2210052E418 /* bird.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE2F21E64D2190052E418 /* bird.testdat */; };
+		A00AE31F1E64D2210052E418 /* clipper.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE2F31E64D2190052E418 /* clipper.testdat */; };
+		A00AE3201E64D2210052E418 /* custom.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE2F41E64D2190052E418 /* custom.testdat */; };
+		A00AE3211E64D2210052E418 /* debug.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE2F51E64D2190052E418 /* debug.testdat */; };
+		A00AE3221E64D2210052E418 /* debug2.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE2F61E64D2190052E418 /* debug2.testdat */; };
+		A00AE3231E64D2210052E418 /* diamond.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE2F71E64D2190052E418 /* diamond.testdat */; };
+		A00AE3241E64D2210052E418 /* dude.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE2F81E64D2190052E418 /* dude.testdat */; };
+		A00AE3251E64D2210052E418 /* force-winding.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE2F91E64D2190052E418 /* force-winding.testdat */; };
+		A00AE3261E64D2210052E418 /* funny.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE2FA1E64D2190052E418 /* funny.testdat */; };
+		A00AE3271E64D2210052E418 /* issue6-L.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE2FB1E64D2190052E418 /* issue6-L.testdat */; };
+		A00AE3281E64D2210052E418 /* issue6-plus.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE2FC1E64D2190052E418 /* issue6-plus.testdat */; };
+		A00AE3291E64D2210052E418 /* letterE.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE2FD1E64D2190052E418 /* letterE.testdat */; };
+		A00AE32A1E64D2210052E418 /* nazca_heron.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE2FE1E64D2190052E418 /* nazca_heron.testdat */; };
+		A00AE32B1E64D2210052E418 /* nazca_monkey.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE2FF1E64D2190052E418 /* nazca_monkey.testdat */; };
+		A00AE32C1E64D2210052E418 /* redbook-winding.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE3001E64D2190052E418 /* redbook-winding.testdat */; };
+		A00AE32D1E64D2210052E418 /* sketchup.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE3011E64D2190052E418 /* sketchup.testdat */; };
+		A00AE32E1E64D2210052E418 /* star-intersect.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE3021E64D2190052E418 /* star-intersect.testdat */; };
+		A00AE32F1E64D2210052E418 /* star.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE3031E64D2190052E418 /* star.testdat */; };
+		A00AE3301E64D2210052E418 /* strange.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE3041E64D2190052E418 /* strange.testdat */; };
+		A00AE3311E64D2210052E418 /* tank.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE3051E64D2190052E418 /* tank.testdat */; };
+		A00AE3321E64D2210052E418 /* test.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE3061E64D2190052E418 /* test.testdat */; };
+		A00AE33A1E64D3FC0052E418 /* DDFileReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00AE2EC1E64CBF00052E418 /* DDFileReader.swift */; };
+		A00AE33B1E64D3FC0052E418 /* DataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00AE2EA1E64CB0C0052E418 /* DataLoader.swift */; };
+		A00AE33C1E64D3FC0052E418 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
+		A00AE33D1E64D3FC0052E418 /* PolyConvert.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00AE3331E64D2C30052E418 /* PolyConvert.swift */; };
+		A0B488DC1E64F6FA00DE3A4E /* bird.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488C61E64F6FA00DE3A4E /* bird.dat */; };
+		A0B488DD1E64F6FA00DE3A4E /* clipper.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488C71E64F6FA00DE3A4E /* clipper.dat */; };
+		A0B488DE1E64F6FA00DE3A4E /* custom.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488C81E64F6FA00DE3A4E /* custom.dat */; };
+		A0B488DF1E64F6FA00DE3A4E /* debug.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488C91E64F6FA00DE3A4E /* debug.dat */; };
+		A0B488E01E64F6FA00DE3A4E /* debug2.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488CA1E64F6FA00DE3A4E /* debug2.dat */; };
+		A0B488E11E64F6FA00DE3A4E /* diamond.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488CB1E64F6FA00DE3A4E /* diamond.dat */; };
+		A0B488E21E64F6FA00DE3A4E /* dude.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488CC1E64F6FA00DE3A4E /* dude.dat */; };
+		A0B488E31E64F6FA00DE3A4E /* force-winding.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488CD1E64F6FA00DE3A4E /* force-winding.dat */; };
+		A0B488E41E64F6FA00DE3A4E /* funny.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488CE1E64F6FA00DE3A4E /* funny.dat */; };
+		A0B488E51E64F6FA00DE3A4E /* issue6-L.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488CF1E64F6FA00DE3A4E /* issue6-L.dat */; };
+		A0B488E61E64F6FA00DE3A4E /* issue6-plus.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488D01E64F6FA00DE3A4E /* issue6-plus.dat */; };
+		A0B488E71E64F6FA00DE3A4E /* letterE.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488D11E64F6FA00DE3A4E /* letterE.dat */; };
+		A0B488E81E64F6FA00DE3A4E /* nazca_heron.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488D21E64F6FA00DE3A4E /* nazca_heron.dat */; };
+		A0B488E91E64F6FA00DE3A4E /* nazca_monkey.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488D31E64F6FA00DE3A4E /* nazca_monkey.dat */; };
+		A0B488EA1E64F6FA00DE3A4E /* redbook-winding.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488D41E64F6FA00DE3A4E /* redbook-winding.dat */; };
+		A0B488EB1E64F6FA00DE3A4E /* sketchup.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488D51E64F6FA00DE3A4E /* sketchup.dat */; };
+		A0B488EC1E64F6FA00DE3A4E /* star-intersect.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488D61E64F6FA00DE3A4E /* star-intersect.dat */; };
+		A0B488ED1E64F6FA00DE3A4E /* star.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488D71E64F6FA00DE3A4E /* star.dat */; };
+		A0B488EE1E64F6FA00DE3A4E /* strange.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488D81E64F6FA00DE3A4E /* strange.dat */; };
+		A0B488EF1E64F6FA00DE3A4E /* tank.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488D91E64F6FA00DE3A4E /* tank.dat */; };
+		A0B488F01E64F6FA00DE3A4E /* test.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488DA1E64F6FA00DE3A4E /* test.dat */; };
+		A0B488F11E64F84200DE3A4E /* 2.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488C51E64F6FA00DE3A4E /* 2.dat */; };
+		A0B488F21E64F84700DE3A4E /* bird.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488C61E64F6FA00DE3A4E /* bird.dat */; };
+		A0B488F31E64F84700DE3A4E /* clipper.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488C71E64F6FA00DE3A4E /* clipper.dat */; };
+		A0B488F41E64F84700DE3A4E /* custom.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488C81E64F6FA00DE3A4E /* custom.dat */; };
+		A0B488F51E64F84700DE3A4E /* debug.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488C91E64F6FA00DE3A4E /* debug.dat */; };
+		A0B488F61E64F84700DE3A4E /* debug2.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488CA1E64F6FA00DE3A4E /* debug2.dat */; };
+		A0B488F71E64F84700DE3A4E /* diamond.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488CB1E64F6FA00DE3A4E /* diamond.dat */; };
+		A0B488F81E64F84700DE3A4E /* dude.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488CC1E64F6FA00DE3A4E /* dude.dat */; };
+		A0B488F91E64F84700DE3A4E /* force-winding.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488CD1E64F6FA00DE3A4E /* force-winding.dat */; };
+		A0B488FA1E64F84700DE3A4E /* funny.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488CE1E64F6FA00DE3A4E /* funny.dat */; };
+		A0B488FB1E64F84700DE3A4E /* issue6-L.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488CF1E64F6FA00DE3A4E /* issue6-L.dat */; };
+		A0B488FC1E64F84700DE3A4E /* issue6-plus.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488D01E64F6FA00DE3A4E /* issue6-plus.dat */; };
+		A0B488FD1E64F84700DE3A4E /* letterE.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488D11E64F6FA00DE3A4E /* letterE.dat */; };
+		A0B488FE1E64F84700DE3A4E /* nazca_heron.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488D21E64F6FA00DE3A4E /* nazca_heron.dat */; };
+		A0B488FF1E64F84700DE3A4E /* nazca_monkey.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488D31E64F6FA00DE3A4E /* nazca_monkey.dat */; };
+		A0B489001E64F84700DE3A4E /* redbook-winding.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488D41E64F6FA00DE3A4E /* redbook-winding.dat */; };
+		A0B489011E64F84700DE3A4E /* sketchup.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488D51E64F6FA00DE3A4E /* sketchup.dat */; };
+		A0B489021E64F84700DE3A4E /* star-intersect.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488D61E64F6FA00DE3A4E /* star-intersect.dat */; };
+		A0B489031E64F84700DE3A4E /* star.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488D71E64F6FA00DE3A4E /* star.dat */; };
+		A0B489041E64F84700DE3A4E /* strange.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488D81E64F6FA00DE3A4E /* strange.dat */; };
+		A0B489051E64F84700DE3A4E /* tank.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488D91E64F6FA00DE3A4E /* tank.dat */; };
+		A0B489061E64F84700DE3A4E /* test.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488DA1E64F6FA00DE3A4E /* test.dat */; };
+		A0B489071E64F84800DE3A4E /* 2.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488C51E64F6FA00DE3A4E /* 2.dat */; };
 		C21AA9C4084CBDA0BE5123D3 /* Pods_LibTessSwift_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 006044DD236BF2FABA2BCD17 /* Pods_LibTessSwift_Example.framework */; };
 		E1FDED9A9F203191C11C078D /* Pods_LibTessSwift_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE5F61903539D1BD0A74C6DD /* Pods_LibTessSwift_Tests.framework */; };
 /* End PBXBuildFile section */
@@ -30,7 +99,7 @@
 /* Begin PBXFileReference section */
 		006044DD236BF2FABA2BCD17 /* Pods_LibTessSwift_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LibTessSwift_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		066723D44F11F81A6653A4FD /* Pods-LibTessSwift_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LibTessSwift_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-LibTessSwift_Tests/Pods-LibTessSwift_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		1A5B2B7520164AD935CBFE17 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		1A5B2B7520164AD935CBFE17 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		337B17B2F1A6B04910FEB4C5 /* Pods-LibTessSwift_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LibTessSwift_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-LibTessSwift_Example/Pods-LibTessSwift_Example.release.xcconfig"; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* LibTessSwift_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LibTessSwift_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -41,10 +110,57 @@
 		607FACDF1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		607FACE51AFB9204008FA782 /* LibTessSwift_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LibTessSwift_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
-		8F68A61433E5C22A704B81E4 /* LibTessSwift.podspec */ = {isa = PBXFileReference; includeInIndex = 1; name = LibTessSwift.podspec; path = ../LibTessSwift.podspec; sourceTree = "<group>"; };
+		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Tests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		8F68A61433E5C22A704B81E4 /* LibTessSwift.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LibTessSwift.podspec; path = ../LibTessSwift.podspec; sourceTree = "<group>"; };
 		90CF804B8CB628A03723A9C5 /* Pods-LibTessSwift_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LibTessSwift_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LibTessSwift_Example/Pods-LibTessSwift_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		A7DAE31B7A07DBDE66689D6C /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		A00AE2EA1E64CB0C0052E418 /* DataLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = DataLoader.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		A00AE2EC1E64CBF00052E418 /* DDFileReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDFileReader.swift; sourceTree = "<group>"; };
+		A00AE2F11E64D2190052E418 /* 2.testdat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 2.testdat; sourceTree = "<group>"; };
+		A00AE2F21E64D2190052E418 /* bird.testdat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bird.testdat; sourceTree = "<group>"; };
+		A00AE2F31E64D2190052E418 /* clipper.testdat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = clipper.testdat; sourceTree = "<group>"; };
+		A00AE2F41E64D2190052E418 /* custom.testdat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = custom.testdat; sourceTree = "<group>"; };
+		A00AE2F51E64D2190052E418 /* debug.testdat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = debug.testdat; sourceTree = "<group>"; };
+		A00AE2F61E64D2190052E418 /* debug2.testdat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = debug2.testdat; sourceTree = "<group>"; };
+		A00AE2F71E64D2190052E418 /* diamond.testdat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = diamond.testdat; sourceTree = "<group>"; };
+		A00AE2F81E64D2190052E418 /* dude.testdat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dude.testdat; sourceTree = "<group>"; };
+		A00AE2F91E64D2190052E418 /* force-winding.testdat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "force-winding.testdat"; sourceTree = "<group>"; };
+		A00AE2FA1E64D2190052E418 /* funny.testdat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = funny.testdat; sourceTree = "<group>"; };
+		A00AE2FB1E64D2190052E418 /* issue6-L.testdat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "issue6-L.testdat"; sourceTree = "<group>"; };
+		A00AE2FC1E64D2190052E418 /* issue6-plus.testdat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "issue6-plus.testdat"; sourceTree = "<group>"; };
+		A00AE2FD1E64D2190052E418 /* letterE.testdat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = letterE.testdat; sourceTree = "<group>"; };
+		A00AE2FE1E64D2190052E418 /* nazca_heron.testdat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nazca_heron.testdat; sourceTree = "<group>"; };
+		A00AE2FF1E64D2190052E418 /* nazca_monkey.testdat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nazca_monkey.testdat; sourceTree = "<group>"; };
+		A00AE3001E64D2190052E418 /* redbook-winding.testdat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "redbook-winding.testdat"; sourceTree = "<group>"; };
+		A00AE3011E64D2190052E418 /* sketchup.testdat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sketchup.testdat; sourceTree = "<group>"; };
+		A00AE3021E64D2190052E418 /* star-intersect.testdat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "star-intersect.testdat"; sourceTree = "<group>"; };
+		A00AE3031E64D2190052E418 /* star.testdat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = star.testdat; sourceTree = "<group>"; };
+		A00AE3041E64D2190052E418 /* strange.testdat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = strange.testdat; sourceTree = "<group>"; };
+		A00AE3051E64D2190052E418 /* tank.testdat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tank.testdat; sourceTree = "<group>"; };
+		A00AE3061E64D2190052E418 /* test.testdat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.testdat; sourceTree = "<group>"; };
+		A00AE3331E64D2C30052E418 /* PolyConvert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = PolyConvert.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		A0B488C51E64F6FA00DE3A4E /* 2.dat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 2.dat; sourceTree = "<group>"; };
+		A0B488C61E64F6FA00DE3A4E /* bird.dat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bird.dat; sourceTree = "<group>"; };
+		A0B488C71E64F6FA00DE3A4E /* clipper.dat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = clipper.dat; sourceTree = "<group>"; };
+		A0B488C81E64F6FA00DE3A4E /* custom.dat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = custom.dat; sourceTree = "<group>"; };
+		A0B488C91E64F6FA00DE3A4E /* debug.dat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = debug.dat; sourceTree = "<group>"; };
+		A0B488CA1E64F6FA00DE3A4E /* debug2.dat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = debug2.dat; sourceTree = "<group>"; };
+		A0B488CB1E64F6FA00DE3A4E /* diamond.dat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = diamond.dat; sourceTree = "<group>"; };
+		A0B488CC1E64F6FA00DE3A4E /* dude.dat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dude.dat; sourceTree = "<group>"; };
+		A0B488CD1E64F6FA00DE3A4E /* force-winding.dat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "force-winding.dat"; sourceTree = "<group>"; };
+		A0B488CE1E64F6FA00DE3A4E /* funny.dat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = funny.dat; sourceTree = "<group>"; };
+		A0B488CF1E64F6FA00DE3A4E /* issue6-L.dat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "issue6-L.dat"; sourceTree = "<group>"; };
+		A0B488D01E64F6FA00DE3A4E /* issue6-plus.dat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "issue6-plus.dat"; sourceTree = "<group>"; };
+		A0B488D11E64F6FA00DE3A4E /* letterE.dat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = letterE.dat; sourceTree = "<group>"; };
+		A0B488D21E64F6FA00DE3A4E /* nazca_heron.dat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nazca_heron.dat; sourceTree = "<group>"; };
+		A0B488D31E64F6FA00DE3A4E /* nazca_monkey.dat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nazca_monkey.dat; sourceTree = "<group>"; };
+		A0B488D41E64F6FA00DE3A4E /* redbook-winding.dat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "redbook-winding.dat"; sourceTree = "<group>"; };
+		A0B488D51E64F6FA00DE3A4E /* sketchup.dat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sketchup.dat; sourceTree = "<group>"; };
+		A0B488D61E64F6FA00DE3A4E /* star-intersect.dat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "star-intersect.dat"; sourceTree = "<group>"; };
+		A0B488D71E64F6FA00DE3A4E /* star.dat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = star.dat; sourceTree = "<group>"; };
+		A0B488D81E64F6FA00DE3A4E /* strange.dat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = strange.dat; sourceTree = "<group>"; };
+		A0B488D91E64F6FA00DE3A4E /* tank.dat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tank.dat; sourceTree = "<group>"; };
+		A0B488DA1E64F6FA00DE3A4E /* test.dat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.dat; sourceTree = "<group>"; };
+		A7DAE31B7A07DBDE66689D6C /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		DC43E20CCBDD73E697CA6A36 /* Pods-LibTessSwift_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LibTessSwift_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LibTessSwift_Tests/Pods-LibTessSwift_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		FE5F61903539D1BD0A74C6DD /* Pods_LibTessSwift_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LibTessSwift_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -126,7 +242,12 @@
 		607FACE81AFB9204008FA782 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				A00AE2F01E64D20E0052E418 /* Results */,
+				A0B488C41E64F6F100DE3A4E /* Data */,
+				A00AE2EC1E64CBF00052E418 /* DDFileReader.swift */,
+				A00AE2EA1E64CB0C0052E418 /* DataLoader.swift */,
 				607FACEB1AFB9204008FA782 /* Tests.swift */,
+				A00AE3331E64D2C30052E418 /* PolyConvert.swift */,
 				607FACE91AFB9204008FA782 /* Supporting Files */,
 			);
 			path = Tests;
@@ -148,6 +269,64 @@
 				1A5B2B7520164AD935CBFE17 /* LICENSE */,
 			);
 			name = "Podspec Metadata";
+			sourceTree = "<group>";
+		};
+		A00AE2F01E64D20E0052E418 /* Results */ = {
+			isa = PBXGroup;
+			children = (
+				A00AE2F11E64D2190052E418 /* 2.testdat */,
+				A00AE2F21E64D2190052E418 /* bird.testdat */,
+				A00AE2F31E64D2190052E418 /* clipper.testdat */,
+				A00AE2F41E64D2190052E418 /* custom.testdat */,
+				A00AE2F51E64D2190052E418 /* debug.testdat */,
+				A00AE2F61E64D2190052E418 /* debug2.testdat */,
+				A00AE2F71E64D2190052E418 /* diamond.testdat */,
+				A00AE2F81E64D2190052E418 /* dude.testdat */,
+				A00AE2F91E64D2190052E418 /* force-winding.testdat */,
+				A00AE2FA1E64D2190052E418 /* funny.testdat */,
+				A00AE2FB1E64D2190052E418 /* issue6-L.testdat */,
+				A00AE2FC1E64D2190052E418 /* issue6-plus.testdat */,
+				A00AE2FD1E64D2190052E418 /* letterE.testdat */,
+				A00AE2FE1E64D2190052E418 /* nazca_heron.testdat */,
+				A00AE2FF1E64D2190052E418 /* nazca_monkey.testdat */,
+				A00AE3001E64D2190052E418 /* redbook-winding.testdat */,
+				A00AE3011E64D2190052E418 /* sketchup.testdat */,
+				A00AE3021E64D2190052E418 /* star-intersect.testdat */,
+				A00AE3031E64D2190052E418 /* star.testdat */,
+				A00AE3041E64D2190052E418 /* strange.testdat */,
+				A00AE3051E64D2190052E418 /* tank.testdat */,
+				A00AE3061E64D2190052E418 /* test.testdat */,
+			);
+			name = Results;
+			sourceTree = "<group>";
+		};
+		A0B488C41E64F6F100DE3A4E /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				A0B488C51E64F6FA00DE3A4E /* 2.dat */,
+				A0B488C61E64F6FA00DE3A4E /* bird.dat */,
+				A0B488C71E64F6FA00DE3A4E /* clipper.dat */,
+				A0B488C81E64F6FA00DE3A4E /* custom.dat */,
+				A0B488C91E64F6FA00DE3A4E /* debug.dat */,
+				A0B488CA1E64F6FA00DE3A4E /* debug2.dat */,
+				A0B488CB1E64F6FA00DE3A4E /* diamond.dat */,
+				A0B488CC1E64F6FA00DE3A4E /* dude.dat */,
+				A0B488CD1E64F6FA00DE3A4E /* force-winding.dat */,
+				A0B488CE1E64F6FA00DE3A4E /* funny.dat */,
+				A0B488CF1E64F6FA00DE3A4E /* issue6-L.dat */,
+				A0B488D01E64F6FA00DE3A4E /* issue6-plus.dat */,
+				A0B488D11E64F6FA00DE3A4E /* letterE.dat */,
+				A0B488D21E64F6FA00DE3A4E /* nazca_heron.dat */,
+				A0B488D31E64F6FA00DE3A4E /* nazca_monkey.dat */,
+				A0B488D41E64F6FA00DE3A4E /* redbook-winding.dat */,
+				A0B488D51E64F6FA00DE3A4E /* sketchup.dat */,
+				A0B488D61E64F6FA00DE3A4E /* star-intersect.dat */,
+				A0B488D71E64F6FA00DE3A4E /* star.dat */,
+				A0B488D81E64F6FA00DE3A4E /* strange.dat */,
+				A0B488D91E64F6FA00DE3A4E /* tank.dat */,
+				A0B488DA1E64F6FA00DE3A4E /* test.dat */,
+			);
+			name = Data;
 			sourceTree = "<group>";
 		};
 		F58CCBEE309D39DBE992886A /* Frameworks */ = {
@@ -248,9 +427,31 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0B488E41E64F6FA00DE3A4E /* funny.dat in Resources */,
+				A0B488E51E64F6FA00DE3A4E /* issue6-L.dat in Resources */,
+				A0B488E31E64F6FA00DE3A4E /* force-winding.dat in Resources */,
 				607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */,
+				A0B488E91E64F6FA00DE3A4E /* nazca_monkey.dat in Resources */,
 				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
+				A0B488EC1E64F6FA00DE3A4E /* star-intersect.dat in Resources */,
+				A0B488E11E64F6FA00DE3A4E /* diamond.dat in Resources */,
+				A0B488F01E64F6FA00DE3A4E /* test.dat in Resources */,
+				A0B489071E64F84800DE3A4E /* 2.dat in Resources */,
+				A0B488ED1E64F6FA00DE3A4E /* star.dat in Resources */,
+				A0B488E71E64F6FA00DE3A4E /* letterE.dat in Resources */,
+				A0B488E81E64F6FA00DE3A4E /* nazca_heron.dat in Resources */,
+				A0B488EB1E64F6FA00DE3A4E /* sketchup.dat in Resources */,
+				A0B488DE1E64F6FA00DE3A4E /* custom.dat in Resources */,
+				A0B488E21E64F6FA00DE3A4E /* dude.dat in Resources */,
+				A0B488E61E64F6FA00DE3A4E /* issue6-plus.dat in Resources */,
+				A0B488DD1E64F6FA00DE3A4E /* clipper.dat in Resources */,
+				A0B488EA1E64F6FA00DE3A4E /* redbook-winding.dat in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
+				A0B488DC1E64F6FA00DE3A4E /* bird.dat in Resources */,
+				A0B488E01E64F6FA00DE3A4E /* debug2.dat in Resources */,
+				A0B488EF1E64F6FA00DE3A4E /* tank.dat in Resources */,
+				A0B488DF1E64F6FA00DE3A4E /* debug.dat in Resources */,
+				A0B488EE1E64F6FA00DE3A4E /* strange.dat in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,6 +459,50 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0B488FA1E64F84700DE3A4E /* funny.dat in Resources */,
+				A0B488F21E64F84700DE3A4E /* bird.dat in Resources */,
+				A00AE3201E64D2210052E418 /* custom.testdat in Resources */,
+				A0B489011E64F84700DE3A4E /* sketchup.dat in Resources */,
+				A0B488F41E64F84700DE3A4E /* custom.dat in Resources */,
+				A00AE32C1E64D2210052E418 /* redbook-winding.testdat in Resources */,
+				A00AE3301E64D2210052E418 /* strange.testdat in Resources */,
+				A00AE3251E64D2210052E418 /* force-winding.testdat in Resources */,
+				A00AE3311E64D2210052E418 /* tank.testdat in Resources */,
+				A00AE32D1E64D2210052E418 /* sketchup.testdat in Resources */,
+				A0B488FD1E64F84700DE3A4E /* letterE.dat in Resources */,
+				A00AE32A1E64D2210052E418 /* nazca_heron.testdat in Resources */,
+				A0B489041E64F84700DE3A4E /* strange.dat in Resources */,
+				A0B488F81E64F84700DE3A4E /* dude.dat in Resources */,
+				A0B488F31E64F84700DE3A4E /* clipper.dat in Resources */,
+				A00AE32B1E64D2210052E418 /* nazca_monkey.testdat in Resources */,
+				A00AE31E1E64D2210052E418 /* bird.testdat in Resources */,
+				A00AE3321E64D2210052E418 /* test.testdat in Resources */,
+				A0B488FF1E64F84700DE3A4E /* nazca_monkey.dat in Resources */,
+				A0B489031E64F84700DE3A4E /* star.dat in Resources */,
+				A00AE3221E64D2210052E418 /* debug2.testdat in Resources */,
+				A00AE3231E64D2210052E418 /* diamond.testdat in Resources */,
+				A0B488FB1E64F84700DE3A4E /* issue6-L.dat in Resources */,
+				A00AE31D1E64D21D0052E418 /* 2.testdat in Resources */,
+				A0B488F51E64F84700DE3A4E /* debug.dat in Resources */,
+				A0B488F71E64F84700DE3A4E /* diamond.dat in Resources */,
+				A00AE3291E64D2210052E418 /* letterE.testdat in Resources */,
+				A0B489021E64F84700DE3A4E /* star-intersect.dat in Resources */,
+				A00AE3281E64D2210052E418 /* issue6-plus.testdat in Resources */,
+				A0B488F91E64F84700DE3A4E /* force-winding.dat in Resources */,
+				A00AE3261E64D2210052E418 /* funny.testdat in Resources */,
+				A0B488FE1E64F84700DE3A4E /* nazca_heron.dat in Resources */,
+				A00AE32F1E64D2210052E418 /* star.testdat in Resources */,
+				A0B488F11E64F84200DE3A4E /* 2.dat in Resources */,
+				A0B488F61E64F84700DE3A4E /* debug2.dat in Resources */,
+				A00AE32E1E64D2210052E418 /* star-intersect.testdat in Resources */,
+				A00AE3241E64D2210052E418 /* dude.testdat in Resources */,
+				A0B489051E64F84700DE3A4E /* tank.dat in Resources */,
+				A0B489001E64F84700DE3A4E /* redbook-winding.dat in Resources */,
+				A0B488FC1E64F84700DE3A4E /* issue6-plus.dat in Resources */,
+				A00AE3211E64D2210052E418 /* debug.testdat in Resources */,
+				A00AE31F1E64D2210052E418 /* clipper.testdat in Resources */,
+				A00AE3271E64D2210052E418 /* issue6-L.testdat in Resources */,
+				A0B489061E64F84700DE3A4E /* test.dat in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -370,7 +615,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				607FACEC1AFB9204008FA782 /* Tests.swift in Sources */,
+				A00AE33B1E64D3FC0052E418 /* DataLoader.swift in Sources */,
+				A00AE33D1E64D3FC0052E418 /* PolyConvert.swift in Sources */,
+				A00AE33C1E64D3FC0052E418 /* Tests.swift in Sources */,
+				A00AE33A1E64D3FC0052E418 /* DDFileReader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -495,10 +743,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 90CF804B8CB628A03723A9C5 /* Pods-LibTessSwift_Example.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = LibTessSwift/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -Xfrontend -debug-time-function-bodies";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
@@ -509,6 +759,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 337B17B2F1A6B04910FEB4C5 /* Pods-LibTessSwift_Example.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = LibTessSwift/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -532,7 +783,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = Tests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks $(FRAMEWORK_SEARCH_PATHS)";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
@@ -548,7 +799,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = Tests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks $(FRAMEWORK_SEARCH_PATHS)";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
