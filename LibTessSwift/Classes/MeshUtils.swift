@@ -202,7 +202,7 @@ internal class MeshUtils {
         init() {
             
         }
-
+        
         public func Reset() {
             _prev = nil
             _next = nil
@@ -234,8 +234,11 @@ internal class MeshUtils {
     }
 
     public final class Edge : Pooled, Linked {
+        public static var pool: ContiguousArray<MeshUtils.Edge> = []
+        
         internal var _pair: EdgePair?
-        internal var _next: Edge!, _Sym: Edge!, _Onext: Edge!, _Lnext: Edge!
+        internal var _next: Edge!, _Sym: Edge!, _Onext: Edge!
+        internal var _Lnext: Edge!
         internal var _Org: Vertex!
         internal var _Lface: Face!
         internal var _activeRegion: Tess.ActiveRegion!
@@ -246,7 +249,7 @@ internal class MeshUtils {
 
         internal var _Oprev: Edge! { get { return _Sym?._Lnext } set { _Sym?._Lnext = newValue } }
         internal var _Lprev: Edge! { get { return _Onext?._Sym } set { _Onext?._Sym = newValue } }
-        internal var _Dprev: Edge! { get { return _Lnext?._Sym } set { _Lnext?._Sym = newValue } }
+        internal var _Dprev: Edge! { get { return _Lnext._Sym } set { _Lnext._Sym = newValue } }
         internal var _Rprev: Edge! { get { return _Sym?._Onext } set { _Sym?._Onext = newValue } }
         internal var _Dnext: Edge! { get { return _Rprev?._Sym } set { _Rprev?._Sym = newValue } }
         internal var _Rnext: Edge! { get { return _Oprev?._Sym } set { _Oprev?._Sym = newValue } }
@@ -299,7 +302,7 @@ internal class MeshUtils {
 
         e?._Sym = eSym
         e?._Onext = e
-        e?._Lnext = eSym
+        e?._Lnext = eSym!
         e?._Org = nil
         e?._Lface = nil
         e?._winding = 0
@@ -307,7 +310,7 @@ internal class MeshUtils {
 
         eSym?._Sym = e
         eSym?._Onext = eSym
-        eSym?._Lnext = e
+        eSym?._Lnext = e!
         eSym?._Org = nil
         eSym?._Lface = nil
         eSym?._winding = 0
@@ -387,13 +390,17 @@ internal class MeshUtils {
         fNew._inside = fNext._inside
 
         // fix other edges on this face loop
-        var e: Edge? = eOrig
+        
+        // Use unsafe pointers to avoid unecessary retain/releases
+        var localEdge = eOrig
+        var edp = UnsafeMutablePointer<Edge>(&localEdge)
+        
         repeat {
-            e?._Lface = fNew
-            e = e?._Lnext
-        } while (e !== eOrig)
+            edp.pointee._Lface = fNew
+            edp.pointee = edp.pointee._Lnext
+        } while (edp.pointee !== eOrig)
     }
-
+    
     /// <summary>
     /// KillEdge( eDel ) destroys an edge (the half-edges eDel and eDel->Sym),
     /// and removes from the global edge list.
@@ -466,7 +473,7 @@ internal class MeshUtils {
         var e = f._anEdge!
         repeat {
             area += (e._Org._s - e._Dst._s) * (e._Org._t + e._Dst._t)
-            e = e._Lnext!
+            e = e._Lnext
         } while (e !== f._anEdge)
         return area
     }

@@ -327,10 +327,10 @@ public class Tess {
         // Since the sweep goes from left to right, face->anEdge should
         // be close to the edge we want.
         var up = face._anEdge!
-        assert(up._Lnext !== up && up._Lnext?._Lnext !== up)
+        assert(up._Lnext !== up && up._Lnext._Lnext !== up)
         
         while (Geom.VertLeq(up._Dst!, up._Org!)) { up = up._Lprev! }
-        while (Geom.VertLeq(up._Org!, up._Dst!)) { up = up._Lnext! }
+        while (Geom.VertLeq(up._Org!, up._Dst!)) { up = up._Lnext }
         
         var lo = up._Lprev!
         
@@ -588,7 +588,7 @@ public class Tess {
             var edge = f._anEdge!
             repeat {
                 _vertexCount += 1
-                edge = edge._Lnext!
+                edge = edge._Lnext
             } while (edge !== start)
             
             _elementCount += 1
@@ -615,7 +615,7 @@ public class Tess {
                 _vertices[vertIndex].data = edge._Org._data
                 vertIndex += 1
                 vertCount += 1
-                edge = edge._Lnext!
+                edge = edge._Lnext
             } while (edge !== start)
             
             _elements[elementIndex] = startVert

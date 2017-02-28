@@ -320,11 +320,11 @@ internal final class Mesh: Pooled {
         let eStart = fZap._anEdge!
 
         // walk around face, deleting edges whose right face is also nil
-        var eNext = eStart._Lnext!
+        var eNext: MeshUtils.Edge = eStart._Lnext
         var e: MeshUtils.Edge, eSym: MeshUtils.Edge
         repeat {
             e = eNext
-            eNext = e._Lnext!
+            eNext = e._Lnext
 
             e._Lface = nil
             if (e._Rface == nil) {
@@ -385,8 +385,8 @@ internal final class Mesh: Pooled {
                     let symNv = eSym!._Lface!.VertsCount
                     if ((curNv + symNv - 2) <= maxVertsPerFace) {
                         // Merge if the resulting poly is convex.
-                        if (Geom.VertCCW(eCur._Lprev!._Org!, eCur._Org!, eSym!._Lnext!._Lnext!._Org!) &&
-                            Geom.VertCCW(eSym!._Lprev!._Org!, eSym!._Org!, eCur._Lnext!._Lnext!._Org!)) {
+                        if (Geom.VertCCW(eCur._Lprev!._Org!, eCur._Org!, eSym!._Lnext._Lnext._Org!) &&
+                            Geom.VertCCW(eSym!._Lprev!._Org!, eSym!._Org!, eCur._Lnext._Lnext._Org!)) {
                             eNext = eSym!._Lnext
                             Delete(eSym!)
                             eCur = nil
@@ -394,7 +394,7 @@ internal final class Mesh: Pooled {
                     }
                 }
                 
-                if (eCur != nil && eCur._Lnext!._Org === vStart) {
+                if (eCur != nil && eCur._Lnext._Org === vStart) {
                     break
                 }
             }
