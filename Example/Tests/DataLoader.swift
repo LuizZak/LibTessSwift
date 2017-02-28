@@ -10,8 +10,8 @@ import UIKit
 import LibTessSwift
 
 public struct PolygonPoint: CustomStringConvertible {
-    public var X: CGFloat, Y: CGFloat, Z: CGFloat;
-    public var Color: UIColor;
+    public var X: CGFloat, Y: CGFloat, Z: CGFloat
+    public var Color: UIColor
     
     init(X: CGFloat, Y: CGFloat, Z: CGFloat, Color: UIColor) {
         self.X = X
@@ -29,7 +29,7 @@ public class Polygon {
     
     var points: [PolygonPoint] = []
     
-    public var Orientation: ContourOrientation = ContourOrientation.original;
+    public var Orientation: ContourOrientation = ContourOrientation.original
 
     public init() {
         
@@ -55,14 +55,14 @@ fileprivate extension UIColor {
 
 public class PolygonSet {
     var polygons: [Polygon] = []
-    public var HasColors = false;
+    public var HasColors = false
 }
 
 public class DataLoader {
     public class Asset {
-        public var Name: String;
+        public var Name: String
         public var Path: String
-        public var Polygons: PolygonSet?;
+        public var Polygons: PolygonSet?
         
         init() {
             Name = ""
@@ -76,11 +76,11 @@ public class DataLoader {
     }
 
     public static func LoadDat(resourceStream: InputStream) throws -> PolygonSet {
-        var points: [PolygonPoint] = [];
-        let polys = PolygonSet();
+        var points: [PolygonPoint] = []
+        let polys = PolygonSet()
         
-        var currentColor = UIColor.white;
-        var currentOrientation = ContourOrientation.original;
+        var currentColor = UIColor.white
+        var currentOrientation = ContourOrientation.original
         
         let reader = DDStreamReader(inputStream: resourceStream)
         
@@ -91,12 +91,12 @@ public class DataLoader {
             
             if(line.isEmpty) {
                 if (points.count > 0) {
-                    let p = Polygon(points, orientation: currentOrientation);
-                    currentOrientation = ContourOrientation.original;
-                    polys.polygons.append(p);
+                    let p = Polygon(points, orientation: currentOrientation)
+                    currentOrientation = ContourOrientation.original
+                    polys.polygons.append(p)
                     points.removeAll()
                 }
-                continue;
+                continue
             }
             // Comment
             if(line.hasPrefix("//") || line.hasPrefix("#") || line.hasPrefix(";")) {
@@ -108,10 +108,10 @@ public class DataLoader {
                 
                 if (force.count == 2) {
                     if(force[1].localizedCaseInsensitiveCompare("cw") == .orderedSame) {
-                        currentOrientation = .clockwise;
+                        currentOrientation = .clockwise
                     }
                     if(force[1].localizedCaseInsensitiveCompare("ccw") == .orderedSame) {
-                        currentOrientation = .counterClockwise;
+                        currentOrientation = .counterClockwise
                     }
                 }
             } else if (line.hasPrefix("color")) {
@@ -121,18 +121,18 @@ public class DataLoader {
                     
                     // rgb
                     if rgba.count == 4, let r = Int(rgba[1]), let g = Int(rgba[2]), let b = Int(rgba[3]) {
-                        currentColor = UIColor.fromRGBA(red: r, green: g, blue: b);
-                        polys.HasColors = true;
+                        currentColor = UIColor.fromRGBA(red: r, green: g, blue: b)
+                        polys.HasColors = true
                     }
                     
                     // rgba
                     if rgba.count == 5, let r = Int(rgba[1]), let g = Int(rgba[2]), let b = Int(rgba[3]), let a = Int(rgba[4]) {
-                        currentColor = UIColor.fromRGBA(red: r, green: g, blue: b, alpha: a);
-                        polys.HasColors = true;
+                        currentColor = UIColor.fromRGBA(red: r, green: g, blue: b, alpha: a)
+                        polys.HasColors = true
                     }
                 }
             } else {
-                var x: CGFloat = 0, y: CGFloat = 0, z: CGFloat = 0;
+                var x: CGFloat = 0, y: CGFloat = 0, z: CGFloat = 0
                 
                 var xyz = line.components(separatedBy: separation).filter { !$0.isEmpty }
                 
@@ -147,7 +147,7 @@ public class DataLoader {
                         z = CGFloat(value)
                     }
                     
-                    points.append(PolygonPoint(X: x, Y: y, Z: z, Color: currentColor));
+                    points.append(PolygonPoint(X: x, Y: y, Z: z, Color: currentColor))
                 } else {
                     throw DataError.invalidInputData
                 }
@@ -156,11 +156,11 @@ public class DataLoader {
         
         if (points.count > 0) {
             let p = Polygon(points)
-            p.Orientation = currentOrientation;
-            polys.polygons.append(p);
+            p.Orientation = currentOrientation
+            polys.polygons.append(p)
         }
         
-        return polys;
+        return polys
     }
     
     var _assets: [String: Asset] = [:]

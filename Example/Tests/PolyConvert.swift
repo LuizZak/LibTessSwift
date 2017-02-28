@@ -13,7 +13,7 @@ class PolyConvert: NSObject {
     
     public static func ToTess(pset: PolygonSet, tess: Tess) {
         for poly in pset.polygons {
-            var v: [ContourVertex] = [];
+            var v: [ContourVertex] = []
             
             for p in poly.points {
                 let vertex = ContourVertex(Position: Vec3(X: p.X, Y: p.Y, Z: p.Z),
@@ -21,31 +21,31 @@ class PolyConvert: NSObject {
                 v.append(vertex)
             }
             
-            tess.AddContour(v, poly.Orientation);
+            tess.AddContour(v, poly.Orientation)
         }
     }
 
     public static func FromTess(tess: Tess) -> PolygonSet {
-        let output = PolygonSet();
+        let output = PolygonSet()
         
         for i in 0..<tess.ElementCount {
-            let poly = Polygon();
+            let poly = Polygon()
             
             for j in 0..<3 {
-                let index = tess.Elements[i * 3 + j];
+                let index = tess.Elements[i * 3 + j]
                 if (index == -1) {
-                    continue;
+                    continue
                 }
                 let v = PolygonPoint(
                     X: tess.Vertices[index].Position.X,
                     Y: tess.Vertices[index].Position.Y,
                     Z: 0,
                     Color: UIColor.white
-                );
-                poly.points.append(v);
+                )
+                poly.points.append(v)
             }
-            output.polygons.append(poly);
+            output.polygons.append(poly)
         }
-        return output;
+        return output
     }
 }
