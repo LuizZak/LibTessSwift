@@ -74,15 +74,13 @@ public class DataLoader {
             self.Path = Path
         }
     }
-
-    public static func LoadDat(resourceStream: InputStream) throws -> PolygonSet {
+    
+    public static func LoadDat(reader: StreamLineReader) throws -> PolygonSet {
         var points: [PolygonPoint] = []
         let polys = PolygonSet()
         
         var currentColor = UIColor.white
         var currentOrientation = ContourOrientation.original
-        
-        let reader = DDStreamReader(inputStream: resourceStream)
         
         let separation = CharacterSet.init(charactersIn: " ,\t")
         
@@ -190,15 +188,9 @@ public class DataLoader {
         }
         
         if(asset.Polygons == nil) {
-            guard let inputStream = InputStream(fileAtPath: asset.Path) else {
-                return nil
-            }
-            inputStream.open()
-            defer {
-                inputStream.close()
-            }
+            let reader = try DDUnbufferedFileReader(fileUrl: URL(fileURLWithPath: asset.Path))
             
-            asset.Polygons = try DataLoader.LoadDat(resourceStream: inputStream)
+            asset.Polygons = try DataLoader.LoadDat(reader: reader)
         }
         
         return asset

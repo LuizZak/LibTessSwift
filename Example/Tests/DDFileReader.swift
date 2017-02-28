@@ -79,6 +79,13 @@ public class DDStreamReader: StreamLineReaderPeekable {
         return !bufferedReader.hasBytesAvailable
     }
     
+    static func fromString(_ string: String) -> DDStreamReader {
+        let data = string.data(using: .utf8)!
+        let stream = InputStream(data: data)
+        stream.open()
+        return DDStreamReader(inputStream: stream, closeOnDealloc: true)
+    }
+    
     init(inputStream: InputStream, closeOnDealloc: Bool = true) {
         self.bufferedReader = BufferedStreamReader(stream: inputStream)
         self.closeOnDealloc = closeOnDealloc
@@ -290,7 +297,89 @@ class DDFileReader: DDStreamReader {
     }
 }
 
-/// File reader fit for reading from files with a high capacity output
+/// File reader fit for reading from streams with a high capacity output.
+/// Provides no buffering of data (i.e. cannot peek, reads byte-by-byte).
+final class DDUnbufferedStreamReader: StreamLineReader {
+    var closeOnDealloc = false
+    
+    var stream: InputStream
+    
+    /// Total ammount of data consumed from the steram by this reader so far.
+    /// This includes only data that was returned so far from readLine(), not
+    /// the total bytes read from the underlying stream so far
+    final fileprivate(set) public var dataConsumed: UInt64 = 0
+    
+    fileprivate var lineDelimiterData: Data
+    fileprivate var delimiterLength: Int
+    
+    var lineDelimiter: String = "\n" {
+        didSet {
+            lineDelimiterData = lineDelimiter.data(using: .utf8)!
+            delimiterLength = lineDelimiterData.count
+        }
+    }
+    
+    public var isEndOfStream: Bool {
+        return !stream.hasBytesAvailable
+    }
+    
+    init(inputStream: InputStream, closeOnDealloc: Bool = true) {
+        self.stream = inputStream
+        self.closeOnDealloc = closeOnDealloc
+        
+        self.lineDelimiter = "\n"
+        self.lineDelimiterData = self.lineDelimiter.data(using: .utf8)!
+        self.delimiterLength = self.lineDelimiterData.count
+    }
+    
+    deinit {
+        if(closeOnDealloc) {
+            stream.close()
+        }
+    }
+    
+    /// Reads a line from the stream.
+    /// Returns nil, if no data is available from the stream
+    final public func readLine() -> String? {
+        if (!stream.hasBytesAvailable) {
+            return nil
+        }
+        
+        let currentData = autoreleasepool { _ -> Data in
+            var chunk = Data()
+            
+            // Keep reading until we hit our line ending bytes
+            while(stream.hasBytesAvailable) {
+                var target = Data(count: 1)
+                let read = target.withUnsafeMutableBytes { (bytes: UnsafeMutablePointer<UInt8>) -> Int in
+                    stream.read(bytes, maxLength: 1)
+                }
+                // No more bytes available
+                if(read == 0) {
+                    break
+                }
+                
+                chunk.append(target)
+                
+                // Found new-line. quit for now here
+                if chunk.rangeOfData_dd(lineDelimiterData) != nil {
+                    break
+                }
+            }
+            
+            return chunk
+        }
+        
+        return String(data: currentData, encoding: .utf8)
+    }
+    
+    final func readTrimmedLine() -> String? {
+        return readLine()?.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+}
+
+/// File reader fit for reading from files with a high capacity output.
+/// Provides no buffering of data (i.e. cannot peek).
 final class DDUnbufferedFileReader: StreamLineReader {
     
     var fileUrl: URL
@@ -375,4 +464,3 @@ final class DDUnbufferedFileReader: StreamLineReader {
         return readLine()?.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 }
-

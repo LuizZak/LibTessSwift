@@ -102,7 +102,8 @@ extension Pooled {
     }
 }
 
-/// Describes an object that is linked to another self
+/// Describes an object that can be chained with other instances of itself
+/// indefinitely. This also supports looped links that point circularly.
 internal protocol Linked: class {
     var _next: Self! { get }
     

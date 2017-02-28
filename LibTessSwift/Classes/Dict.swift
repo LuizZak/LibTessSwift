@@ -8,10 +8,14 @@
 
 import UIKit
 
-public class Node<TValue>: AnyObject {
-    internal(set) public var Key: TValue?
-    internal(set) public weak var Prev: Node?
-    internal(set) public var Next: Node?
+internal final class Node<TValue>: AnyObject, Linked {
+    var Key: TValue?
+    weak var Prev: Node?
+    var Next: Node?
+    
+    var _next: Node<TValue>! {
+        return Next
+    }
     
     init() {
         
@@ -22,7 +26,7 @@ public class Node<TValue>: AnyObject {
     }
 }
 
-internal class Dict<TValue> where TValue: AnyObject {
+internal final class Dict<TValue> where TValue: AnyObject {
     typealias LessOrEqual = (_ lhs: TValue, _ rhs: TValue) -> Bool
     
     private var _leq: LessOrEqual
@@ -34,6 +38,14 @@ internal class Dict<TValue> where TValue: AnyObject {
         _head = Node()
         _head.Prev = _head
         _head.Next = _head
+    }
+    
+    deinit {
+        // Dismount references to allow ARC to do its job
+        _head.loop { node in
+            node.Prev = nil
+            node.Next = nil
+        }
     }
     
     public func Insert(key: TValue) -> Node<TValue> {
@@ -71,5 +83,8 @@ internal class Dict<TValue> where TValue: AnyObject {
     public func Remove(node: Node<TValue>) {
         node.Next?.Prev = node.Prev
         node.Prev?.Next = node.Next
+        
+        node.Next = nil
+        node.Prev = nil
     }
 }

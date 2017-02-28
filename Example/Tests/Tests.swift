@@ -102,13 +102,9 @@ class Tests: XCTestCase {
         var indices: [Int] = [];
         let expectedIndices = [ 0, 1, 2 ]
         
-        let stream = InputStream(data: data.data(using: .utf8)!)
-        stream.open()
-        defer {
-            stream.close()
-        }
+        let reader = DDStreamReader.fromString(data)
         
-        let pset = try DataLoader.LoadDat(resourceStream: stream);
+        let pset = try DataLoader.LoadDat(reader: reader);
         let tess = Tess();
         
         // Call once
@@ -150,8 +146,8 @@ class Tests: XCTestCase {
             queue.addOperation {
                 autoreleasepool {
                     do {
-                        var pset = try Tests._loader.GetAsset(name: data.AssetName)!.Polygons!
-                        var tess = Tess()
+                        let pset = try Tests._loader.GetAsset(name: data.AssetName)!.Polygons!
+                        let tess = Tess()
                         PolyConvert.ToTess(pset: pset, tess: tess)
                         tess.Tessellate(windingRule: data.Winding, elementType: .polygons, polySize: data.ElementSize);
                         
@@ -160,13 +156,9 @@ class Tests: XCTestCase {
                             return
                         }
                         
-                        let stream = InputStream(fileAtPath: resourceName)!
-                        stream.open()
-                        defer {
-                            stream.close()
-                        }
+                        let reader = try DDUnbufferedFileReader(fileUrl: URL(fileURLWithPath: resourceName))
                         
-                        guard let testData = self.ParseTestData(data.Winding, data.ElementSize, stream) else {
+                        guard let testData = self.ParseTestData(data.Winding, data.ElementSize, reader) else {
                             XCTFail("Unexpected empty data for test result for \(data.AssetName)");
                             return
                         }
@@ -225,28 +217,39 @@ class Tests: XCTestCase {
         return data;
     }
     
-    public func ParseTestData(_ winding: WindingRule, _ elementSize: Int, _ resourceStream: InputStream) -> TestData? {
+    public func ParseTestData(_ winding: WindingRule, _ elementSize: Int, _ reader: StreamLineReader) -> TestData? {
         var lines: [String] = []
         
         var found = false;
         
-        let reader = DDStreamReader(inputStream: resourceStream)
-        
-        while var line = reader.readLine() {
-            line = line.trimmingCharacters(in: .whitespacesAndNewlines);
-            if (found && line.isEmpty) {
-                break
-            }
-            if (found) {
-                lines.append(line)
-            }
-            let parts = line.components(separatedBy: " ");
-            if(parts.count < 2) {
-                continue
+        while true {
+            
+            let breakOut: Bool = autoreleasepool {
+                guard var line = reader.readLine() else {
+                    return true
+                }
+                
+                line = line.trimmingCharacters(in: .whitespacesAndNewlines);
+                if (found && line.isEmpty) {
+                    return true
+                }
+                if (found) {
+                    lines.append(line)
+                }
+                let parts = line.components(separatedBy: " ");
+                if(parts.count < 2) {
+                    return false
+                }
+                
+                if (parts.first == winding.rawValue && Int(parts.last!) == elementSize) {
+                    found = true;
+                }
+                
+                return false
             }
             
-            if (parts.first == winding.rawValue && Int(parts.last!) == elementSize) {
-                found = true;
+            if(breakOut) {
+                break
             }
         }
         
@@ -266,67 +269,10 @@ class Tests: XCTestCase {
         return nil;
     }
     
-    /*
-    [Test, TestCaseSource("GetTestCaseData")]
-    public void Tessellate_WithAsset_ReturnsExpectedTriangulation(TestCaseData data) {
-        var pset = _loader.GetAsset(data.AssetName).Polygons;
-        var tess = new Tess();
-        PolyConvert.ToTess(pset, tess);
-        tess.Tessellate(data.Winding, ElementType.Polygons, data.ElementSize);
-
-        var resourceName = Assembly.GetExecutingAssembly().GetName().Name + ".TestData." + data.AssetName + ".testdat";
-        var testData = ParseTestData(data.Winding, data.ElementSize, Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName));
-        Assert.IsNotNull(testData);
-        Assert.AreEqual(testData.ElementSize, data.ElementSize);
-
-        var indices = new List<int>();
-        for (int i = 0; i < tess.ElementCount; i++) {
-            for (int j = 0; j < data.ElementSize; j++) {
-                int index = tess.Elements[i * data.ElementSize + j];
-                indices.Add(index);
-            }
-        }
-
-        Assert.AreEqual(testData.Indices, indices.ToArray());
-    }
-
-    public static void GenerateTestData() {
-        foreach (var name in _loader.AssetNames) {
-            var pset = _loader.GetAsset(name).Polygons;
-
-            var lines = new List<string>();
-            var indices = new List<int>();
-
-            foreach (WindingRule winding in Enum.GetValues(typeof(WindingRule))) {
-                var tess = new Tess();
-                PolyConvert.ToTess(pset, tess);
-                tess.Tessellate(winding, ElementType.Polygons, 3);
-
-                lines.Add(string.Format("{0} {1}", winding, 3));
-                for (int i = 0; i < tess.ElementCount; i++) {
-                    indices.Clear();
-                    for (int j = 0; j < 3; j++) {
-                        int index = tess.Elements[i * 3 + j];
-                        indices.Add(index);
-                    }
-                    lines.Add(string.Join(" ", indices));
-                }
-                lines.Add("");
-            }
-
-            File.WriteAllLines(Path.Combine(TestDataPath, name + ".testdat"), lines);
-        }
-    }
-    */
-    
     func setupTess(withString string: String) throws -> Tess {
-        let stream = InputStream(data: string.data(using: .utf8)!)
-        stream.open()
-        defer {
-            stream.close()
-        }
+        let reader = DDStreamReader.fromString(string)
         
-        let pset = try DataLoader.LoadDat(resourceStream: stream);
+        let pset = try DataLoader.LoadDat(reader: reader);
         let tess = Tess();
         
         PolyConvert.ToTess(pset: pset, tess: tess);
