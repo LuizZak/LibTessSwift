@@ -118,6 +118,10 @@ public class Tess {
         _elementCount = 0
     }
     
+    deinit {
+        _mesh = nil
+    }
+    
     private func computeNormal(norm: inout Vec3) {
         var v = _mesh!._vHead._next!
 

@@ -139,7 +139,7 @@ extension Linked {
             
             next = n._next
             try closure(n)
-        } while try check(f)
+        } while try f != nil && check(f)
     }
     
     func loop(with closure: (_ element: Self) throws -> (Void)) rethrows {
@@ -154,8 +154,8 @@ internal class MeshUtils {
     
     public final class Vertex : Pooled, Linked {
         internal weak var _prev: Vertex!
-        internal var _next: Vertex!
-        internal var _anEdge: Edge!
+        internal weak var _next: Vertex!
+        internal weak var _anEdge: Edge!
 
         internal var _coords: Vec3 = .Zero
         internal var _s: CGFloat = 0, _t: CGFloat = 0
@@ -185,7 +185,6 @@ internal class MeshUtils {
         internal var _next: Face!
         internal var _anEdge: Edge!
         
-        internal var _trail: Face?
         internal var _n: Int = 0
         internal var _marked = false, _inside = false
 
@@ -207,7 +206,6 @@ internal class MeshUtils {
             _prev = nil
             _next = nil
             _anEdge = nil
-            _trail = nil
             _n = 0
             _marked = false
             _inside = false
@@ -215,18 +213,21 @@ internal class MeshUtils {
     }
 
     public struct EdgePair {
-        internal var _e: Edge?
-        internal var _eSym: Edge?
-
-        public static func Create() -> EdgePair {
+        internal weak var _e: Edge?
+        internal weak var _eSym: Edge?
+        
+        public static func CreatePair() -> (pair: EdgePair, e: Edge, eSym: Edge) {
+            let e = Edge.Create()
+            let eSym = Edge.Create()
+            
             var pair = EdgePair()
-            pair._e = Edge.Create()
+            pair._e = e
             pair._e?._pair = pair
-            pair._eSym = MeshUtils.Edge.Create()
+            pair._eSym = eSym
             pair._eSym?._pair = pair
-            return pair
+            return (pair, e, eSym)
         }
-
+        
         public mutating func Reset() {
             _e = nil
             _eSym = nil
@@ -237,11 +238,13 @@ internal class MeshUtils {
         public static var pool: ContiguousArray<MeshUtils.Edge> = []
         
         internal var _pair: EdgePair?
-        internal var _next: Edge!, _Sym: Edge!, _Onext: Edge!
+        internal weak var _next: Edge!
+        internal weak var _Sym: Edge!
+        internal weak var _Onext: Edge!
         internal var _Lnext: Edge!
         internal var _Org: Vertex!
-        internal var _Lface: Face!
-        internal var _activeRegion: Tess.ActiveRegion!
+        internal weak var _Lface: Face!
+        internal weak var _activeRegion: Tess.ActiveRegion!
         internal var _winding: Int = 0
 
         internal var _Rface: Face! { get { return _Sym?._Lface } set { _Sym?._Lface = newValue } }
@@ -285,9 +288,7 @@ internal class MeshUtils {
     public static func MakeEdge(_ eNext: Edge) -> Edge {
         var eNext = eNext
         
-        let pair = EdgePair.Create()
-        let e = pair._e
-        let eSym = pair._eSym
+        let (pair, e, eSym) = EdgePair.CreatePair()
         
         // Make sure eNext points to the first edge of the edge pair
         Edge.EnsureFirst(e: &eNext)
@@ -295,28 +296,28 @@ internal class MeshUtils {
         // Insert in circular doubly-linked list before eNext.
         // Note that the prev pointer is stored in Sym->next.
         let ePrev = eNext._Sym?._next
-        eSym?._next = ePrev
+        eSym._next = ePrev
         ePrev?._Sym?._next = e
-        e?._next = eNext
+        e._next = eNext
         eNext._Sym?._next = eSym
 
-        e?._Sym = eSym
-        e?._Onext = e
-        e?._Lnext = eSym!
-        e?._Org = nil
-        e?._Lface = nil
-        e?._winding = 0
-        e?._activeRegion = nil
+        e._Sym = eSym
+        e._Onext = e
+        e._Lnext = eSym
+        e._Org = nil
+        e._Lface = nil
+        e._winding = 0
+        e._activeRegion = nil
 
-        eSym?._Sym = e
-        eSym?._Onext = eSym
-        eSym?._Lnext = e!
-        eSym?._Org = nil
-        eSym?._Lface = nil
-        eSym?._winding = 0
-        eSym?._activeRegion = nil
+        eSym._Sym = e
+        eSym._Onext = eSym
+        eSym._Lnext = e
+        eSym._Org = nil
+        eSym._Lface = nil
+        eSym._winding = 0
+        eSym._activeRegion = nil
 
-        return e!
+        return e
     }
 
     /// <summary>
@@ -382,7 +383,6 @@ internal class MeshUtils {
         fNext._prev = fNew
 
         fNew._anEdge = eOrig
-        fNew._trail = nil
         fNew._marked = false
 
         // The new face is marked "inside" if the old one was. This is a
@@ -409,14 +409,16 @@ internal class MeshUtils {
         // Half-edges are allocated in pairs, see EdgePair above
         var eDel = eDel
         Edge.EnsureFirst(e: &eDel)
-
+        
         // delete from circular doubly-linked list
         let eNext = eDel._next
         let ePrev = eDel._Sym?._next
         eNext?._Sym?._next = ePrev
         ePrev?._Sym?._next = eNext
-
+        
         eDel.Free()
+        
+        eDel._pair = nil
     }
 
     /// <summary>

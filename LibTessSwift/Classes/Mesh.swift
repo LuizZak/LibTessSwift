@@ -19,12 +19,9 @@ internal final class Mesh: Pooled {
         let f = MeshUtils.Face.Create()
         _fHead = f
         
-        let pair = MeshUtils.EdgePair.Create()
-        _eHead = pair._e!
-        _eHeadSym = pair._eSym
-        
-        let e = _eHead
-        let eSym = _eHeadSym
+        let (pair, e, eSym) = MeshUtils.EdgePair.CreatePair()
+        _eHead = e
+        _eHeadSym = eSym
         
         v._next = v
         v._prev = v
@@ -33,7 +30,6 @@ internal final class Mesh: Pooled {
         f._next = f
         f._prev = f
         f._anEdge = nil
-        f._trail = nil
         f._marked = false
         f._inside = false
         
@@ -46,14 +42,19 @@ internal final class Mesh: Pooled {
         e._winding = 0
         e._activeRegion = nil
 
-        eSym?._next = eSym
-        eSym?._Sym = e
-        eSym?._Onext = nil
-        eSym?._Lnext = nil
-        eSym?._Org = nil
-        eSym?._Lface = nil
-        eSym?._winding = 0
-        eSym?._activeRegion = nil
+        eSym._next = eSym
+        eSym._Sym = e
+        eSym._Onext = nil
+        eSym._Lnext = nil
+        eSym._Org = nil
+        eSym._Lface = nil
+        eSym._winding = 0
+        eSym._activeRegion = nil
+    }
+    
+    deinit {
+        OnFree()
+        Reset()
     }
 
     public func Reset() {

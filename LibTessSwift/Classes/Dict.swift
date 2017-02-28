@@ -6,7 +6,7 @@
 //  Copyright © 2017 Luiz Fernando Silva. All rights reserved.
 //
 
-internal final class Node<TValue>: AnyObject, Linked {
+internal final class Node<TValue>: Linked where TValue: AnyObject {
     var Key: TValue?
     weak var Prev: Node?
     var Next: Node?
@@ -44,6 +44,7 @@ internal final class Dict<TValue> where TValue: AnyObject {
             node.Prev = nil
             node.Next = nil
         }
+        _head = Node()
     }
     
     public func Insert(key: TValue) -> Node<TValue> {

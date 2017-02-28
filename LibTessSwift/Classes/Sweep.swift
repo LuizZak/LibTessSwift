@@ -9,7 +9,7 @@
 extension Tess {
     internal class ActiveRegion {
         internal var _eUp: MeshUtils.Edge!
-        internal var _nodeUp: Node<ActiveRegion>!
+        internal weak var _nodeUp: Node<ActiveRegion>!
         internal var _windingNumber: Int = 0
         internal var _inside: Bool = false, _sentinel: Bool = false, _dirty: Bool = false, _fixUpperEdge: Bool = false
     }
@@ -242,7 +242,7 @@ extension Tess {
             reg = RegionBelow(regPrev)
             e = reg!._eUp._Sym
             if (e._Org !== ePrev._Org) { break }
-
+            
             if (e._Onext !== ePrev) {
                 // Unlink e from its current position, and relink below ePrev
                 _mesh.Splice(e._Oprev, e)
@@ -251,7 +251,7 @@ extension Tess {
             // Compute the winding number and "inside" flag for the new regions
             reg!._windingNumber = regPrev._windingNumber - e._winding
             reg!._inside = Geom.IsWindingInside(_windingRule, reg!._windingNumber)
-
+            
             // Check for two outgoing edges with same slope -- process these
             // before any intersection tests (see example in tessComputeInterior).
             regPrev._dirty = true
@@ -266,7 +266,7 @@ extension Tess {
         }
         regPrev._dirty = true
         assert(regPrev._windingNumber - e._winding == reg!._windingNumber)
-
+        
         if (cleanUp) {
             // Check for intersections between newly adjacent edges.
             WalkDirtyRegions(regPrev)
