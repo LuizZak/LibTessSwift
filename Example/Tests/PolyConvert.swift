@@ -21,24 +21,24 @@ class PolyConvert: NSObject {
                 v.append(vertex)
             }
             
-            tess.AddContour(v, poly.Orientation)
+            tess.addContour(v, poly.Orientation)
         }
     }
 
     public static func FromTess(tess: Tess) -> PolygonSet {
         let output = PolygonSet()
         
-        for i in 0..<tess.ElementCount {
+        for i in 0..<tess.elementCount {
             let poly = Polygon()
             
             for j in 0..<3 {
-                let index = tess.Elements[i * 3 + j]
+                let index = tess.elements[i * 3 + j]
                 if (index == -1) {
                     continue
                 }
                 let v = PolygonPoint(
-                    X: tess.Vertices[index].Position.X,
-                    Y: tess.Vertices[index].Position.Y,
+                    X: tess.vertices[index].position.X,
+                    Y: tess.vertices[index].position.Y,
                     Z: 0,
                     Color: UIColor.white
                 )

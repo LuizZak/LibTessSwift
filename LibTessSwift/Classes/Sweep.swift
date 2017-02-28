@@ -1077,7 +1077,7 @@ extension Tess {
     /// to the polygon, according to the rule given by windingRule.
     /// Each interior region is guaranteed to be monotone.
     /// </summary>
-    internal func ComputeInterior() {
+    internal func computeInterior() {
         // Each vertex defines an event for our sweep line. Start by inserting
         // all the vertices in a priority queue. Events are processed in
         // lexicographic order, ie.

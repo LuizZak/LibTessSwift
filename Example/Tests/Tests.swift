@@ -36,11 +36,11 @@ class Tests: XCTestCase {
         
         let tess = try setupTess(withString: data);
         
-        tess.Tessellate(windingRule: WindingRule.evenOdd, elementType: ElementType.polygons, polySize: 3);
+        tess.tessellate(windingRule: WindingRule.evenOdd, elementType: ElementType.polygons, polySize: 3);
         
-        for i in 0..<tess.ElementCount {
+        for i in 0..<tess.elementCount {
             for j in 0..<3 {
-                let index = tess.Elements[i * 3 + j];
+                let index = tess.elements[i * 3 + j];
                 indices.append(index);
             }
         }
@@ -54,7 +54,7 @@ class Tests: XCTestCase {
         
         let tess = try setupTess(withString: data);
         
-        tess.Tessellate(windingRule: WindingRule.evenOdd, elementType: ElementType.polygons, polySize: 3);
+        tess.tessellate(windingRule: WindingRule.evenOdd, elementType: ElementType.polygons, polySize: 3);
     }
     
     
@@ -66,11 +66,11 @@ class Tests: XCTestCase {
         
         let tess = try setupTess(withString: data);
         
-        tess.Tessellate(windingRule: WindingRule.evenOdd, elementType: ElementType.polygons, polySize: 3);
+        tess.tessellate(windingRule: WindingRule.evenOdd, elementType: ElementType.polygons, polySize: 3);
         
-        for i in 0..<tess.ElementCount {
+        for i in 0..<tess.elementCount {
             for j in 0..<3 {
-                let index = tess.Elements[i * 3 + j];
+                let index = tess.elements[i * 3 + j];
                 indices.append(index);
             }
         }
@@ -85,12 +85,12 @@ class Tests: XCTestCase {
         let expectedIndices = [ 0, 1, 2, 2, 3, 4, 3, 1, 5 ]
         
         let tess = try setupTess(withString: data);
-        tess.NoEmptyPolygons = true;
-        tess.Tessellate(windingRule: .evenOdd, elementType: .polygons, polySize: 3);
+        tess.noEmptyPolygons = true;
+        tess.tessellate(windingRule: .evenOdd, elementType: .polygons, polySize: 3);
         
-        for i in 0..<tess.ElementCount {
+        for i in 0..<tess.elementCount {
             for j in 0..<3 {
-                let index = tess.Elements[i * 3 + j];
+                let index = tess.elements[i * 3 + j];
                 indices.append(index);
             }
         }
@@ -109,11 +109,11 @@ class Tests: XCTestCase {
         
         // Call once
         PolyConvert.ToTess(pset: pset, tess: tess);
-        tess.Tessellate(windingRule: .evenOdd, elementType: .polygons, polySize: 3);
+        tess.tessellate(windingRule: .evenOdd, elementType: .polygons, polySize: 3);
         
-        for i in 0..<tess.ElementCount {
+        for i in 0..<tess.elementCount {
             for j in 0..<3 {
-                let index = tess.Elements[i * 3 + j];
+                let index = tess.elements[i * 3 + j];
                 indices.append(index);
             }
         }
@@ -122,12 +122,12 @@ class Tests: XCTestCase {
 
         // Call twice
         PolyConvert.ToTess(pset: pset, tess: tess);
-        tess.Tessellate(windingRule: .evenOdd, elementType: .polygons, polySize: 3);
+        tess.tessellate(windingRule: .evenOdd, elementType: .polygons, polySize: 3);
 
         indices.removeAll()
-        for i in 0..<tess.ElementCount {
+        for i in 0..<tess.elementCount {
             for j in 0..<3 {
-                let index = tess.Elements[i * 3 + j];
+                let index = tess.elements[i * 3 + j];
                 indices.append(index);
             }
         }
@@ -149,7 +149,7 @@ class Tests: XCTestCase {
                         let pset = try Tests._loader.GetAsset(name: data.AssetName)!.Polygons!
                         let tess = Tess()
                         PolyConvert.ToTess(pset: pset, tess: tess)
-                        tess.Tessellate(windingRule: data.Winding, elementType: .polygons, polySize: data.ElementSize);
+                        tess.tessellate(windingRule: data.Winding, elementType: .polygons, polySize: data.ElementSize);
                         
                         guard let resourceName = bundle.path(forResource: data.AssetName, ofType: "testdat") else {
                             print("Could not find resulting test asset \(data.AssetName).testdat for test data \(data.AssetName).dat")
@@ -167,9 +167,9 @@ class Tests: XCTestCase {
                         
                         var indices: [Int] = []
                         
-                        for i in 0..<tess.ElementCount {
+                        for i in 0..<tess.elementCount {
                             for j in 0..<data.ElementSize {
-                                let index = tess.Elements[i * data.ElementSize + j];
+                                let index = tess.elements[i * data.ElementSize + j];
                                 indices.append(index);
                             }
                         }

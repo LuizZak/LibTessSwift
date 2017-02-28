@@ -27,26 +27,26 @@ public enum ContourOrientation {
 }
 
 public struct ContourVertex: CustomStringConvertible {
-    public var Position: Vec3
-    public var Data: Any?
+    public var position: Vec3
+    public var data: Any?
     
     public init() {
-        Position = .Zero
-        Data = nil
+        position = .Zero
+        data = nil
     }
     
     public init(Position: Vec3) {
-        self.Position = Position
-        self.Data = nil
+        self.position = Position
+        self.data = nil
     }
     
     public init(Position: Vec3, Data: Any?) {
-        self.Position = Position
-        self.Data = Data
+        self.position = Position
+        self.data = Data
     }
     
     public var description: String {
-        return "\(Position), \(Data)"
+        return "\(position), \(data)"
     }
 }
 
@@ -75,9 +75,9 @@ public class Tess {
     internal var _vertexCount: Int
     internal var _elements: [Int]!
     internal var _elementCount: Int
-
-    public var Normal: Vec3 { get { return _normal } set { _normal = newValue } }
-
+    
+    public var normal: Vec3 { get { return _normal } set { _normal = newValue } }
+    
     public var SUnitX: CGFloat = 1
     public var SUnitY: CGFloat = 0
 #if DOUBLE
@@ -89,19 +89,19 @@ public class Tess {
     /// <summary>
     /// If true, will remove empty (zero area) polygons.
     /// </summary>
-    public var NoEmptyPolygons = false
+    public var noEmptyPolygons = false
 
     /// <summary>
     /// If true, will use pooling to reduce GC (compare performance with/without, can vary wildly).
     /// </summary>
-    public var UsePooling = false
-
-    public var Vertices: [ContourVertex]! { get { return _vertices } }
-    public var VertexCount: Int { get { return _vertexCount } }
-
-    public var Elements: [Int]! { get { return _elements } }
-    public var ElementCount: Int { get { return _elementCount } }
-
+    public var usePooling = false
+    
+    public var vertices: [ContourVertex]! { get { return _vertices } }
+    public var vertexCount: Int { get { return _vertexCount } }
+    
+    public var elements: [Int]! { get { return _elements } }
+    public var elementCount: Int { get { return _elementCount } }
+    
     public init() {
         _normal = Vec3.Zero
         _bminX = 0
@@ -118,7 +118,7 @@ public class Tess {
         _elementCount = 0
     }
     
-    private func ComputeNormal(norm: inout Vec3) {
+    private func computeNormal(norm: inout Vec3) {
         var v = _mesh!._vHead._next!
 
         var minVal: [CGFloat] = [ v._coords.X, v._coords.Y, v._coords.Z ]
@@ -215,7 +215,7 @@ public class Tess {
         }
     }
 
-    private func CheckOrientation() {
+    private func checkOrientation() {
         // When we compute the normal automatically, we choose the orientation
         // so that the the sum of the signed areas of all contours is non-negative.
         var area: CGFloat = 0.0
@@ -243,12 +243,12 @@ public class Tess {
         }
     }
 
-    private func ProjectPolygon() {
+    private func projectPolygon() {
         var norm = _normal
 
         var computedNormal = false
         if (norm.X == 0.0 && norm.Y == 0.0 && norm.Z == 0.0) {
-            ComputeNormal(norm: &norm)
+            computeNormal(norm: &norm)
             _normal = norm
             computedNormal = true
         }
@@ -270,7 +270,7 @@ public class Tess {
         }
         
         if (computedNormal) {
-            CheckOrientation()
+            checkOrientation()
         }
 
         // Compute ST bounds.
@@ -321,7 +321,7 @@ public class Tess {
     /// to the fan is a simple orientation test.  By making the fan as large
     /// as possible, we restore the invariant (check it yourself).
     /// </summary>
-    private func TessellateMonoRegion(_ face: MeshUtils.Face) {
+    private func tessellateMonoRegion(_ face: MeshUtils.Face) {
         // All edges are oriented CCW around the boundary of the region.
         // First, find the half-edge whose origin vertex is rightmost.
         // Since the sweep goes from left to right, face->anEdge should
@@ -367,10 +367,10 @@ public class Tess {
     /// the mesh which is marked "inside" the polygon. Each such region
     /// must be monotone.
     /// </summary>
-    private func TessellateInterior() {
+    private func tessellateInterior() {
         _mesh.forEachFace { f in
             if (f._inside) {
-                TessellateMonoRegion(f)
+                tessellateMonoRegion(f)
             }
         }
     }
@@ -381,7 +381,7 @@ public class Tess {
     /// on nil faces are not allowed, the main purpose is to clean up the
     /// mesh so that exterior loops are not represented in the data structure.
     /// </summary>
-    private func DiscardExterior() {
+    private func discardExterior() {
         _mesh.forEachFace { f in
             if(!f._inside) {
                 _mesh.ZapFace(f)
@@ -398,7 +398,7 @@ public class Tess {
     /// If keepOnlyBoundary is TRUE, it also deletes all edges which do not
     /// separate an interior region from an exterior one.
     /// </summary>
-    private func SetWindingNumber(_ value: Int, _ keepOnlyBoundary: Bool) {
+    private func setWindingNumber(_ value: Int, _ keepOnlyBoundary: Bool) {
         
         var eNext: MeshUtils.Edge
         
@@ -424,8 +424,8 @@ public class Tess {
             }
         }
     }
-
-    private func GetNeighbourFace(_ edge: MeshUtils.Edge) -> Int {
+    
+    private func getNeighbourFace(_ edge: MeshUtils.Edge) -> Int {
         if (edge._Rface == nil) {
             return MeshUtils.Undef
         }
@@ -434,8 +434,8 @@ public class Tess {
         }
         return edge._Rface!._n
     }
-
-    private func OutputPolymesh(_ elementType: ElementType, _ polySize: Int) {
+    
+    private func outputPolymesh(_ elementType: ElementType, _ polySize: Int) {
         var v: MeshUtils.Vertex
         var f: MeshUtils.Face
         var edge: MeshUtils.Edge
@@ -472,7 +472,7 @@ public class Tess {
             f._n = MeshUtils.Undef
             if (!f._inside) { continue }
 
-            if (NoEmptyPolygons) {
+            if (noEmptyPolygons) {
                 var area = MeshUtils.FaceArea(f)
                 if (abs(area) < CGFloat.leastNonzeroMagnitude) {
                     continue
@@ -516,8 +516,8 @@ public class Tess {
             
             if (v._n != MeshUtils.Undef) {
                 // Store coordinate
-                _vertices[v._n].Position = v._coords
-                _vertices[v._n].Data = v._data
+                _vertices[v._n].position = v._coords
+                _vertices[v._n].data = v._data
             }
         }
 
@@ -531,13 +531,13 @@ public class Tess {
             
             if (!f._inside) { continue }
 
-            if (NoEmptyPolygons) {
+            if (noEmptyPolygons) {
                 let area = MeshUtils.FaceArea(f)
                 if (abs(area) < CGFloat.leastNonzeroMagnitude) {
                     continue
                 }
             }
-
+            
             // Store polygon
             edge = f._anEdge
             faceVerts = 0
@@ -553,12 +553,12 @@ public class Tess {
                 _elements[elementIndex] = MeshUtils.Undef
                 elementIndex += 1
             }
-
+            
             // Store polygon connectivity
             if (elementType == ElementType.connectedPolygons) {
                 edge = f._anEdge!
                 repeat {
-                    _elements[elementIndex] = GetNeighbourFace(edge)
+                    _elements[elementIndex] = getNeighbourFace(edge)
                     elementIndex += 1
                     edge = edge._Lnext
                 } while (edge !== f._anEdge)
@@ -571,11 +571,11 @@ public class Tess {
             }
         }
     }
-
-    private func OutputContours() {
+    
+    private func outputContours() {
         var startVert = 0
         var vertCount = 0
-
+        
         _vertexCount = 0
         _elementCount = 0
         
@@ -611,8 +611,8 @@ public class Tess {
             let start = f._anEdge!
             var edge = f._anEdge!
             repeat {
-                _vertices[vertIndex].Position = edge._Org._coords
-                _vertices[vertIndex].Data = edge._Org._data
+                _vertices[vertIndex].position = edge._Org._coords
+                _vertices[vertIndex].data = edge._Org._data
                 vertIndex += 1
                 vertCount += 1
                 edge = edge._Lnext!
@@ -627,32 +627,32 @@ public class Tess {
         }
     }
 
-    private func SignedArea(_ vertices: [ContourVertex]) -> CGFloat {
+    private func signedArea(_ vertices: [ContourVertex]) -> CGFloat {
         var area: CGFloat = 0.0
         
         for i in 0..<vertices.count {
             let v0 = vertices[i]
             let v1 = vertices[(i + 1) % vertices.count]
 
-            area += v0.Position.X * v1.Position.Y
-            area -= v0.Position.Y * v1.Position.X
+            area += v0.position.X * v1.position.Y
+            area -= v0.position.Y * v1.position.X
         }
 
         return 0.5 * area
     }
 
-    public func AddContour(_ vertices: [ContourVertex]) {
-        AddContour(vertices, ContourOrientation.original)
+    public func addContour(_ vertices: [ContourVertex]) {
+        addContour(vertices, ContourOrientation.original)
     }
 
-    public func AddContour(_ vertices: [ContourVertex], _ forceOrientation: ContourOrientation) {
+    public func addContour(_ vertices: [ContourVertex], _ forceOrientation: ContourOrientation) {
         if (_mesh == nil) {
             _mesh = Mesh()
         }
 
         var reverse = false
         if (forceOrientation != ContourOrientation.original) {
-            let area = SignedArea(vertices)
+            let area = signedArea(vertices)
             reverse = (forceOrientation == ContourOrientation.clockwise && area < 0.0) || (forceOrientation == ContourOrientation.counterClockwise && area > 0.0)
         }
 
@@ -670,8 +670,8 @@ public class Tess {
             
             let index = reverse ? vertices.count - 1 - i : i
             // The new vertex is now e._Org.
-            e._Org._coords = vertices[index].Position
-            e._Org._data = vertices[index].Data
+            e._Org._coords = vertices[index].position
+            e._Org._data = vertices[index].data
 
             // The winding of an edge says how the winding number changes as we
             // cross from the edge's right face to its left face.  We add the
@@ -681,12 +681,12 @@ public class Tess {
             e._Sym._winding = -1
         }
     }
-
-    public func Tessellate(windingRule: WindingRule, elementType: ElementType, polySize: Int) {
-        Tessellate(windingRule: windingRule, elementType: elementType, polySize: polySize, combineCallback: nil)
+    
+    public func tessellate(windingRule: WindingRule, elementType: ElementType, polySize: Int) {
+        tessellate(windingRule: windingRule, elementType: elementType, polySize: polySize, combineCallback: nil)
     }
-
-    public func Tessellate(windingRule: WindingRule, elementType: ElementType, polySize: Int, combineCallback: CombineCallback?) {
+    
+    public func tessellate(windingRule: WindingRule, elementType: ElementType, polySize: Int, combineCallback: CombineCallback?) {
         _normal = Vec3.Zero
         _vertices = nil
         _elements = nil
@@ -700,33 +700,33 @@ public class Tess {
 
         // Determine the polygon normal and project vertices onto the plane
         // of the polygon.
-        ProjectPolygon()
+        projectPolygon()
 
         // ComputeInterior computes the planar arrangement specified
         // by the given contours, and further subdivides this arrangement
         // into regions.  Each region is marked "inside" if it belongs
         // to the polygon, according to the rule given by windingRule.
         // Each interior region is guaranteed be monotone.
-        ComputeInterior()
+        computeInterior()
 
         // If the user wants only the boundary contours, we throw away all edges
         // except those which separate the interior from the exterior.
         // Otherwise we tessellate all the regions marked "inside".
         if (elementType == ElementType.boundaryContours) {
-            SetWindingNumber(1, true)
+            setWindingNumber(1, true)
         } else {
-            TessellateInterior()
+            tessellateInterior()
         }
 
         _mesh!.Check()
 
         if (elementType == ElementType.boundaryContours) {
-            OutputContours()
+            outputContours()
         } else {
-            OutputPolymesh(elementType, polySize)
+            outputPolymesh(elementType, polySize)
         }
 
-        if (UsePooling) {
+        if (usePooling) {
             _mesh?.Free()
         }
         _mesh = nil
