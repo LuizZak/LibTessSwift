@@ -393,7 +393,7 @@ internal class MeshUtils {
         
         // Use unsafe pointers to avoid unecessary retain/releases
         var localEdge = eOrig
-        var edp = UnsafeMutablePointer<Edge>(&localEdge)
+        let edp = UnsafeMutablePointer<Edge>(&localEdge)
         
         repeat {
             edp.pointee._Lface = fNew
