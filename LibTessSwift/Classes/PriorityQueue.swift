@@ -6,8 +6,6 @@
 //  Copyright © 2017 Luiz Fernando Silva. All rights reserved.
 //
 
-import UIKit
-
 fileprivate class StackItem {
     var p = 0
     var r = 0

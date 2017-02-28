@@ -6,8 +6,6 @@
 //  Copyright © 2017 Luiz Fernando Silva. All rights reserved.
 //
 
-import UIKit
-
 internal class Geom {
     public static func IsWindingInside(_ rule: WindingRule, _ n: Int) -> Bool {
         switch (rule) {

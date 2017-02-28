@@ -6,8 +6,6 @@
 //  Copyright © 2017 Luiz Fernando Silva. All rights reserved.
 //
 
-import UIKit
-
 internal final class Mesh: Pooled {
     
     internal var _vHead: MeshUtils.Vertex

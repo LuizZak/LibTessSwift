@@ -6,8 +6,6 @@
 //  Copyright © 2017 Luiz Fernando Silva. All rights reserved.
 //
 
-import UIKit
-
 extension Tess {
     internal class ActiveRegion {
         internal var _eUp: MeshUtils.Edge!

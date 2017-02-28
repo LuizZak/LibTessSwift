@@ -6,8 +6,6 @@
 //  Copyright © 2017 Luiz Fernando Silva. All rights reserved.
 //
 
-import UIKit
-
 public enum WindingRule: String {
     case evenOdd
     case nonZero

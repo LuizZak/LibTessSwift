@@ -6,8 +6,6 @@
 //  Copyright © 2017 Luiz Fernando Silva. All rights reserved.
 //
 
-import UIKit
-
 internal struct PQHandle {
     public static let Invalid: Int = 0x0fffffff
     
