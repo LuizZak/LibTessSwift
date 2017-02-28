@@ -186,8 +186,6 @@ internal final class MeshCreationContext {
         eNext?._Sym?._next = ePrev
         ePrev?._Sym?._next = eNext
         
-        //eDel.Free()
-        
         eDel._pair = nil
         
         resetEdge(eDel)
@@ -213,8 +211,6 @@ internal final class MeshCreationContext {
         vNext?._prev = vPrev
         vPrev?._next = vNext
         
-        //        vDel.Free()
-        
         resetVertex(vDel)
     }
     
@@ -238,7 +234,6 @@ internal final class MeshCreationContext {
         fNext?._prev = fPrev
         fPrev?._next = fNext
         
-        //fDel.Free()
         resetFace(fDel)
     }
 }
