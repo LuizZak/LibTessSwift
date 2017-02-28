@@ -227,6 +227,7 @@ internal final class Mesh: Pooled {
     /// Creates a new edge such that eNew == eOrg.Lnext and eNew.Dst is a newly created vertex.
     /// eOrg and eNew will have the same left face.
     /// </summary>
+    @discardableResult
     public func AddEdgeVertex(_ eOrg: MeshUtils.Edge) -> MeshUtils.Edge {
         let eNew = MeshUtils.MakeEdge(eOrg)
         let eNewSym = eNew._Sym!
@@ -248,6 +249,7 @@ internal final class Mesh: Pooled {
     /// The new vertex is eOrg.Dst == eNew.Org.
     /// eOrg and eNew will have the same left face.
     /// </summary>
+    @discardableResult
     public func SplitEdge(_ eOrg: MeshUtils.Edge) -> MeshUtils.Edge {
         let eTmp = AddEdgeVertex(eOrg)
         let eNew = eTmp._Sym!
@@ -276,6 +278,7 @@ internal final class Mesh: Pooled {
     /// If (eOrg->Lnext == eDst), the old face is reduced to a single edge.
     /// If (eOrg->Lnext->Lnext == eDst), the old face is reduced to two edges.
     /// </summary>
+    @discardableResult
     public func Connect(_ eOrg: MeshUtils.Edge, _ eDst: MeshUtils.Edge) -> MeshUtils.Edge {
         let eNew = MeshUtils.MakeEdge(eOrg)
         let eNewSym = eNew._Sym
@@ -368,12 +371,13 @@ internal final class Mesh: Pooled {
             let vStart = eCur._Org
             
             while (true) {
+                var eNext = eCur._Lnext
+                
                 defer {
                     // Continue to the next edge
                     eCur = eNext
                 }
                 
-                var eNext = eCur._Lnext
                 let eSym = eCur._Sym
                 
                 if (eSym != nil && eSym!._Lface != nil && eSym!._Lface!._inside) {

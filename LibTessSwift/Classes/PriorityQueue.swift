@@ -70,7 +70,7 @@ internal class PriorityQueue<TValue> where TValue: AnyObject {
         
         stack.append(StackItem(p: p, r: r))
         while (stack.count > 0) {
-            var top = stack.removeLast()
+            let top = stack.removeLast()
             p = top.p
             r = top.r
             
@@ -225,7 +225,7 @@ internal class PriorityQueue<TValue> where TValue: AnyObject {
         return _keys[index]
     }
     
-    private func keyForOrderAt(index index: Int) -> TValue? {
+    private func keyForOrderAt(index: Int) -> TValue? {
         return keyAt(index: _order[index])
     }
     

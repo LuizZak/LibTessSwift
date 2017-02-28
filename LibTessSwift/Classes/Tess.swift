@@ -370,7 +370,7 @@ public class Tess {
     /// must be monotone.
     /// </summary>
     private func TessellateInterior() {
-        _mesh._fHead._next.loop(while: { $0 !== _mesh._fHead }) { f in
+        _mesh.forEachFace { f in
             if (f._inside) {
                 TessellateMonoRegion(f)
             }
@@ -384,25 +384,7 @@ public class Tess {
     /// mesh so that exterior loops are not represented in the data structure.
     /// </summary>
     private func DiscardExterior() {
-        
-        _mesh._fHead._next?.loop(while: { $0 !== _mesh._fHead }) { f in
-            if(!f._inside) {
-                _mesh.ZapFace(f)
-            }
-        }
-        
-        return
-        
-        var next: MeshUtils.Face
-        
-        var f = _mesh._fHead._next!
-        while f !== _mesh._fHead {
-            defer {
-                f = next
-            }
-            
-            // Since f will be destroyed, save its next pointer.
-            next = f._next
+        _mesh.forEachFace { f in
             if(!f._inside) {
                 _mesh.ZapFace(f)
             }
@@ -593,7 +575,6 @@ public class Tess {
     }
 
     private func OutputContours() {
-        var f: MeshUtils.Face
         var startVert = 0
         var vertCount = 0
 
