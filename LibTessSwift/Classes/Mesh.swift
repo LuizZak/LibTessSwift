@@ -21,7 +21,7 @@ internal final class Mesh {
         let f = _context.createFace()
         _fHead = f
         
-        let (pair, e, eSym) = _context.createEdgePair()
+        let (_, e, eSym) = _context.createEdgePair()
         _eHead = e
         _eHeadSym = eSym
         

@@ -75,7 +75,7 @@ internal final class MeshCreationContext {
     public func MakeEdge(_ eNext: MeshUtils.Edge) -> MeshUtils.Edge {
         var eNext = eNext
         
-        let (pair, e, eSym) = createEdgePair()
+        let (_, e, eSym) = createEdgePair()
         
         // Make sure eNext points to the first edge of the edge pair
         MeshUtils.Edge.EnsureFirst(e: &eNext)
