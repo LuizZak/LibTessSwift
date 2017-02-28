@@ -6,6 +6,7 @@
 //  Copyright © 2017 Luiz Fernando Silva. All rights reserved.
 //
 
+/// Objects that can be initialized using a parameterless init
 public protocol EmptyInitializable {
     init()
 }
@@ -80,26 +81,6 @@ public struct Vec3: CustomStringConvertible, EmptyInitializable {
     }
 }
 
-public protocol Pooled: EmptyInitializable {
-    static func Create() -> Self
-    func Reset()
-    func OnFree()
-    func Free()
-}
-
-extension Pooled {
-    static func Create() -> Self {
-        return Self()
-    }
-    func OnFree() {
-        
-    }
-    func Free() {
-        OnFree()
-        Reset()
-    }
-}
-
 /// Describes an object that can be chained with other instances of itself
 /// indefinitely. This also supports looped links that point circularly.
 internal protocol Linked: class {
@@ -152,7 +133,7 @@ internal class MeshUtils {
     
     public static let Undef: Int = ~0
     
-    public final class Vertex : Pooled, Linked {
+    public final class Vertex: Linked, EmptyInitializable {
         internal weak var _prev: Vertex!
         internal weak var _next: Vertex!
         internal weak var _anEdge: Edge!
@@ -180,7 +161,7 @@ internal class MeshUtils {
         }
     }
 
-    public final class Face : Pooled, Linked {
+    public final class Face: Linked, EmptyInitializable {
         internal weak var _prev: Face!
         internal var _next: Face!
         internal var _anEdge: Edge!
@@ -216,25 +197,13 @@ internal class MeshUtils {
         internal weak var _e: Edge?
         internal weak var _eSym: Edge?
         
-        public static func CreatePair() -> (pair: EdgePair, e: Edge, eSym: Edge) {
-            let e = Edge.Create()
-            let eSym = Edge.Create()
-            
-            var pair = EdgePair()
-            pair._e = e
-            pair._e?._pair = pair
-            pair._eSym = eSym
-            pair._eSym?._pair = pair
-            return (pair, e, eSym)
-        }
-        
         public mutating func Reset() {
             _e = nil
             _eSym = nil
         }
     }
 
-    public final class Edge : Pooled, Linked {
+    public final class Edge: Linked, EmptyInitializable {
         public static var pool: ContiguousArray<MeshUtils.Edge> = []
         
         internal var _pair: EdgePair?
@@ -279,47 +248,7 @@ internal class MeshUtils {
             _winding = 0
         }
     }
-
-    /// <summary>
-    /// MakeEdge creates a new pair of half-edges which form their own loop.
-    /// No vertex or face structures are allocated, but these must be assigned
-    /// before the current edge operation is completed.
-    /// </summary>
-    public static func MakeEdge(_ eNext: Edge) -> Edge {
-        var eNext = eNext
-        
-        let (pair, e, eSym) = EdgePair.CreatePair()
-        
-        // Make sure eNext points to the first edge of the edge pair
-        Edge.EnsureFirst(e: &eNext)
-        
-        // Insert in circular doubly-linked list before eNext.
-        // Note that the prev pointer is stored in Sym->next.
-        let ePrev = eNext._Sym?._next
-        eSym._next = ePrev
-        ePrev?._Sym?._next = e
-        e._next = eNext
-        eNext._Sym?._next = eSym
-
-        e._Sym = eSym
-        e._Onext = e
-        e._Lnext = eSym
-        e._Org = nil
-        e._Lface = nil
-        e._winding = 0
-        e._activeRegion = nil
-
-        eSym._Sym = e
-        eSym._Onext = eSym
-        eSym._Lnext = e
-        eSym._Org = nil
-        eSym._Lface = nil
-        eSym._winding = 0
-        eSym._activeRegion = nil
-
-        return e
-    }
-
+    
     /// <summary>
     /// Splice( a, b ) is best described by the Guibas/Stolfi paper or the
     /// CS348a notes (see Mesh.cs). Basically it modifies the mesh so that
@@ -330,143 +259,13 @@ internal class MeshUtils {
     public static func Splice(_ a: Edge, _ b: Edge) {
         let aOnext = a._Onext
         let bOnext = b._Onext
-
+        
         aOnext?._Sym?._Lnext = b
         bOnext?._Sym?._Lnext = a
         a._Onext = bOnext
         b._Onext = aOnext
     }
-
-    /// <summary>
-    /// MakeVertex( eOrig, vNext ) attaches a new vertex and makes it the
-    /// origin of all edges in the vertex loop to which eOrig belongs. "vNext" gives
-    /// a place to insert the new vertex in the global vertex list. We insert
-    /// the new vertex *before* vNext so that algorithms which walk the vertex
-    /// list will not see the newly created vertices.
-    /// </summary>
-    public static func MakeVertex(_ eOrig: Edge, _ vNext: Vertex) {
-        let vNew = MeshUtils.Vertex.Create()
-
-        // insert in circular doubly-linked list before vNext
-        let vPrev = vNext._prev
-        vNew._prev = vPrev
-        vPrev?._next = vNew
-        vNew._next = vNext
-        vNext._prev = vNew
-
-        vNew._anEdge = eOrig
-        // leave coords, s, t undefined
-
-        // fix other edges on this vertex loop
-        var e: Edge? = eOrig
-        repeat {
-            e?._Org = vNew
-            e = e?._Onext
-        } while (e !== eOrig)
-    }
-
-    /// <summary>
-    /// MakeFace( eOrig, fNext ) attaches a new face and makes it the left
-    /// face of all edges in the face loop to which eOrig belongs. "fNext" gives
-    /// a place to insert the new face in the global face list. We insert
-    /// the new face *before* fNext so that algorithms which walk the face
-    /// list will not see the newly created faces.
-    /// </summary>
-    public static func MakeFace(_ eOrig: Edge, _ fNext: Face) {
-        let fNew = MeshUtils.Face.Create()
-
-        // insert in circular doubly-linked list before fNext
-        let fPrev = fNext._prev
-        fNew._prev = fPrev
-        fPrev?._next = fNew
-        fNew._next = fNext
-        fNext._prev = fNew
-
-        fNew._anEdge = eOrig
-        fNew._marked = false
-
-        // The new face is marked "inside" if the old one was. This is a
-        // convenience for the common case where a face has been split in two.
-        fNew._inside = fNext._inside
-
-        // fix other edges on this face loop
-        
-        // Use unsafe pointers to avoid unecessary retain/releases
-        var localEdge = eOrig
-        let edp = UnsafeMutablePointer<Edge>(&localEdge)
-        
-        repeat {
-            edp.pointee._Lface = fNew
-            edp.pointee = edp.pointee._Lnext
-        } while (edp.pointee !== eOrig)
-    }
     
-    /// <summary>
-    /// KillEdge( eDel ) destroys an edge (the half-edges eDel and eDel->Sym),
-    /// and removes from the global edge list.
-    /// </summary>
-    public static func KillEdge(_ eDel: Edge) {
-        // Half-edges are allocated in pairs, see EdgePair above
-        var eDel = eDel
-        Edge.EnsureFirst(e: &eDel)
-        
-        // delete from circular doubly-linked list
-        let eNext = eDel._next
-        let ePrev = eDel._Sym?._next
-        eNext?._Sym?._next = ePrev
-        ePrev?._Sym?._next = eNext
-        
-        eDel.Free()
-        
-        eDel._pair = nil
-    }
-
-    /// <summary>
-    /// KillVertex( vDel ) destroys a vertex and removes it from the global
-    /// vertex list. It updates the vertex loop to point to a given new vertex.
-    /// </summary>
-    public static func KillVertex(_ vDel: Vertex, _ newOrg: Vertex?) {
-        let eStart = vDel._anEdge
-
-        // change the origin of all affected edges
-        var e: Edge? = eStart
-        repeat {
-            e?._Org = newOrg
-            e = e?._Onext
-        } while (e !== eStart)
-
-        // delete from circular doubly-linked list
-        let vPrev = vDel._prev
-        let vNext = vDel._next
-        vNext?._prev = vPrev
-        vPrev?._next = vNext
-
-        vDel.Free()
-    }
-
-    /// <summary>
-    /// KillFace( fDel ) destroys a face and removes it from the global face
-    /// list. It updates the face loop to point to a given new face.
-    /// </summary>
-    public static func KillFace(_ fDel: Face, _ newLFace: Face?) {
-        let eStart = fDel._anEdge
-
-        // change the left face of all affected edges
-        var e: Edge? = eStart
-        repeat {
-            e?._Lface = newLFace
-            e = e?._Lnext
-        } while (e !== eStart)
-
-        // delete from circular doubly-linked list
-        let fPrev = fDel._prev
-        let fNext = fDel._next
-        fNext?._prev = fPrev
-        fPrev?._next = fNext
-
-        fDel.Free()
-    }
-
     /// <summary>
     /// Return signed area of face.
     /// </summary>

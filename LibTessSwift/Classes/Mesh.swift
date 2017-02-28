@@ -6,20 +6,22 @@
 //  Copyright © 2017 Luiz Fernando Silva. All rights reserved.
 //
 
-internal final class Mesh: Pooled {
+internal final class Mesh {
     
     internal var _vHead: MeshUtils.Vertex
     internal var _fHead: MeshUtils.Face
     internal var _eHead: MeshUtils.Edge
     internal var _eHeadSym: MeshUtils.Edge?
+    
+    internal var _context = MeshCreationContext()
 
     init() {
-        let v = MeshUtils.Vertex.Create()
+        let v = _context.createVertex()
         _vHead = v
-        let f = MeshUtils.Face.Create()
+        let f = _context.createFace()
         _fHead = f
         
-        let (pair, e, eSym) = MeshUtils.EdgePair.CreatePair()
+        let (pair, e, eSym) = _context.createEdgePair()
         _eHead = e
         _eHeadSym = eSym
         
@@ -55,6 +57,8 @@ internal final class Mesh: Pooled {
     deinit {
         OnFree()
         Reset()
+        
+        _context.free()
     }
 
     public func Reset() {
@@ -65,15 +69,9 @@ internal final class Mesh: Pooled {
     }
 
     public func OnFree() {
-        forEachFace { f in
-            f.Free()
-        }
-        forEachVertex { v in
-            v.Free()
-        }
-        forEachEdge { e in
-            e.Free()
-        }
+        forEachFace(with: _context.resetFace)
+        forEachVertex(with: _context.resetVertex)
+        forEachEdge(with: _context.resetEdge)
     }
     
     /// Loops all the faces of this mesh with a given closure.
@@ -102,11 +100,11 @@ internal final class Mesh: Pooled {
     /// The loop consists of the two new half-edges.
     /// </summary>
     public func MakeEdge() -> MeshUtils.Edge {
-        let e = MeshUtils.MakeEdge(_eHead)
+        let e = _context.MakeEdge(_eHead)
         
-        MeshUtils.MakeVertex(e, _vHead)
-        MeshUtils.MakeVertex(e._Sym!, _vHead)
-        MeshUtils.MakeFace(e, _fHead)
+        _context.MakeVertex(e, _vHead)
+        _context.MakeVertex(e._Sym!, _vHead)
+        _context.MakeFace(e, _fHead)
     
         return e
     }
@@ -144,13 +142,13 @@ internal final class Mesh: Pooled {
         if (eDst._Org !== eOrg._Org) {
             // We are merging two disjoint vertices -- destroy eDst->Org
             joiningVertices = true
-            MeshUtils.KillVertex(eDst._Org!, eOrg._Org!)
+            _context.KillVertex(eDst._Org!, eOrg._Org!)
         }
         var joiningLoops = false
         if (eDst._Lface !== eOrg._Lface) {
             // We are connecting two disjoint loops -- destroy eDst->Lface
             joiningLoops = true
-            MeshUtils.KillFace(eDst._Lface!, eOrg._Lface!)
+            _context.KillFace(eDst._Lface!, eOrg._Lface!)
         }
 
         // Change the edge structure
@@ -159,13 +157,13 @@ internal final class Mesh: Pooled {
         if (!joiningVertices) {
             // We split one vertex into two -- the new vertex is eDst->Org.
             // Make sure the old vertex points to a valid half-edge.
-            MeshUtils.MakeVertex(eDst, eOrg._Org!)
+            _context.MakeVertex(eDst, eOrg._Org!)
             eOrg._Org?._anEdge = eOrg
         }
         if (!joiningLoops) {
             // We split one loop into two -- the new loop is eDst->Lface.
             // Make sure the old face points to a valid half-edge.
-            MeshUtils.MakeFace(eDst, eOrg._Lface!)
+            _context.MakeFace(eDst, eOrg._Lface!)
             eOrg._Lface?._anEdge = eOrg
         }
     }
@@ -187,11 +185,11 @@ internal final class Mesh: Pooled {
         if (eDel._Lface !== eDel._Rface) {
             // We are joining two loops into one -- remove the left face
             joiningLoops = true
-            MeshUtils.KillFace(eDel._Lface!, eDel._Rface!)
+            _context.KillFace(eDel._Lface!, eDel._Rface!)
         }
 
         if (eDel._Onext === eDel) {
-            MeshUtils.KillVertex(eDel._Org!, nil)
+            _context.KillVertex(eDel._Org!, nil)
         } else {
             // Make sure that eDel->Org and eDel->Rface point to valid half-edges
             eDel._Rface?._anEdge = eDel._Oprev
@@ -201,7 +199,7 @@ internal final class Mesh: Pooled {
 
             if (!joiningLoops) {
                 // We are splitting one loop into two -- create a new loop for eDel.
-                MeshUtils.MakeFace(eDel, eDel._Lface!)
+                _context.MakeFace(eDel, eDel._Lface!)
             }
         }
 
@@ -209,8 +207,8 @@ internal final class Mesh: Pooled {
         // may have been deleted.  Now we disconnect eDel->Dst.
 
         if (eDelSym._Onext === eDelSym) {
-            MeshUtils.KillVertex(eDelSym._Org!, nil)
-            MeshUtils.KillFace(eDelSym._Lface!, nil)
+            _context.KillVertex(eDelSym._Org!, nil)
+            _context.KillFace(eDelSym._Lface!, nil)
         } else {
             // Make sure that eDel->Dst and eDel->Lface point to valid half-edges
             eDel._Lface._anEdge = eDelSym._Oprev
@@ -219,7 +217,7 @@ internal final class Mesh: Pooled {
         }
 
         // Any isolated vertices or faces have already been freed.
-        MeshUtils.KillEdge(eDel)
+        _context.KillEdge(eDel)
     }
 
     /// <summary>
@@ -228,7 +226,7 @@ internal final class Mesh: Pooled {
     /// </summary>
     @discardableResult
     public func AddEdgeVertex(_ eOrg: MeshUtils.Edge) -> MeshUtils.Edge {
-        let eNew = MeshUtils.MakeEdge(eOrg)
+        let eNew = _context.MakeEdge(eOrg)
         let eNewSym = eNew._Sym!
 
         // Connect the new edge appropriately
@@ -236,7 +234,7 @@ internal final class Mesh: Pooled {
 
         // Set vertex and face information
         eNew._Org = eOrg._Dst
-        MeshUtils.MakeVertex(eNewSym, eNew._Org)
+        _context.MakeVertex(eNewSym, eNew._Org)
         eNew._Lface = eOrg._Lface
         eNewSym._Lface = eOrg._Lface
 
@@ -279,14 +277,14 @@ internal final class Mesh: Pooled {
     /// </summary>
     @discardableResult
     public func Connect(_ eOrg: MeshUtils.Edge, _ eDst: MeshUtils.Edge) -> MeshUtils.Edge {
-        let eNew = MeshUtils.MakeEdge(eOrg)
+        let eNew = _context.MakeEdge(eOrg)
         let eNewSym = eNew._Sym
 
         var joiningLoops = false
         if (eDst._Lface !== eOrg._Lface) {
             // We are connecting two disjoint loops -- destroy eDst->Lface
             joiningLoops = true
-            MeshUtils.KillFace(eDst._Lface, eOrg._Lface)
+            _context.KillFace(eDst._Lface, eOrg._Lface)
         }
         
         // Connect the new edge appropriately
@@ -303,7 +301,7 @@ internal final class Mesh: Pooled {
         eOrg._Lface._anEdge = eNewSym
 
         if (!joiningLoops) {
-            MeshUtils.MakeFace(eNew, eOrg._Lface)
+            _context.MakeFace(eNew, eOrg._Lface)
         }
 
         return eNew
@@ -332,7 +330,7 @@ internal final class Mesh: Pooled {
                 // delete the edge -- see TESSmeshDelete above
 
                 if (e._Onext === e) {
-                    MeshUtils.KillVertex(e._Org!, nil)
+                    _context.KillVertex(e._Org!, nil)
                 } else {
                     // Make sure that e._Org points to a valid half-edge
                     e._Org!._anEdge = e._Onext
@@ -340,13 +338,13 @@ internal final class Mesh: Pooled {
                 }
                 eSym = e._Sym!
                 if (eSym._Onext === eSym) {
-                    MeshUtils.KillVertex(eSym._Org!, nil)
+                    _context.KillVertex(eSym._Org!, nil)
                 } else {
                     // Make sure that eSym._Org points to a valid half-edge
                     eSym._Org!._anEdge = eSym._Onext
                     MeshUtils.Splice(eSym, eSym._Oprev)
                 }
-                MeshUtils.KillEdge(e)
+                _context.KillEdge(e)
             }
         } while (e !== eStart)
 
@@ -355,8 +353,10 @@ internal final class Mesh: Pooled {
         let fNext = fZap._next
         fNext!._prev = fPrev
         fPrev!._next = fNext
-
-        fZap.Free()
+        
+        _context.resetFace(fZap)
+        
+        //fZap.Free()
     }
 
     public func MergeConvexFaces(maxVertsPerFace: Int) {

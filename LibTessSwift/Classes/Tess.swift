@@ -68,6 +68,8 @@ public class Tess {
     internal var _dict: Dict<ActiveRegion>!
     internal var _pq: PriorityQueue<MeshUtils.Vertex>!
     internal var _event: MeshUtils.Vertex!
+    
+    internal var _regionsPool = Pool<ActiveRegion>()
 
     internal var _combineCallback: CombineCallback?
 
@@ -120,6 +122,12 @@ public class Tess {
     
     deinit {
         _mesh = nil
+        
+        for created in _regionsPool.totalCreated {
+            created._eUp = nil
+            created._nodeUp?.Key = nil
+            created._nodeUp = nil
+        }
     }
     
     private func computeNormal(norm: inout Vec3) {
@@ -731,7 +739,8 @@ public class Tess {
         }
 
         if (usePooling) {
-            _mesh?.Free()
+            _mesh?.OnFree()
+            _mesh?.Reset()
         }
         _mesh = nil
     }

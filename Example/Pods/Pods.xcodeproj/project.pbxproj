@@ -17,6 +17,8 @@
 		9017C44CA594C3FB3C122FB973BB7D33 /* Mesh.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCF2BF280AFB9D0371037D1512E1DED /* Mesh.swift */; };
 		90C1BE44CE0F8A06CD7A2871E0BAA013 /* Geom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7A5576D0BD3564CEDBDADC7BA99A97 /* Geom.swift */; };
 		9F6425E8BD1D0250DA68C74BCCC45E83 /* Tess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60201C048338F1C99AF0A0F19AF8832D /* Tess.swift */; };
+		A097781F1E660EAF0095D4A7 /* MeshCreationContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = A097781E1E660EAF0095D4A7 /* MeshCreationContext.swift */; };
+		A09778211E6614CC0095D4A7 /* Pool.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09778201E6614CC0095D4A7 /* Pool.swift */; };
 		A5427C5938E5D6E6FD17EEFC399AAEE8 /* LibTessSwift-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 693D6B32439463290FC48534FB212640 /* LibTessSwift-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ADD3F80EC8E4A732F1E472F5D29D6F03 /* LibTessSwift-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = DD9C8F9FCA11C37E824C2284349456A0 /* LibTessSwift-dummy.m */; };
 		CB936593051B584BA59B71D29E5BFB04 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */; };
@@ -62,6 +64,8 @@
 		930ECC0E624A74BEAED0D32758852367 /* Pods-LibTessSwift_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-LibTessSwift_Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9A340EA983570A25BC1B1B2A86E1157C /* LibTessSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LibTessSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A097781E1E660EAF0095D4A7 /* MeshCreationContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshCreationContext.swift; sourceTree = "<group>"; };
+		A09778201E6614CC0095D4A7 /* Pool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pool.swift; sourceTree = "<group>"; };
 		A4769D77AFFE740C4AE12305FEE5D31E /* PriorityQueue.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = PriorityQueue.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		BFCF2BF280AFB9D0371037D1512E1DED /* Mesh.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Mesh.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		BFF64A9781BCF7FD2E962B82851CC214 /* LibTessSwift-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "LibTessSwift-prefix.pch"; sourceTree = "<group>"; };
@@ -109,9 +113,11 @@
 		0CF9AC463A69100E783331AC8FA2FDB3 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				A09778201E6614CC0095D4A7 /* Pool.swift */,
 				FB688B780538190C161019610381B50D /* Dict.swift */,
 				0A7A5576D0BD3564CEDBDADC7BA99A97 /* Geom.swift */,
 				BFCF2BF280AFB9D0371037D1512E1DED /* Mesh.swift */,
+				A097781E1E660EAF0095D4A7 /* MeshCreationContext.swift */,
 				268847BC9356A7220C27AB403F9D0B6A /* MeshUtils.swift */,
 				DCE02F7D6F1EB12D0B8F63F2F903BBE7 /* PriorityHeap.swift */,
 				A4769D77AFFE740C4AE12305FEE5D31E /* PriorityQueue.swift */,
@@ -373,8 +379,10 @@
 				3FAF598BA5106145B98E4641F2961437 /* MeshUtils.swift in Sources */,
 				0C8D676434DBB208E68CBF881BED2D6A /* PriorityHeap.swift in Sources */,
 				1338CA52CD59FF775CE69BB43DFB00DE /* PriorityQueue.swift in Sources */,
+				A097781F1E660EAF0095D4A7 /* MeshCreationContext.swift in Sources */,
 				DB321A3A530E4610E22F9BC4D581B8E4 /* Sweep.swift in Sources */,
 				9F6425E8BD1D0250DA68C74BCCC45E83 /* Tess.swift in Sources */,
+				A09778211E6614CC0095D4A7 /* Pool.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

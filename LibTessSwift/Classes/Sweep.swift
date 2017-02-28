@@ -7,7 +7,8 @@
 //
 
 extension Tess {
-    internal class ActiveRegion {
+    
+    internal final class ActiveRegion: EmptyInitializable {
         internal var _eUp: MeshUtils.Edge!
         internal weak var _nodeUp: Node<ActiveRegion>!
         internal var _windingNumber: Int = 0
@@ -21,7 +22,7 @@ extension Tess {
     private func RegionAbove(_ reg: ActiveRegion) -> ActiveRegion! {
         return reg._nodeUp.Next?.Key
     }
-
+    
     
     /// <summary>
     /// Both edges must be directed from right to left (this is the canonical
@@ -69,6 +70,12 @@ extension Tess {
         }
         reg._eUp._activeRegion = nil
         _dict.Remove(node: reg._nodeUp)
+        
+        reg._eUp = nil
+        reg._windingNumber = 0
+        reg._nodeUp = nil
+        
+        _regionsPool.repool(reg)
     }
 
     /// <summary>
@@ -121,7 +128,7 @@ extension Tess {
     /// Winding number and "inside" flag are not updated.
     /// </summary>
     private func AddRegionBelow(_ regAbove: ActiveRegion, _ eNewUp: MeshUtils.Edge) -> ActiveRegion {
-        let regNew = ActiveRegion()
+        let regNew = _regionsPool.pull()
 
         regNew._eUp = eNewUp
         regNew._nodeUp = _dict.InsertBefore(node: regAbove._nodeUp, key: regNew)
@@ -484,8 +491,7 @@ extension Tess {
         }
 
         // At this point the edges intersect, at least marginally
-
-        let isect = MeshUtils.Vertex.Create()
+        let isect = _mesh._context.createVertex()
         Geom.EdgeIntersect(o1: dstUp, d1: orgUp, o2: dstLo, d2: orgLo, v: isect)
         // The following properties are guaranteed:
         assert(min(orgUp._t, dstUp._t) <= isect._t)
