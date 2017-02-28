@@ -23,13 +23,13 @@ fileprivate class StackItem {
 }
 
 internal class PriorityQueue<TValue> where TValue: AnyObject {
-    private var _leq: PriorityHeap<TValue>.LessOrEqual;
-    private var _heap: PriorityHeap<TValue>;
-    private var _keys: [TValue?];
-    private var _order: [Int] = [];
+    private var _leq: PriorityHeap<TValue>.LessOrEqual
+    private var _heap: PriorityHeap<TValue>
+    private var _keys: [TValue?]
+    private var _order: [Int] = []
     
-    private var _size = 0, _max = 0;
-    private var _initialized = false;
+    private var _size = 0, _max = 0
+    private var _initialized = false
     
     public var test: [TValue?] {
         return _keys
@@ -40,14 +40,14 @@ internal class PriorityQueue<TValue> where TValue: AnyObject {
     }
     
     public init(_ initialSize: Int, _ leq: @escaping PriorityHeap<TValue>.LessOrEqual) {
-        _leq = leq;
-        _heap = PriorityHeap<TValue>(initialSize, leq);
+        _leq = leq
+        _heap = PriorityHeap<TValue>(initialSize, leq)
         
         _keys = Array<TValue?>(repeating: nil, count: initialSize)
         
-        _size = 0;
-        _max = initialSize;
-        _initialized = false;
+        _size = 0
+        _max = initialSize
+        _initialized = false
     }
     
     deinit {
@@ -56,86 +56,86 @@ internal class PriorityQueue<TValue> where TValue: AnyObject {
     
     public func Init() {
         
-        var stack = [StackItem]();
-        var i: Int = 0, j: Int, piv: Int = 0;
-        var seed: UInt32 = 2016473283;
+        var stack = [StackItem]()
+        var i: Int = 0, j: Int, piv: Int = 0
+        var seed: UInt32 = 2016473283
         
-        var p = 0;
-        var r = _size - 1;
+        var p = 0
+        var r = _size - 1
         
         _order = Array(repeating: 0, count: _size + 1)
         
         while i <= r {
-            _order[i] = piv;
+            _order[i] = piv
             
             piv += 1
             i += 1
         }
         
-        stack.append(StackItem(p: p, r: r));
+        stack.append(StackItem(p: p, r: r))
         while (stack.count > 0) {
             var top = stack.removeLast()
-            p = top.p;
-            r = top.r;
+            p = top.p
+            r = top.r
             
             while (r > p + 10) {
-                seed = seed &* 1539415821 &+ 1;
-                i = p + Int(seed % UInt32(r - p + 1));
-                piv = _order[i];
-                _order[i] = _order[p];
-                _order[p] = piv;
-                i = p - 1;
-                j = r + 1;
+                seed = seed &* 1539415821 &+ 1
+                i = p + Int(seed % UInt32(r - p + 1))
+                piv = _order[i]
+                _order[i] = _order[p]
+                _order[p] = piv
+                i = p - 1
+                j = r + 1
                 repeat {
                     repeat {
-                        i += 1;
-                    } while (!_leq(_keys[_order[i]], _keys[piv]));
+                        i += 1
+                    } while (!_leq(_keys[_order[i]], _keys[piv]))
                     repeat {
-                        j -= 1;
-                    } while (!_leq(_keys[piv], _keys[_order[j]]));
+                        j -= 1
+                    } while (!_leq(_keys[piv], _keys[_order[j]]))
                     
-                    Swap(&_order[i], &_order[j]);
-                } while (i < j);
-                Swap(&_order[i], &_order[j]);
+                    Swap(&_order[i], &_order[j])
+                } while (i < j)
+                Swap(&_order[i], &_order[j])
                 if (i - p < r - j) {
-                    stack.append(StackItem(p: j + 1, r: r));
-                    r = i - 1;
+                    stack.append(StackItem(p: j + 1, r: r))
+                    r = i - 1
                 } else {
-                    stack.append(StackItem(p: p, r: i - 1));
-                    p = j + 1;
+                    stack.append(StackItem(p: p, r: i - 1))
+                    p = j + 1
                 }
             }
             
             i = p + 1
             while(i <= r) {
-                piv = _order[i];
+                piv = _order[i]
                 
                 j = i
                 
                 while j > p && !_leq(_keys[piv], _keys[_order[j - 1]]) {
-                    _order[j] = _order[j - 1];
+                    _order[j] = _order[j - 1]
                     j -= 1
                 }
-                _order[j] = piv;
+                _order[j] = piv
                 
                 i += 1
             }
         }
 
 #if DEBUG
-        p = 0;
-        r = _size - 1;
+        p = 0
+        r = _size - 1
         i = p
         
         while i < r {
-            assert(_leq(_keys[_order[i + 1]], _keys[_order[i]]), "Wrong sort");
+            assert(_leq(_keys[_order[i + 1]], _keys[_order[i]]), "Wrong sort")
             i += 1
         }
 #endif
 
-        _max = _size;
-        _initialized = true;
-        _heap.Init();
+        _max = _size
+        _initialized = true
+        _heap.Init()
     }
     
     public func Swap(_ a: inout Int, _ b: inout Int) {
@@ -146,13 +146,13 @@ internal class PriorityQueue<TValue> where TValue: AnyObject {
     
     public func Insert(_ value: TValue) -> PQHandle {
         if (_initialized) {
-            return _heap.Insert(value);
+            return _heap.Insert(value)
         }
 
-        let curr = _size;
+        let curr = _size
         _size += 1
         if (_size >= _max) {
-            _max <<= 1;
+            _max <<= 1
             
             let diffK = _keys.count - _max + 1
             let subK: [TValue?] = Array(repeating: nil, count: diffK)
@@ -160,63 +160,63 @@ internal class PriorityQueue<TValue> where TValue: AnyObject {
             _keys.append(contentsOf: subK)
         }
 
-        _keys[curr] = value;
-        return PQHandle(handle: -(curr + 1));
+        _keys[curr] = value
+        return PQHandle(handle: -(curr + 1))
     }
 
     public func ExtractMin() -> TValue? {
-        assert(_initialized);
+        assert(_initialized)
         if (_size == 0) {
-            return _heap.ExtractMin();
+            return _heap.ExtractMin()
         }
         
-        let sortMin = lastKey();
+        let sortMin = lastKey()
         if (!_heap.Empty) {
-            let heapMin = _heap.Minimum();
+            let heapMin = _heap.Minimum()
             if (_leq(heapMin, sortMin)) {
-                return _heap.ExtractMin();
+                return _heap.ExtractMin()
             }
         }
         
         repeat {
-            _size -= 1;
-        } while (_size > 0 && lastKey() == nil);
+            _size -= 1
+        } while (_size > 0 && lastKey() == nil)
         
-        return sortMin;
+        return sortMin
     }
 
     public func Minimum() -> TValue? {
-        assert(_initialized);
+        assert(_initialized)
         
         if (_size == 0) {
-            return _heap.Minimum();
+            return _heap.Minimum()
         }
         
         let sortMin = lastKey()
         
         if (!_heap.Empty) {
-            let heapMin = _heap.Minimum();
+            let heapMin = _heap.Minimum()
             if (_leq(heapMin, sortMin)) {
-                return heapMin;
+                return heapMin
             }
         }
         
-        return sortMin;
+        return sortMin
     }
 
     public func Remove(_ handle: PQHandle) {
-        assert(_initialized);
+        assert(_initialized)
         
-        var curr = handle._handle;
+        var curr = handle._handle
         if (curr >= 0) {
-            _heap.Remove(handle);
-            return;
+            _heap.Remove(handle)
+            return
         }
         
-        curr = -(curr + 1);
-        assert(curr < _max && keyAt(index: curr) != nil);
+        curr = -(curr + 1)
+        assert(curr < _max && keyAt(index: curr) != nil)
         
-        _keys[curr] = nil;
+        _keys[curr] = nil
         while (_size > 0 && lastKey() == nil) {
             _size -= 1
         }

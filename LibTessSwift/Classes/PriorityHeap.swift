@@ -9,7 +9,7 @@
 import UIKit
 
 internal struct PQHandle {
-    public static let Invalid: Int = 0x0fffffff;
+    public static let Invalid: Int = 0x0fffffff
     
     internal var _handle: Int
     
@@ -23,8 +23,8 @@ internal struct PQHandle {
 }
 
 fileprivate class HandleElem<TValue> where TValue: AnyObject {
-    internal var _key: TValue?;
-    internal var _node: Int;
+    internal var _key: TValue?
+    internal var _node: Int
     
     init(key: TValue?) {
         _key = key
@@ -40,28 +40,28 @@ fileprivate class HandleElem<TValue> where TValue: AnyObject {
 internal class PriorityHeap<TValue> where TValue : AnyObject {
     public typealias LessOrEqual = (_ lhs: TValue?, _ rhs: TValue?) -> Bool
     
-    private var _leq: LessOrEqual;
-    private var _nodes: [Int];
-    private var _handles: [HandleElem<TValue>?];
-    private var _size: Int = 0, _max: Int = 0;
-    private var _freeList = 0;
-    private var _initialized = false;
+    private var _leq: LessOrEqual
+    private var _nodes: [Int]
+    private var _handles: [HandleElem<TValue>?]
+    private var _size: Int = 0, _max: Int = 0
+    private var _freeList = 0
+    private var _initialized = false
     
-    public var Empty: Bool { get { return _size == 0; } }
+    public var Empty: Bool { get { return _size == 0 } }
     
     public init(_ initialSize: Int, _ leq: @escaping LessOrEqual) {
-        _leq = leq;
+        _leq = leq
         
         _nodes = Array(repeating: 0, count: initialSize + 1)
         _handles = Array(repeating: nil, count: initialSize + 1)
 
-        _size = 0;
-        _max = initialSize;
-        _freeList = 0;
-        _initialized = false;
+        _size = 0
+        _max = initialSize
+        _freeList = 0
+        _initialized = false
 
-        _nodes[1] = 1;
-        _handles[1] = HandleElem<TValue>(key: nil);
+        _nodes[1] = 1
+        _handles[1] = HandleElem<TValue>(key: nil)
     }
     
     deinit {
@@ -70,50 +70,50 @@ internal class PriorityHeap<TValue> where TValue : AnyObject {
     
     private func FloatDown(_ curr: Int) {
         var curr = curr
-        var child = 0;
-        var hCurr = 0, hChild = 0;
+        var child = 0
+        var hCurr = 0, hChild = 0
         
-        hCurr = _nodes[curr];
+        hCurr = _nodes[curr]
         while (true) {
-            child = curr << 1;
+            child = curr << 1
             
             if (child < _size && _leq(handleElemKey(fromNode: child + 1), handleElemKey(fromNode: child))) {
-                child += 1;
+                child += 1
             }
             
-            assert(child <= _max);
+            assert(child <= _max)
             
-            hChild = _nodes[child];
+            hChild = _nodes[child]
             if (child > _size || _leq(_handles[hCurr]!._key, _handles[hChild]!._key)) {
-                _nodes[curr] = hCurr;
-                _handles[hCurr]!._node = curr;
-                break;
+                _nodes[curr] = hCurr
+                _handles[hCurr]!._node = curr
+                break
             }
             
-            _nodes[curr] = hChild;
-            _handles[hChild]!._node = curr;
-            curr = child;
+            _nodes[curr] = hChild
+            _handles[hChild]!._node = curr
+            curr = child
         }
     }
     
     private func FloatUp(_ curr: Int) {
         var curr = curr
-        var parent = 0;
-        var hCurr = 0, hParent = 0;
+        var parent = 0
+        var hCurr = 0, hParent = 0
         
-        hCurr = _nodes[curr];
+        hCurr = _nodes[curr]
         while (true) {
-            parent = curr >> 1;
-            hParent = _nodes[parent];
+            parent = curr >> 1
+            hParent = _nodes[parent]
             
             if (parent == 0 || _leq(_handles[hParent]!._key, _handles[hCurr]!._key)) {
-                _nodes[curr] = hCurr;
-                _handles[hCurr]!._node = curr;
-                break;
+                _nodes[curr] = hCurr
+                _handles[hCurr]!._node = curr
+                break
             }
-            _nodes[curr] = hParent;
-            _handles[hParent]!._node = curr;
-            curr = parent;
+            _nodes[curr] = hParent
+            _handles[hParent]!._node = curr
+            curr = parent
         }
     }
     
@@ -121,16 +121,16 @@ internal class PriorityHeap<TValue> where TValue : AnyObject {
         var i = _size
         while i >= 1 {
             defer { i -= 1 }
-            FloatDown(i);
+            FloatDown(i)
         }
-        _initialized = true;
+        _initialized = true
     }
     
     public func Insert(_ value: TValue) -> PQHandle {
-        let curr = _size + 1;
+        let curr = _size + 1
         _size += 1
         if ((curr * 2) > _max) {
-            _max <<= 1;
+            _max <<= 1
             
             let diffN = _nodes.count - _max + 1
             let diffH = _handles.count - _max + 1
@@ -142,68 +142,68 @@ internal class PriorityHeap<TValue> where TValue : AnyObject {
             _handles.append(contentsOf: subH)
         }
         
-        var free = 0;
+        var free = 0
         if (_freeList == 0) {
-            free = curr;
+            free = curr
         } else {
-            free = _freeList;
-            _freeList = _handles[free]!._node;
+            free = _freeList
+            _freeList = _handles[free]!._node
         }
         
-        _nodes[curr] = free;
+        _nodes[curr] = free
         if (_handles[free] == nil) {
-            _handles[free] = HandleElem(key: value, node: curr );
+            _handles[free] = HandleElem(key: value, node: curr )
         } else {
             handleElem(atIndex: free)!._node = curr
             handleElem(atIndex: free)!._key = value
         }
         
         if (_initialized) {
-            FloatUp(curr);
+            FloatUp(curr)
         }
         
-        assert(free != PQHandle.Invalid);
-        return PQHandle(handle: free);
+        assert(free != PQHandle.Invalid)
+        return PQHandle(handle: free)
     }
 
     public func ExtractMin() -> TValue? {
-        assert(_initialized);
+        assert(_initialized)
         
-        let hMin = _nodes[1];
-        let min = _handles[hMin]!._key;
+        let hMin = _nodes[1]
+        let min = _handles[hMin]!._key
         
         if (_size > 0) {
-            _nodes[1] = _nodes[_size];
+            _nodes[1] = _nodes[_size]
             
             handleElem(fromNode: 1)!._node = 1
             
-            handleElem(atIndex: hMin)!._key = nil;
-            handleElem(atIndex: hMin)!._node = _freeList;
+            handleElem(atIndex: hMin)!._key = nil
+            handleElem(atIndex: hMin)!._node = _freeList
             
-            _freeList = hMin;
+            _freeList = hMin
             
             _size -= 1
             if (_size > 0) {
-                FloatDown(1);
+                FloatDown(1)
             }
         }
 
-        return min;
+        return min
     }
 
     public func Minimum() -> TValue? {
-        assert(_initialized);
-        return _handles[_nodes[1]]!._key;
+        assert(_initialized)
+        return _handles[_nodes[1]]!._key
     }
 
     public func Remove(_ handle: PQHandle) {
-        assert(_initialized);
+        assert(_initialized)
         
-        let hCurr = handle._handle;
-        assert(hCurr >= 1 && hCurr <= _max && handleElemKey(atIndex: hCurr) != nil);
+        let hCurr = handle._handle
+        assert(hCurr >= 1 && hCurr <= _max && handleElemKey(atIndex: hCurr) != nil)
         
-        let curr = handleElem(atIndex: hCurr)!._node;
-        _nodes[curr] = _nodes[_size];
+        let curr = handleElem(atIndex: hCurr)!._node
+        _nodes[curr] = _nodes[_size]
         
         handleElem(fromNode: curr)!._node = curr
         
@@ -213,16 +213,16 @@ internal class PriorityHeap<TValue> where TValue : AnyObject {
             let k2 = handleElemKey(fromNode: curr)
             
             if (curr <= 1 || _leq(k1, k2)) {
-                FloatDown(curr);
+                FloatDown(curr)
             } else {
-                FloatUp(curr);
+                FloatUp(curr)
             }
         }
         
         handleElem(atIndex: hCurr)!._key = nil
         handleElem(atIndex: hCurr)!._node = _freeList
         
-        _freeList = hCurr;
+        _freeList = hCurr
     }
     
     private func handleElem(atIndex index: Int) -> HandleElem<TValue>? {
