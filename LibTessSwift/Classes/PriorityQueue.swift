@@ -82,8 +82,11 @@ internal class PriorityQueue<TValue> where TValue: AnyObject {
                 seed = seed &* 1539415821 &+ 1
                 i = p + Int(seed % UInt32(r - p + 1))
                 piv = _order[i]
-                _order[i] = _order[p]
-                _order[p] = piv
+                
+                if(p != i) {
+                    swap(&_order[i], &_order[p])
+                }
+                
                 i = p - 1
                 j = r + 1
                 repeat {
@@ -94,9 +97,15 @@ internal class PriorityQueue<TValue> where TValue: AnyObject {
                         j -= 1
                     } while (!_leq(_keys[piv], _keys[_order[j]]))
                     
-                    Swap(&_order[i], &_order[j])
+                    if(i != j) {
+                        swap(&_order[i], &_order[j])
+                    }
                 } while (i < j)
-                Swap(&_order[i], &_order[j])
+                
+                if(i != j) {
+                    swap(&_order[i], &_order[j])
+                }
+                
                 if (i - p < r - j) {
                     stack.append(StackItem(p: j + 1, r: r))
                     r = i - 1
@@ -136,12 +145,6 @@ internal class PriorityQueue<TValue> where TValue: AnyObject {
         _max = _size
         _initialized = true
         _heap.Init()
-    }
-    
-    public func Swap(_ a: inout Int, _ b: inout Int) {
-        let tmp = a
-        a = b
-        b = tmp
     }
     
     public func Insert(_ value: TValue) -> PQHandle {
