@@ -445,7 +445,7 @@ public class Tess {
             if (!f._inside) { return }
             
             if (noEmptyPolygons) {
-                var area = MeshUtils.FaceArea(f)
+                let area = MeshUtils.FaceArea(f)
                 if (abs(area) < CGFloat.leastNonzeroMagnitude) {
                     return
                 }
