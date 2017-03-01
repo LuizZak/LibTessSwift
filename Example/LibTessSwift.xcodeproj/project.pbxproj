@@ -38,27 +38,6 @@
 		A00AE33B1E64D3FC0052E418 /* DataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00AE2EA1E64CB0C0052E418 /* DataLoader.swift */; };
 		A00AE33C1E64D3FC0052E418 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
 		A00AE33D1E64D3FC0052E418 /* PolyConvert.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00AE3331E64D2C30052E418 /* PolyConvert.swift */; };
-		A0B488DC1E64F6FA00DE3A4E /* bird.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488C61E64F6FA00DE3A4E /* bird.dat */; };
-		A0B488DD1E64F6FA00DE3A4E /* clipper.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488C71E64F6FA00DE3A4E /* clipper.dat */; };
-		A0B488DE1E64F6FA00DE3A4E /* custom.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488C81E64F6FA00DE3A4E /* custom.dat */; };
-		A0B488DF1E64F6FA00DE3A4E /* debug.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488C91E64F6FA00DE3A4E /* debug.dat */; };
-		A0B488E01E64F6FA00DE3A4E /* debug2.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488CA1E64F6FA00DE3A4E /* debug2.dat */; };
-		A0B488E11E64F6FA00DE3A4E /* diamond.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488CB1E64F6FA00DE3A4E /* diamond.dat */; };
-		A0B488E21E64F6FA00DE3A4E /* dude.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488CC1E64F6FA00DE3A4E /* dude.dat */; };
-		A0B488E31E64F6FA00DE3A4E /* force-winding.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488CD1E64F6FA00DE3A4E /* force-winding.dat */; };
-		A0B488E41E64F6FA00DE3A4E /* funny.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488CE1E64F6FA00DE3A4E /* funny.dat */; };
-		A0B488E51E64F6FA00DE3A4E /* issue6-L.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488CF1E64F6FA00DE3A4E /* issue6-L.dat */; };
-		A0B488E61E64F6FA00DE3A4E /* issue6-plus.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488D01E64F6FA00DE3A4E /* issue6-plus.dat */; };
-		A0B488E71E64F6FA00DE3A4E /* letterE.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488D11E64F6FA00DE3A4E /* letterE.dat */; };
-		A0B488E81E64F6FA00DE3A4E /* nazca_heron.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488D21E64F6FA00DE3A4E /* nazca_heron.dat */; };
-		A0B488E91E64F6FA00DE3A4E /* nazca_monkey.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488D31E64F6FA00DE3A4E /* nazca_monkey.dat */; };
-		A0B488EA1E64F6FA00DE3A4E /* redbook-winding.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488D41E64F6FA00DE3A4E /* redbook-winding.dat */; };
-		A0B488EB1E64F6FA00DE3A4E /* sketchup.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488D51E64F6FA00DE3A4E /* sketchup.dat */; };
-		A0B488EC1E64F6FA00DE3A4E /* star-intersect.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488D61E64F6FA00DE3A4E /* star-intersect.dat */; };
-		A0B488ED1E64F6FA00DE3A4E /* star.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488D71E64F6FA00DE3A4E /* star.dat */; };
-		A0B488EE1E64F6FA00DE3A4E /* strange.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488D81E64F6FA00DE3A4E /* strange.dat */; };
-		A0B488EF1E64F6FA00DE3A4E /* tank.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488D91E64F6FA00DE3A4E /* tank.dat */; };
-		A0B488F01E64F6FA00DE3A4E /* test.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488DA1E64F6FA00DE3A4E /* test.dat */; };
 		A0B488F11E64F84200DE3A4E /* 2.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488C51E64F6FA00DE3A4E /* 2.dat */; };
 		A0B488F21E64F84700DE3A4E /* bird.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488C61E64F6FA00DE3A4E /* bird.dat */; };
 		A0B488F31E64F84700DE3A4E /* clipper.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488C71E64F6FA00DE3A4E /* clipper.dat */; };
@@ -81,7 +60,6 @@
 		A0B489041E64F84700DE3A4E /* strange.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488D81E64F6FA00DE3A4E /* strange.dat */; };
 		A0B489051E64F84700DE3A4E /* tank.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488D91E64F6FA00DE3A4E /* tank.dat */; };
 		A0B489061E64F84700DE3A4E /* test.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488DA1E64F6FA00DE3A4E /* test.dat */; };
-		A0B489071E64F84800DE3A4E /* 2.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488C51E64F6FA00DE3A4E /* 2.dat */; };
 		C21AA9C4084CBDA0BE5123D3 /* Pods_LibTessSwift_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 006044DD236BF2FABA2BCD17 /* Pods_LibTessSwift_Example.framework */; };
 		E1FDED9A9F203191C11C078D /* Pods_LibTessSwift_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE5F61903539D1BD0A74C6DD /* Pods_LibTessSwift_Tests.framework */; };
 /* End PBXBuildFile section */
@@ -427,31 +405,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A0B488E41E64F6FA00DE3A4E /* funny.dat in Resources */,
-				A0B488E51E64F6FA00DE3A4E /* issue6-L.dat in Resources */,
-				A0B488E31E64F6FA00DE3A4E /* force-winding.dat in Resources */,
 				607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */,
-				A0B488E91E64F6FA00DE3A4E /* nazca_monkey.dat in Resources */,
 				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
-				A0B488EC1E64F6FA00DE3A4E /* star-intersect.dat in Resources */,
-				A0B488E11E64F6FA00DE3A4E /* diamond.dat in Resources */,
-				A0B488F01E64F6FA00DE3A4E /* test.dat in Resources */,
-				A0B489071E64F84800DE3A4E /* 2.dat in Resources */,
-				A0B488ED1E64F6FA00DE3A4E /* star.dat in Resources */,
-				A0B488E71E64F6FA00DE3A4E /* letterE.dat in Resources */,
-				A0B488E81E64F6FA00DE3A4E /* nazca_heron.dat in Resources */,
-				A0B488EB1E64F6FA00DE3A4E /* sketchup.dat in Resources */,
-				A0B488DE1E64F6FA00DE3A4E /* custom.dat in Resources */,
-				A0B488E21E64F6FA00DE3A4E /* dude.dat in Resources */,
-				A0B488E61E64F6FA00DE3A4E /* issue6-plus.dat in Resources */,
-				A0B488DD1E64F6FA00DE3A4E /* clipper.dat in Resources */,
-				A0B488EA1E64F6FA00DE3A4E /* redbook-winding.dat in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
-				A0B488DC1E64F6FA00DE3A4E /* bird.dat in Resources */,
-				A0B488E01E64F6FA00DE3A4E /* debug2.dat in Resources */,
-				A0B488EF1E64F6FA00DE3A4E /* tank.dat in Resources */,
-				A0B488DF1E64F6FA00DE3A4E /* debug.dat in Resources */,
-				A0B488EE1E64F6FA00DE3A4E /* strange.dat in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -745,6 +701,10 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/LibTessSwift\"",
+				);
 				INFOPLIST_FILE = LibTessSwift/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;

@@ -16,7 +16,7 @@ class PolyConvert: NSObject {
             var v: [ContourVertex] = []
             
             for p in poly.points {
-                let vertex = ContourVertex(Position: Vec3(X: p.X, Y: p.Y, Z: p.Z),
+                let vertex = ContourVertex(Position: Vector3(x: Real(p.X), y: Real(p.Y), z: Real(p.Z)),
                                            Data: p.Color)
                 v.append(vertex)
             }
@@ -37,8 +37,8 @@ class PolyConvert: NSObject {
                     continue
                 }
                 let v = PolygonPoint(
-                    X: tess.vertices[index].position.X,
-                    Y: tess.vertices[index].position.Y,
+                    X: CGFloat(tess.vertices[index].position.x),
+                    Y: CGFloat(tess.vertices[index].position.y),
                     Z: 0,
                     Color: UIColor.white
                 )
