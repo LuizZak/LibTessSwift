@@ -72,7 +72,7 @@ func poolAlloc(userData: UnsafeMutableRawPointer, size: size_t ) -> UnsafeMutabl
         
         return UnsafeMutableRawPointer(ptr)
     }
-    //printf("out of mem: %d < %d!\n", pool->size + size, pool->cap);
+    NSLog("out of mem: %d < %d!\n", pool.pointee.size + size, pool.pointee.cap);
     
     return nil;
 }
@@ -84,9 +84,9 @@ func poolFree(userData: UnsafeMutableRawPointer, ptr: UnsafeMutableRawPointer) {
 /// Wraps the low-level C libtess2 library in a nice interface for Swift
 public class TessC {
     
-    var pool: MemPool
-    var mem: [CUnsignedChar]
-    var ma: TESSalloc
+    var memoryPool: MemPool?
+    var mem: UnsafeMutablePointer<CUnsignedChar>?
+    var ma: TESSalloc?
     
     /// TESStesselator* tess
     let tess: OpaquePointer
@@ -108,30 +108,51 @@ public class TessC {
     public var elementCount: Int = 0
     
     /// Tries to init this tesselator
-    public init?() {
-        mem = Array(repeating: 0, count: 1024 * 1024)
-        pool = MemPool(buf: &mem, cap: size_t(MemoryLayout<CUnsignedChar>.size * mem.count), size: 0)
-        
-        ma = TESSalloc(memalloc: { poolAlloc(userData: $0, size: $1) },
-                       memrealloc: nil,
-                       memfree: { poolFree(userData: $0, ptr: $1) },
-                       userData: &pool, meshEdgeBucketSize: 0,
-                       meshVertexBucketSize: 0, meshFaceBucketSize: 0,
-                       dictNodeBucketSize: 0, regionBucketSize: 0,
-                       extraVertices: 256)
-        
-        guard let tess: OpaquePointer = tessNewTess(nil) else {
-            // Tesselator failed to initialize
-            print("Failed to initialize tesselator")
-            return nil
+    /// Optionally specifies whether to use memory pooling, and the memory size
+    /// of the pool.
+    /// This can be usefull for cases of constrained memory usage, and reduces
+    /// overhead of repeated malloc/free calls
+    public init?(usePooling: Bool = false, poolSize: Int = 1024 * 1024 * 10) {
+        if(usePooling) {
+            mem = malloc(poolSize).assumingMemoryBound(to: CUnsignedChar.self)
+            
+            memoryPool = MemPool(buf: mem!, cap: size_t(poolSize), size: 0)
+            
+            ma = TESSalloc(memalloc: { stdAlloc(userData: $0, size: $1) },
+                           memrealloc: nil,
+                           memfree: { stdFree(userData: $0, ptr: $1) },
+                           userData: &memoryPool!, meshEdgeBucketSize: 0,
+                           meshVertexBucketSize: 0, meshFaceBucketSize: 0,
+                           dictNodeBucketSize: 0, regionBucketSize: 0,
+                           extraVertices: 256)
+            
+            guard let tess: OpaquePointer = tessNewTess(&ma!) else {
+                // Free memory
+                free(mem!)
+                
+                // Tesselator failed to initialize
+                print("Failed to initialize tesselator")
+                return nil
+            }
+            
+            self.tess = tess
+        } else {
+            guard let tess: OpaquePointer = tessNewTess(nil) else {
+                // Tesselator failed to initialize
+                print("Failed to initialize tesselator")
+                return nil
+            }
+            
+            self.tess = tess
         }
-        
-        self.tess = tess
     }
     
     deinit {
         // Free tesselator
         tessDeleteTess(tess)
+        if let mem = mem {
+            free(mem)
+        }
     }
     
     public func addContour(_ vertices: [CVector3], _ forceOrientation: ContourOrientation = .original) {
