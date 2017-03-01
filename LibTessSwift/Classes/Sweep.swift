@@ -36,27 +36,34 @@ extension Tess {
     /// we sort the edges by slope (they would otherwise compare equally).
     /// </summary>
     private func EdgeLeq(_ reg1: ActiveRegion, _ reg2: ActiveRegion) -> Bool {
-        let e1 = reg1._eUp!
-        let e2 = reg2._eUp!
-
-        if (e1._Dst === _event) {
-            if (e2._Dst === _event) {
+        unowned(unsafe) let e1 = reg1._eUp!
+        unowned(unsafe) let e2 = reg2._eUp!
+        
+        unowned(unsafe) let e1_Dst = e1._Dst!
+        unowned(unsafe) let e1_Org = e1._Org!
+        unowned(unsafe) let e2_Dst = e2._Dst!
+        unowned(unsafe) let e2_Org = e2._Org!
+        
+        unowned(unsafe) let event = _event!
+        
+        if (e1_Dst === event) {
+            if (e2_Dst === event) {
                 // Two edges right of the sweep line which meet at the sweep event.
                 // Sort them by slope.
-                if (Geom.VertLeq(e1._Org, e2._Org)) {
-                    return Geom.EdgeSign(e2._Dst, e1._Org, e2._Org) <= 0.0
+                if (Geom.VertLeq(e1_Org, e2_Org)) {
+                    return Geom.EdgeSign(e2_Dst, e1_Org, e2_Org) <= 0.0
                 }
-                return Geom.EdgeSign(e1._Dst, e2._Org, e1._Org) >= 0.0
+                return Geom.EdgeSign(e1_Dst, e2_Org, e1_Org) >= 0.0
             }
-            return Geom.EdgeSign(e2._Dst, _event!, e2._Org) <= 0.0
+            return Geom.EdgeSign(e2_Dst, event, e2_Org) <= 0.0
         }
-        if (e2._Dst === _event) {
-            return Geom.EdgeSign(e1._Dst, _event!, e1._Org) >= 0.0
+        if (e2_Dst === event) {
+            return Geom.EdgeSign(e1_Dst, event, e1_Org) >= 0.0
         }
 
         // General case - compute signed distance *from* e1, e2 to event
-        let t1 = Geom.EdgeEval(e1._Dst, _event!, e1._Org)
-        let t2 = Geom.EdgeEval(e2._Dst, _event!, e2._Org)
+        let t1 = Geom.EdgeEval(e1_Dst, event, e1_Org)
+        let t2 = Geom.EdgeEval(e2_Dst, event, e2_Org)
         return (t1 >= t2)
     }
 
