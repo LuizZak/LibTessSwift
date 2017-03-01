@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'LibTessSwift'
-  s.version          = '0.3.1'
+  s.version          = '0.4.0'
   s.summary          = 'A Tesselation/Triangulation Library Written in Swift.'
 
 # This description is used to generate tags and improve search results.
@@ -20,7 +20,7 @@ Pod::Spec.new do |s|
   s.description      = <<-DESC
 A Tesselation/triangulation library for Swift.
 
-Based on LibTessDotNet (https://github.com/speps/LibTessDotNet), ported with love to work on Swift.
+Based on LibTess2 (https://github.com/memononen/Libtess2), with a nice Swift wrapper API on top.
                        DESC
 
   s.homepage         = 'https://github.com/LuizZak/LibTessSwift'
