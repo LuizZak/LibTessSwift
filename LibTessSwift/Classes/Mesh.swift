@@ -326,26 +326,28 @@ internal final class Mesh {
             eNext = e._Lnext
 
             e._Lface = nil
-            if (e._Rface == nil) {
-                // delete the edge -- see TESSmeshDelete above
-
-                if (e._Onext === e) {
-                    _context.KillVertex(e._Org!, nil)
-                } else {
-                    // Make sure that e._Org points to a valid half-edge
-                    e._Org!._anEdge = e._Onext
-                    MeshUtils.Splice(e, e._Oprev)
-                }
-                eSym = e._Sym!
-                if (eSym._Onext === eSym) {
-                    _context.KillVertex(eSym._Org!, nil)
-                } else {
-                    // Make sure that eSym._Org points to a valid half-edge
-                    eSym._Org!._anEdge = eSym._Onext
-                    MeshUtils.Splice(eSym, eSym._Oprev)
-                }
-                _context.KillEdge(e)
+            if (e._Rface != nil) {
+                continue
             }
+            
+            // delete the edge -- see TESSmeshDelete above
+
+            if (e._Onext === e) {
+                _context.KillVertex(e._Org!, nil)
+            } else {
+                // Make sure that e._Org points to a valid half-edge
+                e._Org!._anEdge = e._Onext
+                MeshUtils.Splice(e, e._Oprev)
+            }
+            eSym = e._Sym!
+            if (eSym._Onext === eSym) {
+                _context.KillVertex(eSym._Org!, nil)
+            } else {
+                // Make sure that eSym._Org points to a valid half-edge
+                eSym._Org!._anEdge = eSym._Onext
+                MeshUtils.Splice(eSym, eSym._Oprev)
+            }
+            _context.KillEdge(e)
         } while (e !== eStart)
 
         /* delete from circular doubly-linked list */
@@ -355,8 +357,6 @@ internal final class Mesh {
         fPrev!._next = fNext
         
         _context.resetFace(fZap)
-        
-        //fZap.Free()
     }
 
     public func MergeConvexFaces(maxVertsPerFace: Int) {

@@ -92,11 +92,6 @@ public class Tess {
     /// If true, will remove empty (zero area) polygons.
     /// </summary>
     public var noEmptyPolygons = false
-
-    /// <summary>
-    /// If true, will use pooling to reduce GC (compare performance with/without, can vary wildly).
-    /// </summary>
-    public var usePooling = false
     
     public var vertices: [ContourVertex]! { get { return _vertices } }
     public var vertexCount: Int { get { return _vertexCount } }
@@ -128,10 +123,12 @@ public class Tess {
             created._nodeUp?.Key = nil
             created._nodeUp = nil
         }
+        
+        _regionsPool.reset()
     }
     
     private func computeNormal(norm: inout Vec3) {
-        var v = _mesh!._vHead._next!
+        var v = _mesh._vHead._next!
 
         var minVal: [CGFloat] = [ v._coords.X, v._coords.Y, v._coords.Z ]
         var minVert: ContiguousArray<MeshUtils.Vertex> = [ v, v, v ]
@@ -142,8 +139,7 @@ public class Tess {
             return maxVal[index] - minVal[index]
         }
         
-        while v !== _mesh!._vHead {
-            
+        _mesh.forEachVertex { v in
             if (v._coords.X < minVal[0]) {
                 minVal[0] = v._coords.X
                 minVert[0] = v
@@ -168,19 +164,16 @@ public class Tess {
                 maxVal[2] = v._coords.Z
                 maxVert[2] = v
             }
-            
-            v = v._next!
         }
         
         // Find two vertices separated by at least 1/sqrt(3) of the maximum
         // distance between any two vertices
         var i = 0
-        //if (maxVal[1] - minVal[1] > maxVal[0] - minVal[0]) {
+        
         if subMinMax(1) > subMinMax(0) {
             i = 1
         }
         
-        //if (maxVal[2] - minVal[2] > maxVal[i] - minVal[i]) {
         if subMinMax(2) > subMinMax(i) {
             i = 2
         }
@@ -194,31 +187,24 @@ public class Tess {
         // Look for a third vertex which forms the triangle with maximum area
         // (Length of normal == twice the triangle area)
         var maxLen2: CGFloat = 0
-        var tLen2: CGFloat
         let v1 = minVert[i]
         let v2 = maxVert[i]
         var d1: Vec3 = .Zero, d2: Vec3 = .Zero, tNorm: Vec3 = .Zero
         Vec3.Sub(lhs: &v1._coords, rhs: &v2._coords, result: &d1)
         
-        v = _mesh!._vHead._next!
-        
-        while v !== _mesh!._vHead {
-            defer {
-                v = v._next!
-            }
-            
+        _mesh.forEachVertex { v in
             Vec3.Sub(lhs: &v._coords, rhs: &v2._coords, result: &d2)
             tNorm.X = d1.Y * d2.Z - d1.Z * d2.Y
             tNorm.Y = d1.Z * d2.X - d1.X * d2.Z
             tNorm.Z = d1.X * d2.Y - d1.Y * d2.X
-            tLen2 = tNorm.X * tNorm.X + tNorm.Y * tNorm.Y + tNorm.Z * tNorm.Z
+            let tLen2 = tNorm.X * tNorm.X + tNorm.Y * tNorm.Y + tNorm.Z * tNorm.Z
             
             if (tLen2 > maxLen2) {
                 maxLen2 = tLen2
                 norm = tNorm
             }
         }
-
+        
         if (maxLen2 <= 0.0) {
             // All points lie on a single line -- any decent normal will do
             norm = Vec3.Zero
@@ -232,23 +218,17 @@ public class Tess {
         // so that the the sum of the signed areas of all contours is non-negative.
         var area: CGFloat = 0.0
         
-        var f = _mesh!._fHead._next!
-        
-        while f !== _mesh!._fHead {
-            defer {
-                f = f._next!
-            }
-            
+        _mesh.forEachFace { f in
             if (f._anEdge!._winding <= 0) {
-                continue
+                return
             }
             area += MeshUtils.FaceArea(f)
         }
         
         if (area < 0.0) {
             // Reverse the orientation by flipping all the t-coordinates
-            _mesh._vHead.loop {
-                $0._t = -$0._t
+            _mesh.forEachVertex { v in
+                v._t = -v._t
             }
             
             Vec3.Neg(v: &_tUnit)
@@ -276,7 +256,7 @@ public class Tess {
         _tUnit[(i + 2) % 3] = norm[i] > 0.0 ? SUnitX : -SUnitX
 
         // Project the vertices onto the sweep plane
-        _mesh._vHead.loop { v in
+        _mesh.forEachVertex { v in
             Vec3.Dot(u: &v._coords, v: &_sUnit, dot: &v._s)
             Vec3.Dot(u: &v._coords, v: &_tUnit, dot: &v._t)
         }
@@ -288,7 +268,7 @@ public class Tess {
         // Compute ST bounds.
         var first = true
         
-        _mesh._vHead.loop { v in
+        _mesh.forEachVertex { v in
             if (first) {
                 _bmaxX = v._s
                 _bminX = v._s
@@ -412,21 +392,13 @@ public class Tess {
     /// </summary>
     private func setWindingNumber(_ value: Int, _ keepOnlyBoundary: Bool) {
         
-        var eNext: MeshUtils.Edge
-        
-        var e = _mesh._eHead._next!
-        while e !== _mesh._eHead {
-            defer {
-                e = eNext
-            }
-            
-            eNext = e._next
+        _mesh.forEachEdge { e in
             if (e._Rface._inside != e._Lface._inside) {
-
+                
                 /* This is a boundary edge (one side is interior, one is exterior). */
                 e._winding = (e._Lface._inside) ? value : -value
             } else {
-
+                
                 /* Both regions are interior, or both are exterior. */
                 if (!keepOnlyBoundary) {
                     e._winding = 0
@@ -448,12 +420,9 @@ public class Tess {
     }
     
     private func outputPolymesh(_ elementType: ElementType, _ polySize: Int) {
-        var v: MeshUtils.Vertex
-        var f: MeshUtils.Face
-        var edge: MeshUtils.Edge
         var maxFaceCount = 0
         var maxVertexCount = 0
-        var faceVerts: Int = 0, i: Int = 0
+        var faceVerts: Int = 0
         var polySize = polySize
 
         if (polySize < 3) {
@@ -466,46 +435,36 @@ public class Tess {
         }
 
         // Mark unused
-        v = _mesh._vHead._next
-        
-        while v !== _mesh._vHead {
+        _mesh.forEachVertex { v in
             v._n = MeshUtils.Undef
-            v = v._next
         }
-
-        // Create unique IDs for all vertices and faces.
-        f = _mesh._fHead._next
         
-        while f !== _mesh._fHead {
-            defer {
-                f = f._next
-            }
-            
+        // Create unique IDs for all vertices and faces.
+        _mesh.forEachFace { f in
             f._n = MeshUtils.Undef
-            if (!f._inside) { continue }
-
+            if (!f._inside) { return }
+            
             if (noEmptyPolygons) {
                 var area = MeshUtils.FaceArea(f)
                 if (abs(area) < CGFloat.leastNonzeroMagnitude) {
-                    continue
+                    return
                 }
             }
-
-            edge = f._anEdge!
+            
+            var edge = f._anEdge!
             faceVerts = 0
             repeat {
-                v = edge._Org
+                let v = edge._Org!
                 if (v._n == MeshUtils.Undef) {
                     v._n = maxVertexCount
                     maxVertexCount += 1
                 }
                 faceVerts += 1
                 edge = edge._Lnext
-            }
-            while (edge !== f._anEdge)
-
+            } while (edge !== f._anEdge)
+            
             assert(faceVerts <= polySize)
-
+            
             f._n = maxFaceCount
             maxFaceCount += 1
         }
@@ -520,41 +479,32 @@ public class Tess {
         _vertices = Array(repeating: ContourVertex(Position: .Zero, Data: nil), count: _vertexCount)
 
         // Output vertices.
-        v = _mesh._vHead._next
-        while v !== _mesh._vHead {
-            defer {
-                v = v._next
-            }
-            
+        _mesh.forEachVertex { v in
             if (v._n != MeshUtils.Undef) {
                 // Store coordinate
                 _vertices[v._n].position = v._coords
                 _vertices[v._n].data = v._data
             }
         }
-
+        
         // Output indices.
         var elementIndex = 0
-        f = _mesh._fHead._next
-        while f !== _mesh._fHead {
-            defer {
-                f = f._next
-            }
+        
+        _mesh.forEachFace { f in
+            if (!f._inside) { return }
             
-            if (!f._inside) { continue }
-
             if (noEmptyPolygons) {
                 let area = MeshUtils.FaceArea(f)
                 if (abs(area) < CGFloat.leastNonzeroMagnitude) {
-                    continue
+                    return
                 }
             }
             
             // Store polygon
-            edge = f._anEdge
+            var edge = f._anEdge!
             faceVerts = 0
             repeat {
-                v = edge._Org
+                let v = edge._Org!
                 _elements[elementIndex] = v._n
                 elementIndex += 1
                 faceVerts += 1
@@ -706,7 +656,7 @@ public class Tess {
         _windingRule = windingRule
         _combineCallback = combineCallback
 
-        if (_mesh == nil) {
+        guard let mesh = _mesh else {
             return
         }
 
@@ -729,19 +679,18 @@ public class Tess {
         } else {
             tessellateInterior()
         }
-
-        _mesh!.Check()
-
+        
+        mesh.Check()
+        
         if (elementType == ElementType.boundaryContours) {
             outputContours()
         } else {
             outputPolymesh(elementType, polySize)
         }
-
-        if (usePooling) {
-            _mesh?.OnFree()
-            _mesh?.Reset()
-        }
+        
+        mesh.OnFree()
+        mesh.Reset()
+        
         _mesh = nil
     }
 }

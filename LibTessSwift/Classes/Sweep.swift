@@ -819,13 +819,14 @@ extension Tess {
     ///     - merging with an already-processed portion of U or L
     /// </summary>
     private func ConnectLeftVertex(_ vEvent: MeshUtils.Vertex) {
-        let tmp = ActiveRegion()
         
         // Get a pointer to the active region containing vEvent
-        tmp._eUp = vEvent._anEdge._Sym
-        let regUp = _dict.Find(key: tmp).Key!
-        let regLo: ActiveRegion! = RegionBelow(regUp)
-        if (regLo == nil) {
+        let regUp = _regionsPool.withTemporary { tmp -> ActiveRegion in
+            tmp._eUp = vEvent._anEdge._Sym
+            return _dict.Find(key: tmp).Key!
+        }
+        
+        guard let regLo = RegionBelow(regUp) else {
             // This may happen if the input polygon is coplanar.
             return
         }
@@ -840,7 +841,7 @@ extension Tess {
         
         // Connect vEvent to rightmost processed vertex of either chain.
         // e._Dst is the vertex that we will connect to vEvent.
-        let reg = Geom.VertLeq(eLo._Dst, eUp._Dst) ? regUp : regLo!
+        let reg = Geom.VertLeq(eLo._Dst, eUp._Dst) ? regUp : regLo
 
         if (regUp._inside || reg._fixUpperEdge) {
             var eNew: MeshUtils.Edge
@@ -919,8 +920,8 @@ extension Tess {
         e._Dst._s = smin
         e._Dst._t = t
         _event = e._Dst // initialize it
-
-        let reg = ActiveRegion()
+        
+        let reg = _regionsPool.pull()
         reg._eUp = e
         reg._windingNumber = 0
         reg._inside = false
@@ -966,6 +967,8 @@ extension Tess {
     private func RemoveDegenerateEdges() {
         var eHead = _mesh._eHead, eNext: MeshUtils.Edge, eLnext: MeshUtils.Edge
         
+        // Can't use _mesh.forEachEdge due to a reassignment of the next edge
+        // to step to
         var e = eHead._next!
         while e !== eHead {
             defer {
@@ -981,7 +984,7 @@ extension Tess {
                 SpliceMergeVertices(eLnext, e)	// deletes e.Org
                 _mesh.Delete(e) // e is a self-loop
                 e = eLnext
-                eLnext = e._Lnext
+                eLnext = e._Lnext // Can't use _mesh.forEachEdge due to this reassignment
             }
             if (eLnext._Lnext === e) {
                 // Degenerate contour (one or two edges)
@@ -1005,27 +1008,18 @@ extension Tess {
     /// order in which vertices cross the sweep line.
     /// </summary>
     private func InitPriorityQ() {
-        var vHead: MeshUtils.Vertex = _mesh._vHead
         var vertexCount = 0
         
-        var v = vHead._next!
-        while v !== vHead {
-            defer {
-                v = v._next
-            }
+        _mesh.forEachVertex { v in
             vertexCount += 1
         }
+        
         // Make sure there is enough space for sentinels.
         vertexCount += 8
         
         _pq = PriorityQueue<MeshUtils.Vertex>(vertexCount,  { Geom.VertLeq($0!, $1!) })
         
-        vHead = _mesh._vHead
-        v = vHead._next!
-        while v !== vHead {
-            defer {
-                v = v._next
-            }
+        _mesh.forEachVertex { v in
             v._pqHandle = _pq.Insert(v)
             if (v._pqHandle._handle == PQHandle.Invalid) {
                 // TODO: Throw a proper error here
@@ -1055,19 +1049,10 @@ extension Tess {
     /// will sometimes be keeping a pointer to that edge.
     /// </summary>
     private func RemoveDegenerateFaces() {
-        var fNext: MeshUtils.Face
-        var e: MeshUtils.Edge
-        
-        var f = _mesh._fHead._next!
-        while f !== _mesh._fHead {
-            defer {
-                f = fNext
-            }
-            
-            fNext = f._next
-            e = f._anEdge
+        _mesh.forEachFace { f in
+            let e = f._anEdge!
             assert(e._Lnext !== e)
-
+            
             if (e._Lnext._Lnext === e) {
                 // A face with only two edges
                 Geom.AddWinding(e._Onext, e)
