@@ -90,7 +90,7 @@ public class TessC {
     var ma: TESSalloc?
     
     /// TESStesselator* tess
-    let tess: OpaquePointer
+    let tess: UnsafeMutablePointer<TESStesselator>
     
     /// List of vertices tesselated.
     /// Is nil, until a tesselation is performed.
@@ -119,15 +119,15 @@ public class TessC {
             
             memoryPool = MemPool(buf: mem!, cap: size_t(poolSize), size: 0)
             
-            ma = TESSalloc(memalloc: { stdAlloc(userData: $0, size: $1) },
+            ma = TESSalloc(memalloc: { stdAlloc(userData: $0!, size: $1) },
                            memrealloc: nil,
-                           memfree: { stdFree(userData: $0, ptr: $1) },
+                           memfree: { stdFree(userData: $0!, ptr: $1!) },
                            userData: &memoryPool!, meshEdgeBucketSize: 0,
                            meshVertexBucketSize: 0, meshFaceBucketSize: 0,
                            dictNodeBucketSize: 0, regionBucketSize: 0,
                            extraVertices: 256)
             
-            guard let tess: OpaquePointer = tessNewTess(&ma!) else {
+            guard let tess = tessNewTess(&ma!) else {
                 // Free memory
                 free(mem!)
                 
@@ -138,7 +138,7 @@ public class TessC {
             
             self.tess = tess
         } else {
-            guard let tess: OpaquePointer = tessNewTess(nil) else {
+            guard let tess = tessNewTess(nil) else {
                 // Tesselator failed to initialize
                 print("Failed to initialize tesselator")
                 return nil
@@ -183,10 +183,10 @@ public class TessC {
         }
         
         // Fetch tesselation out
-        let verts = tessGetVertices(tess);
-        let elems = tessGetElements(tess);
-        let nverts = Int(tessGetVertexCount(tess));
-        let nelems = Int(tessGetElementCount(tess));
+        let verts = tessGetVertices(tess)!
+        let elems = tessGetElements(tess)!
+        let nverts = Int(tessGetVertexCount(tess))
+        let nelems = Int(tessGetElementCount(tess))
         
         var output: [CVector3] = []
         var indicesOut: [Int] = []

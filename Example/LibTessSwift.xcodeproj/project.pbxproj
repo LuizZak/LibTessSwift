@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3BDF96F0A1C83C7ECB62C8E2 /* Pods_LibTessSwift_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8769723DBBC130F7FD5BD87 /* Pods_LibTessSwift_Example.framework */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
@@ -60,8 +61,7 @@
 		A0B489041E64F84700DE3A4E /* strange.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488D81E64F6FA00DE3A4E /* strange.dat */; };
 		A0B489051E64F84700DE3A4E /* tank.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488D91E64F6FA00DE3A4E /* tank.dat */; };
 		A0B489061E64F84700DE3A4E /* test.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488DA1E64F6FA00DE3A4E /* test.dat */; };
-		C21AA9C4084CBDA0BE5123D3 /* Pods_LibTessSwift_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 006044DD236BF2FABA2BCD17 /* Pods_LibTessSwift_Example.framework */; };
-		E1FDED9A9F203191C11C078D /* Pods_LibTessSwift_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE5F61903539D1BD0A74C6DD /* Pods_LibTessSwift_Tests.framework */; };
+		FC33B5BBC480A50BDEC8EB47 /* Pods_LibTessSwift_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 953CEE74FA6F070EFFBC64CB /* Pods_LibTessSwift_Tests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,10 +75,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		006044DD236BF2FABA2BCD17 /* Pods_LibTessSwift_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LibTessSwift_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		066723D44F11F81A6653A4FD /* Pods-LibTessSwift_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LibTessSwift_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-LibTessSwift_Tests/Pods-LibTessSwift_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		1A5B2B7520164AD935CBFE17 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
-		337B17B2F1A6B04910FEB4C5 /* Pods-LibTessSwift_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LibTessSwift_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-LibTessSwift_Example/Pods-LibTessSwift_Example.release.xcconfig"; sourceTree = "<group>"; };
+		41C85EB2082082D30B70549A /* Pods-LibTessSwift_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LibTessSwift_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-LibTessSwift_Example/Pods-LibTessSwift_Example.release.xcconfig"; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* LibTessSwift_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LibTessSwift_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -89,8 +87,9 @@
 		607FACE51AFB9204008FA782 /* LibTessSwift_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LibTessSwift_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Tests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		782E4CB1C0EDAE07A6616398 /* Pods-LibTessSwift_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LibTessSwift_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-LibTessSwift_Tests/Pods-LibTessSwift_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		8F68A61433E5C22A704B81E4 /* LibTessSwift.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LibTessSwift.podspec; path = ../LibTessSwift.podspec; sourceTree = "<group>"; };
-		90CF804B8CB628A03723A9C5 /* Pods-LibTessSwift_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LibTessSwift_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LibTessSwift_Example/Pods-LibTessSwift_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		953CEE74FA6F070EFFBC64CB /* Pods_LibTessSwift_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LibTessSwift_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A00AE2EA1E64CB0C0052E418 /* DataLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = DataLoader.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		A00AE2EC1E64CBF00052E418 /* DDFileReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDFileReader.swift; sourceTree = "<group>"; };
 		A00AE2F11E64D2190052E418 /* 2.testdat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 2.testdat; sourceTree = "<group>"; };
@@ -139,8 +138,9 @@
 		A0B488D91E64F6FA00DE3A4E /* tank.dat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tank.dat; sourceTree = "<group>"; };
 		A0B488DA1E64F6FA00DE3A4E /* test.dat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.dat; sourceTree = "<group>"; };
 		A7DAE31B7A07DBDE66689D6C /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
-		DC43E20CCBDD73E697CA6A36 /* Pods-LibTessSwift_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LibTessSwift_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LibTessSwift_Tests/Pods-LibTessSwift_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		FE5F61903539D1BD0A74C6DD /* Pods_LibTessSwift_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LibTessSwift_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A8769723DBBC130F7FD5BD87 /* Pods_LibTessSwift_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LibTessSwift_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F45149AD3878CD12FA94C841 /* Pods-LibTessSwift_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LibTessSwift_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LibTessSwift_Tests/Pods-LibTessSwift_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		FE264A20EF9DE8740C1377F0 /* Pods-LibTessSwift_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LibTessSwift_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LibTessSwift_Example/Pods-LibTessSwift_Example.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,7 +148,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C21AA9C4084CBDA0BE5123D3 /* Pods_LibTessSwift_Example.framework in Frameworks */,
+				3BDF96F0A1C83C7ECB62C8E2 /* Pods_LibTessSwift_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -156,20 +156,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E1FDED9A9F203191C11C078D /* Pods_LibTessSwift_Tests.framework in Frameworks */,
+				FC33B5BBC480A50BDEC8EB47 /* Pods_LibTessSwift_Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1DAADAAC8C45767CBB4EC55D /* Pods */ = {
+		2915373444A41DC67ECBA369 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				90CF804B8CB628A03723A9C5 /* Pods-LibTessSwift_Example.debug.xcconfig */,
-				337B17B2F1A6B04910FEB4C5 /* Pods-LibTessSwift_Example.release.xcconfig */,
-				DC43E20CCBDD73E697CA6A36 /* Pods-LibTessSwift_Tests.debug.xcconfig */,
-				066723D44F11F81A6653A4FD /* Pods-LibTessSwift_Tests.release.xcconfig */,
+				A8769723DBBC130F7FD5BD87 /* Pods_LibTessSwift_Example.framework */,
+				953CEE74FA6F070EFFBC64CB /* Pods_LibTessSwift_Tests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3D322F83EFB3085833A60C0E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				FE264A20EF9DE8740C1377F0 /* Pods-LibTessSwift_Example.debug.xcconfig */,
+				41C85EB2082082D30B70549A /* Pods-LibTessSwift_Example.release.xcconfig */,
+				F45149AD3878CD12FA94C841 /* Pods-LibTessSwift_Tests.debug.xcconfig */,
+				782E4CB1C0EDAE07A6616398 /* Pods-LibTessSwift_Tests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -181,8 +190,8 @@
 				607FACD21AFB9204008FA782 /* Example for LibTessSwift */,
 				607FACE81AFB9204008FA782 /* Tests */,
 				607FACD11AFB9204008FA782 /* Products */,
-				1DAADAAC8C45767CBB4EC55D /* Pods */,
-				F58CCBEE309D39DBE992886A /* Frameworks */,
+				3D322F83EFB3085833A60C0E /* Pods */,
+				2915373444A41DC67ECBA369 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -307,15 +316,6 @@
 			name = Data;
 			sourceTree = "<group>";
 		};
-		F58CCBEE309D39DBE992886A /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				006044DD236BF2FABA2BCD17 /* Pods_LibTessSwift_Example.framework */,
-				FE5F61903539D1BD0A74C6DD /* Pods_LibTessSwift_Tests.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -323,12 +323,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 607FACEF1AFB9204008FA782 /* Build configuration list for PBXNativeTarget "LibTessSwift_Example" */;
 			buildPhases = (
-				DCE27298185A4B060D83F829 /* [CP] Check Pods Manifest.lock */,
+				72FC676DA6EA20521848E468 /* [CP] Check Pods Manifest.lock */,
 				607FACCC1AFB9204008FA782 /* Sources */,
 				607FACCD1AFB9204008FA782 /* Frameworks */,
 				607FACCE1AFB9204008FA782 /* Resources */,
-				569FE82F5ADF169310AC0F78 /* [CP] Embed Pods Frameworks */,
-				863AEFFF4A38033B6D0ABD28 /* [CP] Copy Pods Resources */,
+				6AC3E609C82CA93587A03D4A /* [CP] Embed Pods Frameworks */,
+				C5E3CCF646B2BCF9512D697A /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -343,12 +343,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 607FACF21AFB9204008FA782 /* Build configuration list for PBXNativeTarget "LibTessSwift_Tests" */;
 			buildPhases = (
-				BC1D44B03CB722D617FE3703 /* [CP] Check Pods Manifest.lock */,
+				E6E08E4EF85DE20A4E95A339 /* [CP] Check Pods Manifest.lock */,
 				607FACE11AFB9204008FA782 /* Sources */,
 				607FACE21AFB9204008FA782 /* Frameworks */,
 				607FACE31AFB9204008FA782 /* Resources */,
-				1A981FF883D08AB4E19592A2 /* [CP] Embed Pods Frameworks */,
-				3810791A0B1AB92212BA985A /* [CP] Copy Pods Resources */,
+				CE94D1A2C4EBA02684D68E70 /* [CP] Embed Pods Frameworks */,
+				288C06CD91E34E5614E972C6 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -465,22 +465,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1A981FF883D08AB4E19592A2 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LibTessSwift_Tests/Pods-LibTessSwift_Tests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		3810791A0B1AB92212BA985A /* [CP] Copy Pods Resources */ = {
+		288C06CD91E34E5614E972C6 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -495,7 +480,7 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LibTessSwift_Tests/Pods-LibTessSwift_Tests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		569FE82F5ADF169310AC0F78 /* [CP] Embed Pods Frameworks */ = {
+		6AC3E609C82CA93587A03D4A /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -510,22 +495,7 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LibTessSwift_Example/Pods-LibTessSwift_Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		863AEFFF4A38033B6D0ABD28 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LibTessSwift_Example/Pods-LibTessSwift_Example-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		BC1D44B03CB722D617FE3703 /* [CP] Check Pods Manifest.lock */ = {
+		72FC676DA6EA20521848E468 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -540,7 +510,37 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		DCE27298185A4B060D83F829 /* [CP] Check Pods Manifest.lock */ = {
+		C5E3CCF646B2BCF9512D697A /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LibTessSwift_Example/Pods-LibTessSwift_Example-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CE94D1A2C4EBA02684D68E70 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LibTessSwift_Tests/Pods-LibTessSwift_Tests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E6E08E4EF85DE20A4E95A339 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -697,7 +697,7 @@
 		};
 		607FACF01AFB9204008FA782 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 90CF804B8CB628A03723A9C5 /* Pods-LibTessSwift_Example.debug.xcconfig */;
+			baseConfigurationReference = FE264A20EF9DE8740C1377F0 /* Pods-LibTessSwift_Example.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -717,7 +717,7 @@
 		};
 		607FACF11AFB9204008FA782 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 337B17B2F1A6B04910FEB4C5 /* Pods-LibTessSwift_Example.release.xcconfig */;
+			baseConfigurationReference = 41C85EB2082082D30B70549A /* Pods-LibTessSwift_Example.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -732,7 +732,7 @@
 		};
 		607FACF31AFB9204008FA782 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC43E20CCBDD73E697CA6A36 /* Pods-LibTessSwift_Tests.debug.xcconfig */;
+			baseConfigurationReference = F45149AD3878CD12FA94C841 /* Pods-LibTessSwift_Tests.debug.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -752,7 +752,7 @@
 		};
 		607FACF41AFB9204008FA782 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 066723D44F11F81A6653A4FD /* Pods-LibTessSwift_Tests.release.xcconfig */;
+			baseConfigurationReference = 782E4CB1C0EDAE07A6616398 /* Pods-LibTessSwift_Tests.release.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",

@@ -30,9 +30,6 @@
 */
 
 #import <stdlib.h>
-#import "objc-clang.h"
-
-NS_ASSUME_NONNULL_BEGIN
 
 #ifndef TESSELATOR_H
 #define TESSELATOR_H
@@ -148,10 +145,10 @@ typedef struct TESSalloc TESSalloc;
 struct TESSalloc
 {
     // Can return null, to indicate allocation failure
-	void *_Nullable(*_Nonnull memalloc)( void * userData, size_t size );
-	void *_Nonnull(*_Nullable memrealloc)( void *userData, void* ptr, size_t size );
-	void (*_Nonnull memfree)( void *userData, void *ptr );
-	void*_Nullable userData;				// User data passed to the allocator functions.
+	void *(*memalloc)( void * userData, size_t size );
+	void *(*memrealloc)( void *userData, void* ptr, size_t size );
+	void (*memfree)( void *userData, void *ptr );
+	void* userData;				// User data passed to the allocator functions.
 	int meshEdgeBucketSize;		// 512
 	int meshVertexBucketSize;	// 512
 	int meshFaceBucketSize;		// 256
@@ -174,7 +171,7 @@ struct TESSalloc
 //   alloc - pointer to a filled TESSalloc struct or NULL to use default malloc based allocator.
 // Returns:
 //   new tesselator object.
-TESStesselator*_Nullable tessNewTess( TESSalloc*_Nullable alloc );
+TESStesselator* tessNewTess( TESSalloc* alloc );
 
 // tessDeleteTess() - Deletes a tesselator.
 // Parameters:
@@ -201,7 +198,7 @@ void tessAddContour( TESStesselator *tess, int size, const void* pointer, int st
 //   normal - defines the normal of the input contours, of null the normal is calculated automatically.
 // Returns:
 //   1 if succeed, 0 if failed.
-int tessTesselate( TESStesselator *tess, int windingRule, int elementType, int polySize, int vertexSize, const TESSreal*_Nullable normal );
+int tessTesselate( TESStesselator *tess, int windingRule, int elementType, int polySize, int vertexSize, const TESSreal* normal );
 
 // tessGetVertexCount() - Returns number of vertices in the tesselated output.
 int tessGetVertexCount( TESStesselator *tess );
@@ -226,5 +223,3 @@ const TESSindex* tessGetElements( TESStesselator *tess );
 #endif
 
 #endif // TESSELATOR_H
-
-NS_ASSUME_NONNULL_END

@@ -7,33 +7,32 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0EC9754337DEF009CAD978A1A4F890ED /* objc-clang.h in Headers */ = {isa = PBXBuildFile; fileRef = 9880C5E6DEB506EC64746C8656792DFE /* objc-clang.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		12B0390B4884AFF66D7BBF8733B616D7 /* geom.c in Sources */ = {isa = PBXBuildFile; fileRef = E282CE6D53FF3AC0730650FE7267831B /* geom.c */; };
 		1693087D30569EEC17DD4A49B338AEEB /* tesselator.h in Headers */ = {isa = PBXBuildFile; fileRef = F40A1D89D7A4BBC7AAC9F1241EA52AD0 /* tesselator.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		27A02CF8B22791472882B1ECA1257821 /* sweep.c in Sources */ = {isa = PBXBuildFile; fileRef = 50B255B85FD3A9A3A54000DAB490FE81 /* sweep.c */; };
-		2C69A5A02236B7B7AA6596DC24157045 /* bucketalloc.h in Headers */ = {isa = PBXBuildFile; fileRef = E174CA2430F104158F3167D6255CFE94 /* bucketalloc.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		2E66F4DE2BF24CE1EFD9D43E310F77A9 /* sweep.h in Headers */ = {isa = PBXBuildFile; fileRef = E60519096ED688B6B2CDB05060C7FCCD /* sweep.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		442CE8D46153C132D7A69AC3C9EC68D5 /* priorityq.c in Sources */ = {isa = PBXBuildFile; fileRef = 0EDF23A82CF3086A336FD84552007766 /* priorityq.c */; };
 		45673685FAAF7971FEB0210D2CA71FBE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */; };
+		4F66AA28B627B7250F3BE0E9A791A65E /* bucketalloc.h in Headers */ = {isa = PBXBuildFile; fileRef = E174CA2430F104158F3167D6255CFE94 /* bucketalloc.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		66B61C5568C1D6C374CF2F29EC246E3D /* tess.c in Sources */ = {isa = PBXBuildFile; fileRef = 7308F4373342F4A07EB1308F5E8A5019 /* tess.c */; };
 		74C0752A9F03DE2CFC9092DD0E30CDCA /* Pods-LibTessSwift_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 736582F9EBC43D057E713A81DCC244BA /* Pods-LibTessSwift_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		75DDD4C5799DF41ED63033A4531088C7 /* tess.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A2718B8BCDDB9845E3F924934F8EAEB /* tess.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F1EC7827618EBEEEE5A7ADEB866ACEC /* bucketalloc.c in Sources */ = {isa = PBXBuildFile; fileRef = 78124EC61BCAEAC4F0CEE5023B7C88BF /* bucketalloc.c */; };
-		8B0F52AA81F40120B2D417512E6A554F /* geom.h in Headers */ = {isa = PBXBuildFile; fileRef = 30D98F9ECBA6F76ABDC15AB1FAE3EED6 /* geom.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		9491C242B2F88F7C2831151F77535C8C /* LibTessSwift-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C74C8F4E888C67175524F819538B307F /* LibTessSwift-dummy.m */; };
-		9CF20A4D9AA0DB9A2571250E4B8D2A9D /* mesh.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CF7EB5423C5F061626B94213C4A7F25 /* mesh.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		9E03ED31705DB061833A9ABDA12A99BB /* sweep.h in Headers */ = {isa = PBXBuildFile; fileRef = E60519096ED688B6B2CDB05060C7FCCD /* sweep.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9F947230785826D84E014916C2A6CA4F /* geom.h in Headers */ = {isa = PBXBuildFile; fileRef = 30D98F9ECBA6F76ABDC15AB1FAE3EED6 /* geom.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A1A1C22EAE63992FEA8B77F741D51781 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */; };
 		A9743FB34D4356FC8E1EE4D33115844C /* dict.c in Sources */ = {isa = PBXBuildFile; fileRef = 310CD16B2B3E6DD85F975A343EDD8261 /* dict.c */; };
+		C1CDE9BDE3387F2AA577A153E136C8B4 /* priorityq.h in Headers */ = {isa = PBXBuildFile; fileRef = 661DA4C77CE983FE9523DDCD02500B26 /* priorityq.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C41F6008597C75AB4DFFB311E5A6817B /* dict.h in Headers */ = {isa = PBXBuildFile; fileRef = 6AE0AF9BBD881E3D62FA0C90C9D682B8 /* dict.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C6742A13EC1FA120D03F30C12D111D3C /* mesh.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CF7EB5423C5F061626B94213C4A7F25 /* mesh.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CB936593051B584BA59B71D29E5BFB04 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */; };
 		CBE56273EABCDEE3565CAE4AEC7783DF /* TessC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED09A38FD462D687B6E09789B09D5EC /* TessC.swift */; };
 		CF288B882837B097964BDFE4FA8EF160 /* Pods-LibTessSwift_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = D33C71A0E410305427560D0A8558B030 /* Pods-LibTessSwift_Tests-dummy.m */; };
-		D23D0120598A582FD421B070E5716487 /* priorityq.h in Headers */ = {isa = PBXBuildFile; fileRef = 661DA4C77CE983FE9523DDCD02500B26 /* priorityq.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		D4BEBCD8168872EFE604443D6725F300 /* Public.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9B09B78ED49C9163B1D4D8DD938EE9 /* Public.swift */; };
 		D530DA8591A4D0C32C19D5C5E76C9787 /* Pods-LibTessSwift_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 1705B9DD964D342DDCDAC9FF12315EEA /* Pods-LibTessSwift_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D6CE8F455DDD10C9061C9EF8659CD067 /* dict.h in Headers */ = {isa = PBXBuildFile; fileRef = 6AE0AF9BBD881E3D62FA0C90C9D682B8 /* dict.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		D8CED0AEEA5CBBBDBE58472DC7AEFFF6 /* LibTessSwift-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 30960F94EF1A86C1D8C554AAAAA64E86 /* LibTessSwift-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DDA61E32C4DF0D3FBB289A29985DB19B /* mesh.c in Sources */ = {isa = PBXBuildFile; fileRef = A2F05046BBDFC512ACED5D5A9904AA35 /* mesh.c */; };
 		E51FC94138BA41079430B651F49AA6CF /* Pods-LibTessSwift_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 08A991768682307E2BDF801945286146 /* Pods-LibTessSwift_Example-dummy.m */; };
-		EA50B98BE1D6A5517B7037D65B402633 /* tess.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A2718B8BCDDB9845E3F924934F8EAEB /* tess.h */; settings = {ATTRIBUTES = (Project, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,7 +76,6 @@
 		927EA8511075F02DC660D5AE13CF39CB /* Pods_LibTessSwift_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LibTessSwift_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		930ECC0E624A74BEAED0D32758852367 /* Pods-LibTessSwift_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-LibTessSwift_Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		9880C5E6DEB506EC64746C8656792DFE /* objc-clang.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "objc-clang.h"; sourceTree = "<group>"; };
 		9A2718B8BCDDB9845E3F924934F8EAEB /* tess.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = tess.h; sourceTree = "<group>"; };
 		9A340EA983570A25BC1B1B2A86E1157C /* LibTessSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LibTessSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2F05046BBDFC512ACED5D5A9904AA35 /* mesh.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; path = mesh.c; sourceTree = "<group>"; };
@@ -137,7 +135,6 @@
 				30D98F9ECBA6F76ABDC15AB1FAE3EED6 /* geom.h */,
 				A2F05046BBDFC512ACED5D5A9904AA35 /* mesh.c */,
 				7CF7EB5423C5F061626B94213C4A7F25 /* mesh.h */,
-				9880C5E6DEB506EC64746C8656792DFE /* objc-clang.h */,
 				0EDF23A82CF3086A336FD84552007766 /* priorityq.c */,
 				661DA4C77CE983FE9523DDCD02500B26 /* priorityq.h */,
 				50B255B85FD3A9A3A54000DAB490FE81 /* sweep.c */,
@@ -296,15 +293,14 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2C69A5A02236B7B7AA6596DC24157045 /* bucketalloc.h in Headers */,
-				D6CE8F455DDD10C9061C9EF8659CD067 /* dict.h in Headers */,
-				8B0F52AA81F40120B2D417512E6A554F /* geom.h in Headers */,
+				4F66AA28B627B7250F3BE0E9A791A65E /* bucketalloc.h in Headers */,
+				C41F6008597C75AB4DFFB311E5A6817B /* dict.h in Headers */,
+				9F947230785826D84E014916C2A6CA4F /* geom.h in Headers */,
 				D8CED0AEEA5CBBBDBE58472DC7AEFFF6 /* LibTessSwift-umbrella.h in Headers */,
-				9CF20A4D9AA0DB9A2571250E4B8D2A9D /* mesh.h in Headers */,
-				0EC9754337DEF009CAD978A1A4F890ED /* objc-clang.h in Headers */,
-				D23D0120598A582FD421B070E5716487 /* priorityq.h in Headers */,
-				2E66F4DE2BF24CE1EFD9D43E310F77A9 /* sweep.h in Headers */,
-				EA50B98BE1D6A5517B7037D65B402633 /* tess.h in Headers */,
+				C6742A13EC1FA120D03F30C12D111D3C /* mesh.h in Headers */,
+				C1CDE9BDE3387F2AA577A153E136C8B4 /* priorityq.h in Headers */,
+				9E03ED31705DB061833A9ABDA12A99BB /* sweep.h in Headers */,
+				75DDD4C5799DF41ED63033A4531088C7 /* tess.h in Headers */,
 				1693087D30569EEC17DD4A49B338AEEB /* tesselator.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
