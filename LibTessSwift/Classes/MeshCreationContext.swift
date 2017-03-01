@@ -161,14 +161,11 @@ internal final class MeshCreationContext {
         
         // fix other edges on this face loop
         
-        // Use unsafe pointers to avoid unecessary retain/releases
-        var localEdge = eOrig
-        let edp = UnsafeMutablePointer<MeshUtils.Edge>(&localEdge)
-        
+        unowned(unsafe) var edp = eOrig
         repeat {
-            edp.pointee._Lface = fNew
-            edp.pointee = edp.pointee._Lnext
-        } while (edp.pointee !== eOrig)
+            edp._Lface = fNew
+            edp = edp._Lnext
+        } while (edp !== eOrig)
     }
     
     /// <summary>
