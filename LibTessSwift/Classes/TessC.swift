@@ -6,6 +6,7 @@
 //
 //
 
+import Foundation
 import simd
 
 public enum WindingRule: Int, CustomStringConvertible {
@@ -44,7 +45,7 @@ public enum ContourOrientation {
 }
 
 func stdAlloc(userData: UnsafeMutableRawPointer, size: size_t) -> UnsafeMutableRawPointer {
-    var allocated = userData.assumingMemoryBound(to: Int.self)
+    let allocated = userData.assumingMemoryBound(to: Int.self)
     allocated.pointee += size
     
     return malloc(size);
@@ -61,13 +62,13 @@ struct MemPool {
 }
 
 func poolAlloc(userData: UnsafeMutableRawPointer, size: size_t ) -> UnsafeMutableRawPointer? {
-    var pool = userData.assumingMemoryBound(to: MemPool.self)
+    let pool = userData.assumingMemoryBound(to: MemPool.self)
     
-    var size = (size+0x7) & ~0x7;
+    let size = (size+0x7) & ~0x7;
     
     if (pool.pointee.size + size < pool.pointee.cap)
     {
-        var ptr: UnsafeMutablePointer<CUnsignedChar> = pool.pointee.buf + pool.pointee.size;
+        let ptr: UnsafeMutablePointer<CUnsignedChar> = pool.pointee.buf + pool.pointee.size;
         pool.pointee.size += size
         
         return UnsafeMutableRawPointer(ptr)
