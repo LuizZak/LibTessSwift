@@ -1,0 +1,5 @@
+module libtess2 [system][extern_c] {
+    header "tesselator.h"
+    header "objc-clang.h"
+    export *
+}

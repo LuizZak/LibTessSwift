@@ -7,24 +7,32 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		04A31FEEC250D5AE328C73D9E88FE104 /* Geom.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD6D67BCB8C8116C385FE87E98E272C0 /* Geom.swift */; };
-		17BC0D21931B58301DB72131D7F31CEC /* MeshUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20176F168B881FACAF9CAE5D482EFBA1 /* MeshUtils.swift */; };
+		0B0A11C5B45F33975907210B1D48DF62 /* sweep.c in Sources */ = {isa = PBXBuildFile; fileRef = EFCE8DDE484A5B2834F0A180E37CC7D6 /* sweep.c */; };
+		22C7DC3A3BD63D362BF512DFB9238725 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */; };
+		379959CAD6B64277E5B2D4B68465D63F /* bucketalloc.h in Headers */ = {isa = PBXBuildFile; fileRef = 546B992648A8B170D519835ED19621CB /* bucketalloc.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		45673685FAAF7971FEB0210D2CA71FBE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */; };
-		563291365B3A72BFA3E9652B333B461D /* Tess.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD1DBA85C04758146E7F29262E71461 /* Tess.swift */; };
-		6ED107AD8790350C7E92C6AB45A8C2DC /* Mesh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D9BA96DF296D1EBFF736091EC2CC66 /* Mesh.swift */; };
-		738C6856B323B2B3E523723BA3478283 /* Dict.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57D52090C6820A31FE49184B9E7A07E /* Dict.swift */; };
+		4E743B42FC1D58101A75550CE151DF27 /* objc-clang.h in Headers */ = {isa = PBXBuildFile; fileRef = DBFE4D1E03C3945DC548E934ECE9C860 /* objc-clang.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		50CCDDBCC5AE2B17B27CC919ECBBB902 /* tesselator.h in Headers */ = {isa = PBXBuildFile; fileRef = 57D77B1042F0E4C9F4C7E2F98ABAD7EB /* tesselator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5551168B58135E28AF5FAD345AB2DA25 /* LibTessSwift-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 30960F94EF1A86C1D8C554AAAAA64E86 /* LibTessSwift-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		596F0F9C54C9F2A00876206250CEC064 /* Public.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCCA25305B3FB9E7DE420F9A3560BCAB /* Public.swift */; };
+		6E1894B7E47E50C7D34C5E4CA98FC68D /* mesh.c in Sources */ = {isa = PBXBuildFile; fileRef = 08D28B395EF5CE5E241FEEEBD9BE8172 /* mesh.c */; };
+		730A003B3044D21E7C978C348CB57A90 /* geom.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FDB07CAFA95E93EA0B5E4486BD577E6 /* geom.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		74C0752A9F03DE2CFC9092DD0E30CDCA /* Pods-LibTessSwift_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 736582F9EBC43D057E713A81DCC244BA /* Pods-LibTessSwift_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7FB836AA5484B35A6DDC6F226ED8EB9D /* PriorityQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E94771530F37C75E9F0C9BD457017F9 /* PriorityQueue.swift */; };
-		A002ADC0B9BFB56700B9A7986E6C25A3 /* LibTessSwift-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 693D6B32439463290FC48534FB212640 /* LibTessSwift-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A21EB5A4D7A9C19531E1AAA0D14B7493 /* Sweep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BBF3C34832DAF9ECDA108296D809129 /* Sweep.swift */; };
-		A7AB5991127B850C2A3FF08F2FBFE00D /* MeshCreationContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0779E58D192A8C8D2639AA2D1D17E0D /* MeshCreationContext.swift */; };
-		A9129D410D6C5A60FC73FDEBF85697F9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */; };
-		ACECCA118255DC00C24DB9F12D157ADB /* Pool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90BBBD22E609D5702729E26F773C75EC /* Pool.swift */; };
+		8736E5FBDE17BE1A326623A67A6FED7C /* TessC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34A9013FBCBAAC06995A074312F948A /* TessC.swift */; };
+		92241E69717C17365C8C727F097DAD9E /* mesh.h in Headers */ = {isa = PBXBuildFile; fileRef = DF2F106E53360E386DD7E5FD5B5BC846 /* mesh.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		9BF662663956830B493241D826EA6894 /* geom.c in Sources */ = {isa = PBXBuildFile; fileRef = 792F0EFB528FE5E885994E2490131E1D /* geom.c */; };
+		9D1CE3AC125133A51F7C08ED10848FDB /* dict.c in Sources */ = {isa = PBXBuildFile; fileRef = 8E06F057B929425D00DDE46C49AB2735 /* dict.c */; };
+		9F5B9C1D4E83A9817C99A2E49C1C101B /* tess.h in Headers */ = {isa = PBXBuildFile; fileRef = 912EC9723A4C0F85DB7F58EB40DF85EA /* tess.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		AAA2BA52DCF65606D71A96C41F5FA4BA /* sweep.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DAC372AAF621891F95B985EA54490E1 /* sweep.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		C48A88036C50F9DAED29130C4F02A46B /* priorityq.h in Headers */ = {isa = PBXBuildFile; fileRef = C0ACDD17D5394A5FA3E708C5E4BEAB7E /* priorityq.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		C63FB1899A280D776813F2F1E843930B /* dict.h in Headers */ = {isa = PBXBuildFile; fileRef = 64E2C41C5695D639AECA76783D597F4F /* dict.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		CB936593051B584BA59B71D29E5BFB04 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */; };
+		CD7E08B285760B2D2F75E4AA151736C1 /* priorityq.c in Sources */ = {isa = PBXBuildFile; fileRef = 21A6156E37E612F96110202928307B31 /* priorityq.c */; };
 		CF288B882837B097964BDFE4FA8EF160 /* Pods-LibTessSwift_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = D33C71A0E410305427560D0A8558B030 /* Pods-LibTessSwift_Tests-dummy.m */; };
-		D0FF36DDEDF2FB154F273F601110589A /* PriorityHeap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A29A9057BF0875DD197F47C6180EE05 /* PriorityHeap.swift */; };
+		D3589AD5E19EEC2DA3A6FD89549DB6D3 /* bucketalloc.c in Sources */ = {isa = PBXBuildFile; fileRef = AB217B3520E3B71ED83A59CBD6AE28C2 /* bucketalloc.c */; };
 		D530DA8591A4D0C32C19D5C5E76C9787 /* Pods-LibTessSwift_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 1705B9DD964D342DDCDAC9FF12315EEA /* Pods-LibTessSwift_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D69D237F26520BBE3747AADF739876F2 /* LibTessSwift-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = DD9C8F9FCA11C37E824C2284349456A0 /* LibTessSwift-dummy.m */; };
+		D5CB14815D56D67A52EF33A18C5989C0 /* LibTessSwift-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C74C8F4E888C67175524F819538B307F /* LibTessSwift-dummy.m */; };
+		D71FF9A99A952AC995D96990B596BB8A /* tess.c in Sources */ = {isa = PBXBuildFile; fileRef = 993D318064F64507EFD19AD0F2BAC0F1 /* tess.c */; };
 		E51FC94138BA41079430B651F49AA6CF /* Pods-LibTessSwift_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 08A991768682307E2BDF801945286146 /* Pods-LibTessSwift_Example-dummy.m */; };
 /* End PBXBuildFile section */
 
@@ -33,56 +41,72 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = B0E90F522BA3374A1329E5A199008591;
+			remoteGlobalIDString = 086D917E625B0D9CAF84776E3BA7192C;
 			remoteInfo = LibTessSwift;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0856A3D69B8A29840D5DB34F2ED377B1 /* LibTessSwift.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = LibTessSwift.modulemap; sourceTree = "<group>"; };
 		08A991768682307E2BDF801945286146 /* Pods-LibTessSwift_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-LibTessSwift_Example-dummy.m"; sourceTree = "<group>"; };
+		08D28B395EF5CE5E241FEEEBD9BE8172 /* mesh.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; path = mesh.c; sourceTree = "<group>"; };
 		16A16463D0DCB579749D8882F822C1D7 /* Pods-LibTessSwift_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-LibTessSwift_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
 		1705B9DD964D342DDCDAC9FF12315EEA /* Pods-LibTessSwift_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-LibTessSwift_Tests-umbrella.h"; sourceTree = "<group>"; };
-		20176F168B881FACAF9CAE5D482EFBA1 /* MeshUtils.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MeshUtils.swift; sourceTree = "<group>"; };
+		21A6156E37E612F96110202928307B31 /* priorityq.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; path = priorityq.c; sourceTree = "<group>"; };
 		26AD1BB54C0D69BBC24961A4F181EE81 /* Pods-LibTessSwift_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-LibTessSwift_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		367F57D1D085F53F00122F215934634D /* LibTessSwift.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = LibTessSwift.xcconfig; sourceTree = "<group>"; };
+		30960F94EF1A86C1D8C554AAAAA64E86 /* LibTessSwift-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "LibTessSwift-umbrella.h"; sourceTree = "<group>"; };
 		39E228476E565F302DA1291CEE992F19 /* Pods-LibTessSwift_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-LibTessSwift_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
 		49758B8E09E201F5F390CA2FC4CC6FC6 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4D1E8725235F451390E2BCAD571D67F3 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4E94771530F37C75E9F0C9BD457017F9 /* PriorityQueue.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PriorityQueue.swift; sourceTree = "<group>"; };
+		4DAC372AAF621891F95B985EA54490E1 /* sweep.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = sweep.h; sourceTree = "<group>"; };
 		52D6F4B68F067E69259C59A9400BF700 /* Pods-LibTessSwift_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-LibTessSwift_Example-frameworks.sh"; sourceTree = "<group>"; };
-		5BBF3C34832DAF9ECDA108296D809129 /* Sweep.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Sweep.swift; sourceTree = "<group>"; };
+		546B992648A8B170D519835ED19621CB /* bucketalloc.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = bucketalloc.h; sourceTree = "<group>"; };
+		57D77B1042F0E4C9F4C7E2F98ABAD7EB /* tesselator.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = tesselator.h; sourceTree = "<group>"; };
 		5BF65BC61EAA382A96A8259C5AA65D4B /* Pods-LibTessSwift_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-LibTessSwift_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
-		693D6B32439463290FC48534FB212640 /* LibTessSwift-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "LibTessSwift-umbrella.h"; sourceTree = "<group>"; };
+		64E2C41C5695D639AECA76783D597F4F /* dict.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = dict.h; sourceTree = "<group>"; };
 		707AECF702279718C7B614AF3A08B05B /* Pods-LibTessSwift_Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-LibTessSwift_Example-resources.sh"; sourceTree = "<group>"; };
 		736582F9EBC43D057E713A81DCC244BA /* Pods-LibTessSwift_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-LibTessSwift_Example-umbrella.h"; sourceTree = "<group>"; };
-		76FEBCC12E8F01CB87BD1A743FA2DA2E /* LibTessSwift.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = LibTessSwift.modulemap; sourceTree = "<group>"; };
-		7A29A9057BF0875DD197F47C6180EE05 /* PriorityHeap.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PriorityHeap.swift; sourceTree = "<group>"; };
+		7398F0A23E81708572DFAA6767CDDF2A /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		792F0EFB528FE5E885994E2490131E1D /* geom.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; path = geom.c; sourceTree = "<group>"; };
 		843B510E659201346583C205433B2B31 /* Pods-LibTessSwift_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-LibTessSwift_Example.release.xcconfig"; sourceTree = "<group>"; };
 		84786F055E834279F80489CC6E6C1898 /* Pods-LibTessSwift_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-LibTessSwift_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		88966F548828B90F28595BFA4E71E146 /* Pods_LibTessSwift_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LibTessSwift_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		90BBBD22E609D5702729E26F773C75EC /* Pool.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Pool.swift; sourceTree = "<group>"; };
+		8E06F057B929425D00DDE46C49AB2735 /* dict.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; path = dict.c; sourceTree = "<group>"; };
+		912EC9723A4C0F85DB7F58EB40DF85EA /* tess.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = tess.h; sourceTree = "<group>"; };
 		927EA8511075F02DC660D5AE13CF39CB /* Pods_LibTessSwift_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LibTessSwift_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		930ECC0E624A74BEAED0D32758852367 /* Pods-LibTessSwift_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-LibTessSwift_Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		93D9BA96DF296D1EBFF736091EC2CC66 /* Mesh.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Mesh.swift; sourceTree = "<group>"; };
+		993D318064F64507EFD19AD0F2BAC0F1 /* tess.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; path = tess.c; sourceTree = "<group>"; };
 		9A340EA983570A25BC1B1B2A86E1157C /* LibTessSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LibTessSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		BDD1DBA85C04758146E7F29262E71461 /* Tess.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Tess.swift; sourceTree = "<group>"; };
-		BFF64A9781BCF7FD2E962B82851CC214 /* LibTessSwift-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "LibTessSwift-prefix.pch"; sourceTree = "<group>"; };
+		9FDB07CAFA95E93EA0B5E4486BD577E6 /* geom.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = geom.h; sourceTree = "<group>"; };
+		AB217B3520E3B71ED83A59CBD6AE28C2 /* bucketalloc.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; path = bucketalloc.c; sourceTree = "<group>"; };
+		C0ACDD17D5394A5FA3E708C5E4BEAB7E /* priorityq.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = priorityq.h; sourceTree = "<group>"; };
+		C74C8F4E888C67175524F819538B307F /* LibTessSwift-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "LibTessSwift-dummy.m"; sourceTree = "<group>"; };
 		CA296BF04DDA5580F12491850E3FE7EE /* Pods-LibTessSwift_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-LibTessSwift_Tests.modulemap"; sourceTree = "<group>"; };
 		CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		CFD96E56308654D9CB0A7A9AF7D27BBF /* Pods-LibTessSwift_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-LibTessSwift_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		CFED713EFD9E1DDA6F071F8666C44910 /* Pods-LibTessSwift_Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-LibTessSwift_Tests-resources.sh"; sourceTree = "<group>"; };
 		D33C71A0E410305427560D0A8558B030 /* Pods-LibTessSwift_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-LibTessSwift_Tests-dummy.m"; sourceTree = "<group>"; };
-		DD9C8F9FCA11C37E824C2284349456A0 /* LibTessSwift-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "LibTessSwift-dummy.m"; sourceTree = "<group>"; };
-		E0779E58D192A8C8D2639AA2D1D17E0D /* MeshCreationContext.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MeshCreationContext.swift; sourceTree = "<group>"; };
-		E57D52090C6820A31FE49184B9E7A07E /* Dict.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Dict.swift; sourceTree = "<group>"; };
+		DBFE4D1E03C3945DC548E934ECE9C860 /* objc-clang.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "objc-clang.h"; sourceTree = "<group>"; };
+		DCCA25305B3FB9E7DE420F9A3560BCAB /* Public.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Public.swift; sourceTree = "<group>"; };
+		DF2BEECBB7FC88BAF57B674159F52D5D /* LibTessSwift.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = LibTessSwift.xcconfig; sourceTree = "<group>"; };
+		DF2F106E53360E386DD7E5FD5B5BC846 /* mesh.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = mesh.h; sourceTree = "<group>"; };
+		E0EB6203BAB54592FE7EB532CCB146B2 /* LibTessSwift-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "LibTessSwift-prefix.pch"; sourceTree = "<group>"; };
+		EFCE8DDE484A5B2834F0A180E37CC7D6 /* sweep.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; path = sweep.c; sourceTree = "<group>"; };
+		F34A9013FBCBAAC06995A074312F948A /* TessC.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TessC.swift; sourceTree = "<group>"; };
 		F66C6B83C0283D02D89F7356B22ECF57 /* Pods-LibTessSwift_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-LibTessSwift_Example.modulemap"; sourceTree = "<group>"; };
-		F8862F1DDA9C9BAE99AB49DB7DD34FDF /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FBD2A0D3714A9F59E4595AA8AFA89A98 /* Pods-LibTessSwift_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-LibTessSwift_Tests-frameworks.sh"; sourceTree = "<group>"; };
-		FD6D67BCB8C8116C385FE87E98E272C0 /* Geom.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Geom.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		0C4F80EE75852E79EB127AA3680EC7C9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22C7DC3A3BD63D362BF512DFB9238725 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5F9A58A0B3A6578B59DBA160D6E94887 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -99,62 +123,38 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F3E89F3443D563183E68E7304D8FC345 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A9129D410D6C5A60FC73FDEBF85697F9 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		07DFCCBF60CEBE940A1013B02AEFC8F6 /* LibTessSwift */ = {
+			isa = PBXGroup;
+			children = (
+				7B3549F8E8B7C364CCE41BA1F76A4B9B /* Classes */,
+				E8663114D2E9C04A6F75EF3680E0238A /* libtess2 */,
+			);
+			path = LibTessSwift;
+			sourceTree = "<group>";
+		};
 		1C8682A4FDB3B986DD23DC39B43202E4 /* Development Pods */ = {
 			isa = PBXGroup;
 			children = (
-				953AE2B1FBC67FD1FF85E3B2D9F1FAE2 /* LibTessSwift */,
+				EDEE1AA1873C0435095F39B46A1A5754 /* LibTessSwift */,
 			);
 			name = "Development Pods";
 			sourceTree = "<group>";
 		};
-		5CD073F40F87587D0BFDD42BF2052572 /* Classes */ = {
+		4DDF8207A24AEF9184CACBED32D9C285 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				E57D52090C6820A31FE49184B9E7A07E /* Dict.swift */,
-				FD6D67BCB8C8116C385FE87E98E272C0 /* Geom.swift */,
-				93D9BA96DF296D1EBFF736091EC2CC66 /* Mesh.swift */,
-				E0779E58D192A8C8D2639AA2D1D17E0D /* MeshCreationContext.swift */,
-				20176F168B881FACAF9CAE5D482EFBA1 /* MeshUtils.swift */,
-				90BBBD22E609D5702729E26F773C75EC /* Pool.swift */,
-				7A29A9057BF0875DD197F47C6180EE05 /* PriorityHeap.swift */,
-				4E94771530F37C75E9F0C9BD457017F9 /* PriorityQueue.swift */,
-				5BBF3C34832DAF9ECDA108296D809129 /* Sweep.swift */,
-				BDD1DBA85C04758146E7F29262E71461 /* Tess.swift */,
-			);
-			path = Classes;
-			sourceTree = "<group>";
-		};
-		70BD77BD03A13D07AB9216D010192D19 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				F8862F1DDA9C9BAE99AB49DB7DD34FDF /* Info.plist */,
-				76FEBCC12E8F01CB87BD1A743FA2DA2E /* LibTessSwift.modulemap */,
-				367F57D1D085F53F00122F215934634D /* LibTessSwift.xcconfig */,
-				DD9C8F9FCA11C37E824C2284349456A0 /* LibTessSwift-dummy.m */,
-				BFF64A9781BCF7FD2E962B82851CC214 /* LibTessSwift-prefix.pch */,
-				693D6B32439463290FC48534FB212640 /* LibTessSwift-umbrella.h */,
+				7398F0A23E81708572DFAA6767CDDF2A /* Info.plist */,
+				0856A3D69B8A29840D5DB34F2ED377B1 /* LibTessSwift.modulemap */,
+				DF2BEECBB7FC88BAF57B674159F52D5D /* LibTessSwift.xcconfig */,
+				C74C8F4E888C67175524F819538B307F /* LibTessSwift-dummy.m */,
+				E0EB6203BAB54592FE7EB532CCB146B2 /* LibTessSwift-prefix.pch */,
+				30960F94EF1A86C1D8C554AAAAA64E86 /* LibTessSwift-umbrella.h */,
 			);
 			name = "Support Files";
 			path = "Example/Pods/Target Support Files/LibTessSwift";
-			sourceTree = "<group>";
-		};
-		71A923AA8989CD1714DFA1BC535A3C0A /* LibTessSwift */ = {
-			isa = PBXGroup;
-			children = (
-				5CD073F40F87587D0BFDD42BF2052572 /* Classes */,
-			);
-			path = LibTessSwift;
 			sourceTree = "<group>";
 		};
 		7531C8F8DE19F1AA3C8A7AC97A91DC29 /* iOS */ = {
@@ -163,6 +163,15 @@
 				CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */,
 			);
 			name = iOS;
+			sourceTree = "<group>";
+		};
+		7B3549F8E8B7C364CCE41BA1F76A4B9B /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				DCCA25305B3FB9E7DE420F9A3560BCAB /* Public.swift */,
+				F34A9013FBCBAAC06995A074312F948A /* TessC.swift */,
+			);
+			path = Classes;
 			sourceTree = "<group>";
 		};
 		7DB346D0F39D3F0E887471402A8071AB = {
@@ -183,16 +192,6 @@
 				ED7B5C0CE5FB24F0B8012C97D3673AA4 /* Pods-LibTessSwift_Tests */,
 			);
 			name = "Targets Support Files";
-			sourceTree = "<group>";
-		};
-		953AE2B1FBC67FD1FF85E3B2D9F1FAE2 /* LibTessSwift */ = {
-			isa = PBXGroup;
-			children = (
-				71A923AA8989CD1714DFA1BC535A3C0A /* LibTessSwift */,
-				70BD77BD03A13D07AB9216D010192D19 /* Support Files */,
-			);
-			name = LibTessSwift;
-			path = ../..;
 			sourceTree = "<group>";
 		};
 		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
@@ -231,6 +230,29 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		E8663114D2E9C04A6F75EF3680E0238A /* libtess2 */ = {
+			isa = PBXGroup;
+			children = (
+				AB217B3520E3B71ED83A59CBD6AE28C2 /* bucketalloc.c */,
+				546B992648A8B170D519835ED19621CB /* bucketalloc.h */,
+				8E06F057B929425D00DDE46C49AB2735 /* dict.c */,
+				64E2C41C5695D639AECA76783D597F4F /* dict.h */,
+				792F0EFB528FE5E885994E2490131E1D /* geom.c */,
+				9FDB07CAFA95E93EA0B5E4486BD577E6 /* geom.h */,
+				08D28B395EF5CE5E241FEEEBD9BE8172 /* mesh.c */,
+				DF2F106E53360E386DD7E5FD5B5BC846 /* mesh.h */,
+				DBFE4D1E03C3945DC548E934ECE9C860 /* objc-clang.h */,
+				21A6156E37E612F96110202928307B31 /* priorityq.c */,
+				C0ACDD17D5394A5FA3E708C5E4BEAB7E /* priorityq.h */,
+				EFCE8DDE484A5B2834F0A180E37CC7D6 /* sweep.c */,
+				4DAC372AAF621891F95B985EA54490E1 /* sweep.h */,
+				993D318064F64507EFD19AD0F2BAC0F1 /* tess.c */,
+				912EC9723A4C0F85DB7F58EB40DF85EA /* tess.h */,
+				57D77B1042F0E4C9F4C7E2F98ABAD7EB /* tesselator.h */,
+			);
+			path = libtess2;
+			sourceTree = "<group>";
+		};
 		ED7B5C0CE5FB24F0B8012C97D3673AA4 /* Pods-LibTessSwift_Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -249,6 +271,16 @@
 			path = "Target Support Files/Pods-LibTessSwift_Tests";
 			sourceTree = "<group>";
 		};
+		EDEE1AA1873C0435095F39B46A1A5754 /* LibTessSwift */ = {
+			isa = PBXGroup;
+			children = (
+				07DFCCBF60CEBE940A1013B02AEFC8F6 /* LibTessSwift */,
+				4DDF8207A24AEF9184CACBED32D9C285 /* Support Files */,
+			);
+			name = LibTessSwift;
+			path = ../..;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -260,11 +292,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		922BCC76B539DBC74727139EEC0BFB6D /* Headers */ = {
+		DE901D8E412F00E117B9C9845854F372 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A002ADC0B9BFB56700B9A7986E6C25A3 /* LibTessSwift-umbrella.h in Headers */,
+				379959CAD6B64277E5B2D4B68465D63F /* bucketalloc.h in Headers */,
+				C63FB1899A280D776813F2F1E843930B /* dict.h in Headers */,
+				730A003B3044D21E7C978C348CB57A90 /* geom.h in Headers */,
+				5551168B58135E28AF5FAD345AB2DA25 /* LibTessSwift-umbrella.h in Headers */,
+				92241E69717C17365C8C727F097DAD9E /* mesh.h in Headers */,
+				4E743B42FC1D58101A75550CE151DF27 /* objc-clang.h in Headers */,
+				C48A88036C50F9DAED29130C4F02A46B /* priorityq.h in Headers */,
+				AAA2BA52DCF65606D71A96C41F5FA4BA /* sweep.h in Headers */,
+				9F5B9C1D4E83A9817C99A2E49C1C101B /* tess.h in Headers */,
+				50CCDDBCC5AE2B17B27CC919ECBBB902 /* tesselator.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -279,6 +320,23 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		086D917E625B0D9CAF84776E3BA7192C /* LibTessSwift */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CE4E7AE199D30273BF699CCFE2B7C065 /* Build configuration list for PBXNativeTarget "LibTessSwift" */;
+			buildPhases = (
+				DABB78E21318ECF3B0024A922828F40D /* Sources */,
+				0C4F80EE75852E79EB127AA3680EC7C9 /* Frameworks */,
+				DE901D8E412F00E117B9C9845854F372 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LibTessSwift;
+			productName = LibTessSwift;
+			productReference = 9A340EA983570A25BC1B1B2A86E1157C /* LibTessSwift.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		0E42823B0D72396F7BCEF73FFE6C509D /* Pods-LibTessSwift_Example */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 869A55ED9A6D6EBE972708F77143087E /* Build configuration list for PBXNativeTarget "Pods-LibTessSwift_Example" */;
@@ -295,23 +353,6 @@
 			name = "Pods-LibTessSwift_Example";
 			productName = "Pods-LibTessSwift_Example";
 			productReference = 927EA8511075F02DC660D5AE13CF39CB /* Pods_LibTessSwift_Example.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		B0E90F522BA3374A1329E5A199008591 /* LibTessSwift */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 564B6D2FF8CF2797BE4455392E710FEC /* Build configuration list for PBXNativeTarget "LibTessSwift" */;
-			buildPhases = (
-				480BFADE588A38460DFD5C7A47824DDD /* Sources */,
-				F3E89F3443D563183E68E7304D8FC345 /* Frameworks */,
-				922BCC76B539DBC74727139EEC0BFB6D /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = LibTessSwift;
-			productName = LibTessSwift;
-			productReference = 9A340EA983570A25BC1B1B2A86E1157C /* LibTessSwift.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		DC29E82BC204CC4262358A4B74E3326F /* Pods-LibTessSwift_Tests */ = {
@@ -352,7 +393,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B0E90F522BA3374A1329E5A199008591 /* LibTessSwift */,
+				086D917E625B0D9CAF84776E3BA7192C /* LibTessSwift */,
 				0E42823B0D72396F7BCEF73FFE6C509D /* Pods-LibTessSwift_Example */,
 				DC29E82BC204CC4262358A4B74E3326F /* Pods-LibTessSwift_Tests */,
 			);
@@ -368,21 +409,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		480BFADE588A38460DFD5C7A47824DDD /* Sources */ = {
+		DABB78E21318ECF3B0024A922828F40D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				738C6856B323B2B3E523723BA3478283 /* Dict.swift in Sources */,
-				04A31FEEC250D5AE328C73D9E88FE104 /* Geom.swift in Sources */,
-				D69D237F26520BBE3747AADF739876F2 /* LibTessSwift-dummy.m in Sources */,
-				6ED107AD8790350C7E92C6AB45A8C2DC /* Mesh.swift in Sources */,
-				A7AB5991127B850C2A3FF08F2FBFE00D /* MeshCreationContext.swift in Sources */,
-				17BC0D21931B58301DB72131D7F31CEC /* MeshUtils.swift in Sources */,
-				ACECCA118255DC00C24DB9F12D157ADB /* Pool.swift in Sources */,
-				D0FF36DDEDF2FB154F273F601110589A /* PriorityHeap.swift in Sources */,
-				7FB836AA5484B35A6DDC6F226ED8EB9D /* PriorityQueue.swift in Sources */,
-				A21EB5A4D7A9C19531E1AAA0D14B7493 /* Sweep.swift in Sources */,
-				563291365B3A72BFA3E9652B333B461D /* Tess.swift in Sources */,
+				D3589AD5E19EEC2DA3A6FD89549DB6D3 /* bucketalloc.c in Sources */,
+				9D1CE3AC125133A51F7C08ED10848FDB /* dict.c in Sources */,
+				9BF662663956830B493241D826EA6894 /* geom.c in Sources */,
+				D5CB14815D56D67A52EF33A18C5989C0 /* LibTessSwift-dummy.m in Sources */,
+				6E1894B7E47E50C7D34C5E4CA98FC68D /* mesh.c in Sources */,
+				CD7E08B285760B2D2F75E4AA151736C1 /* priorityq.c in Sources */,
+				596F0F9C54C9F2A00876206250CEC064 /* Public.swift in Sources */,
+				0B0A11C5B45F33975907210B1D48DF62 /* sweep.c in Sources */,
+				D71FF9A99A952AC995D96990B596BB8A /* tess.c in Sources */,
+				8736E5FBDE17BE1A326623A67A6FED7C /* TessC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -400,15 +440,15 @@
 		7E1147A97482DEB0ACB6040271A9C146 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = LibTessSwift;
-			target = B0E90F522BA3374A1329E5A199008591 /* LibTessSwift */;
+			target = 086D917E625B0D9CAF84776E3BA7192C /* LibTessSwift */;
 			targetProxy = 1BAAEBD1EFA3F6DDCFE92590E267EDC6 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		1D5FE5E8D2F0B0EA58B5A8C5A0CD2D5D /* Debug */ = {
+		1DA8C3BB3AF7023DDEB64CDCFD3143E8 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 367F57D1D085F53F00122F215934634D /* LibTessSwift.xcconfig */;
+			baseConfigurationReference = DF2BEECBB7FC88BAF57B674159F52D5D /* LibTessSwift.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -419,9 +459,9 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREFIX_HEADER = "Target Support Files/LibTessSwift/LibTessSwift-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/LibTessSwift/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -630,9 +670,9 @@
 			};
 			name = Debug;
 		};
-		B07EB9AD652135B019DF9D7413AA34F5 /* Release */ = {
+		A49F7A6CEC589CAF1A0298BF185CD42B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 367F57D1D085F53F00122F215934634D /* LibTessSwift.xcconfig */;
+			baseConfigurationReference = DF2BEECBB7FC88BAF57B674159F52D5D /* LibTessSwift.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -643,9 +683,9 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREFIX_HEADER = "Target Support Files/LibTessSwift/LibTessSwift-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/LibTessSwift/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -656,7 +696,6 @@
 				PRODUCT_NAME = LibTessSwift;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -711,15 +750,6 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		564B6D2FF8CF2797BE4455392E710FEC /* Build configuration list for PBXNativeTarget "LibTessSwift" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				1D5FE5E8D2F0B0EA58B5A8C5A0CD2D5D /* Debug */,
-				B07EB9AD652135B019DF9D7413AA34F5 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		81DC473DBF161C12D4AECB4E1E0F95AD /* Build configuration list for PBXNativeTarget "Pods-LibTessSwift_Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -734,6 +764,15 @@
 			buildConfigurations = (
 				33F2CEB6B8CB68CE8CAF76317020E657 /* Debug */,
 				6B8B6F399E5EBBB67092BE8476A85B8D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CE4E7AE199D30273BF699CCFE2B7C065 /* Build configuration list for PBXNativeTarget "LibTessSwift" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DA8C3BB3AF7023DDEB64CDCFD3143E8 /* Debug */,
+				A49F7A6CEC589CAF1A0298BF185CD42B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

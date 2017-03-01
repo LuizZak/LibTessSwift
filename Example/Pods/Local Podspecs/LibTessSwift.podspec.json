@@ -1,6 +1,6 @@
 {
   "name": "LibTessSwift",
-  "version": "0.2.1",
+  "version": "0.3.1",
   "summary": "A Tesselation/Triangulation Library Written in Swift.",
   "description": "A Tesselation/triangulation library for Swift.\n\nBased on LibTessDotNet (https://github.com/speps/LibTessDotNet), ported with love to work on Swift.",
   "homepage": "https://github.com/LuizZak/LibTessSwift",
@@ -13,11 +13,19 @@
   },
   "source": {
     "git": "https://github.com/LuizZak/LibTessSwift.git",
-    "tag": "0.2.1"
+    "tag": "0.3.1"
   },
   "social_media_url": "https://twitter.com/LuizZak",
   "platforms": {
     "ios": "8.0"
   },
-  "source_files": "LibTessSwift/Classes/**/*"
+  "pod_target_xcconfig": {
+    "SWIFT_INCLUDE_PATHS": "$(SRCROOT)/LibTessSwift/LibTessSwift/libtess2/**"
+  },
+  "source_files": "LibTessSwift/**/*{swift,h,c}",
+  "public_header_files": [
+    "LibTessSwift/libtess2/tesselator.h",
+    "LibTessSwift/libtess2/objc-clang.h"
+  ],
+  "preserve_paths": "LibTessSwift/libtess2/module.modulemap"
 }
