@@ -13,64 +13,64 @@
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
-		A00AE31D1E64D21D0052E418 /* 2.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE2F11E64D2190052E418 /* 2.testdat */; };
-		A00AE31E1E64D2210052E418 /* bird.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE2F21E64D2190052E418 /* bird.testdat */; };
-		A00AE31F1E64D2210052E418 /* clipper.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE2F31E64D2190052E418 /* clipper.testdat */; };
-		A00AE3201E64D2210052E418 /* custom.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE2F41E64D2190052E418 /* custom.testdat */; };
-		A00AE3211E64D2210052E418 /* debug.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE2F51E64D2190052E418 /* debug.testdat */; };
-		A00AE3221E64D2210052E418 /* debug2.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE2F61E64D2190052E418 /* debug2.testdat */; };
-		A00AE3231E64D2210052E418 /* diamond.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE2F71E64D2190052E418 /* diamond.testdat */; };
-		A00AE3241E64D2210052E418 /* dude.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE2F81E64D2190052E418 /* dude.testdat */; };
-		A00AE3251E64D2210052E418 /* force-winding.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE2F91E64D2190052E418 /* force-winding.testdat */; };
-		A00AE3261E64D2210052E418 /* funny.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE2FA1E64D2190052E418 /* funny.testdat */; };
-		A00AE3271E64D2210052E418 /* issue6-L.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE2FB1E64D2190052E418 /* issue6-L.testdat */; };
-		A00AE3281E64D2210052E418 /* issue6-plus.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE2FC1E64D2190052E418 /* issue6-plus.testdat */; };
-		A00AE3291E64D2210052E418 /* letterE.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE2FD1E64D2190052E418 /* letterE.testdat */; };
-		A00AE32A1E64D2210052E418 /* nazca_heron.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE2FE1E64D2190052E418 /* nazca_heron.testdat */; };
-		A00AE32B1E64D2210052E418 /* nazca_monkey.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE2FF1E64D2190052E418 /* nazca_monkey.testdat */; };
-		A00AE32C1E64D2210052E418 /* redbook-winding.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE3001E64D2190052E418 /* redbook-winding.testdat */; };
-		A00AE32D1E64D2210052E418 /* sketchup.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE3011E64D2190052E418 /* sketchup.testdat */; };
-		A00AE32E1E64D2210052E418 /* star-intersect.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE3021E64D2190052E418 /* star-intersect.testdat */; };
-		A00AE32F1E64D2210052E418 /* star.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE3031E64D2190052E418 /* star.testdat */; };
-		A00AE3301E64D2210052E418 /* strange.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE3041E64D2190052E418 /* strange.testdat */; };
-		A00AE3311E64D2210052E418 /* tank.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE3051E64D2190052E418 /* tank.testdat */; };
-		A00AE3321E64D2210052E418 /* test.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE3061E64D2190052E418 /* test.testdat */; };
-		A00AE33A1E64D3FC0052E418 /* DDFileReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00AE2EC1E64CBF00052E418 /* DDFileReader.swift */; };
-		A00AE33B1E64D3FC0052E418 /* DataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00AE2EA1E64CB0C0052E418 /* DataLoader.swift */; };
-		A00AE33C1E64D3FC0052E418 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
-		A00AE33D1E64D3FC0052E418 /* PolyConvert.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00AE3331E64D2C30052E418 /* PolyConvert.swift */; };
-		A0B488F11E64F84200DE3A4E /* 2.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488C51E64F6FA00DE3A4E /* 2.dat */; };
-		A0B488F21E64F84700DE3A4E /* bird.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488C61E64F6FA00DE3A4E /* bird.dat */; };
-		A0B488F31E64F84700DE3A4E /* clipper.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488C71E64F6FA00DE3A4E /* clipper.dat */; };
-		A0B488F41E64F84700DE3A4E /* custom.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488C81E64F6FA00DE3A4E /* custom.dat */; };
-		A0B488F51E64F84700DE3A4E /* debug.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488C91E64F6FA00DE3A4E /* debug.dat */; };
-		A0B488F61E64F84700DE3A4E /* debug2.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488CA1E64F6FA00DE3A4E /* debug2.dat */; };
-		A0B488F71E64F84700DE3A4E /* diamond.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488CB1E64F6FA00DE3A4E /* diamond.dat */; };
-		A0B488F81E64F84700DE3A4E /* dude.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488CC1E64F6FA00DE3A4E /* dude.dat */; };
-		A0B488F91E64F84700DE3A4E /* force-winding.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488CD1E64F6FA00DE3A4E /* force-winding.dat */; };
-		A0B488FA1E64F84700DE3A4E /* funny.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488CE1E64F6FA00DE3A4E /* funny.dat */; };
-		A0B488FB1E64F84700DE3A4E /* issue6-L.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488CF1E64F6FA00DE3A4E /* issue6-L.dat */; };
-		A0B488FC1E64F84700DE3A4E /* issue6-plus.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488D01E64F6FA00DE3A4E /* issue6-plus.dat */; };
-		A0B488FD1E64F84700DE3A4E /* letterE.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488D11E64F6FA00DE3A4E /* letterE.dat */; };
-		A0B488FE1E64F84700DE3A4E /* nazca_heron.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488D21E64F6FA00DE3A4E /* nazca_heron.dat */; };
-		A0B488FF1E64F84700DE3A4E /* nazca_monkey.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488D31E64F6FA00DE3A4E /* nazca_monkey.dat */; };
-		A0B489001E64F84700DE3A4E /* redbook-winding.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488D41E64F6FA00DE3A4E /* redbook-winding.dat */; };
-		A0B489011E64F84700DE3A4E /* sketchup.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488D51E64F6FA00DE3A4E /* sketchup.dat */; };
-		A0B489021E64F84700DE3A4E /* star-intersect.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488D61E64F6FA00DE3A4E /* star-intersect.dat */; };
-		A0B489031E64F84700DE3A4E /* star.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488D71E64F6FA00DE3A4E /* star.dat */; };
-		A0B489041E64F84700DE3A4E /* strange.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488D81E64F6FA00DE3A4E /* strange.dat */; };
-		A0B489051E64F84700DE3A4E /* tank.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488D91E64F6FA00DE3A4E /* tank.dat */; };
-		A0B489061E64F84700DE3A4E /* test.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488DA1E64F6FA00DE3A4E /* test.dat */; };
-		FC33B5BBC480A50BDEC8EB47 /* Pods_LibTessSwift_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 953CEE74FA6F070EFFBC64CB /* Pods_LibTessSwift_Tests.framework */; };
+		A00106671E882291005DE3C6 /* DDFileReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00AE2EC1E64CBF00052E418 /* DDFileReader.swift */; };
+		A00106681E882291005DE3C6 /* DataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00AE2EA1E64CB0C0052E418 /* DataLoader.swift */; };
+		A00106691E882291005DE3C6 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
+		A001066A1E882291005DE3C6 /* PolyConvert.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00AE3331E64D2C30052E418 /* PolyConvert.swift */; };
+		A001066B1E882299005DE3C6 /* 2.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488C51E64F6FA00DE3A4E /* 2.dat */; };
+		A001066C1E882299005DE3C6 /* bird.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488C61E64F6FA00DE3A4E /* bird.dat */; };
+		A001066D1E882299005DE3C6 /* clipper.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488C71E64F6FA00DE3A4E /* clipper.dat */; };
+		A001066E1E882299005DE3C6 /* custom.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488C81E64F6FA00DE3A4E /* custom.dat */; };
+		A001066F1E882299005DE3C6 /* debug.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488C91E64F6FA00DE3A4E /* debug.dat */; };
+		A00106701E882299005DE3C6 /* debug2.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488CA1E64F6FA00DE3A4E /* debug2.dat */; };
+		A00106711E882299005DE3C6 /* diamond.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488CB1E64F6FA00DE3A4E /* diamond.dat */; };
+		A00106721E882299005DE3C6 /* dude.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488CC1E64F6FA00DE3A4E /* dude.dat */; };
+		A00106731E882299005DE3C6 /* force-winding.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488CD1E64F6FA00DE3A4E /* force-winding.dat */; };
+		A00106741E882299005DE3C6 /* funny.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488CE1E64F6FA00DE3A4E /* funny.dat */; };
+		A00106751E882299005DE3C6 /* issue6-L.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488CF1E64F6FA00DE3A4E /* issue6-L.dat */; };
+		A00106761E882299005DE3C6 /* issue6-plus.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488D01E64F6FA00DE3A4E /* issue6-plus.dat */; };
+		A00106771E882299005DE3C6 /* letterE.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488D11E64F6FA00DE3A4E /* letterE.dat */; };
+		A00106781E882299005DE3C6 /* nazca_heron.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488D21E64F6FA00DE3A4E /* nazca_heron.dat */; };
+		A00106791E882299005DE3C6 /* nazca_monkey.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488D31E64F6FA00DE3A4E /* nazca_monkey.dat */; };
+		A001067A1E882299005DE3C6 /* redbook-winding.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488D41E64F6FA00DE3A4E /* redbook-winding.dat */; };
+		A001067B1E882299005DE3C6 /* sketchup.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488D51E64F6FA00DE3A4E /* sketchup.dat */; };
+		A001067C1E882299005DE3C6 /* star-intersect.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488D61E64F6FA00DE3A4E /* star-intersect.dat */; };
+		A001067D1E882299005DE3C6 /* star.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488D71E64F6FA00DE3A4E /* star.dat */; };
+		A001067E1E882299005DE3C6 /* strange.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488D81E64F6FA00DE3A4E /* strange.dat */; };
+		A001067F1E882299005DE3C6 /* tank.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488D91E64F6FA00DE3A4E /* tank.dat */; };
+		A00106801E882299005DE3C6 /* test.dat in Resources */ = {isa = PBXBuildFile; fileRef = A0B488DA1E64F6FA00DE3A4E /* test.dat */; };
+		A00106811E88229C005DE3C6 /* 2.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE2F11E64D2190052E418 /* 2.testdat */; };
+		A00106821E88229C005DE3C6 /* bird.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE2F21E64D2190052E418 /* bird.testdat */; };
+		A00106831E88229C005DE3C6 /* clipper.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE2F31E64D2190052E418 /* clipper.testdat */; };
+		A00106841E88229C005DE3C6 /* custom.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE2F41E64D2190052E418 /* custom.testdat */; };
+		A00106851E88229C005DE3C6 /* debug.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE2F51E64D2190052E418 /* debug.testdat */; };
+		A00106861E88229C005DE3C6 /* debug2.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE2F61E64D2190052E418 /* debug2.testdat */; };
+		A00106871E88229C005DE3C6 /* diamond.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE2F71E64D2190052E418 /* diamond.testdat */; };
+		A00106881E88229C005DE3C6 /* dude.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE2F81E64D2190052E418 /* dude.testdat */; };
+		A00106891E88229C005DE3C6 /* force-winding.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE2F91E64D2190052E418 /* force-winding.testdat */; };
+		A001068A1E88229C005DE3C6 /* funny.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE2FA1E64D2190052E418 /* funny.testdat */; };
+		A001068B1E88229C005DE3C6 /* issue6-L.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE2FB1E64D2190052E418 /* issue6-L.testdat */; };
+		A001068C1E88229C005DE3C6 /* issue6-plus.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE2FC1E64D2190052E418 /* issue6-plus.testdat */; };
+		A001068D1E88229C005DE3C6 /* letterE.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE2FD1E64D2190052E418 /* letterE.testdat */; };
+		A001068E1E88229C005DE3C6 /* nazca_heron.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE2FE1E64D2190052E418 /* nazca_heron.testdat */; };
+		A001068F1E88229C005DE3C6 /* nazca_monkey.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE2FF1E64D2190052E418 /* nazca_monkey.testdat */; };
+		A00106901E88229C005DE3C6 /* redbook-winding.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE3001E64D2190052E418 /* redbook-winding.testdat */; };
+		A00106911E88229C005DE3C6 /* sketchup.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE3011E64D2190052E418 /* sketchup.testdat */; };
+		A00106921E88229C005DE3C6 /* star-intersect.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE3021E64D2190052E418 /* star-intersect.testdat */; };
+		A00106931E88229C005DE3C6 /* star.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE3031E64D2190052E418 /* star.testdat */; };
+		A00106941E88229C005DE3C6 /* strange.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE3041E64D2190052E418 /* strange.testdat */; };
+		A00106951E88229C005DE3C6 /* tank.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE3051E64D2190052E418 /* tank.testdat */; };
+		A00106961E88229C005DE3C6 /* test.testdat in Resources */ = {isa = PBXBuildFile; fileRef = A00AE3061E64D2190052E418 /* test.testdat */; };
+		E017842BC3FB6FF7D1D97871 /* Pods_LibTessSwift_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 953CEE74FA6F070EFFBC64CB /* Pods_LibTessSwift_Tests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		607FACE61AFB9204008FA782 /* PBXContainerItemProxy */ = {
+		A00106621E88226D005DE3C6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 607FACC81AFB9204008FA782 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 607FACCF1AFB9204008FA782;
-			remoteInfo = LibTessSwift;
+			remoteInfo = LibTessSwift_Example;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -84,12 +84,12 @@
 		607FACDA1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		607FACDC1AFB9204008FA782 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		607FACDF1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		607FACE51AFB9204008FA782 /* LibTessSwift_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LibTessSwift_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Tests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		782E4CB1C0EDAE07A6616398 /* Pods-LibTessSwift_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LibTessSwift_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-LibTessSwift_Tests/Pods-LibTessSwift_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		8F68A61433E5C22A704B81E4 /* LibTessSwift.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LibTessSwift.podspec; path = ../LibTessSwift.podspec; sourceTree = "<group>"; };
 		953CEE74FA6F070EFFBC64CB /* Pods_LibTessSwift_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LibTessSwift_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A001065D1E88226D005DE3C6 /* LibTessSwift_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LibTessSwift_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A00AE2EA1E64CB0C0052E418 /* DataLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = DataLoader.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		A00AE2EC1E64CBF00052E418 /* DDFileReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDFileReader.swift; sourceTree = "<group>"; };
 		A00AE2F11E64D2190052E418 /* 2.testdat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 2.testdat; sourceTree = "<group>"; };
@@ -152,11 +152,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		607FACE21AFB9204008FA782 /* Frameworks */ = {
+		A001065A1E88226D005DE3C6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FC33B5BBC480A50BDEC8EB47 /* Pods_LibTessSwift_Tests.framework in Frameworks */,
+				E017842BC3FB6FF7D1D97871 /* Pods_LibTessSwift_Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -199,7 +199,7 @@
 			isa = PBXGroup;
 			children = (
 				607FACD01AFB9204008FA782 /* LibTessSwift_Example.app */,
-				607FACE51AFB9204008FA782 /* LibTessSwift_Tests.xctest */,
+				A001065D1E88226D005DE3C6 /* LibTessSwift_Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -339,25 +339,25 @@
 			productReference = 607FACD01AFB9204008FA782 /* LibTessSwift_Example.app */;
 			productType = "com.apple.product-type.application";
 		};
-		607FACE41AFB9204008FA782 /* LibTessSwift_Tests */ = {
+		A001065C1E88226D005DE3C6 /* LibTessSwift_Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 607FACF21AFB9204008FA782 /* Build configuration list for PBXNativeTarget "LibTessSwift_Tests" */;
+			buildConfigurationList = A00106641E88226D005DE3C6 /* Build configuration list for PBXNativeTarget "LibTessSwift_Tests" */;
 			buildPhases = (
-				E6E08E4EF85DE20A4E95A339 /* [CP] Check Pods Manifest.lock */,
-				607FACE11AFB9204008FA782 /* Sources */,
-				607FACE21AFB9204008FA782 /* Frameworks */,
-				607FACE31AFB9204008FA782 /* Resources */,
-				CE94D1A2C4EBA02684D68E70 /* [CP] Embed Pods Frameworks */,
-				288C06CD91E34E5614E972C6 /* [CP] Copy Pods Resources */,
+				E11E8CFF2EB6930A63FB218F /* [CP] Check Pods Manifest.lock */,
+				A00106591E88226D005DE3C6 /* Sources */,
+				A001065A1E88226D005DE3C6 /* Frameworks */,
+				A001065B1E88226D005DE3C6 /* Resources */,
+				6E16E2602EC1DC88F650267E /* [CP] Embed Pods Frameworks */,
+				1EC338BBDB2F1BC2F1A809A5 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				607FACE71AFB9204008FA782 /* PBXTargetDependency */,
+				A00106631E88226D005DE3C6 /* PBXTargetDependency */,
 			);
 			name = LibTessSwift_Tests;
-			productName = Tests;
-			productReference = 607FACE51AFB9204008FA782 /* LibTessSwift_Tests.xctest */;
+			productName = LibTessSwift_Tests;
+			productReference = A001065D1E88226D005DE3C6 /* LibTessSwift_Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -366,7 +366,7 @@
 		607FACC81AFB9204008FA782 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0720;
+				LastSwiftUpdateCheck = 0820;
 				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = CocoaPods;
 				TargetAttributes = {
@@ -374,9 +374,9 @@
 						CreatedOnToolsVersion = 6.3.1;
 						LastSwiftMigration = 0820;
 					};
-					607FACE41AFB9204008FA782 = {
-						CreatedOnToolsVersion = 6.3.1;
-						LastSwiftMigration = 0820;
+					A001065C1E88226D005DE3C6 = {
+						CreatedOnToolsVersion = 8.2;
+						ProvisioningStyle = Automatic;
 						TestTargetID = 607FACCF1AFB9204008FA782;
 					};
 				};
@@ -395,7 +395,7 @@
 			projectRoot = "";
 			targets = (
 				607FACCF1AFB9204008FA782 /* LibTessSwift_Example */,
-				607FACE41AFB9204008FA782 /* LibTessSwift_Tests */,
+				A001065C1E88226D005DE3C6 /* LibTessSwift_Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -411,61 +411,61 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		607FACE31AFB9204008FA782 /* Resources */ = {
+		A001065B1E88226D005DE3C6 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A0B488FA1E64F84700DE3A4E /* funny.dat in Resources */,
-				A0B488F21E64F84700DE3A4E /* bird.dat in Resources */,
-				A00AE3201E64D2210052E418 /* custom.testdat in Resources */,
-				A0B489011E64F84700DE3A4E /* sketchup.dat in Resources */,
-				A0B488F41E64F84700DE3A4E /* custom.dat in Resources */,
-				A00AE32C1E64D2210052E418 /* redbook-winding.testdat in Resources */,
-				A00AE3301E64D2210052E418 /* strange.testdat in Resources */,
-				A00AE3251E64D2210052E418 /* force-winding.testdat in Resources */,
-				A00AE3311E64D2210052E418 /* tank.testdat in Resources */,
-				A00AE32D1E64D2210052E418 /* sketchup.testdat in Resources */,
-				A0B488FD1E64F84700DE3A4E /* letterE.dat in Resources */,
-				A00AE32A1E64D2210052E418 /* nazca_heron.testdat in Resources */,
-				A0B489041E64F84700DE3A4E /* strange.dat in Resources */,
-				A0B488F81E64F84700DE3A4E /* dude.dat in Resources */,
-				A0B488F31E64F84700DE3A4E /* clipper.dat in Resources */,
-				A00AE32B1E64D2210052E418 /* nazca_monkey.testdat in Resources */,
-				A00AE31E1E64D2210052E418 /* bird.testdat in Resources */,
-				A00AE3321E64D2210052E418 /* test.testdat in Resources */,
-				A0B488FF1E64F84700DE3A4E /* nazca_monkey.dat in Resources */,
-				A0B489031E64F84700DE3A4E /* star.dat in Resources */,
-				A00AE3221E64D2210052E418 /* debug2.testdat in Resources */,
-				A00AE3231E64D2210052E418 /* diamond.testdat in Resources */,
-				A0B488FB1E64F84700DE3A4E /* issue6-L.dat in Resources */,
-				A00AE31D1E64D21D0052E418 /* 2.testdat in Resources */,
-				A0B488F51E64F84700DE3A4E /* debug.dat in Resources */,
-				A0B488F71E64F84700DE3A4E /* diamond.dat in Resources */,
-				A00AE3291E64D2210052E418 /* letterE.testdat in Resources */,
-				A0B489021E64F84700DE3A4E /* star-intersect.dat in Resources */,
-				A00AE3281E64D2210052E418 /* issue6-plus.testdat in Resources */,
-				A0B488F91E64F84700DE3A4E /* force-winding.dat in Resources */,
-				A00AE3261E64D2210052E418 /* funny.testdat in Resources */,
-				A0B488FE1E64F84700DE3A4E /* nazca_heron.dat in Resources */,
-				A00AE32F1E64D2210052E418 /* star.testdat in Resources */,
-				A0B488F11E64F84200DE3A4E /* 2.dat in Resources */,
-				A0B488F61E64F84700DE3A4E /* debug2.dat in Resources */,
-				A00AE32E1E64D2210052E418 /* star-intersect.testdat in Resources */,
-				A00AE3241E64D2210052E418 /* dude.testdat in Resources */,
-				A0B489051E64F84700DE3A4E /* tank.dat in Resources */,
-				A0B489001E64F84700DE3A4E /* redbook-winding.dat in Resources */,
-				A0B488FC1E64F84700DE3A4E /* issue6-plus.dat in Resources */,
-				A00AE3211E64D2210052E418 /* debug.testdat in Resources */,
-				A00AE31F1E64D2210052E418 /* clipper.testdat in Resources */,
-				A00AE3271E64D2210052E418 /* issue6-L.testdat in Resources */,
-				A0B489061E64F84700DE3A4E /* test.dat in Resources */,
+				A00106831E88229C005DE3C6 /* clipper.testdat in Resources */,
+				A00106771E882299005DE3C6 /* letterE.dat in Resources */,
+				A00106741E882299005DE3C6 /* funny.dat in Resources */,
+				A00106781E882299005DE3C6 /* nazca_heron.dat in Resources */,
+				A001068A1E88229C005DE3C6 /* funny.testdat in Resources */,
+				A00106871E88229C005DE3C6 /* diamond.testdat in Resources */,
+				A001066E1E882299005DE3C6 /* custom.dat in Resources */,
+				A00106821E88229C005DE3C6 /* bird.testdat in Resources */,
+				A00106951E88229C005DE3C6 /* tank.testdat in Resources */,
+				A00106721E882299005DE3C6 /* dude.dat in Resources */,
+				A00106711E882299005DE3C6 /* diamond.dat in Resources */,
+				A00106931E88229C005DE3C6 /* star.testdat in Resources */,
+				A001068B1E88229C005DE3C6 /* issue6-L.testdat in Resources */,
+				A001067E1E882299005DE3C6 /* strange.dat in Resources */,
+				A00106891E88229C005DE3C6 /* force-winding.testdat in Resources */,
+				A001066D1E882299005DE3C6 /* clipper.dat in Resources */,
+				A00106861E88229C005DE3C6 /* debug2.testdat in Resources */,
+				A00106811E88229C005DE3C6 /* 2.testdat in Resources */,
+				A00106881E88229C005DE3C6 /* dude.testdat in Resources */,
+				A001066C1E882299005DE3C6 /* bird.dat in Resources */,
+				A001068E1E88229C005DE3C6 /* nazca_heron.testdat in Resources */,
+				A001067F1E882299005DE3C6 /* tank.dat in Resources */,
+				A00106761E882299005DE3C6 /* issue6-plus.dat in Resources */,
+				A00106921E88229C005DE3C6 /* star-intersect.testdat in Resources */,
+				A001067D1E882299005DE3C6 /* star.dat in Resources */,
+				A00106751E882299005DE3C6 /* issue6-L.dat in Resources */,
+				A001068D1E88229C005DE3C6 /* letterE.testdat in Resources */,
+				A00106841E88229C005DE3C6 /* custom.testdat in Resources */,
+				A001066F1E882299005DE3C6 /* debug.dat in Resources */,
+				A00106731E882299005DE3C6 /* force-winding.dat in Resources */,
+				A00106701E882299005DE3C6 /* debug2.dat in Resources */,
+				A00106961E88229C005DE3C6 /* test.testdat in Resources */,
+				A001067A1E882299005DE3C6 /* redbook-winding.dat in Resources */,
+				A00106791E882299005DE3C6 /* nazca_monkey.dat in Resources */,
+				A00106941E88229C005DE3C6 /* strange.testdat in Resources */,
+				A001067C1E882299005DE3C6 /* star-intersect.dat in Resources */,
+				A001067B1E882299005DE3C6 /* sketchup.dat in Resources */,
+				A001068C1E88229C005DE3C6 /* issue6-plus.testdat in Resources */,
+				A00106851E88229C005DE3C6 /* debug.testdat in Resources */,
+				A001068F1E88229C005DE3C6 /* nazca_monkey.testdat in Resources */,
+				A00106901E88229C005DE3C6 /* redbook-winding.testdat in Resources */,
+				A001066B1E882299005DE3C6 /* 2.dat in Resources */,
+				A00106911E88229C005DE3C6 /* sketchup.testdat in Resources */,
+				A00106801E882299005DE3C6 /* test.dat in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		288C06CD91E34E5614E972C6 /* [CP] Copy Pods Resources */ = {
+		1EC338BBDB2F1BC2F1A809A5 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -493,6 +493,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LibTessSwift_Example/Pods-LibTessSwift_Example-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6E16E2602EC1DC88F650267E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LibTessSwift_Tests/Pods-LibTessSwift_Tests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		72FC676DA6EA20521848E468 /* [CP] Check Pods Manifest.lock */ = {
@@ -525,22 +540,7 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LibTessSwift_Example/Pods-LibTessSwift_Example-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		CE94D1A2C4EBA02684D68E70 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LibTessSwift_Tests/Pods-LibTessSwift_Tests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E6E08E4EF85DE20A4E95A339 /* [CP] Check Pods Manifest.lock */ = {
+		E11E8CFF2EB6930A63FB218F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -567,24 +567,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		607FACE11AFB9204008FA782 /* Sources */ = {
+		A00106591E88226D005DE3C6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A00AE33B1E64D3FC0052E418 /* DataLoader.swift in Sources */,
-				A00AE33D1E64D3FC0052E418 /* PolyConvert.swift in Sources */,
-				A00AE33C1E64D3FC0052E418 /* Tests.swift in Sources */,
-				A00AE33A1E64D3FC0052E418 /* DDFileReader.swift in Sources */,
+				A00106681E882291005DE3C6 /* DataLoader.swift in Sources */,
+				A001066A1E882291005DE3C6 /* PolyConvert.swift in Sources */,
+				A00106691E882291005DE3C6 /* Tests.swift in Sources */,
+				A00106671E882291005DE3C6 /* DDFileReader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		607FACE71AFB9204008FA782 /* PBXTargetDependency */ = {
+		A00106631E88226D005DE3C6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 607FACCF1AFB9204008FA782 /* LibTessSwift_Example */;
-			targetProxy = 607FACE61AFB9204008FA782 /* PBXContainerItemProxy */;
+			targetProxy = A00106621E88226D005DE3C6 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -712,6 +712,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -727,42 +728,43 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
-		607FACF31AFB9204008FA782 /* Debug */ = {
+		A00106651E88226D005DE3C6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F45149AD3878CD12FA94C841 /* Pods-LibTessSwift_Tests.debug.xcconfig */;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				INFOPLIST_FILE = Tests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks $(FRAMEWORK_SEARCH_PATHS)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.LibTessSwift-Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LibTessSwift_Example.app/LibTessSwift_Example";
 			};
 			name = Debug;
 		};
-		607FACF41AFB9204008FA782 /* Release */ = {
+		A00106661E88226D005DE3C6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 782E4CB1C0EDAE07A6616398 /* Pods-LibTessSwift_Tests.release.xcconfig */;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				INFOPLIST_FILE = Tests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks $(FRAMEWORK_SEARCH_PATHS)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.LibTessSwift-Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LibTessSwift_Example.app/LibTessSwift_Example";
 			};
 			name = Release;
 		};
@@ -787,11 +789,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		607FACF21AFB9204008FA782 /* Build configuration list for PBXNativeTarget "LibTessSwift_Tests" */ = {
+		A00106641E88226D005DE3C6 /* Build configuration list for PBXNativeTarget "LibTessSwift_Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				607FACF31AFB9204008FA782 /* Debug */,
-				607FACF41AFB9204008FA782 /* Release */,
+				A00106651E88226D005DE3C6 /* Debug */,
+				A00106661E88226D005DE3C6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
