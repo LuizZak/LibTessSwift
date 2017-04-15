@@ -34,5 +34,5 @@ Based on LibTess2 (https://github.com/memononen/Libtess2), with a nice Swift wra
   s.xcconfig = { 'SWIFT_INCLUDE_PATHS' => '$(SRCROOT)/LibTessSwift/LibTessSwift/libtess2/**' }
   s.pod_target_xcconfig = { 'SWIFT_INCLUDE_PATHS' => '$(SRCROOT)/LibTessSwift/LibTessSwift/libtess2/**' }
   s.source_files = 'LibTessSwift/**/*{swift,h,c}'
-  s.preserve_paths = 'LibTessSwift/libtess2/module.modulemap'
+#s.preserve_paths = 'LibTessSwift/libtess2/module.modulemap'
 end
