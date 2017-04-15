@@ -44,49 +44,11 @@ public enum ContourOrientation {
     case counterClockwise
 }
 
-func stdAlloc(userData: UnsafeMutableRawPointer?, size: size_t) -> UnsafeMutableRawPointer {
-    let allocated = userData?.assumingMemoryBound(to: Int.self)
-    allocated?.pointee += size
-    
-    return malloc(size);
-}
-
-func stdFree(userData: UnsafeMutableRawPointer?, ptr: UnsafeMutableRawPointer) {
-    free(ptr)
-}
-
-struct MemPool {
-    var buf: UnsafeMutablePointer<CUnsignedChar>
-    var cap: size_t
-    var size: size_t
-}
-
-func poolAlloc(userData: UnsafeMutableRawPointer, size: size_t ) -> UnsafeMutableRawPointer? {
-    let pool = userData.assumingMemoryBound(to: MemPool.self)
-    
-    let size = (size+0x7) & ~0x7;
-    
-    if (pool.pointee.size + size < pool.pointee.cap)
-    {
-        let ptr: UnsafeMutablePointer<CUnsignedChar> = pool.pointee.buf + pool.pointee.size;
-        pool.pointee.size += size
-        
-        return UnsafeMutableRawPointer(ptr)
-    }
-    NSLog("out of mem: %d < %d!\n", pool.pointee.size + size, pool.pointee.cap);
-    
-    return nil;
-}
-
-func poolFree(userData: UnsafeMutableRawPointer, ptr: UnsafeMutableRawPointer) {
-    
-}
-
 /// Wraps the low-level C libtess2 library in a nice interface for Swift
 public class TessC {
     
     var memoryPool: MemPool?
-    var mem: UnsafeMutablePointer<CUnsignedChar>?
+    var mem: UnsafeMutablePointer<UInt8>?
     var ma: TESSalloc?
     
     /// TESStesselator* tess
@@ -115,13 +77,13 @@ public class TessC {
     /// overhead of repeated malloc/free calls
     public init?(usePooling: Bool = false, poolSize: Int = 1024 * 1024 * 10) {
         if(usePooling) {
-            mem = malloc(poolSize).assumingMemoryBound(to: CUnsignedChar.self)
+            mem = malloc(poolSize).assumingMemoryBound(to: UInt8.self)
             
-            memoryPool = MemPool(buf: mem!, cap: size_t(poolSize), size: 0)
+            memoryPool = MemPool(buf: mem!, cap: poolSize, size: 0)
             
-            ma = TESSalloc(memalloc: { stdAlloc(userData: $0, size: $1) },
+            ma = TESSalloc(memalloc: { poolAlloc(userData: $0, size: $1) },
                            memrealloc: nil,
-                           memfree: { stdFree(userData: $0, ptr: $1) },
+                           memfree: { poolFree(userData: $0, ptr: $1) },
                            userData: &memoryPool!, meshEdgeBucketSize: 0,
                            meshVertexBucketSize: 0, meshFaceBucketSize: 0,
                            dictNodeBucketSize: 0, regionBucketSize: 0,

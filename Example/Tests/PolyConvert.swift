@@ -7,6 +7,7 @@
 //
 
 import LibTessSwift
+import simd
 
 class PolyConvert {
     

@@ -118,7 +118,7 @@ enum TessElementType
     TESS_CONNECTED_POLYGONS,
     TESS_BOUNDARY_CONTOURS,
 };
-
+    
 typedef float TESSreal;
 typedef int TESSindex;
 
