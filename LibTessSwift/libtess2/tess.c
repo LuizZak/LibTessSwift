@@ -37,6 +37,7 @@
 #include "mesh.h"
 #include "sweep.h"
 #include "geom.h"
+#include <mm_malloc.h>
 #include <string.h>
 #include <simd/simd.h>
 #include <math.h>
