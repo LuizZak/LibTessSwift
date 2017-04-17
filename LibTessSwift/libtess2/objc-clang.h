@@ -24,11 +24,6 @@
 __attribute__((swift_name(SWIFT_NAME))) SWIFT_CLASS_EXTRA
 #endif
 
-#ifndef SWIFT_PROTOCOL_NAMED
-#  define SWIFT_PROTOCOL_NAMED(SWIFT_NAME) \
-__attribute__((swift_name(SWIFT_NAME))) SWIFT_PROTOCOL_EXTRA
-#endif
-
 #ifndef NS_ASSUME_NONNULL_BEGIN
 #   define NS_ASSUME_NONNULL_BEGIN
 #endif
