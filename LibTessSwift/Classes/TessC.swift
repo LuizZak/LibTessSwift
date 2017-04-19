@@ -45,7 +45,7 @@ public enum ContourOrientation {
 }
 
 /// Wraps the low-level C libtess2 library in a nice interface for Swift
-public class TessC {
+open class TessC {
     
     var memoryPool: MemPool?
     var mem: UnsafeMutablePointer<UInt8>?
