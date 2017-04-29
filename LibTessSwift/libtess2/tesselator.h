@@ -30,17 +30,12 @@
 */
 
 #import <stdlib.h>
-#import <simd/simd.h>
 #import "objc-clang.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 #ifndef TESSELATOR_H
 #define TESSELATOR_H
-
-#ifndef _MM_ALIGN16  // For missing symbols
-# define _MM_ALIGN16
-#endif
 
 #ifdef __cplusplus
 extern "C" {

@@ -846,11 +846,12 @@ void tessAddContour( TESStesselator *tess, int size, const void* vertices,
 			e = e->Lnext;
 		}
         
-        if ( size > 2 ) {
-            e->Org->coords = vector3(coords[0], coords[1], coords[2]);
-        } else {
-            e->Org->coords = vector3(coords[0], coords[1], 0.0f);
-        }
+        e->Org->coords[0] = coords[0];
+        e->Org->coords[1] = coords[1];
+        if ( size > 2 )
+            e->Org->coords[2] = coords[2];
+        else
+            e->Org->coords[2] = 0;
         
 		/* Store the insertion number so that the vertex can be later recognized. */
 		e->Org->idx = tess->vertexIndexCounter++;
