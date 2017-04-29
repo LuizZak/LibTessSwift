@@ -32,7 +32,6 @@
 //#include "tesos.h"
 #include <stddef.h>
 #include <assert.h>
-#include <simd/simd.h>
 #include "mesh.h"
 #include "geom.h"
 #include "bucketalloc.h"

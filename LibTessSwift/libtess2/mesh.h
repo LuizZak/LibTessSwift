@@ -32,8 +32,11 @@
 #ifndef MESH_H
 #define MESH_H
 
-#include <simd/simd.h>
 #include "tesselator.h"
+
+#ifndef _MM_ALIGN16
+# define _MM_ALIGN16
+#endif
 
 typedef struct TESSmesh TESSmesh; 
 typedef struct TESSvertex TESSvertex;
