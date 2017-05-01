@@ -9,6 +9,8 @@ A Swift wrapper on top of [Libtess2](https://github.com/memononen/Libtess2) for 
 
 Tests where derived from [LibTessDotNet](https://github.com/speps/LibTessDotNet) library, which is also a port of the library above.
 
+Also, a fix for an issue of 0-area polygons from libtess2 that was fixed by LibTessDotNet is also merged in. 
+
 Supports self-intersecting polygons and polygons with holes.
 
 ## Example
