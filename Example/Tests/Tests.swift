@@ -79,7 +79,7 @@ class Tests: XCTestCase {
     }
     
     // From https://github.com/speps/LibTessDotNet/issues/1
-    public func expected_Failure_testTesselate_WithNoEmptyPolygonsTrue_RemovesEmptyPolygons() throws {
+    public func testTesselate_WithNoEmptyPolygonsTrue_RemovesEmptyPolygons() throws {
         // Note: Cannot seem to reproduce expected result.
         
         let data = "2,0,4\n2,0,2\n4,0,2\n4,0,0\n0,0,0\n0,0,4";
@@ -87,7 +87,7 @@ class Tests: XCTestCase {
         let expectedIndices = [ 0, 1, 2, 2, 3, 4, 3, 1, 5 ]
         
         let tess = try setupTess(withString: data);
-        //tess.noEmptyPolygons = true;
+        tess.noEmptyPolygons = true
         let (_, elements) = try tess.tessellate(windingRule: .evenOdd, elementType: .polygons, polySize: 3);
         
         for i in 0..<tess.elementCount {

@@ -156,19 +156,14 @@ static void CheckOrientation( TESStesselator *tess )
 	TESSreal area;
 	TESSface *f, *fHead = &tess->mesh->fHead;
 	TESSvertex *v, *vHead = &tess->mesh->vHead;
-	TESShalfEdge *e;
-
+    
 	/* When we compute the normal automatically, we choose the orientation
 	* so that the the sum of the signed areas of all contours is non-negative.
 	*/
 	area = 0;
 	for( f = fHead->next; f != fHead; f = f->next ) {
-		e = f->anEdge;
-		if( e->winding <= 0 ) continue;
-		do {
-			area += (e->Org->s - e->Dst->s) * (e->Org->t + e->Dst->t);
-			e = e->Lnext;
-		} while( e != f->anEdge );
+        if ( f->anEdge->winding <= 0) continue;
+        area += tessFaceArea(f);
 	}
 	if( area < 0 ) {
 		/* Reverse the orientation by flipping all the t-coordinates */
@@ -516,6 +511,8 @@ TESStesselator* tessNewTess( TESSalloc* alloc )
 	tess->bmin[1] = 0;
 	tess->bmax[0] = 0;
 	tess->bmax[1] = 0;
+    
+    tess->noEmptyPolygons = FALSE;
 
 	tess->windingRule = TESS_WINDING_ODD;
 
@@ -609,6 +606,15 @@ void OutputPolymesh( TESStesselator *tess, TESSmesh *mesh, int elementType, int 
 	{
 		f->n = TESS_UNDEF;
 		if( !f->inside ) continue;
+        
+        if( tess->noEmptyPolygons )
+        {
+            TESSreal area = tessFaceArea(f);
+            if( ABS(area) < __FLT_EPSILON__ )
+            {
+                continue;
+            }
+        }
 
 		edge = f->anEdge;
 		faceVerts = 0;
@@ -680,6 +686,15 @@ void OutputPolymesh( TESStesselator *tess, TESSmesh *mesh, int elementType, int 
 	for ( f = mesh->fHead.next; f != &mesh->fHead; f = f->next )
 	{
 		if ( !f->inside ) continue;
+        
+        if( tess->noEmptyPolygons )
+        {
+            TESSreal area = tessFaceArea(f);
+            if( ABS(area) < __FLT_EPSILON__ )
+            {
+                continue;
+            }
+        }
 		
 		// Store polygon
 		edge = f->anEdge;
@@ -980,4 +995,14 @@ int tessGetElementCount( TESStesselator *tess )
 const int* tessGetElements( TESStesselator *tess )
 {
 	return tess->elements;
+}
+
+bool tessGetNoEmptyPolygons( TESStesselator *_Nonnull tess )
+{
+    return tess->noEmptyPolygons;
+}
+
+void tessSetNoEmptyPolygons( TESStesselator *_Nonnull tess, bool value )
+{
+    tess->noEmptyPolygons = value;
 }

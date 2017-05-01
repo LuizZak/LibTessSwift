@@ -69,6 +69,8 @@ struct TESStesselator {
 	Dict *_Nullable dict;		/* edge dictionary for sweep line */
 	PriorityQ *_Nullable pq;		/* priority queue of vertex events */
 	TESSvertex *_Nullable event;		/* current sweep event being processed */
+    
+    bool noEmptyPolygons; /* Whether to avoid creating triangles with 0-area in output */
 
 	struct BucketAlloc*_Nullable regionPool;
 

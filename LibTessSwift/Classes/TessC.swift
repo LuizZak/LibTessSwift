@@ -6,9 +6,6 @@
 //
 //
 
-import Foundation
-import simd
-
 public enum WindingRule: Int, CustomStringConvertible {
     case evenOdd
     case nonZero
@@ -73,6 +70,18 @@ open class TessC {
     /// instead.
     public var tess: UnsafePointer<Tesselator> {
         return UnsafePointer(_tess)
+    }
+    
+    /// Whether to allow the output tesselated polygons to contain 0-area polys
+    /// within.
+    /// Defaults to false.
+    public var noEmptyPolygons: Bool {
+        get {
+            return tessGetNoEmptyPolygons(_tess)
+        }
+        set {
+            tessSetNoEmptyPolygons(_tess, newValue)
+        }
     }
     
     /// List of vertices tesselated.
@@ -148,7 +157,7 @@ open class TessC {
     ///
     /// Stride of contour that is passed down is:
     ///
-    ///     MemoryLayout<T>.size * vertexSize
+    ///     MemoryLayout<TESSreal>.size * vertexSize
     ///
     /// (`vertexSize` is 3 for `.vertex3`, 2 for `.vertex2`).
     ///

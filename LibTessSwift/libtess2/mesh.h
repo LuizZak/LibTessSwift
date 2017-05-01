@@ -257,6 +257,7 @@ TESSmesh *tessMeshUnion( TESSalloc* alloc, TESSmesh *mesh1, TESSmesh *mesh2 );
 int tessMeshMergeConvexFaces( TESSmesh *mesh, int maxVertsPerFace );
 void tessMeshDeleteMesh( TESSalloc* alloc, TESSmesh *mesh );
 void tessMeshZapFace( TESSmesh *mesh, TESSface *fZap );
+TESSreal tessFaceArea( TESSface *face );
 
 #ifdef NDEBUG
 #define tessMeshCheckMesh( mesh )

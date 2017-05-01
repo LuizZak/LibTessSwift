@@ -695,6 +695,18 @@ static int CountFaceVerts( TESSface *f )
 	return n;
 }
 
+TESSreal tessFaceArea( TESSface *face )
+{
+    TESSreal area = 0.0f;
+    TESShalfEdge *e = face->anEdge;
+    do
+    {
+        area += (e->Org->s - e->Dst->s) * (e->Org->t + e->Dst->t);
+        e = e->Lnext;
+    } while (e != face->anEdge);
+    return area;
+}
+
 int tessMeshMergeConvexFaces( TESSmesh *mesh, int maxVertsPerFace )
 {
 	TESSface *f;

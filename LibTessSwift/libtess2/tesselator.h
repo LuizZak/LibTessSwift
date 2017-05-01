@@ -30,6 +30,7 @@
 */
 
 #import <stdlib.h>
+#import <stdbool.h>
 #import "objc-clang.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -160,14 +161,6 @@ struct TESSalloc
     int extraVertices;			// Number of extra vertices allocated for the priority queue.
 };
 
-
-//
-// Example use:
-//
-//
-//
-//
-
 // tessNewTess() - Creates a new tesselator.
 // Use tessDeleteTess() to delete the tesselator.
 // Parameters:
@@ -224,6 +217,13 @@ int tessGetElementCount( TESStesselator *_Nonnull tess );
 
 // tessGetElements() - Returns pointer to the first element.
 const TESSindex*_Nonnull tessGetElements( TESStesselator *_Nonnull tess );
+
+// tessGetNoEmptyPolygons() - Returns whether a tesselator is set to not output empty polygons in the output.
+bool tessGetNoEmptyPolygons( TESStesselator *_Nonnull tess );
+
+// tessSetNoEmptyPoltgons() - Sets whether a tesselator should disallow empty polygons in the output.
+// Default is FALSE.
+void tessSetNoEmptyPolygons( TESStesselator *_Nonnull tess, bool value );
     
 #ifdef __cplusplus
 };
