@@ -30,6 +30,7 @@ Based on LibTess2 (https://github.com/memononen/Libtess2), with a nice Swift wra
   s.social_media_url = 'https://twitter.com/LuizZak'
 
   s.ios.deployment_target = '8.0'
+  s.osx.deployment_target = '10.10'
 
   s.xcconfig = { 'SWIFT_INCLUDE_PATHS' => '$(SRCROOT)/LibTessSwift/libtess2/**' }
   s.pod_target_xcconfig = { 'SWIFT_INCLUDE_PATHS' => '$(SRCROOT)/LibTessSwift/libtess2/**' }
