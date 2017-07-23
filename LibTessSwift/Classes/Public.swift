@@ -8,23 +8,28 @@
 
 import simd
 
+/// The default 3D vector representation used by LibTessSwift.
 public typealias CVector3 = float3
 
-/// A basic CFloat 3D vector
-//public struct CVector3 {
-//    public var x: TESSreal
-//    public var y: TESSreal
-//    public var z: TESSreal
-//    
-//    public init() {
-//        x = 0
-//        y = 0
-//        z = 0
-//    }
-//    
-//    public init(x: TESSreal, y: TESSreal, z: TESSreal) {
-//        self.x = x
-//        self.y = y
-//        self.z = z
-//    }
-//}
+extension CVector3: Vector3Representable {
+    
+}
+
+/// Specifies a type that has x and y fields that represent a 2D cartesian
+/// coordinate.
+public protocol Vector2Representable {
+    /// X component of coordinate.
+    var x: TESSreal { get }
+    
+    /// Y component of coordinate.
+    var y: TESSreal { get }
+}
+
+/// Specifies a type that has x, y and z fields that represent a 2D cartesian
+/// coordinate.
+///
+/// Compatible with Vector2 representations when ignoring 'z' component.
+public protocol Vector3Representable: Vector2Representable {
+    /// Z component of coordinate.
+    var z: TESSreal { get }
+}

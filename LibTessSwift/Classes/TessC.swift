@@ -85,22 +85,27 @@ open class TessC {
     }
     
     /// List of vertices tesselated.
+    ///
     /// Is nil, until a tesselation (CVector3-variant) is performed.
     public var vertices: [CVector3]?
     
     /// Raw list of vertices tesselated.
+    ///
     /// Is nil, until a tesselation (any variant) is performed.
     public var verticesRaw: [TESSreal]?
     
     /// List of elements tesselated.
+    ///
     /// Is nil, until a tesselation is performed.
     public var elements: [Int]?
     
     /// Number of vertices present.
+    ///
     /// Is 0, until a tesselation is performed.
     public var vertexCount: Int = 0
     
-    /// Number of elements present
+    /// Number of elements present.
+    ///
     /// Is 0, until a tesselation is performed.
     public var elementCount: Int = 0
     
@@ -300,8 +305,11 @@ open class TessC {
     }
     
     public enum TessError: Error {
-        /// Error when a tessTesselate() call fails
+        /// Error when a tessTesselate() call fails.
         case tesselationFailed
+        /// Error thrown by TessC.tesselate static method when TessC initialization
+        /// failed.
+        case tessCInitFailed
     }
     
     /// Used to specify vertex sizing to underlying tesselator.
@@ -311,5 +319,83 @@ open class TessC {
     public enum VertexSize: Int {
         case vertex2 = 2
         case vertex3 = 3
+    }
+}
+
+// MARK: - Helper static members
+public extension TessC {
+    /// Tesselates a set of 2d coordinates.
+    ///
+    /// - Parameter vertices: Set of vertices to tesselate.
+    /// - Returns: Pair of vertices/indices outputted by tesselation
+    public static func tesselate2d(polygon: [Vector2Representable]) throws -> (vertices: [CVector3], indices: [Int]) {
+        guard let tess = TessC() else {
+            throw TessError.tessCInitFailed
+        }
+        
+        let polySize = 3
+        
+        let contour = polygon.map {
+            CVector3(x: $0.x, y: $0.y, z: 0.0)
+        }
+        
+        tess.addContour(contour)
+        
+        try tess.tessellate(windingRule: .evenOdd, elementType: .polygons, polySize: polySize)
+        
+        let result: [CVector3] = tess.vertices!
+        var indices: [Int] = []
+        
+        for i in 0..<tess.elementCount
+        {
+            for j in 0..<polySize
+            {
+                let index = tess.elements![i * polySize + j]
+                if (index == -1) {
+                    continue
+                }
+                indices.append(index)
+            }
+        }
+        
+        return (result, indices)
+    }
+    
+    /// Tesselates a set of 3d coordinates.
+    ///
+    /// Note that the third coordinate is ignored during tesselation, as the
+    /// library supports only 2D polygonal tesselations.
+    ///
+    /// - Parameter vertices: Set of vertices to tesselate.
+    /// - Returns: Pair of vertices/indices outputted by tesselation
+    public static func tesselate3d(polygon: [Vector3Representable]) throws -> (vertices: [CVector3], indices: [Int]) {
+        guard let tess = TessC() else {
+            throw TessError.tessCInitFailed
+        }
+        
+        let polySize = 3
+        
+        let contour = polygon.map {
+            CVector3(x: $0.x, y: $0.y, z: $0.z)
+        }
+        
+        tess.addContour(contour)
+        
+        try tess.tessellate(windingRule: .evenOdd, elementType: .polygons, polySize: polySize)
+        var indices: [Int] = []
+        
+        for i in 0..<tess.elementCount
+        {
+            for j in 0..<polySize
+            {
+                let index = tess.elements![i * polySize + j]
+                if (index == -1) {
+                    continue
+                }
+                indices.append(index)
+            }
+        }
+        
+        return (tess.vertices!, indices)
     }
 }

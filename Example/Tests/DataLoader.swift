@@ -9,19 +9,19 @@
 import UIKit
 import LibTessSwift
 
-public struct PolygonPoint: CustomStringConvertible {
-    public var X: CGFloat, Y: CGFloat, Z: CGFloat
+public struct PolygonPoint: CustomStringConvertible, Vector3Representable {
+    public var x: TESSreal, y: TESSreal, z: TESSreal
     public var Color: UIColor
     
-    init(X: CGFloat, Y: CGFloat, Z: CGFloat, Color: UIColor) {
-        self.X = X
-        self.Y = Y
-        self.Z = Z
+    init(x: TESSreal, y: TESSreal, z: TESSreal, Color: UIColor) {
+        self.x = x
+        self.y = y
+        self.z = z
         self.Color = Color
     }
     
     public var description: String {
-        return "\(X), \(Y), \(Z)"
+        return "\(x), \(y), \(z)"
     }
 }
 
@@ -130,22 +130,22 @@ public class DataLoader {
                     }
                 }
             } else {
-                var x: CGFloat = 0, y: CGFloat = 0, z: CGFloat = 0
+                var x: TESSreal = 0, y: TESSreal = 0, z: TESSreal = 0
                 
                 var xyz = line.components(separatedBy: separation).filter { !$0.isEmpty }
                 
                 if (xyz.count != 0) {
                     if xyz.count > 0, let value = Double(xyz[0]) {
-                        x = CGFloat(value)
+                        x = TESSreal(value)
                     }
                     if xyz.count > 1, let value = Double(xyz[1]) {
-                        y = CGFloat(value)
+                        y = TESSreal(value)
                     }
                     if xyz.count > 2, let value = Double(xyz[2]) {
-                        z = CGFloat(value)
+                        z = TESSreal(value)
                     }
                     
-                    points.append(PolygonPoint(X: x, Y: y, Z: z, Color: currentColor))
+                    points.append(PolygonPoint(x: x, y: y, z: z, Color: currentColor))
                 } else {
                     throw DataError.invalidInputData
                 }

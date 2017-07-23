@@ -16,7 +16,7 @@ class PolyConvert {
             var v: [CVector3] = []
             
             for p in poly.points {
-                let vertex = CVector3(x: TESSreal(p.X), y: TESSreal(p.Y), z: TESSreal(p.Z))
+                let vertex = CVector3(x: p.x, y: p.y, z: p.z)
                 v.append(vertex)
             }
             
@@ -40,9 +40,9 @@ class PolyConvert {
                     continue
                 }
                 let v = PolygonPoint(
-                    X: CGFloat(vertices[index].x),
-                    Y: CGFloat(vertices[index].y),
-                    Z: CGFloat(vertices[index].z),
+                    x: vertices[index].x,
+                    y: vertices[index].y,
+                    z: vertices[index].z,
                     Color: UIColor.white
                 )
                 poly.points.append(v)

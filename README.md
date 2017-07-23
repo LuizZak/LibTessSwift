@@ -13,6 +13,66 @@ Also, a fix for an issue of 0-area polygons from libtess2 that was fixed by LibT
 
 Supports self-intersecting polygons and polygons with holes.
 
+## Sample Usage
+
+This is a sample wrapper over TessC to process polygons and return resultin vertices/indices pairs.
+
+```swift
+func process(polygon: [MyVector]) throws -> (vertices: [MyVector], indices: [Int])? {
+    let polygon: [MyVector] = ... // This should be an array of vertices - must have at least an `x` and `y` coordinate pairs!
+
+    guard let tess = TessC() else {
+        print("Something went wrong while initializing TessC! :c")
+        return nil
+    }
+
+    // Size of polygon (number of points per face)
+    let polySize = 3
+
+    // Map from MyVector to CVector3 (LibTessSwift's vector representation)
+    let contour = polygon.map {
+        CVector3(x: TESSreal($0.x), y: TESSreal($0.y), z: 0.0)
+    }
+
+    // Add the contour to LibTess
+    tess.addContour(contour)
+
+    // Tesselate - if no errors are thrown, we're good!
+    try tess.tessellate(windingRule: .evenOdd, elementType: .polygons, polySize: polySize)
+
+    // Collect resulting vector
+    var result: [MyVector] = []
+    var indices: [Int] = []
+    
+    // Extract vertices
+    for vertex in tess.vertices! {
+        result.append(MyVector(x: vertex.x, y: vertex.y))
+    }
+    
+    // Extract each index for each polygon triangle found
+    for i in 0..<tess.elementCount
+    {
+        for j in 0..<polySize
+        {
+            let index = tess.elements![i * polySize + j]
+            if (index == -1) {
+                continue
+            }
+            indices.append(index)
+        }
+    }
+
+    return (result, indices)
+}
+
+// Use away!
+guard let (verts, indices) = try process(myVerts) else {
+    return
+}
+
+MyRenderer.drawPolygon(verts: verts, indices: indices)
+```
+
 ## Example
 
 (note: I plan on adding a propper sample app later)
