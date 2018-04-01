@@ -1,6 +1,6 @@
 {
   "name": "LibTessSwift",
-  "version": "0.2.1",
+  "version": "0.3.1",
   "summary": "A Tesselation/Triangulation Library Written in Swift.",
   "description": "A Tesselation/triangulation library for Swift.\n\nBased on LibTessDotNet (https://github.com/speps/LibTessDotNet), ported with love to work on Swift.",
   "homepage": "https://github.com/LuizZak/LibTessSwift",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/LuizZak/LibTessSwift.git",
-    "tag": "0.2.1"
+    "tag": "0.3.1"
   },
   "social_media_url": "https://twitter.com/LuizZak",
   "platforms": {

@@ -7,25 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		04A31FEEC250D5AE328C73D9E88FE104 /* Geom.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD6D67BCB8C8116C385FE87E98E272C0 /* Geom.swift */; };
-		17BC0D21931B58301DB72131D7F31CEC /* MeshUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20176F168B881FACAF9CAE5D482EFBA1 /* MeshUtils.swift */; };
-		45673685FAAF7971FEB0210D2CA71FBE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */; };
-		563291365B3A72BFA3E9652B333B461D /* Tess.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD1DBA85C04758146E7F29262E71461 /* Tess.swift */; };
-		6ED107AD8790350C7E92C6AB45A8C2DC /* Mesh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D9BA96DF296D1EBFF736091EC2CC66 /* Mesh.swift */; };
-		738C6856B323B2B3E523723BA3478283 /* Dict.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57D52090C6820A31FE49184B9E7A07E /* Dict.swift */; };
-		74C0752A9F03DE2CFC9092DD0E30CDCA /* Pods-LibTessSwift_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 736582F9EBC43D057E713A81DCC244BA /* Pods-LibTessSwift_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7FB836AA5484B35A6DDC6F226ED8EB9D /* PriorityQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E94771530F37C75E9F0C9BD457017F9 /* PriorityQueue.swift */; };
-		A002ADC0B9BFB56700B9A7986E6C25A3 /* LibTessSwift-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 693D6B32439463290FC48534FB212640 /* LibTessSwift-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A21EB5A4D7A9C19531E1AAA0D14B7493 /* Sweep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BBF3C34832DAF9ECDA108296D809129 /* Sweep.swift */; };
-		A7AB5991127B850C2A3FF08F2FBFE00D /* MeshCreationContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0779E58D192A8C8D2639AA2D1D17E0D /* MeshCreationContext.swift */; };
-		A9129D410D6C5A60FC73FDEBF85697F9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */; };
-		ACECCA118255DC00C24DB9F12D157ADB /* Pool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90BBBD22E609D5702729E26F773C75EC /* Pool.swift */; };
-		CB936593051B584BA59B71D29E5BFB04 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */; };
-		CF288B882837B097964BDFE4FA8EF160 /* Pods-LibTessSwift_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = D33C71A0E410305427560D0A8558B030 /* Pods-LibTessSwift_Tests-dummy.m */; };
-		D0FF36DDEDF2FB154F273F601110589A /* PriorityHeap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A29A9057BF0875DD197F47C6180EE05 /* PriorityHeap.swift */; };
-		D530DA8591A4D0C32C19D5C5E76C9787 /* Pods-LibTessSwift_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 1705B9DD964D342DDCDAC9FF12315EEA /* Pods-LibTessSwift_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D69D237F26520BBE3747AADF739876F2 /* LibTessSwift-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = DD9C8F9FCA11C37E824C2284349456A0 /* LibTessSwift-dummy.m */; };
-		E51FC94138BA41079430B651F49AA6CF /* Pods-LibTessSwift_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 08A991768682307E2BDF801945286146 /* Pods-LibTessSwift_Example-dummy.m */; };
+		0B50C8E1B9101CE1F38121B6BDFB66AF /* MeshCreationContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C63A009F64AF3B8129F6FAFCC8ED076 /* MeshCreationContext.swift */; };
+		15A2234DA402BB5F7758987FC662E453 /* Sweep.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88AF4AE76687C3A44A329652BBDD2C5 /* Sweep.swift */; };
+		1F25B225A5C7F7582C1BA46C238C1357 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
+		3AAA85A7F9988FA29B77957EC697A774 /* LibTessSwift-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = BF0DB65264CF90004E5943CC7BB36B52 /* LibTessSwift-dummy.m */; };
+		3E34C631C07FB35016054AC7E9261B42 /* Geom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B864AE56C532774AA7A6279A08600F /* Geom.swift */; };
+		5F09A7B041B7C37701806CF4CD2C3319 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
+		65AF00FF6181A1C56AF1CD24750E4EA9 /* Mesh.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC6D3F26BEFEB6E0BA699BBBECA14B8A /* Mesh.swift */; };
+		67BCF91255FA2FF48C87E6A9E8300FE1 /* Tess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CECC3F2A3C27CA96E21F0360413D81 /* Tess.swift */; };
+		74C0752A9F03DE2CFC9092DD0E30CDCA /* Pods-LibTessSwift_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 1510BD5B779C741CDEB0A2D785E6833D /* Pods-LibTessSwift_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A002ADC0B9BFB56700B9A7986E6C25A3 /* LibTessSwift-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = A25D0723C69C15B946C38D5A33904009 /* LibTessSwift-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A3807397A629C18FE41C65B867477D3E /* Pool.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFF2017CAC0C6D4B06512080BBD36B65 /* Pool.swift */; };
+		AA74987DD228C3FB9E547F28D5C8C80D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
+		AE2239103CF398F1098903C966653F5A /* MeshUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FEC8961067A03F6C399198C59E6E46 /* MeshUtils.swift */; };
+		CF288B882837B097964BDFE4FA8EF160 /* Pods-LibTessSwift_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E55F2A12A8100B4E6E6E349062143352 /* Pods-LibTessSwift_Tests-dummy.m */; };
+		D509C21CCE6654758FB15FD03111C43F /* Dict.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74627D03FAB3457AC821F2AD153C8D1 /* Dict.swift */; };
+		D530DA8591A4D0C32C19D5C5E76C9787 /* Pods-LibTessSwift_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 450740A29812A24F7B9A7E5CB4395574 /* Pods-LibTessSwift_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D9ABEB6658556E0CBD4BBBC2C0A27C79 /* PriorityHeap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3093E9C5DE4A0E84A9A358A2E3081FAB /* PriorityHeap.swift */; };
+		E51FC94138BA41079430B651F49AA6CF /* Pods-LibTessSwift_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = B85B57FE15FEF016ECCAD4227FBDA2D4 /* Pods-LibTessSwift_Example-dummy.m */; };
+		E7694075253700A8A83978EAE34324E3 /* PriorityQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DEEDDEFA51BB77D74799F8635E211A /* PriorityQueue.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,47 +39,50 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		08A991768682307E2BDF801945286146 /* Pods-LibTessSwift_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-LibTessSwift_Example-dummy.m"; sourceTree = "<group>"; };
-		16A16463D0DCB579749D8882F822C1D7 /* Pods-LibTessSwift_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-LibTessSwift_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
-		1705B9DD964D342DDCDAC9FF12315EEA /* Pods-LibTessSwift_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-LibTessSwift_Tests-umbrella.h"; sourceTree = "<group>"; };
-		20176F168B881FACAF9CAE5D482EFBA1 /* MeshUtils.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MeshUtils.swift; sourceTree = "<group>"; };
-		26AD1BB54C0D69BBC24961A4F181EE81 /* Pods-LibTessSwift_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-LibTessSwift_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		367F57D1D085F53F00122F215934634D /* LibTessSwift.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = LibTessSwift.xcconfig; sourceTree = "<group>"; };
-		39E228476E565F302DA1291CEE992F19 /* Pods-LibTessSwift_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-LibTessSwift_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
-		49758B8E09E201F5F390CA2FC4CC6FC6 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4D1E8725235F451390E2BCAD571D67F3 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4E94771530F37C75E9F0C9BD457017F9 /* PriorityQueue.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PriorityQueue.swift; sourceTree = "<group>"; };
-		52D6F4B68F067E69259C59A9400BF700 /* Pods-LibTessSwift_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-LibTessSwift_Example-frameworks.sh"; sourceTree = "<group>"; };
-		5BBF3C34832DAF9ECDA108296D809129 /* Sweep.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Sweep.swift; sourceTree = "<group>"; };
-		5BF65BC61EAA382A96A8259C5AA65D4B /* Pods-LibTessSwift_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-LibTessSwift_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
-		693D6B32439463290FC48534FB212640 /* LibTessSwift-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "LibTessSwift-umbrella.h"; sourceTree = "<group>"; };
-		707AECF702279718C7B614AF3A08B05B /* Pods-LibTessSwift_Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-LibTessSwift_Example-resources.sh"; sourceTree = "<group>"; };
-		736582F9EBC43D057E713A81DCC244BA /* Pods-LibTessSwift_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-LibTessSwift_Example-umbrella.h"; sourceTree = "<group>"; };
-		76FEBCC12E8F01CB87BD1A743FA2DA2E /* LibTessSwift.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = LibTessSwift.modulemap; sourceTree = "<group>"; };
-		7A29A9057BF0875DD197F47C6180EE05 /* PriorityHeap.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PriorityHeap.swift; sourceTree = "<group>"; };
-		843B510E659201346583C205433B2B31 /* Pods-LibTessSwift_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-LibTessSwift_Example.release.xcconfig"; sourceTree = "<group>"; };
-		84786F055E834279F80489CC6E6C1898 /* Pods-LibTessSwift_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-LibTessSwift_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		0908B9E932BDAEC80D008FA5156DC3E1 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		1510BD5B779C741CDEB0A2D785E6833D /* Pods-LibTessSwift_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-LibTessSwift_Example-umbrella.h"; sourceTree = "<group>"; };
+		263777AA59B21BB5CD74B85EBE85ECB7 /* LibTessSwift-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "LibTessSwift-prefix.pch"; sourceTree = "<group>"; };
+		2C63A009F64AF3B8129F6FAFCC8ED076 /* MeshCreationContext.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MeshCreationContext.swift; path = LibTessSwift/Classes/MeshCreationContext.swift; sourceTree = "<group>"; };
+		3093E9C5DE4A0E84A9A358A2E3081FAB /* PriorityHeap.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PriorityHeap.swift; path = LibTessSwift/Classes/PriorityHeap.swift; sourceTree = "<group>"; };
+		3341B5BC3835BA27B8D744C61CCE64CD /* Pods-LibTessSwift_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-LibTessSwift_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		450740A29812A24F7B9A7E5CB4395574 /* Pods-LibTessSwift_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-LibTessSwift_Tests-umbrella.h"; sourceTree = "<group>"; };
+		46447CAADCB63DE329B069FBE933A791 /* Pods-LibTessSwift_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-LibTessSwift_Tests.modulemap"; sourceTree = "<group>"; };
+		49FEC8961067A03F6C399198C59E6E46 /* MeshUtils.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MeshUtils.swift; path = LibTessSwift/Classes/MeshUtils.swift; sourceTree = "<group>"; };
+		63CECC3F2A3C27CA96E21F0360413D81 /* Tess.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Tess.swift; path = LibTessSwift/Classes/Tess.swift; sourceTree = "<group>"; };
+		6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		6793937620C2A9C29452A776A2B2CD64 /* Pods-LibTessSwift_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-LibTessSwift_Example-frameworks.sh"; sourceTree = "<group>"; };
+		739EE80644E16677D7815AF39927F908 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		7405B3CEA33E6984EAB433CCF91A4D67 /* LibTessSwift.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; path = LibTessSwift.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		76B864AE56C532774AA7A6279A08600F /* Geom.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Geom.swift; path = LibTessSwift/Classes/Geom.swift; sourceTree = "<group>"; };
+		7C1E3A64CEB55793A34CFFC976EA790E /* Pods-LibTessSwift_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-LibTessSwift_Tests-frameworks.sh"; sourceTree = "<group>"; };
+		8232F73FEF5E18010CB14CBB4BCFEC89 /* Pods-LibTessSwift_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-LibTessSwift_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
+		82D63FD2EDB6513262F782DD636BBF0A /* LibTessSwift.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = LibTessSwift.xcconfig; sourceTree = "<group>"; };
 		88966F548828B90F28595BFA4E71E146 /* Pods_LibTessSwift_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LibTessSwift_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		90BBBD22E609D5702729E26F773C75EC /* Pool.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Pool.swift; sourceTree = "<group>"; };
+		8BFFF4C861086F20928E294A936C2044 /* Pods-LibTessSwift_Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-LibTessSwift_Tests-resources.sh"; sourceTree = "<group>"; };
+		8C08CE63D03385094E90F16F4ABD179B /* Pods-LibTessSwift_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-LibTessSwift_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		90750FBE96625A3C4BDA2A8A99E05D13 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		927EA8511075F02DC660D5AE13CF39CB /* Pods_LibTessSwift_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LibTessSwift_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		930ECC0E624A74BEAED0D32758852367 /* Pods-LibTessSwift_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-LibTessSwift_Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		93D9BA96DF296D1EBFF736091EC2CC66 /* Mesh.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Mesh.swift; sourceTree = "<group>"; };
+		95018A4DC6C89A7568BEA9CCFCA19B09 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9A340EA983570A25BC1B1B2A86E1157C /* LibTessSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LibTessSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		BDD1DBA85C04758146E7F29262E71461 /* Tess.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Tess.swift; sourceTree = "<group>"; };
-		BFF64A9781BCF7FD2E962B82851CC214 /* LibTessSwift-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "LibTessSwift-prefix.pch"; sourceTree = "<group>"; };
-		CA296BF04DDA5580F12491850E3FE7EE /* Pods-LibTessSwift_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-LibTessSwift_Tests.modulemap"; sourceTree = "<group>"; };
-		CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		CFD96E56308654D9CB0A7A9AF7D27BBF /* Pods-LibTessSwift_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-LibTessSwift_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		CFED713EFD9E1DDA6F071F8666C44910 /* Pods-LibTessSwift_Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-LibTessSwift_Tests-resources.sh"; sourceTree = "<group>"; };
-		D33C71A0E410305427560D0A8558B030 /* Pods-LibTessSwift_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-LibTessSwift_Tests-dummy.m"; sourceTree = "<group>"; };
-		DD9C8F9FCA11C37E824C2284349456A0 /* LibTessSwift-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "LibTessSwift-dummy.m"; sourceTree = "<group>"; };
-		E0779E58D192A8C8D2639AA2D1D17E0D /* MeshCreationContext.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MeshCreationContext.swift; sourceTree = "<group>"; };
-		E57D52090C6820A31FE49184B9E7A07E /* Dict.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Dict.swift; sourceTree = "<group>"; };
-		F66C6B83C0283D02D89F7356B22ECF57 /* Pods-LibTessSwift_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-LibTessSwift_Example.modulemap"; sourceTree = "<group>"; };
-		F8862F1DDA9C9BAE99AB49DB7DD34FDF /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FBD2A0D3714A9F59E4595AA8AFA89A98 /* Pods-LibTessSwift_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-LibTessSwift_Tests-frameworks.sh"; sourceTree = "<group>"; };
-		FD6D67BCB8C8116C385FE87E98E272C0 /* Geom.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Geom.swift; sourceTree = "<group>"; };
+		9D575890969DA9E08831DA087EDDE1A0 /* Pods-LibTessSwift_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-LibTessSwift_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		A25D0723C69C15B946C38D5A33904009 /* LibTessSwift-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "LibTessSwift-umbrella.h"; sourceTree = "<group>"; };
+		A436F6A406E1FDCC705341D13B196DFB /* Pods-LibTessSwift_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-LibTessSwift_Tests.release.xcconfig"; sourceTree = "<group>"; };
+		AE79E064144701FC14F4B8C1E3F1F33B /* Pods-LibTessSwift_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-LibTessSwift_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
+		B1DEEDDEFA51BB77D74799F8635E211A /* PriorityQueue.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PriorityQueue.swift; path = LibTessSwift/Classes/PriorityQueue.swift; sourceTree = "<group>"; };
+		B4C3A3C6484D4497ED7EBD4DCB2E6006 /* Pods-LibTessSwift_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-LibTessSwift_Example-acknowledgements.plist"; sourceTree = "<group>"; };
+		B85B57FE15FEF016ECCAD4227FBDA2D4 /* Pods-LibTessSwift_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-LibTessSwift_Example-dummy.m"; sourceTree = "<group>"; };
+		BF0DB65264CF90004E5943CC7BB36B52 /* LibTessSwift-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "LibTessSwift-dummy.m"; sourceTree = "<group>"; };
+		BF333683B0BA916ECE410F584B6288E2 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C88AF4AE76687C3A44A329652BBDD2C5 /* Sweep.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Sweep.swift; path = LibTessSwift/Classes/Sweep.swift; sourceTree = "<group>"; };
+		D50AACEDC36413BEC4BCC70BEA29AC5F /* Pods-LibTessSwift_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-LibTessSwift_Example.release.xcconfig"; sourceTree = "<group>"; };
+		D61F399FB29351340EA16A18B9684065 /* Pods-LibTessSwift_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-LibTessSwift_Example.modulemap"; sourceTree = "<group>"; };
+		D74627D03FAB3457AC821F2AD153C8D1 /* Dict.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Dict.swift; path = LibTessSwift/Classes/Dict.swift; sourceTree = "<group>"; };
+		D7C0398666B94731F6D8AA2237B30582 /* Pods-LibTessSwift_Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-LibTessSwift_Example-resources.sh"; sourceTree = "<group>"; };
+		E55F2A12A8100B4E6E6E349062143352 /* Pods-LibTessSwift_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-LibTessSwift_Tests-dummy.m"; sourceTree = "<group>"; };
+		EFF2017CAC0C6D4B06512080BBD36B65 /* Pool.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Pool.swift; path = LibTessSwift/Classes/Pool.swift; sourceTree = "<group>"; };
+		F772777C9CB8710FA6DB0555260EC690 /* LibTessSwift.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = LibTessSwift.modulemap; sourceTree = "<group>"; };
+		FC6D3F26BEFEB6E0BA699BBBECA14B8A /* Mesh.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Mesh.swift; path = LibTessSwift/Classes/Mesh.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,7 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CB936593051B584BA59B71D29E5BFB04 /* Foundation.framework in Frameworks */,
+				5F09A7B041B7C37701806CF4CD2C3319 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,7 +98,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				45673685FAAF7971FEB0210D2CA71FBE /* Foundation.framework in Frameworks */,
+				AA74987DD228C3FB9E547F28D5C8C80D /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -103,73 +106,62 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A9129D410D6C5A60FC73FDEBF85697F9 /* Foundation.framework in Frameworks */,
+				1F25B225A5C7F7582C1BA46C238C1357 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1C8682A4FDB3B986DD23DC39B43202E4 /* Development Pods */ = {
+		326859713DE0BF4B6DE2DFA08ECECEC8 /* LibTessSwift */ = {
 			isa = PBXGroup;
 			children = (
-				953AE2B1FBC67FD1FF85E3B2D9F1FAE2 /* LibTessSwift */,
+				D74627D03FAB3457AC821F2AD153C8D1 /* Dict.swift */,
+				76B864AE56C532774AA7A6279A08600F /* Geom.swift */,
+				FC6D3F26BEFEB6E0BA699BBBECA14B8A /* Mesh.swift */,
+				2C63A009F64AF3B8129F6FAFCC8ED076 /* MeshCreationContext.swift */,
+				49FEC8961067A03F6C399198C59E6E46 /* MeshUtils.swift */,
+				EFF2017CAC0C6D4B06512080BBD36B65 /* Pool.swift */,
+				3093E9C5DE4A0E84A9A358A2E3081FAB /* PriorityHeap.swift */,
+				B1DEEDDEFA51BB77D74799F8635E211A /* PriorityQueue.swift */,
+				C88AF4AE76687C3A44A329652BBDD2C5 /* Sweep.swift */,
+				63CECC3F2A3C27CA96E21F0360413D81 /* Tess.swift */,
+				3EE3313541E5B244735F2B71345C9FFA /* Pod */,
+				5A6FF9E3A1B5B6B879E4D131500C3AC3 /* Support Files */,
 			);
-			name = "Development Pods";
+			name = LibTessSwift;
+			path = ../..;
 			sourceTree = "<group>";
 		};
-		5CD073F40F87587D0BFDD42BF2052572 /* Classes */ = {
+		3EE3313541E5B244735F2B71345C9FFA /* Pod */ = {
 			isa = PBXGroup;
 			children = (
-				E57D52090C6820A31FE49184B9E7A07E /* Dict.swift */,
-				FD6D67BCB8C8116C385FE87E98E272C0 /* Geom.swift */,
-				93D9BA96DF296D1EBFF736091EC2CC66 /* Mesh.swift */,
-				E0779E58D192A8C8D2639AA2D1D17E0D /* MeshCreationContext.swift */,
-				20176F168B881FACAF9CAE5D482EFBA1 /* MeshUtils.swift */,
-				90BBBD22E609D5702729E26F773C75EC /* Pool.swift */,
-				7A29A9057BF0875DD197F47C6180EE05 /* PriorityHeap.swift */,
-				4E94771530F37C75E9F0C9BD457017F9 /* PriorityQueue.swift */,
-				5BBF3C34832DAF9ECDA108296D809129 /* Sweep.swift */,
-				BDD1DBA85C04758146E7F29262E71461 /* Tess.swift */,
+				7405B3CEA33E6984EAB433CCF91A4D67 /* LibTessSwift.podspec */,
+				0908B9E932BDAEC80D008FA5156DC3E1 /* LICENSE */,
+				739EE80644E16677D7815AF39927F908 /* README.md */,
 			);
-			path = Classes;
+			name = Pod;
 			sourceTree = "<group>";
 		};
-		70BD77BD03A13D07AB9216D010192D19 /* Support Files */ = {
+		5A6FF9E3A1B5B6B879E4D131500C3AC3 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				F8862F1DDA9C9BAE99AB49DB7DD34FDF /* Info.plist */,
-				76FEBCC12E8F01CB87BD1A743FA2DA2E /* LibTessSwift.modulemap */,
-				367F57D1D085F53F00122F215934634D /* LibTessSwift.xcconfig */,
-				DD9C8F9FCA11C37E824C2284349456A0 /* LibTessSwift-dummy.m */,
-				BFF64A9781BCF7FD2E962B82851CC214 /* LibTessSwift-prefix.pch */,
-				693D6B32439463290FC48534FB212640 /* LibTessSwift-umbrella.h */,
+				90750FBE96625A3C4BDA2A8A99E05D13 /* Info.plist */,
+				F772777C9CB8710FA6DB0555260EC690 /* LibTessSwift.modulemap */,
+				82D63FD2EDB6513262F782DD636BBF0A /* LibTessSwift.xcconfig */,
+				BF0DB65264CF90004E5943CC7BB36B52 /* LibTessSwift-dummy.m */,
+				263777AA59B21BB5CD74B85EBE85ECB7 /* LibTessSwift-prefix.pch */,
+				A25D0723C69C15B946C38D5A33904009 /* LibTessSwift-umbrella.h */,
 			);
 			name = "Support Files";
 			path = "Example/Pods/Target Support Files/LibTessSwift";
-			sourceTree = "<group>";
-		};
-		71A923AA8989CD1714DFA1BC535A3C0A /* LibTessSwift */ = {
-			isa = PBXGroup;
-			children = (
-				5CD073F40F87587D0BFDD42BF2052572 /* Classes */,
-			);
-			path = LibTessSwift;
-			sourceTree = "<group>";
-		};
-		7531C8F8DE19F1AA3C8A7AC97A91DC29 /* iOS */ = {
-			isa = PBXGroup;
-			children = (
-				CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */,
-			);
-			name = iOS;
 			sourceTree = "<group>";
 		};
 		7DB346D0F39D3F0E887471402A8071AB = {
 			isa = PBXGroup;
 			children = (
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
-				1C8682A4FDB3B986DD23DC39B43202E4 /* Development Pods */,
+				CDE768149066F6BCED8043F785120AA4 /* Development Pods */,
 				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
 				E2A80D0086F7B14895824F25E617CAF1 /* Products */,
 				8C696379BBF007ED9F8D4905666A5DC7 /* Targets Support Files */,
@@ -179,43 +171,49 @@
 		8C696379BBF007ED9F8D4905666A5DC7 /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				C04A250A21377D21615751D272944E8B /* Pods-LibTessSwift_Example */,
-				ED7B5C0CE5FB24F0B8012C97D3673AA4 /* Pods-LibTessSwift_Tests */,
+				DFF00052AC168C2F060F048C45C8E9B3 /* Pods-LibTessSwift_Example */,
+				E8438856079856317F2A67703310CD5E /* Pods-LibTessSwift_Tests */,
 			);
 			name = "Targets Support Files";
-			sourceTree = "<group>";
-		};
-		953AE2B1FBC67FD1FF85E3B2D9F1FAE2 /* LibTessSwift */ = {
-			isa = PBXGroup;
-			children = (
-				71A923AA8989CD1714DFA1BC535A3C0A /* LibTessSwift */,
-				70BD77BD03A13D07AB9216D010192D19 /* Support Files */,
-			);
-			name = LibTessSwift;
-			path = ../..;
 			sourceTree = "<group>";
 		};
 		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				7531C8F8DE19F1AA3C8A7AC97A91DC29 /* iOS */,
+				D35AF013A5F0BAD4F32504907A52519E /* iOS */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		C04A250A21377D21615751D272944E8B /* Pods-LibTessSwift_Example */ = {
+		CDE768149066F6BCED8043F785120AA4 /* Development Pods */ = {
 			isa = PBXGroup;
 			children = (
-				4D1E8725235F451390E2BCAD571D67F3 /* Info.plist */,
-				F66C6B83C0283D02D89F7356B22ECF57 /* Pods-LibTessSwift_Example.modulemap */,
-				39E228476E565F302DA1291CEE992F19 /* Pods-LibTessSwift_Example-acknowledgements.markdown */,
-				930ECC0E624A74BEAED0D32758852367 /* Pods-LibTessSwift_Example-acknowledgements.plist */,
-				08A991768682307E2BDF801945286146 /* Pods-LibTessSwift_Example-dummy.m */,
-				52D6F4B68F067E69259C59A9400BF700 /* Pods-LibTessSwift_Example-frameworks.sh */,
-				707AECF702279718C7B614AF3A08B05B /* Pods-LibTessSwift_Example-resources.sh */,
-				736582F9EBC43D057E713A81DCC244BA /* Pods-LibTessSwift_Example-umbrella.h */,
-				CFD96E56308654D9CB0A7A9AF7D27BBF /* Pods-LibTessSwift_Example.debug.xcconfig */,
-				843B510E659201346583C205433B2B31 /* Pods-LibTessSwift_Example.release.xcconfig */,
+				326859713DE0BF4B6DE2DFA08ECECEC8 /* LibTessSwift */,
+			);
+			name = "Development Pods";
+			sourceTree = "<group>";
+		};
+		D35AF013A5F0BAD4F32504907A52519E /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		DFF00052AC168C2F060F048C45C8E9B3 /* Pods-LibTessSwift_Example */ = {
+			isa = PBXGroup;
+			children = (
+				95018A4DC6C89A7568BEA9CCFCA19B09 /* Info.plist */,
+				D61F399FB29351340EA16A18B9684065 /* Pods-LibTessSwift_Example.modulemap */,
+				AE79E064144701FC14F4B8C1E3F1F33B /* Pods-LibTessSwift_Example-acknowledgements.markdown */,
+				B4C3A3C6484D4497ED7EBD4DCB2E6006 /* Pods-LibTessSwift_Example-acknowledgements.plist */,
+				B85B57FE15FEF016ECCAD4227FBDA2D4 /* Pods-LibTessSwift_Example-dummy.m */,
+				6793937620C2A9C29452A776A2B2CD64 /* Pods-LibTessSwift_Example-frameworks.sh */,
+				D7C0398666B94731F6D8AA2237B30582 /* Pods-LibTessSwift_Example-resources.sh */,
+				1510BD5B779C741CDEB0A2D785E6833D /* Pods-LibTessSwift_Example-umbrella.h */,
+				8C08CE63D03385094E90F16F4ABD179B /* Pods-LibTessSwift_Example.debug.xcconfig */,
+				D50AACEDC36413BEC4BCC70BEA29AC5F /* Pods-LibTessSwift_Example.release.xcconfig */,
 			);
 			name = "Pods-LibTessSwift_Example";
 			path = "Target Support Files/Pods-LibTessSwift_Example";
@@ -231,19 +229,19 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		ED7B5C0CE5FB24F0B8012C97D3673AA4 /* Pods-LibTessSwift_Tests */ = {
+		E8438856079856317F2A67703310CD5E /* Pods-LibTessSwift_Tests */ = {
 			isa = PBXGroup;
 			children = (
-				49758B8E09E201F5F390CA2FC4CC6FC6 /* Info.plist */,
-				CA296BF04DDA5580F12491850E3FE7EE /* Pods-LibTessSwift_Tests.modulemap */,
-				5BF65BC61EAA382A96A8259C5AA65D4B /* Pods-LibTessSwift_Tests-acknowledgements.markdown */,
-				16A16463D0DCB579749D8882F822C1D7 /* Pods-LibTessSwift_Tests-acknowledgements.plist */,
-				D33C71A0E410305427560D0A8558B030 /* Pods-LibTessSwift_Tests-dummy.m */,
-				FBD2A0D3714A9F59E4595AA8AFA89A98 /* Pods-LibTessSwift_Tests-frameworks.sh */,
-				CFED713EFD9E1DDA6F071F8666C44910 /* Pods-LibTessSwift_Tests-resources.sh */,
-				1705B9DD964D342DDCDAC9FF12315EEA /* Pods-LibTessSwift_Tests-umbrella.h */,
-				84786F055E834279F80489CC6E6C1898 /* Pods-LibTessSwift_Tests.debug.xcconfig */,
-				26AD1BB54C0D69BBC24961A4F181EE81 /* Pods-LibTessSwift_Tests.release.xcconfig */,
+				BF333683B0BA916ECE410F584B6288E2 /* Info.plist */,
+				46447CAADCB63DE329B069FBE933A791 /* Pods-LibTessSwift_Tests.modulemap */,
+				9D575890969DA9E08831DA087EDDE1A0 /* Pods-LibTessSwift_Tests-acknowledgements.markdown */,
+				8232F73FEF5E18010CB14CBB4BCFEC89 /* Pods-LibTessSwift_Tests-acknowledgements.plist */,
+				E55F2A12A8100B4E6E6E349062143352 /* Pods-LibTessSwift_Tests-dummy.m */,
+				7C1E3A64CEB55793A34CFFC976EA790E /* Pods-LibTessSwift_Tests-frameworks.sh */,
+				8BFFF4C861086F20928E294A936C2044 /* Pods-LibTessSwift_Tests-resources.sh */,
+				450740A29812A24F7B9A7E5CB4395574 /* Pods-LibTessSwift_Tests-umbrella.h */,
+				3341B5BC3835BA27B8D744C61CCE64CD /* Pods-LibTessSwift_Tests.debug.xcconfig */,
+				A436F6A406E1FDCC705341D13B196DFB /* Pods-LibTessSwift_Tests.release.xcconfig */,
 			);
 			name = "Pods-LibTessSwift_Tests";
 			path = "Target Support Files/Pods-LibTessSwift_Tests";
@@ -301,7 +299,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 564B6D2FF8CF2797BE4455392E710FEC /* Build configuration list for PBXNativeTarget "LibTessSwift" */;
 			buildPhases = (
-				480BFADE588A38460DFD5C7A47824DDD /* Sources */,
+				74B8778D8B40AAD43B26181A338B2D3D /* Sources */,
 				F3E89F3443D563183E68E7304D8FC345 /* Frameworks */,
 				922BCC76B539DBC74727139EEC0BFB6D /* Headers */,
 			);
@@ -337,8 +335,8 @@
 		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0700;
+				LastSwiftUpdateCheck = 0930;
+				LastUpgradeCheck = 0930;
 			};
 			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -368,21 +366,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		480BFADE588A38460DFD5C7A47824DDD /* Sources */ = {
+		74B8778D8B40AAD43B26181A338B2D3D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				738C6856B323B2B3E523723BA3478283 /* Dict.swift in Sources */,
-				04A31FEEC250D5AE328C73D9E88FE104 /* Geom.swift in Sources */,
-				D69D237F26520BBE3747AADF739876F2 /* LibTessSwift-dummy.m in Sources */,
-				6ED107AD8790350C7E92C6AB45A8C2DC /* Mesh.swift in Sources */,
-				A7AB5991127B850C2A3FF08F2FBFE00D /* MeshCreationContext.swift in Sources */,
-				17BC0D21931B58301DB72131D7F31CEC /* MeshUtils.swift in Sources */,
-				ACECCA118255DC00C24DB9F12D157ADB /* Pool.swift in Sources */,
-				D0FF36DDEDF2FB154F273F601110589A /* PriorityHeap.swift in Sources */,
-				7FB836AA5484B35A6DDC6F226ED8EB9D /* PriorityQueue.swift in Sources */,
-				A21EB5A4D7A9C19531E1AAA0D14B7493 /* Sweep.swift in Sources */,
-				563291365B3A72BFA3E9652B333B461D /* Tess.swift in Sources */,
+				D509C21CCE6654758FB15FD03111C43F /* Dict.swift in Sources */,
+				3E34C631C07FB35016054AC7E9261B42 /* Geom.swift in Sources */,
+				3AAA85A7F9988FA29B77957EC697A774 /* LibTessSwift-dummy.m in Sources */,
+				65AF00FF6181A1C56AF1CD24750E4EA9 /* Mesh.swift in Sources */,
+				0B50C8E1B9101CE1F38121B6BDFB66AF /* MeshCreationContext.swift in Sources */,
+				AE2239103CF398F1098903C966653F5A /* MeshUtils.swift in Sources */,
+				A3807397A629C18FE41C65B867477D3E /* Pool.swift in Sources */,
+				D9ABEB6658556E0CBD4BBBC2C0A27C79 /* PriorityHeap.swift in Sources */,
+				E7694075253700A8A83978EAE34324E3 /* PriorityQueue.swift in Sources */,
+				15A2234DA402BB5F7758987FC662E453 /* Sweep.swift in Sources */,
+				67BCF91255FA2FF48C87E6A9E8300FE1 /* Tess.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -406,98 +404,117 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		1D5FE5E8D2F0B0EA58B5A8C5A0CD2D5D /* Debug */ = {
+		15BEC53A3F3980D8DF312C3B3BD939D9 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 367F57D1D085F53F00122F215934634D /* LibTessSwift.xcconfig */;
+			baseConfigurationReference = A436F6A406E1FDCC705341D13B196DFB /* Pods-LibTessSwift_Tests.release.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/LibTessSwift/LibTessSwift-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/LibTessSwift/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/LibTessSwift/LibTessSwift.modulemap";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = LibTessSwift;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		33F2CEB6B8CB68CE8CAF76317020E657 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = CFD96E56308654D9CB0A7A9AF7D27BBF /* Pods-LibTessSwift_Example.debug.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "Target Support Files/Pods-LibTessSwift_Example/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-LibTessSwift_Example/Pods-LibTessSwift_Example.modulemap";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = Pods_LibTessSwift_Example;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		3E1F4A6FADD33CB9E97B7D65434CE0B7 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 84786F055E834279F80489CC6E6C1898 /* Pods-LibTessSwift_Tests.debug.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "Target Support Files/Pods-LibTessSwift_Tests/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-LibTessSwift_Tests/Pods-LibTessSwift_Tests.modulemap";
-				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_LibTessSwift_Tests;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		1C3ED16E144B9A188CC88F2343EB3B4F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Release;
+		};
+		3C1F33DCB67B520F11A69AC5C2AE7463 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3341B5BC3835BA27B8D744C61CCE64CD /* Pods-LibTessSwift_Tests.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-LibTessSwift_Tests/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-LibTessSwift_Tests/Pods-LibTessSwift_Tests.modulemap";
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PODS_ROOT = "$(SRCROOT)";
@@ -511,193 +528,199 @@
 			};
 			name = Debug;
 		};
-		6B8B6F399E5EBBB67092BE8476A85B8D /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 843B510E659201346583C205433B2B31 /* Pods-LibTessSwift_Example.release.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "Target Support Files/Pods-LibTessSwift_Example/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-LibTessSwift_Example/Pods-LibTessSwift_Example.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = Pods_LibTessSwift_Example;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		8DED8AD26D381A6ACFF202E5217EC498 /* Release */ = {
+		51F393FE91B4B6C835FB4B238187AD09 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGNING_REQUIRED = NO;
-				COPY_PHASE_STRIP = YES;
-				ENABLE_NS_ASSERTIONS = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"POD_CONFIGURATION_RELEASE=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
-				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
-				STRIP_INSTALLED_PRODUCT = NO;
-				SYMROOT = "${SRCROOT}/../build";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		9E1E4E48AF2EAB23169E611BF694090A /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGNING_REQUIRED = NO;
 				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"POD_CONFIGURATION_DEBUG=1",
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
 				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Debug;
 		};
-		B07EB9AD652135B019DF9D7413AA34F5 /* Release */ = {
+		582C0171A41E8B562113C99254681211 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 367F57D1D085F53F00122F215934634D /* LibTessSwift.xcconfig */;
+			baseConfigurationReference = 82D63FD2EDB6513262F782DD636BBF0A /* LibTessSwift.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREFIX_HEADER = "Target Support Files/LibTessSwift/LibTessSwift-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/LibTessSwift/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/LibTessSwift/LibTessSwift.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = LibTessSwift;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Release;
+			name = Debug;
 		};
-		E2139F2ED6476C02AA20991064A75E4D /* Release */ = {
+		5BCBDD222A73A949C413FA0030B1EB13 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 26AD1BB54C0D69BBC24961A4F181EE81 /* Pods-LibTessSwift_Tests.release.xcconfig */;
+			baseConfigurationReference = 82D63FD2EDB6513262F782DD636BBF0A /* LibTessSwift.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "Target Support Files/Pods-LibTessSwift_Tests/Info.plist";
+				GCC_PREFIX_HEADER = "Target Support Files/LibTessSwift/LibTessSwift-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/LibTessSwift/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-LibTessSwift_Tests/Pods-LibTessSwift_Tests.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = Pods_LibTessSwift_Tests;
+				MODULEMAP_FILE = "Target Support Files/LibTessSwift/LibTessSwift.modulemap";
+				PRODUCT_NAME = LibTessSwift;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
+		};
+		CF0A6CE4BEE4126147D608A426F80976 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D50AACEDC36413BEC4BCC70BEA29AC5F /* Pods-LibTessSwift_Example.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-LibTessSwift_Example/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-LibTessSwift_Example/Pods-LibTessSwift_Example.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_LibTessSwift_Example;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		E4232A72316F7872DB80A16665597C5A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8C08CE63D03385094E90F16F4ABD179B /* Pods-LibTessSwift_Example.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-LibTessSwift_Example/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-LibTessSwift_Example/Pods-LibTessSwift_Example.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_LibTessSwift_Example;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
 		};
 /* End XCBuildConfiguration section */
 
@@ -705,8 +728,8 @@
 		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				9E1E4E48AF2EAB23169E611BF694090A /* Debug */,
-				8DED8AD26D381A6ACFF202E5217EC498 /* Release */,
+				51F393FE91B4B6C835FB4B238187AD09 /* Debug */,
+				1C3ED16E144B9A188CC88F2343EB3B4F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -714,8 +737,8 @@
 		564B6D2FF8CF2797BE4455392E710FEC /* Build configuration list for PBXNativeTarget "LibTessSwift" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1D5FE5E8D2F0B0EA58B5A8C5A0CD2D5D /* Debug */,
-				B07EB9AD652135B019DF9D7413AA34F5 /* Release */,
+				582C0171A41E8B562113C99254681211 /* Debug */,
+				5BCBDD222A73A949C413FA0030B1EB13 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -723,8 +746,8 @@
 		81DC473DBF161C12D4AECB4E1E0F95AD /* Build configuration list for PBXNativeTarget "Pods-LibTessSwift_Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				3E1F4A6FADD33CB9E97B7D65434CE0B7 /* Debug */,
-				E2139F2ED6476C02AA20991064A75E4D /* Release */,
+				3C1F33DCB67B520F11A69AC5C2AE7463 /* Debug */,
+				15BEC53A3F3980D8DF312C3B3BD939D9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -732,8 +755,8 @@
 		869A55ED9A6D6EBE972708F77143087E /* Build configuration list for PBXNativeTarget "Pods-LibTessSwift_Example" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				33F2CEB6B8CB68CE8CAF76317020E657 /* Debug */,
-				6B8B6F399E5EBBB67092BE8476A85B8D /* Release */,
+				E4232A72316F7872DB80A16665597C5A /* Debug */,
+				CF0A6CE4BEE4126147D608A426F80976 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -48,7 +48,7 @@ public struct ContourVertex: CustomStringConvertible {
     }
     
     public var description: String {
-        return "\(position), \(data)"
+        return "\(position), \(data as Any)"
     }
 }
 

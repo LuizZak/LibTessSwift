@@ -1,16 +1,16 @@
 PODS:
-  - LibTessSwift (0.2.1)
+  - LibTessSwift (0.3.1)
 
 DEPENDENCIES:
   - LibTessSwift (from `../`)
 
 EXTERNAL SOURCES:
   LibTessSwift:
-    :path: "../"
+    :path: ../
 
 SPEC CHECKSUMS:
-  LibTessSwift: 7c8b3f54637e88d052540654b9aaaa593ed65622
+  LibTessSwift: 35aa4f52943dde84d1ff0e9ca699f670142ae70e
 
 PODFILE CHECKSUM: 0a13ad7da69984963f9e5e84292d9f5f2f8c5455
 
-COCOAPODS: 1.2.0
+COCOAPODS: 1.4.0
