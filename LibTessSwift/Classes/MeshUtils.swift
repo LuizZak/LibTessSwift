@@ -126,6 +126,8 @@ internal class MeshUtils {
     }
 
     public final class Face: Linked, EmptyInitializable {
+        internal static let _ZeroFace: Face = Face()
+        
         internal weak var _prev: Face!
         internal var _next: Face!
         internal var _anEdge: Edge!
@@ -168,6 +170,8 @@ internal class MeshUtils {
     }
 
     public final class Edge: Linked, EmptyInitializable {
+        internal static let ZeroEdge: Edge = Edge()
+        
         public static var pool: ContiguousArray<MeshUtils.Edge> = []
         
         internal var _pair: EdgePair?
@@ -176,17 +180,17 @@ internal class MeshUtils {
         internal weak var _Onext: Edge!
         internal var _Lnext: Edge!
         internal var _Org: Vertex!
-        internal weak var _Lface: Face!
+        internal unowned(unsafe) var _Lface: Face = Face._ZeroFace
         internal weak var _activeRegion: Tess.ActiveRegion!
         internal var _winding: Int = 0
 
-        internal var _Rface: Face! { get { return _Sym?._Lface } set { _Sym?._Lface = newValue } }
-        internal var _Dst: Vertex! { get { return _Sym?._Org }  set { _Sym?._Org = newValue } }
+        internal var _Rface: Face! { get { return _Sym._Lface } set { _Sym._Lface = newValue } }
+        internal var _Dst: Vertex! { get { return _Sym._Org }  set { _Sym._Org = newValue } }
 
-        internal var _Oprev: Edge! { get { return _Sym?._Lnext } set { _Sym?._Lnext = newValue } }
-        internal var _Lprev: Edge! { get { return _Onext?._Sym } set { _Onext?._Sym = newValue } }
+        internal var _Oprev: Edge! { get { return _Sym._Lnext } set { _Sym._Lnext = newValue } }
+        internal var _Lprev: Edge! { get { return _Onext._Sym } set { _Onext._Sym = newValue } }
         internal var _Dprev: Edge! { get { return _Lnext._Sym } set { _Lnext._Sym = newValue } }
-        internal var _Rprev: Edge! { get { return _Sym?._Onext } set { _Sym?._Onext = newValue } }
+        internal var _Rprev: Edge! { get { return _Sym._Onext } set { _Sym._Onext = newValue } }
         internal var _Dnext: Edge! { get { return _Rprev?._Sym } set { _Rprev?._Sym = newValue } }
         internal var _Rnext: Edge! { get { return _Oprev?._Sym } set { _Oprev?._Sym = newValue } }
         
@@ -203,11 +207,11 @@ internal class MeshUtils {
         public func Reset() {
             _pair?.Reset()
             _next = nil
-            _Sym = nil
-            _Onext = nil
+            _Sym = MeshUtils.Edge.ZeroEdge
+            _Onext = MeshUtils.Edge.ZeroEdge
             _Lnext = nil
             _Org = nil
-            _Lface = nil
+            _Lface = Face._ZeroFace
             _activeRegion = nil
             _winding = 0
         }
@@ -224,8 +228,8 @@ internal class MeshUtils {
         let aOnext = a._Onext
         let bOnext = b._Onext
         
-        aOnext?._Sym?._Lnext = b
-        bOnext?._Sym?._Lnext = a
+        aOnext?._Sym._Lnext = b
+        bOnext?._Sym._Lnext = a
         a._Onext = bOnext
         b._Onext = aOnext
     }

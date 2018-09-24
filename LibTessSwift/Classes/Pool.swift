@@ -23,7 +23,7 @@ internal class Pool<Element> where Element: AnyObject & EmptyInitializable {
     
     /// Pulls a new instance from this pool, creating it if necessary.
     func pull() -> Element {
-        if(pool.count == 0) {
+        if pool.count == 0 {
             let v = Element()
             
             totalCreated.append(v)

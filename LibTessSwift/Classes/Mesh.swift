@@ -37,19 +37,19 @@ internal final class Mesh {
         
         e._next = e
         e._Sym = eSym
-        e._Onext = nil
+        e._Onext = MeshUtils.Edge.ZeroEdge
         e._Lnext = nil
         e._Org = nil
-        e._Lface = nil
+        e._Lface = MeshUtils.Face._ZeroFace
         e._winding = 0
         e._activeRegion = nil
 
         eSym._next = eSym
         eSym._Sym = e
-        eSym._Onext = nil
+        eSym._Onext = MeshUtils.Edge.ZeroEdge
         eSym._Lnext = nil
         eSym._Org = nil
-        eSym._Lface = nil
+        eSym._Lface = MeshUtils.Face._ZeroFace
         eSym._winding = 0
         eSym._activeRegion = nil
     }
@@ -103,7 +103,7 @@ internal final class Mesh {
         let e = _context.MakeEdge(_eHead)
         
         _context.MakeVertex(e, _vHead)
-        _context.MakeVertex(e._Sym!, _vHead)
+        _context.MakeVertex(e._Sym, _vHead)
         _context.MakeFace(e, _fHead)
     
         return e
@@ -148,7 +148,7 @@ internal final class Mesh {
         if (eDst._Lface !== eOrg._Lface) {
             // We are connecting two disjoint loops -- destroy eDst->Lface
             joiningLoops = true
-            _context.KillFace(eDst._Lface!, eOrg._Lface!)
+            _context.KillFace(eDst._Lface, eOrg._Lface)
         }
 
         // Change the edge structure
@@ -163,8 +163,8 @@ internal final class Mesh {
         if (!joiningLoops) {
             // We split one loop into two -- the new loop is eDst->Lface.
             // Make sure the old face points to a valid half-edge.
-            _context.MakeFace(eDst, eOrg._Lface!)
-            eOrg._Lface?._anEdge = eOrg
+            _context.MakeFace(eDst, eOrg._Lface)
+            eOrg._Lface._anEdge = eOrg
         }
     }
 
@@ -185,7 +185,7 @@ internal final class Mesh {
         if (eDel._Lface !== eDel._Rface) {
             // We are joining two loops into one -- remove the left face
             joiningLoops = true
-            _context.KillFace(eDel._Lface!, eDel._Rface!)
+            _context.KillFace(eDel._Lface, eDel._Rface!)
         }
 
         if (eDel._Onext === eDel) {
@@ -199,7 +199,7 @@ internal final class Mesh {
 
             if (!joiningLoops) {
                 // We are splitting one loop into two -- create a new loop for eDel.
-                _context.MakeFace(eDel, eDel._Lface!)
+                _context.MakeFace(eDel, eDel._Lface)
             }
         }
 
@@ -208,7 +208,7 @@ internal final class Mesh {
 
         if (eDelSym._Onext === eDelSym) {
             _context.KillVertex(eDelSym._Org!, nil)
-            _context.KillFace(eDelSym._Lface!, nil)
+            _context.KillFace(eDelSym._Lface, nil)
         } else {
             // Make sure that eDel->Dst and eDel->Lface point to valid half-edges
             eDel._Lface._anEdge = eDelSym._Oprev
@@ -278,7 +278,7 @@ internal final class Mesh {
     @discardableResult
     public func Connect(_ eOrg: MeshUtils.Edge, _ eDst: MeshUtils.Edge) -> MeshUtils.Edge {
         let eNew = _context.MakeEdge(eOrg)
-        let eNewSym = eNew._Sym
+        let eNewSym = eNew._Sym!
 
         var joiningLoops = false
         if (eDst._Lface !== eOrg._Lface) {
@@ -289,13 +289,13 @@ internal final class Mesh {
         
         // Connect the new edge appropriately
         MeshUtils.Splice(eNew, eOrg._Lnext)
-        MeshUtils.Splice(eNewSym!, eDst)
+        MeshUtils.Splice(eNewSym, eDst)
 
         // Set the vertex and face information
         eNew._Org = eOrg._Dst
-        eNewSym!._Org = eDst._Org
+        eNewSym._Org = eDst._Org
         eNew._Lface = eOrg._Lface
-        eNewSym!._Lface = eOrg._Lface
+        eNewSym._Lface = eOrg._Lface
 
         // Make sure the old face points to a valid half-edge
         eOrg._Lface._anEdge = eNewSym
@@ -325,7 +325,7 @@ internal final class Mesh {
             e = eNext
             eNext = e._Lnext
 
-            e._Lface = nil
+            e._Lface = MeshUtils.Face._ZeroFace
             if (e._Rface != nil) {
                 continue
             }
@@ -339,7 +339,7 @@ internal final class Mesh {
                 e._Org!._anEdge = e._Onext
                 MeshUtils.Splice(e, e._Oprev)
             }
-            eSym = e._Sym!
+            eSym = e._Sym
             if (eSym._Onext === eSym) {
                 _context.KillVertex(eSym._Org!, nil)
             } else {
@@ -377,19 +377,19 @@ internal final class Mesh {
                     eCur = eNext
                 }
                 
-                let eSym = eCur._Sym
+                let eSym = eCur._Sym!
                 
-                if (eSym != nil && eSym!._Lface != nil && eSym!._Lface!._inside) {
+                if eSym != nil && eSym._Lface !== MeshUtils.Face._ZeroFace && eSym._Lface._inside {
                     // Try to merge the neighbour faces if the resulting polygons
                     // does not exceed maximum number of vertices.
                     let curNv = f.VertsCount
-                    let symNv = eSym!._Lface!.VertsCount
+                    let symNv = eSym._Lface.VertsCount
                     if ((curNv + symNv - 2) <= maxVertsPerFace) {
                         // Merge if the resulting poly is convex.
-                        if (Geom.VertCCW(eCur._Lprev!._Org!, eCur._Org!, eSym!._Lnext._Lnext._Org!) &&
-                            Geom.VertCCW(eSym!._Lprev!._Org!, eSym!._Org!, eCur._Lnext._Lnext._Org!)) {
-                            eNext = eSym!._Lnext
-                            Delete(eSym!)
+                        if (Geom.VertCCW(eCur._Lprev!._Org!, eCur._Org!, eSym._Lnext._Lnext._Org!) &&
+                            Geom.VertCCW(eSym._Lprev!._Org!, eSym._Org!, eCur._Lnext._Lnext._Org!)) {
+                            eNext = eSym._Lnext
+                            Delete(eSym)
                             eCur = nil
                         }
                     }
@@ -487,7 +487,7 @@ internal final class Mesh {
         assert(e._Sym._Sym === e)
         assert(e._Org == nil)
         assert(e._Dst == nil)
-        assert(e._Lface == nil)
-        assert(e._Rface == nil)
+        assert(e._Lface === MeshUtils.Face._ZeroFace)
+        assert(e._Rface === MeshUtils.Face._ZeroFace)
     }
 }

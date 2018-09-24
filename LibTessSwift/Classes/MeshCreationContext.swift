@@ -82,17 +82,17 @@ internal final class MeshCreationContext {
         
         // Insert in circular doubly-linked list before eNext.
         // Note that the prev pointer is stored in Sym->next.
-        let ePrev = eNext._Sym?._next
+        let ePrev = eNext._Sym._next
         eSym._next = ePrev
-        ePrev?._Sym?._next = e
+        ePrev?._Sym._next = e
         e._next = eNext
-        eNext._Sym?._next = eSym
+        eNext._Sym._next = eSym
         
         e._Sym = eSym
         e._Onext = e
         e._Lnext = eSym
         e._Org = nil
-        e._Lface = nil
+        e._Lface = MeshUtils.Face._ZeroFace
         e._winding = 0
         e._activeRegion = nil
         
@@ -100,7 +100,7 @@ internal final class MeshCreationContext {
         eSym._Onext = eSym
         eSym._Lnext = e
         eSym._Org = nil
-        eSym._Lface = nil
+        eSym._Lface = MeshUtils.Face._ZeroFace
         eSym._winding = 0
         eSym._activeRegion = nil
         
@@ -179,9 +179,9 @@ internal final class MeshCreationContext {
         
         // delete from circular doubly-linked list
         let eNext = eDel._next
-        let ePrev = eDel._Sym?._next
-        eNext?._Sym?._next = ePrev
-        ePrev?._Sym?._next = eNext
+        let ePrev = eDel._Sym._next
+        eNext?._Sym._next = ePrev
+        ePrev?._Sym._next = eNext
         
         eDel._pair = nil
         
@@ -221,7 +221,7 @@ internal final class MeshCreationContext {
         // change the left face of all affected edges
         var e: MeshUtils.Edge? = eStart
         repeat {
-            e?._Lface = newLFace
+            e?._Lface = newLFace ?? MeshUtils.Face._ZeroFace
             e = e?._Lnext
         } while (e !== eStart)
         

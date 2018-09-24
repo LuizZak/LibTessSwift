@@ -77,12 +77,12 @@ internal class Geom {
     public static func EdgeSign(_ u: MeshUtils.Vertex, _ v: MeshUtils.Vertex, _ w: MeshUtils.Vertex) -> Real {
         assert(VertLeq(u, v) && VertLeq(v, w))
 
-        let gapL = v._s - u._s as Real
-        let gapR = w._s - v._s as Real
+        let gapL = v._s - u._s
+        let gapR = w._s - v._s
         
-        if (gapL + gapR > 0.0) {
-            let t1 = (v._t - w._t) * gapL as Real
-            let t2 = (v._t - u._t) * gapR as Real
+        if gapL + gapR > 0.0 {
+            let t1 = (v._t - w._t) * gapL
+            let t2 = (v._t - u._t) * gapR
             return t1 + t2
         }
         /* vertical line */
@@ -96,19 +96,19 @@ internal class Geom {
     public static func TransEval(_ u: MeshUtils.Vertex, _ v: MeshUtils.Vertex, _ w: MeshUtils.Vertex) -> Real {
         assert(TransLeq(u, v) && TransLeq(v, w))
         
-        let gapL = (v._t - u._t) as Real
-        let gapR = (w._t - v._t) as Real
+        let gapL = (v._t - u._t)
+        let gapR = (w._t - v._t)
 
-        if (gapL + gapR > 0.0) {
-            if (gapL < gapR) {
-                let k = (gapL / (gapL + gapR)) as Real
-                let s1 = (v._s - u._s) as Real
-                let s2 = (u._s - w._s) as Real
+        if gapL + gapR > 0.0 {
+            if gapL < gapR {
+                let k = gapL / (gapL + gapR)
+                let s1 = v._s - u._s
+                let s2 = u._s - w._s
                 return s1 + s2 * k
             } else {
-                let k = (gapR / (gapL + gapR)) as Real
-                let s1 = (v._s - w._s) as Real
-                let s2 = (w._s - u._s) as Real
+                let k = gapR / (gapL + gapR)
+                let s1 = v._s - w._s
+                let s2 = w._s - u._s
                 return s1 + s2 * k
             }
         }
@@ -147,7 +147,7 @@ internal class Geom {
 
     public static func AddWinding(_ eDst: MeshUtils.Edge, _ eSrc: MeshUtils.Edge) {
         eDst._winding += eSrc._winding
-        eDst._Sym!._winding += eSrc._Sym!._winding
+        eDst._Sym._winding += eSrc._Sym._winding
     }
 
     public static func Interpolate(_ a: Real, _ x: Real, _ b: Real, _ y: Real) -> Real {

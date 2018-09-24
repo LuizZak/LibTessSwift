@@ -46,11 +46,11 @@ extension Tess {
         
         unowned(unsafe) let event = _event!
         
-        if (e1_Dst === event) {
-            if (e2_Dst === event) {
+        if e1_Dst === event {
+            if e2_Dst === event {
                 // Two edges right of the sweep line which meet at the sweep event.
                 // Sort them by slope.
-                if (Geom.VertLeq(e1_Org, e2_Org)) {
+                if Geom.VertLeq(e1_Org, e2_Org) {
                     return Geom.EdgeSign(e2_Dst, e1_Org, e2_Org) <= 0.0
                 }
                 return Geom.EdgeSign(e1_Dst, e2_Org, e1_Org) >= 0.0
@@ -162,7 +162,7 @@ extension Tess {
     /// </summary>
     private func FinishRegion(_ reg: ActiveRegion) {
         let e = reg._eUp
-        let f = e!._Lface!
+        let f = e!._Lface
 
         f._inside = reg._inside
         f._anEdge = e
