@@ -20,7 +20,7 @@ fileprivate class StackItem {
     }
 }
 
-internal class PriorityQueue<TValue> where TValue: AnyObject {
+internal class PriorityQueue<TValue> {
     private var _leq: PriorityHeap<TValue>.LessOrEqual
     private var _heap: PriorityHeap<TValue>
     private var _keys: ContiguousArray<TValue?>

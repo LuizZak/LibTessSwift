@@ -7,47 +7,66 @@
 //
 
 /// Handy pooler
-internal class Pool<Element> where Element: AnyObject & EmptyInitializable {
+internal class Pool<Element> where Element: EmptyInitializable {
     
     /// Inner pool of objects
-    fileprivate(set) internal var pool: ContiguousArray<Element> = []
-    
-    /// Collects all objects initialized by this pool
-    fileprivate(set) internal var totalCreated: ContiguousArray<Element> = []
+    private var pool: Array<UnsafeMutablePointer<Element>> = []
+    private var freeIndices: Set<Int> = []
+    private var indices: [UnsafeMutablePointer<Element>: Int] = [:]
     
     /// Resets the contents of this pool
     func reset() {
+        free()
+    }
+    
+    func free() {
+        for pointer in pool {
+            pointer.deallocate()
+        }
+        
         pool.removeAll()
-        totalCreated.removeAll()
+        freeIndices.removeAll()
+        indices.removeAll()
     }
     
     /// Pulls a new instance from this pool, creating it if necessary.
-    func pull() -> Element {
-        if pool.count == 0 {
-            let v = Element()
+    func pull() -> UnsafeMutablePointer<Element> {
+        if let free = freeIndices.popFirst() {
+            pool[free].initialize(to: Element())
             
-            totalCreated.append(v)
-            
-            return v
+            return pool[free]
         }
         
-        return pool.removeFirst()
+        let pointer = UnsafeMutablePointer<Element>.allocate(capacity: 1)
+        pointer.initialize(to: Element())
+        indices[pointer] = pool.count
+        pool.append(pointer)
+        
+        return pointer
     }
     
     /// Calls a given closure with a temporary value from this pool.
     /// Re-pooling the object on this pool during the call of this method is a
     /// programming error and should not be done.
-    func withTemporary<U>(execute closure: (Element) throws -> (U)) rethrows -> U {
-        let v = pull()
+    func withTemporary<U>(execute closure: (UnsafeMutablePointer<Element>) throws -> (U)) rethrows -> U {
+        let pointer = UnsafeMutablePointer<Element>.allocate(capacity: 1)
+        pointer.initialize(to: Element())
         defer {
-            repool(v)
+            pointer.deinitialize()
+            pointer.deallocate()
         }
-        
-        return try closure(v)
+
+        return try closure(pointer)
     }
     
     /// Repools a value for later retrieval with .pull()
-    func repool(_ v: Element) {
-        pool.append(v)
+    func repool(_ v: UnsafeMutablePointer<Element>) {
+        if let index = indices[v] {
+            freeIndices.insert(index)
+        } else {
+            assertionFailure("Tried repooling pointer that was not pulled from this pool")
+        }
+        
+        v.deinitialize()
     }
 }

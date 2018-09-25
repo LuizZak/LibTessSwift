@@ -8,10 +8,10 @@
 
 internal final class Mesh {
     
-    internal var _vHead: MeshUtils.Vertex
-    internal var _fHead: MeshUtils.Face
-    internal var _eHead: MeshUtils.Edge
-    internal var _eHeadSym: MeshUtils.Edge?
+    internal var _vHead: Vertex
+    internal var _fHead: Face
+    internal var _eHead: Edge
+    internal var _eHeadSym: Edge?
     
     internal var _context = MeshCreationContext()
 
@@ -37,34 +37,35 @@ internal final class Mesh {
         
         e._next = e
         e._Sym = eSym
-        e._Onext = MeshUtils.Edge.ZeroEdge
+        e._Onext = nil
         e._Lnext = nil
         e._Org = nil
-        e._Lface = MeshUtils.Face._ZeroFace
+        e._Lface = nil
         e._winding = 0
         e._activeRegion = nil
 
         eSym._next = eSym
         eSym._Sym = e
-        eSym._Onext = MeshUtils.Edge.ZeroEdge
+        eSym._Onext = nil
         eSym._Lnext = nil
         eSym._Org = nil
-        eSym._Lface = MeshUtils.Face._ZeroFace
+        eSym._Lface = nil
         eSym._winding = 0
         eSym._activeRegion = nil
     }
     
     deinit {
-        OnFree()
-        Reset()
-        
+        free()
+    }
+    
+    public func free() {
         _context.free()
     }
 
     public func Reset() {
-        _vHead = .init()
-        _fHead = .init()
-        _eHead = .init()
+        _vHead = _context.createVertex()
+        _fHead = _context.createFace()
+        _eHead = _context.createEdge()
         _eHeadSym = nil
     }
 
@@ -72,34 +73,36 @@ internal final class Mesh {
         forEachFace(with: _context.resetFace)
         forEachVertex(with: _context.resetVertex)
         forEachEdge(with: _context.resetEdge)
+        
+        Reset()
     }
     
     /// Loops all the faces of this mesh with a given closure.
     /// Looping is safe to modify the face's _next pointer, so long as it does
     /// not modify the next's.
-    public func forEachFace(with closure: (MeshUtils.Face) throws -> Void) rethrows {
-        try _fHead._next?.loop(while: { $0 !== _fHead }, with: closure)
+    public func forEachFace(with closure: (Face) throws -> Void) rethrows {
+        try _fHead._next?.loop(while: { $0 != _fHead }, with: closure)
     }
     
     /// Loops all the vertices of this mesh with a given closure.
     /// Looping is safe to modify the vertex's _next pointer, so long as it does
     /// not modify the next's.
-    public func forEachVertex(with closure: (MeshUtils.Vertex) throws -> Void) rethrows {
-        try _vHead._next?.loop(while: { $0 !== _vHead }, with: closure)
+    public func forEachVertex(with closure: (Vertex) throws -> Void) rethrows {
+        try _vHead._next?.loop(while: { $0 != _vHead }, with: closure)
     }
     
     /// Loops all the edges of this mesh with a given closure.
     /// Looping is safe to modify the vertex's _next pointer, so long as it does
     /// not modify the next's.
-    public func forEachEdge(with closure: (MeshUtils.Edge) throws -> Void) rethrows {
-        try _eHead._next?.loop(while: { $0 !== _eHead }, with: closure)
+    public func forEachEdge(with closure: (Edge) throws -> Void) rethrows {
+        try _eHead._next?.loop(while: { $0 != _eHead }, with: closure)
     }
     
     /// <summary>
     /// Creates one edge, two vertices and a loop (face).
     /// The loop consists of the two new half-edges.
     /// </summary>
-    public func MakeEdge() -> MeshUtils.Edge {
+    public func MakeEdge() -> Edge {
         let e = _context.MakeEdge(_eHead)
         
         _context.MakeVertex(e, _vHead)
@@ -133,19 +136,19 @@ internal final class Mesh {
     /// If eDst == eOrg->Onext, the new vertex will have a single edge.
     /// If eDst == eOrg->Oprev, the old vertex will have a single edge.
     /// </summary>
-    public func Splice(_ eOrg: MeshUtils.Edge, _ eDst: MeshUtils.Edge) {
-        if (eOrg === eDst) {
+    public func Splice(_ eOrg: Edge, _ eDst: Edge) {
+        if (eOrg == eDst) {
             return
         }
 
         var joiningVertices = false
-        if (eDst._Org !== eOrg._Org) {
+        if (eDst._Org != eOrg._Org) {
             // We are merging two disjoint vertices -- destroy eDst->Org
             joiningVertices = true
             _context.KillVertex(eDst._Org!, eOrg._Org!)
         }
         var joiningLoops = false
-        if (eDst._Lface !== eOrg._Lface) {
+        if (eDst._Lface != eOrg._Lface) {
             // We are connecting two disjoint loops -- destroy eDst->Lface
             joiningLoops = true
             _context.KillFace(eDst._Lface, eOrg._Lface)
@@ -175,20 +178,20 @@ internal final class Mesh {
     /// the newly created loop will contain eDel->Dst. If the deletion of eDel
     /// would create isolated vertices, those are deleted as well.
     /// </summary>
-    public func Delete(_ eDel: MeshUtils.Edge) {
+    public func Delete(_ eDel: Edge) {
         let eDelSym = eDel._Sym!
         
         // First step: disconnect the origin vertex eDel->Org.  We make all
         // changes to get a consistent mesh in this "intermediate" state.
         
         var joiningLoops = false
-        if (eDel._Lface !== eDel._Rface) {
+        if (eDel._Lface != eDel._Rface) {
             // We are joining two loops into one -- remove the left face
             joiningLoops = true
             _context.KillFace(eDel._Lface, eDel._Rface!)
         }
 
-        if (eDel._Onext === eDel) {
+        if (eDel._Onext == eDel) {
             _context.KillVertex(eDel._Org!, nil)
         } else {
             // Make sure that eDel->Org and eDel->Rface point to valid half-edges
@@ -206,7 +209,7 @@ internal final class Mesh {
         // Claim: the mesh is now in a consistent state, except that eDel->Org
         // may have been deleted.  Now we disconnect eDel->Dst.
 
-        if (eDelSym._Onext === eDelSym) {
+        if (eDelSym._Onext == eDelSym) {
             _context.KillVertex(eDelSym._Org!, nil)
             _context.KillFace(eDelSym._Lface, nil)
         } else {
@@ -225,7 +228,7 @@ internal final class Mesh {
     /// eOrg and eNew will have the same left face.
     /// </summary>
     @discardableResult
-    public func AddEdgeVertex(_ eOrg: MeshUtils.Edge) -> MeshUtils.Edge {
+    public func AddEdgeVertex(_ eOrg: Edge) -> Edge {
         let eNew = _context.MakeEdge(eOrg)
         let eNewSym = eNew._Sym!
 
@@ -247,7 +250,7 @@ internal final class Mesh {
     /// eOrg and eNew will have the same left face.
     /// </summary>
     @discardableResult
-    public func SplitEdge(_ eOrg: MeshUtils.Edge) -> MeshUtils.Edge {
+    public func SplitEdge(_ eOrg: Edge) -> Edge {
         let eTmp = AddEdgeVertex(eOrg)
         let eNew = eTmp._Sym!
 
@@ -276,12 +279,12 @@ internal final class Mesh {
     /// If (eOrg->Lnext->Lnext == eDst), the old face is reduced to two edges.
     /// </summary>
     @discardableResult
-    public func Connect(_ eOrg: MeshUtils.Edge, _ eDst: MeshUtils.Edge) -> MeshUtils.Edge {
+    public func Connect(_ eOrg: Edge, _ eDst: Edge) -> Edge {
         let eNew = _context.MakeEdge(eOrg)
         let eNewSym = eNew._Sym!
 
         var joiningLoops = false
-        if (eDst._Lface !== eOrg._Lface) {
+        if (eDst._Lface != eOrg._Lface) {
             // We are connecting two disjoint loops -- destroy eDst->Lface
             joiningLoops = true
             _context.KillFace(eDst._Lface, eOrg._Lface)
@@ -315,24 +318,24 @@ internal final class Mesh {
     /// An entire mesh can be deleted by zapping its faces, one at a time,
     /// in any order. Zapped faces cannot be used in further mesh operations!
     /// </summary>
-    public func ZapFace(_ fZap: MeshUtils.Face) {
+    public func ZapFace(_ fZap: Face) {
         let eStart = fZap._anEdge!
 
         // walk around face, deleting edges whose right face is also nil
-        var eNext: MeshUtils.Edge = eStart._Lnext
-        var e: MeshUtils.Edge, eSym: MeshUtils.Edge
+        var eNext: Edge = eStart._Lnext
+        var e: Edge, eSym: Edge
         repeat {
             e = eNext
             eNext = e._Lnext
 
-            e._Lface = MeshUtils.Face._ZeroFace
+            e._Lface = nil
             if (e._Rface != nil) {
                 continue
             }
             
             // delete the edge -- see TESSmeshDelete above
 
-            if (e._Onext === e) {
+            if (e._Onext == e) {
                 _context.KillVertex(e._Org!, nil)
             } else {
                 // Make sure that e._Org points to a valid half-edge
@@ -340,7 +343,7 @@ internal final class Mesh {
                 MeshUtils.Splice(e, e._Oprev)
             }
             eSym = e._Sym
-            if (eSym._Onext === eSym) {
+            if (eSym._Onext == eSym) {
                 _context.KillVertex(eSym._Org!, nil)
             } else {
                 // Make sure that eSym._Org points to a valid half-edge
@@ -348,7 +351,7 @@ internal final class Mesh {
                 MeshUtils.Splice(eSym, eSym._Oprev)
             }
             _context.KillEdge(e)
-        } while (e !== eStart)
+        } while (e != eStart)
 
         /* delete from circular doubly-linked list */
         let fPrev = fZap._prev
@@ -366,7 +369,7 @@ internal final class Mesh {
                 return
             }
             
-            var eCur: MeshUtils.Edge! = f._anEdge!
+            var eCur: Edge! = f._anEdge!
             let vStart = eCur._Org
             
             while (true) {
@@ -377,9 +380,9 @@ internal final class Mesh {
                     eCur = eNext
                 }
                 
-                let eSym = eCur._Sym!
+                let eSym: Edge! = eCur._Sym
                 
-                if eSym != nil && eSym._Lface !== MeshUtils.Face._ZeroFace && eSym._Lface._inside {
+                if eSym != nil && eSym._Lface != nil && eSym._Lface._inside {
                     // Try to merge the neighbour faces if the resulting polygons
                     // does not exceed maximum number of vertices.
                     let curNv = f.VertsCount
@@ -395,7 +398,7 @@ internal final class Mesh {
                     }
                 }
                 
-                if (eCur != nil && eCur._Lnext._Org === vStart) {
+                if (eCur != nil && eCur._Lnext._Org == vStart) {
                     break
                 }
             }
@@ -405,12 +408,12 @@ internal final class Mesh {
     public func Check() {
         // Loops backwards across edges, faces and vertices of this mesh, make
         // sure everything is tidy and correctly set.
-        var e: MeshUtils.Edge
+        var e: Edge
         
         var fPrev = _fHead
         var f = _fHead
         
-        while fPrev._next !== _fHead
+        while fPrev._next != _fHead
         {
             defer {
                 fPrev = f
@@ -420,23 +423,23 @@ internal final class Mesh {
             
             e = f._anEdge
             repeat {
-                assert(e._Sym !== e)
-                assert(e._Sym._Sym === e)
-                assert(e._Lnext._Onext._Sym === e)
-                assert(e._Onext._Sym._Lnext === e)
-                assert(e._Lface === f)
+                assert(e._Sym != e)
+                assert(e._Sym._Sym == e)
+                assert(e._Lnext._Onext._Sym == e)
+                assert(e._Onext._Sym._Lnext == e)
+                assert(e._Lface == f)
                 e = e._Lnext
-            } while (e !== f._anEdge)
+            } while (e != f._anEdge)
         }
         
         f = fPrev._next
         
-        assert(f._prev === fPrev && f._anEdge == nil)
+        assert(f._prev == fPrev && f._anEdge == nil)
         
         var vPrev = _vHead
         var v = _vHead
         
-        while vPrev._next !== _vHead
+        while vPrev._next != _vHead
         {
             defer {
                 vPrev = v
@@ -444,26 +447,26 @@ internal final class Mesh {
             
             v = vPrev._next
             
-            assert(v._prev === vPrev)
+            assert(v._prev == vPrev)
             e = v._anEdge
             repeat {
-                assert(e._Sym !== e)
-                assert(e._Sym._Sym === e)
-                assert(e._Lnext._Onext._Sym === e)
-                assert(e._Onext._Sym._Lnext === e)
-                assert(e._Org === v)
+                assert(e._Sym != e)
+                assert(e._Sym._Sym == e)
+                assert(e._Lnext._Onext._Sym == e)
+                assert(e._Onext._Sym._Lnext == e)
+                assert(e._Org == v)
                 e = e._Onext
-            } while (e !== v._anEdge)
+            } while (e != v._anEdge)
         }
         
         v = vPrev._next
         
-        assert(v._prev === vPrev && v._anEdge == nil)
+        assert(v._prev == vPrev && v._anEdge == nil)
         
         var ePrev = _eHead
         e = _eHead
         
-        while ePrev._next !== _eHead
+        while ePrev._next != _eHead
         {
             defer {
                 ePrev = e
@@ -471,23 +474,23 @@ internal final class Mesh {
             
             e = ePrev._next
             
-            assert(e._Sym._next === ePrev._Sym)
-            assert(e._Sym !== e)
-            assert(e._Sym._Sym === e)
-            assert(e._Org !== nil)
-            assert(e._Dst !== nil)
-            assert(e._Lnext._Onext._Sym === e)
-            assert(e._Onext._Sym._Lnext === e)
+            assert(e._Sym._next == ePrev._Sym)
+            assert(e._Sym != e)
+            assert(e._Sym._Sym == e)
+            assert(e._Org != nil)
+            assert(e._Dst != nil)
+            assert(e._Lnext._Onext._Sym == e)
+            assert(e._Onext._Sym._Lnext == e)
         }
         
         e = ePrev._next
         
-        assert(e._Sym._next === ePrev._Sym)
-        assert(e._Sym === _eHeadSym)
-        assert(e._Sym._Sym === e)
+        assert(e._Sym._next == ePrev._Sym)
+        assert(e._Sym == _eHeadSym)
+        assert(e._Sym._Sym == e)
         assert(e._Org == nil)
         assert(e._Dst == nil)
-        assert(e._Lface === MeshUtils.Face._ZeroFace)
-        assert(e._Rface === MeshUtils.Face._ZeroFace)
+        assert(e._Lface == nil)
+        assert(e._Rface == nil)
     }
 }

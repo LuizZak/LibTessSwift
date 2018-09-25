@@ -22,13 +22,13 @@ internal class Geom {
         }
     }
 
-    public static func VertCCW(_ u: MeshUtils.Vertex, _ v: MeshUtils.Vertex, _ w: MeshUtils.Vertex) -> Bool {
+    public static func VertCCW(_ u: Vertex, _ v: Vertex, _ w: Vertex) -> Bool {
         return (u._s * (v._t - w._t) + v._s * (w._t - u._t) + w._s * (u._t - v._t)) >= 0.0
     }
-    public static func VertEq(_ lhs: MeshUtils.Vertex, _ rhs: MeshUtils.Vertex) -> Bool {
+    public static func VertEq(_ lhs: Vertex, _ rhs: Vertex) -> Bool {
         return lhs._s == rhs._s && lhs._t == rhs._t
     }
-    public static func VertLeq(_ lhs: MeshUtils.Vertex, _ rhs: MeshUtils.Vertex) -> Bool {
+    public static func VertLeq(_ lhs: Vertex, _ rhs: Vertex) -> Bool {
         return (lhs._s < rhs._s) || (lhs._s == rhs._s && lhs._t <= rhs._t)
     }
 
@@ -43,7 +43,7 @@ internal class Geom {
     /// let r be the negated result (this evaluates (uw)(v->s)), then
     /// r is guaranteed to satisfy MIN(u->t,w->t) <= r <= MAX(u->t,w->t).
     /// </summary>
-    public static func EdgeEval(_ u: MeshUtils.Vertex, _ v: MeshUtils.Vertex, _ w: MeshUtils.Vertex) -> Real {
+    public static func EdgeEval(_ u: Vertex, _ v: Vertex, _ w: Vertex) -> Real {
         assert(VertLeq(u, v) && VertLeq(v, w))
         
         let gapL: Real = v._s - u._s as Real
@@ -74,7 +74,7 @@ internal class Geom {
     /// is cheaper to evaluate. Returns > 0, == 0 , or < 0
     /// as v is above, on, or below the edge uw.
     /// </summary>
-    public static func EdgeSign(_ u: MeshUtils.Vertex, _ v: MeshUtils.Vertex, _ w: MeshUtils.Vertex) -> Real {
+    public static func EdgeSign(_ u: Vertex, _ v: Vertex, _ w: Vertex) -> Real {
         assert(VertLeq(u, v) && VertLeq(v, w))
 
         let gapL = v._s - u._s
@@ -89,11 +89,11 @@ internal class Geom {
         return 0
     }
 
-    public static func TransLeq(_ lhs: MeshUtils.Vertex, _ rhs: MeshUtils.Vertex) -> Bool {
+    public static func TransLeq(_ lhs: Vertex, _ rhs: Vertex) -> Bool {
         return (lhs._t < rhs._t) || (lhs._t == rhs._t && lhs._s <= rhs._s)
     }
 
-    public static func TransEval(_ u: MeshUtils.Vertex, _ v: MeshUtils.Vertex, _ w: MeshUtils.Vertex) -> Real {
+    public static func TransEval(_ u: Vertex, _ v: Vertex, _ w: Vertex) -> Real {
         assert(TransLeq(u, v) && TransLeq(v, w))
         
         let gapL = (v._t - u._t)
@@ -116,7 +116,7 @@ internal class Geom {
         return 0
     }
 
-    public static func TransSign(_ u: MeshUtils.Vertex, _ v: MeshUtils.Vertex, _ w: MeshUtils.Vertex) -> Real {
+    public static func TransSign(_ u: Vertex, _ v: Vertex, _ w: Vertex) -> Real {
         assert(TransLeq(u, v) && TransLeq(v, w))
         
         let gapL = v._t - u._t
@@ -131,21 +131,21 @@ internal class Geom {
         return 0
     }
 
-    public static func EdgeGoesLeft(_ e: MeshUtils.Edge) -> Bool {
+    public static func EdgeGoesLeft(_ e: Edge) -> Bool {
         return VertLeq(e._Dst!, e._Org!)
     }
 
-    public static func EdgeGoesRight(_ e: MeshUtils.Edge) -> Bool {
+    public static func EdgeGoesRight(_ e: Edge) -> Bool {
         return VertLeq(e._Org!, e._Dst!)
     }
 
-    public static func VertL1dist(u: MeshUtils.Vertex, v: MeshUtils.Vertex) -> Real {
+    public static func VertL1dist(u: Vertex, v: Vertex) -> Real {
         let s = abs(u._s - v._s) as Real
         let t = abs(u._t - v._t) as Real
         return s + t
     }
 
-    public static func AddWinding(_ eDst: MeshUtils.Edge, _ eSrc: MeshUtils.Edge) {
+    public static func AddWinding(_ eDst: Edge, _ eSrc: Edge) {
         eDst._winding += eSrc._winding
         eDst._Sym._winding += eSrc._Sym._winding
     }
@@ -170,7 +170,7 @@ internal class Geom {
     /// The computed point is guaranteed to lie in the intersection of the
     /// bounding rectangles defined by each edge.
     /// </summary>
-    public static func EdgeIntersect(o1: MeshUtils.Vertex, d1: MeshUtils.Vertex, o2: MeshUtils.Vertex, d2: MeshUtils.Vertex, v: MeshUtils.Vertex) {
+    public static func EdgeIntersect(o1: Vertex, d1: Vertex, o2: Vertex, d2: Vertex, v: Vertex) {
         var o1 = o1
         var d1 = d1
         var o2 = o2
