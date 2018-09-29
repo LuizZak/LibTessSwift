@@ -1,6 +1,7 @@
 osx_image: xcode10
 language: objective-c
 script:
-  - swift test -Xswiftc -O
+  - swift package generate-xcodeproj
+  - xcodebuild test -scheme LibTessSwift -enableCodeCoverage YES
 after_success:
   - bash <(curl -s https://codecov.io/bash)
