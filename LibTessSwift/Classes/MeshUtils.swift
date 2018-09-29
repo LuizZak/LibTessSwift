@@ -14,35 +14,35 @@ public protocol EmptyInitializable {
 }
 
 #if arch(x86_64) || arch(arm64)
-    public typealias Real = Double
-    public typealias Vector3 = double3
+public typealias Real = Double
+public typealias Vector3 = double3
+
+public extension Vector3 {
+    public static let zero = double3()
     
-    public extension Vector3 {
-        public static let zero = double3()
+    public static func longAxis(v: inout Vector3) -> Int {
+        var i = 0
+        if abs(v.y) > abs(v.x) { i = 1 }
+        if abs(v.z) > abs(i == 0 ? v.x : v.y) { i = 2 }
         
-        public static func longAxis(v: inout Vector3) -> Int {
-            var i = 0
-            if (abs(v.y) > abs(v.x)) { i = 1 }
-            if (abs(v.z) > abs(i == 0 ? v.x : v.y)) { i = 2 }
-            
-            return i
-        }
+        return i
     }
+}
 #else
-    public typealias Real = Float
-    public typealias Vector3 = float3
+public typealias Real = Float
+public typealias Vector3 = float3
+
+public extension Vector3 {
+    public static let zero = float3()
     
-    public extension Vector3 {
-        public static let zero = float3()
+    public static func longAxis(v: inout Vector3) -> Int {
+        var i = 0
+        if abs(v.y) > abs(v.x) { i = 1 }
+        if abs(v.z) > abs(i == 0 ? v.x : v.y) { i = 2 }
         
-        public static func longAxis(v: inout Vector3) -> Int {
-            var i = 0
-            if (abs(v.y) > abs(v.x)) { i = 1 }
-            if (abs(v.z) > abs(i == 0 ? v.x : v.y)) { i = 2 }
-            
-            return i
-        }
+        return i
     }
+}
 #endif
 
 /// Describes an object that can be chained with other instances of itself
@@ -69,18 +69,6 @@ internal class MeshUtils {
         init() {
             
         }
-
-        public func Reset() {
-            _prev = nil
-            _next = nil
-            _anEdge = nil
-            _coords = Vector3.zero
-            _s = 0
-            _t = 0
-            _pqHandle = PQHandle()
-            _n = 0
-            _data = nil
-        }
     }
 
     public struct _Face: Linked, EmptyInitializable {
@@ -104,25 +92,11 @@ internal class MeshUtils {
         init() {
             
         }
-        
-        public mutating func Reset() {
-            _prev = nil
-            _next = nil
-            _anEdge = nil
-            _n = 0
-            _marked = false
-            _inside = false
-        }
     }
 
     public struct EdgePair {
         internal var _e: Edge?
         internal var _eSym: Edge?
-        
-        public mutating func Reset() {
-            _e = nil
-            _eSym = nil
-        }
     }
 
     public final class _Edge: Linked, EmptyInitializable {
@@ -164,18 +138,6 @@ internal class MeshUtils {
         
         public init() {
             
-        }
-
-        public func Reset() {
-            _pair?.Reset()
-            _next = nil
-            _Sym = nil
-            _Onext = nil
-            _Lnext = nil
-            _Org = nil
-            _Lface = nil
-            _activeRegion = nil
-            _winding = 0
         }
     }
     
@@ -320,28 +282,27 @@ extension UnsafeMutablePointer where Pointee: Linked {
     ///
     /// This method captures the next element before calling the closure,
     /// so it's safe to change the element's _next pointer within it.
-    func loop(while check: (_ element: UnsafeMutablePointer) throws -> Bool, with closure: (_ element: UnsafeMutablePointer) throws -> (Void)) rethrows {
-        var f: UnsafeMutablePointer<Pointee>! = self
+    func loop(while check: (_ element: UnsafeMutablePointer) throws -> Bool,
+              with closure: (_ element: UnsafeMutablePointer) throws -> (Void)) rethrows {
+        
+        var current: UnsafeMutablePointer<Pointee>! = self
         var next: UnsafeMutablePointer<Pointee>?
         repeat {
-            guard let n = f else {
+            guard let n = current else {
                 break
             }
             
             defer {
-                f = next
+                current = next
             }
             
             next = n.pointee._next
             try closure(n)
-        } while try f != nil && check(f)
+        } while try current != nil && check(current)
     }
     
     /// Iterates over each element, starting from this instance, until
     /// either _next is nil, or _next points to this element.
-    ///
-    /// The closure returns a value specifying whether the loop should
-    /// be stopped.
     ///
     /// This method captures the next element before calling the closure,
     /// so it's safe to change the element's _next pointer within it.
