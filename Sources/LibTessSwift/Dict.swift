@@ -53,11 +53,11 @@ internal final class Dict<TValue> {
         _head.deallocate()
     }
     
-    public func Insert(key: TValue) -> Node<TValue> {
-        return InsertBefore(node: _head, key: key)
+    public func insert(key: TValue) -> Node<TValue> {
+        return insertBefore(node: _head, key: key)
     }
     
-    public func InsertBefore(node: Node<TValue>, key: TValue) -> Node<TValue> {
+    public func insertBefore(node: Node<TValue>, key: TValue) -> Node<TValue> {
         var node = node
         
         repeat {
@@ -75,7 +75,7 @@ internal final class Dict<TValue> {
         return newNode
     }
     
-    public func Find(key: TValue) -> Node<TValue> {
+    public func find(key: TValue) -> Node<TValue> {
         var node = _head
         repeat {
             node = node.pointee.Next!
@@ -83,11 +83,11 @@ internal final class Dict<TValue> {
         return node
     }
     
-    public func Min() -> Node<TValue>? {
+    public func min() -> Node<TValue>? {
         return _head.pointee.Next
     }
     
-    public func Remove(node: Node<TValue>) {
+    public func remove(node: Node<TValue>) {
         node.pointee.Next?.pointee.Prev = node.pointee.Prev
         node.pointee.Prev?.pointee.Next = node.pointee.Next
         node.deinitialize(count: 1)

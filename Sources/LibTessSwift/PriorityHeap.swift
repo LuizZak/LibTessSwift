@@ -62,11 +62,7 @@ internal class PriorityHeap<TValue> {
         _handles[1] = HandleElem<TValue>(key: nil)
     }
     
-    deinit {
-        
-    }
-    
-    private func FloatDown(_ curr: Int) {
+    private func floatDown(_ curr: Int) {
         var curr = curr
         var child = 0
         var hCurr = 0, hChild = 0
@@ -94,7 +90,7 @@ internal class PriorityHeap<TValue> {
         }
     }
     
-    private func FloatUp(_ curr: Int) {
+    private func floatUp(_ curr: Int) {
         var curr = curr
         var parent = 0
         var hCurr = 0, hParent = 0
@@ -115,16 +111,16 @@ internal class PriorityHeap<TValue> {
         }
     }
     
-    public func Init() {
+    public func initialize() {
         var i = _size
         while i >= 1 {
             defer { i -= 1 }
-            FloatDown(i)
+            floatDown(i)
         }
         _initialized = true
     }
     
-    public func Insert(_ value: TValue) -> PQHandle {
+    public func insert(_ value: TValue) -> PQHandle {
         let curr = _size + 1
         _size += 1
         if ((curr * 2) > _max) {
@@ -157,14 +153,14 @@ internal class PriorityHeap<TValue> {
         }
         
         if (_initialized) {
-            FloatUp(curr)
+            floatUp(curr)
         }
         
         assert(free != PQHandle.Invalid)
         return PQHandle(handle: free)
     }
 
-    public func ExtractMin() -> TValue? {
+    public func extractMin() -> TValue? {
         assert(_initialized)
         
         let hMin = _nodes[1]
@@ -182,19 +178,19 @@ internal class PriorityHeap<TValue> {
             
             _size -= 1
             if (_size > 0) {
-                FloatDown(1)
+                floatDown(1)
             }
         }
 
         return min
     }
 
-    public func Minimum() -> TValue? {
+    public func minimum() -> TValue? {
         assert(_initialized)
         return _handles[_nodes[1]]!._key
     }
 
-    public func Remove(_ handle: PQHandle) {
+    public func remove(_ handle: PQHandle) {
         assert(_initialized)
         
         let hCurr = handle._handle
@@ -211,9 +207,9 @@ internal class PriorityHeap<TValue> {
             let k2 = handleElemKey(fromNode: curr)
             
             if (curr <= 1 || _leq(k1, k2)) {
-                FloatDown(curr)
+                floatDown(curr)
             } else {
-                FloatUp(curr)
+                floatUp(curr)
             }
         }
         

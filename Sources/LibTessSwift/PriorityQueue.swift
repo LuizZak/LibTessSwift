@@ -48,7 +48,7 @@ internal class PriorityQueue<TValue> {
         
     }
     
-    public func Init() {
+    public func initialize() {
         
         var stack = [StackItem]()
         var i: Int = 0, j: Int, piv: Int = 0
@@ -138,12 +138,12 @@ internal class PriorityQueue<TValue> {
 
         _max = _size
         _initialized = true
-        _heap.Init()
+        _heap.initialize()
     }
     
-    public func Insert(_ value: TValue) -> PQHandle {
+    public func insert(_ value: TValue) -> PQHandle {
         if (_initialized) {
-            return _heap.Insert(value)
+            return _heap.insert(value)
         }
 
         let curr = _size
@@ -161,17 +161,17 @@ internal class PriorityQueue<TValue> {
         return PQHandle(handle: -(curr + 1))
     }
 
-    public func ExtractMin() -> TValue? {
+    public func extractMin() -> TValue? {
         assert(_initialized)
         if (_size == 0) {
-            return _heap.ExtractMin()
+            return _heap.extractMin()
         }
         
         let sortMin = lastKey()
         if (!_heap.Empty) {
-            let heapMin = _heap.Minimum()
+            let heapMin = _heap.minimum()
             if (_leq(heapMin, sortMin)) {
-                return _heap.ExtractMin()
+                return _heap.extractMin()
             }
         }
         
@@ -182,17 +182,17 @@ internal class PriorityQueue<TValue> {
         return sortMin
     }
 
-    public func Minimum() -> TValue? {
+    public func minimum() -> TValue? {
         assert(_initialized)
         
         if (_size == 0) {
-            return _heap.Minimum()
+            return _heap.minimum()
         }
         
         let sortMin = lastKey()
         
         if (!_heap.Empty) {
-            let heapMin = _heap.Minimum()
+            let heapMin = _heap.minimum()
             if (_leq(heapMin, sortMin)) {
                 return heapMin
             }
@@ -201,12 +201,12 @@ internal class PriorityQueue<TValue> {
         return sortMin
     }
 
-    public func Remove(_ handle: PQHandle) {
+    public func remove(_ handle: PQHandle) {
         assert(_initialized)
         
         var curr = handle._handle
         if (curr >= 0) {
-            _heap.Remove(handle)
+            _heap.remove(handle)
             return
         }
         

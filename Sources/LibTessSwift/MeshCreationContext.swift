@@ -68,7 +68,7 @@ internal final class MeshCreationContext {
         let (_, e, eSym) = createEdgePair()
         
         // Make sure eNext points to the first edge of the edge pair
-        MeshUtils._Edge.EnsureFirst(e: &eNext)
+        MeshUtils._Edge.ensureFirst(e: &eNext)
         
         // Insert in circular doubly-linked list before eNext.
         // Note that the prev pointer is stored in Sym->next.
@@ -98,13 +98,13 @@ internal final class MeshCreationContext {
     }
     
     /// <summary>
-    /// MakeVertex( eOrig, vNext ) attaches a new vertex and makes it the
+    /// makeVertex( eOrig, vNext ) attaches a new vertex and makes it the
     /// origin of all edges in the vertex loop to which eOrig belongs. "vNext" gives
     /// a place to insert the new vertex in the global vertex list. We insert
     /// the new vertex *before* vNext so that algorithms which walk the vertex
     /// list will not see the newly created vertices.
     /// </summary>
-    public func MakeVertex(_ eOrig: Edge, _ vNext: Vertex) {
+    public func makeVertex(_ eOrig: Edge, _ vNext: Vertex) {
         let vNew = createVertex()
         
         // insert in circular doubly-linked list before vNext
@@ -126,13 +126,13 @@ internal final class MeshCreationContext {
     }
     
     /// <summary>
-    /// MakeFace( eOrig, fNext ) attaches a new face and makes it the left
+    /// makeFace( eOrig, fNext ) attaches a new face and makes it the left
     /// face of all edges in the face loop to which eOrig belongs. "fNext" gives
     /// a place to insert the new face in the global face list. We insert
     /// the new face *before* fNext so that algorithms which walk the face
     /// list will not see the newly created faces.
     /// </summary>
-    public func MakeFace(_ eOrig: Edge, _ fNext: Face) {
+    public func makeFace(_ eOrig: Edge, _ fNext: Face) {
         let fNew = createFace()
         
         // insert in circular doubly-linked list before fNext
@@ -159,13 +159,13 @@ internal final class MeshCreationContext {
     }
     
     /// <summary>
-    /// KillEdge( eDel ) destroys an edge (the half-edges eDel and eDel->Sym),
+    /// killEdge( eDel ) destroys an edge (the half-edges eDel and eDel->Sym),
     /// and removes from the global edge list.
     /// </summary>
-    public func KillEdge(_ eDel: Edge) {
+    public func killEdge(_ eDel: Edge) {
         // Half-edges are allocated in pairs, see EdgePair above
         var eDel = eDel
-        MeshUtils._Edge.EnsureFirst(e: &eDel)
+        MeshUtils._Edge.ensureFirst(e: &eDel)
         
         // delete from circular doubly-linked list
         let eNext = eDel._next
@@ -179,10 +179,10 @@ internal final class MeshCreationContext {
     }
     
     /// <summary>
-    /// KillVertex( vDel ) destroys a vertex and removes it from the global
+    /// killVertex( vDel ) destroys a vertex and removes it from the global
     /// vertex list. It updates the vertex loop to point to a given new vertex.
     /// </summary>
-    public func KillVertex(_ vDel: Vertex, _ newOrg: Vertex?) {
+    public func killVertex(_ vDel: Vertex, _ newOrg: Vertex?) {
         let eStart = vDel._anEdge
         
         // change the origin of all affected edges
@@ -202,10 +202,10 @@ internal final class MeshCreationContext {
     }
     
     /// <summary>
-    /// KillFace( fDel ) destroys a face and removes it from the global face
+    /// killFace( fDel ) destroys a face and removes it from the global face
     /// list. It updates the face loop to point to a given new face.
     /// </summary>
-    public func KillFace(_ fDel: Face, _ newLFace: Face?) {
+    public func killFace(_ fDel: Face, _ newLFace: Face?) {
         let eStart = fDel._anEdge
         
         // change the left face of all affected edges

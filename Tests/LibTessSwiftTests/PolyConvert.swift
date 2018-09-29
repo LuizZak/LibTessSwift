@@ -11,21 +11,21 @@ import LibTessSwift
 
 class PolyConvert: NSObject {
     
-    public static func ToTess(pset: PolygonSet, tess: Tess) {
+    public static func toTess(pset: PolygonSet, tess: Tess) {
         for poly in pset.polygons {
             var v: [ContourVertex] = []
             
             for p in poly.points {
-                let vertex = ContourVertex(Position: Vector3(x: Real(p.X), y: Real(p.Y), z: Real(p.Z)),
-                                           Data: p.Color)
+                let vertex = ContourVertex(Position: Vector3(x: Real(p.x), y: Real(p.y), z: Real(p.z)),
+                                           Data: p.color)
                 v.append(vertex)
             }
             
-            tess.addContour(v, poly.Orientation)
+            tess.addContour(v, poly.orientation)
         }
     }
 
-    public static func FromTess(tess: Tess) -> PolygonSet {
+    public static func fromTess(tess: Tess) -> PolygonSet {
         let output = PolygonSet()
         
         for i in 0..<tess.elementCount {
@@ -37,10 +37,10 @@ class PolyConvert: NSObject {
                     continue
                 }
                 let v = PolygonPoint(
-                    X: CGFloat(tess.vertices[index].position.x),
-                    Y: CGFloat(tess.vertices[index].position.y),
-                    Z: 0,
-                    Color: UIColor.white
+                    x: CGFloat(tess.vertices[index].position.x),
+                    y: CGFloat(tess.vertices[index].position.y),
+                    z: 0,
+                    color: Color.white
                 )
                 poly.points.append(v)
             }

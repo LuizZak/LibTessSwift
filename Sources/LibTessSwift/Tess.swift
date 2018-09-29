@@ -221,7 +221,7 @@ public class Tess {
             if (f._anEdge!._winding <= 0) {
                 return
             }
-            area += MeshUtils.FaceArea(f)
+            area += MeshUtils.faceArea(f)
         }
         
         if (area < 0.0) {
@@ -320,26 +320,26 @@ public class Tess {
         var up = face._anEdge!
         assert(up._Lnext != up && up._Lnext._Lnext != up)
         
-        while (Geom.VertLeq(up._Dst!, up._Org!)) { up = up._Lprev! }
-        while (Geom.VertLeq(up._Org!, up._Dst!)) { up = up._Lnext }
+        while (Geom.vertLeq(up._Dst!, up._Org!)) { up = up._Lprev! }
+        while (Geom.vertLeq(up._Org!, up._Dst!)) { up = up._Lnext }
         
         var lo = up._Lprev!
         
         while (up._Lnext != lo) {
-            if (Geom.VertLeq(up._Dst, lo._Org)) {
+            if (Geom.vertLeq(up._Dst, lo._Org)) {
                 // up.Dst is on the left. It is safe to form triangles from lo.Org.
-                // The EdgeGoesLeft test guarantees progress even when some triangles
+                // The edgeGoesLeft test guarantees progress even when some triangles
                 // are CW, given that the upper and lower chains are truly monotone.
-                while (lo._Lnext != up && (Geom.EdgeGoesLeft(lo._Lnext)
-                    || Geom.EdgeSign(lo._Org, lo._Dst, lo._Lnext._Dst) <= 0.0)) {
-                    lo = _mesh.Connect(lo._Lnext, lo)._Sym
+                while (lo._Lnext != up && (Geom.edgeGoesLeft(lo._Lnext)
+                    || Geom.edgeSign(lo._Org, lo._Dst, lo._Lnext._Dst) <= 0.0)) {
+                    lo = _mesh.connect(lo._Lnext, lo)._Sym
                 }
                 lo = lo._Lprev
             } else {
                 // lo.Org is on the left.  We can make CCW triangles from up.Dst.
-                while (lo._Lnext != up && (Geom.EdgeGoesRight(up._Lprev)
-                    || Geom.EdgeSign(up._Dst, up._Org, up._Lprev._Org) >= 0.0)) {
-                    up = _mesh.Connect(up, up._Lprev)._Sym
+                while (lo._Lnext != up && (Geom.edgeGoesRight(up._Lprev)
+                    || Geom.edgeSign(up._Dst, up._Org, up._Lprev._Org) >= 0.0)) {
+                    up = _mesh.connect(up, up._Lprev)._Sym
                 }
                 up = up._Lnext
             }
@@ -349,7 +349,7 @@ public class Tess {
         // can be tessellated in a fan from this leftmost vertex.
         assert(lo._Lnext != up)
         while (lo._Lnext._Lnext != up) {
-            lo = _mesh.Connect(lo._Lnext, lo)._Sym
+            lo = _mesh.connect(lo._Lnext, lo)._Sym
         }
     }
 
@@ -375,7 +375,7 @@ public class Tess {
     private func discardExterior() {
         _mesh.forEachFace { f in
             if(!f._inside) {
-                _mesh.ZapFace(f)
+                _mesh.zapFace(f)
             }
         }
     }
@@ -402,7 +402,7 @@ public class Tess {
                 if (!keepOnlyBoundary) {
                     e._winding = 0
                 } else {
-                    _mesh.Delete(e)
+                    _mesh.delete(e)
                 }
             }
         }
@@ -430,7 +430,7 @@ public class Tess {
         // Assume that the input data is triangles now.
         // Try to merge as many polygons as possible
         if (polySize > 3) {
-            _mesh.MergeConvexFaces(maxVertsPerFace: polySize)
+            _mesh.mergeConvexFaces(maxVertsPerFace: polySize)
         }
 
         // Mark unused
@@ -444,7 +444,7 @@ public class Tess {
             if (!f._inside) { return }
             
             if (noEmptyPolygons) {
-                let area = MeshUtils.FaceArea(f)
+                let area = MeshUtils.faceArea(f)
                 if (abs(area) < Real.leastNonzeroMagnitude) {
                     return
                 }
@@ -493,7 +493,7 @@ public class Tess {
             if (!f._inside) { return }
             
             if (noEmptyPolygons) {
-                let area = MeshUtils.FaceArea(f)
+                let area = MeshUtils.faceArea(f)
                 if (abs(area) < Real.leastNonzeroMagnitude) {
                     return
                 }
@@ -620,12 +620,12 @@ public class Tess {
         var e: Edge! = nil
         for i in 0..<vertices.count {
             if (e == nil) {
-                e = _mesh.MakeEdge()
-                _mesh.Splice(e, e._Sym)
+                e = _mesh.makeEdge()
+                _mesh.splice(e, e._Sym)
             } else {
                 // Create a new vertex and edge which immediately follow e
                 // in the ordering around the left face.
-                _=_mesh.SplitEdge(e)
+                _=_mesh.splitEdge(e)
                 e = e._Lnext
             }
             
@@ -679,7 +679,7 @@ public class Tess {
             tessellateInterior()
         }
         
-        mesh.Check()
+        mesh.check()
         
         if (elementType == ElementType.boundaryContours) {
             outputContours()

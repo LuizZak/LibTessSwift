@@ -7,7 +7,7 @@
 //
 
 internal class Geom {
-    public static func IsWindingInside(_ rule: WindingRule, _ n: Int) -> Bool {
+    public static func isWindingInside(_ rule: WindingRule, _ n: Int) -> Bool {
         switch (rule) {
             case WindingRule.evenOdd:
                 return (n & 1) == 1
@@ -22,13 +22,13 @@ internal class Geom {
         }
     }
 
-    public static func VertCCW(_ u: Vertex, _ v: Vertex, _ w: Vertex) -> Bool {
+    public static func vertCCW(_ u: Vertex, _ v: Vertex, _ w: Vertex) -> Bool {
         return (u._s * (v._t - w._t) + v._s * (w._t - u._t) + w._s * (u._t - v._t)) >= 0.0
     }
-    public static func VertEq(_ lhs: Vertex, _ rhs: Vertex) -> Bool {
+    public static func vertEq(_ lhs: Vertex, _ rhs: Vertex) -> Bool {
         return lhs._s == rhs._s && lhs._t == rhs._t
     }
-    public static func VertLeq(_ lhs: Vertex, _ rhs: Vertex) -> Bool {
+    public static func vertLeq(_ lhs: Vertex, _ rhs: Vertex) -> Bool {
         return (lhs._s < rhs._s) || (lhs._s == rhs._s && lhs._t <= rhs._t)
     }
 
@@ -43,8 +43,8 @@ internal class Geom {
     /// let r be the negated result (this evaluates (uw)(v->s)), then
     /// r is guaranteed to satisfy MIN(u->t,w->t) <= r <= MAX(u->t,w->t).
     /// </summary>
-    public static func EdgeEval(_ u: Vertex, _ v: Vertex, _ w: Vertex) -> Real {
-        assert(VertLeq(u, v) && VertLeq(v, w))
+    public static func edgeEval(_ u: Vertex, _ v: Vertex, _ w: Vertex) -> Real {
+        assert(vertLeq(u, v) && vertLeq(v, w))
         
         let gapL: Real = v._s - u._s as Real
         let gapR: Real = w._s - v._s as Real
@@ -70,12 +70,12 @@ internal class Geom {
     }
 
     /// <summary>
-    /// Returns a number whose sign matches EdgeEval(u,v,w) but which
+    /// Returns a number whose sign matches edgeEval(u,v,w) but which
     /// is cheaper to evaluate. Returns > 0, == 0 , or < 0
     /// as v is above, on, or below the edge uw.
     /// </summary>
-    public static func EdgeSign(_ u: Vertex, _ v: Vertex, _ w: Vertex) -> Real {
-        assert(VertLeq(u, v) && VertLeq(v, w))
+    public static func edgeSign(_ u: Vertex, _ v: Vertex, _ w: Vertex) -> Real {
+        assert(vertLeq(u, v) && vertLeq(v, w))
 
         let gapL = v._s - u._s
         let gapR = w._s - v._s
@@ -89,12 +89,12 @@ internal class Geom {
         return 0
     }
 
-    public static func TransLeq(_ lhs: Vertex, _ rhs: Vertex) -> Bool {
+    public static func transLeq(_ lhs: Vertex, _ rhs: Vertex) -> Bool {
         return (lhs._t < rhs._t) || (lhs._t == rhs._t && lhs._s <= rhs._s)
     }
 
-    public static func TransEval(_ u: Vertex, _ v: Vertex, _ w: Vertex) -> Real {
-        assert(TransLeq(u, v) && TransLeq(v, w))
+    public static func transEval(_ u: Vertex, _ v: Vertex, _ w: Vertex) -> Real {
+        assert(transLeq(u, v) && transLeq(v, w))
         
         let gapL = (v._t - u._t)
         let gapR = (w._t - v._t)
@@ -116,8 +116,8 @@ internal class Geom {
         return 0
     }
 
-    public static func TransSign(_ u: Vertex, _ v: Vertex, _ w: Vertex) -> Real {
-        assert(TransLeq(u, v) && TransLeq(v, w))
+    public static func transSign(_ u: Vertex, _ v: Vertex, _ w: Vertex) -> Real {
+        assert(transLeq(u, v) && transLeq(v, w))
         
         let gapL = v._t - u._t
         let gapR = w._t - v._t
@@ -131,12 +131,12 @@ internal class Geom {
         return 0
     }
 
-    public static func EdgeGoesLeft(_ e: Edge) -> Bool {
-        return VertLeq(e._Dst!, e._Org!)
+    public static func edgeGoesLeft(_ e: Edge) -> Bool {
+        return vertLeq(e._Dst!, e._Org!)
     }
 
-    public static func EdgeGoesRight(_ e: Edge) -> Bool {
-        return VertLeq(e._Org!, e._Dst!)
+    public static func edgeGoesRight(_ e: Edge) -> Bool {
+        return vertLeq(e._Org!, e._Dst!)
     }
 
     public static func VertL1dist(u: Vertex, v: Vertex) -> Real {
@@ -145,12 +145,12 @@ internal class Geom {
         return s + t
     }
 
-    public static func AddWinding(_ eDst: Edge, _ eSrc: Edge) {
+    public static func addWinding(_ eDst: Edge, _ eSrc: Edge) {
         eDst._winding += eSrc._winding
         eDst._Sym._winding += eSrc._Sym._winding
     }
 
-    public static func Interpolate(_ a: Real, _ x: Real, _ b: Real, _ y: Real) -> Real {
+    public static func interpolate(_ a: Real, _ x: Real, _ b: Real, _ y: Real) -> Real {
         var a = a
         var b = b
         if (a < 0.0) {
@@ -170,7 +170,7 @@ internal class Geom {
     /// The computed point is guaranteed to lie in the intersection of the
     /// bounding rectangles defined by each edge.
     /// </summary>
-    public static func EdgeIntersect(o1: Vertex, d1: Vertex, o2: Vertex, d2: Vertex, v: Vertex) {
+    public static func edgeIntersect(o1: Vertex, d1: Vertex, o2: Vertex, d2: Vertex, v: Vertex) {
         var o1 = o1
         var d1 = d1
         var o2 = o2
@@ -180,62 +180,62 @@ internal class Geom {
         // 
         // Strategy: find the two middle vertices in the VertLeq ordering,
         // and interpolate the intersection s-value from these.  Then repeat
-        // using the TransLeq ordering to find the intersection t-value.
+        // using the transLeq ordering to find the intersection t-value.
         
-        if (!VertLeq(o1, d1)) { swap(&o1, &d1) }
-        if (!VertLeq(o2, d2)) { swap(&o2, &d2) }
-        if (!VertLeq(o1, o2)) { swap(&o1, &o2); swap(&d1, &d2) }
+        if (!vertLeq(o1, d1)) { swap(&o1, &d1) }
+        if (!vertLeq(o2, d2)) { swap(&o2, &d2) }
+        if (!vertLeq(o1, o2)) { swap(&o1, &o2); swap(&d1, &d2) }
 
-        if (!VertLeq(o2, d1)) {
+        if (!vertLeq(o2, d1)) {
             // Technically, no intersection -- do our best
             v._s = (o2._s + d1._s) / 2.0
-        } else if (VertLeq(d1, d2)) {
+        } else if (vertLeq(d1, d2)) {
             // Interpolate between o2 and d1
-            var z1 = EdgeEval(o1, o2, d1)
-            var z2 = EdgeEval(o2, d1, d2)
+            var z1 = edgeEval(o1, o2, d1)
+            var z2 = edgeEval(o2, d1, d2)
             if (z1 + z2 < 0.0) {
                 z1 = -z1
                 z2 = -z2
             }
-            v._s = Interpolate(z1, o2._s, z2, d1._s)
+            v._s = interpolate(z1, o2._s, z2, d1._s)
         } else {
             // Interpolate between o2 and d2
-            var z1 = EdgeSign(o1, o2, d1)
-            var z2 = -EdgeSign(o1, d2, d1)
+            var z1 = edgeSign(o1, o2, d1)
+            var z2 = -edgeSign(o1, d2, d1)
             if (z1 + z2 < 0.0) {
                 z1 = -z1
                 z2 = -z2
             }
-            v._s = Interpolate(z1, o2._s, z2, d2._s)
+            v._s = interpolate(z1, o2._s, z2, d2._s)
         }
 
         // Now repeat the process for t
 
-        if (!TransLeq(o1, d1)) { swap(&o1, &d1) }
-        if (!TransLeq(o2, d2)) { swap(&o2, &d2) }
-        if (!TransLeq(o1, o2)) { swap(&o1, &o2); swap(&d1, &d2) }
+        if (!transLeq(o1, d1)) { swap(&o1, &d1) }
+        if (!transLeq(o2, d2)) { swap(&o2, &d2) }
+        if (!transLeq(o1, o2)) { swap(&o1, &o2); swap(&d1, &d2) }
         
-        if (!TransLeq(o2, d1)) {
+        if (!transLeq(o2, d1)) {
             // Technically, no intersection -- do our best
             v._t = (o2._t + d1._t) / 2.0
-        } else if (TransLeq(d1, d2)) {
+        } else if (transLeq(d1, d2)) {
             // Interpolate between o2 and d1
-            var z1 = TransEval(o1, o2, d1)
-            var z2 = TransEval(o2, d1, d2)
+            var z1 = transEval(o1, o2, d1)
+            var z2 = transEval(o2, d1, d2)
             if (z1 + z2 < 0.0) {
                 z1 = -z1
                 z2 = -z2
             }
-            v._t = Interpolate(z1, o2._t, z2, d1._t)
+            v._t = interpolate(z1, o2._t, z2, d1._t)
         } else {
             // Interpolate between o2 and d2
-            var z1 = TransSign(o1, o2, d1)
-            var z2 = -TransSign(o1, d2, d1)
+            var z1 = transSign(o1, o2, d1)
+            var z2 = -transSign(o1, d2, d1)
             if (z1 + z2 < 0.0) {
                 z1 = -z1
                 z2 = -z2
             }
-            v._t = Interpolate(z1, o2._t, z2, d2._t)
+            v._t = interpolate(z1, o2._t, z2, d2._t)
         }
     }
 }

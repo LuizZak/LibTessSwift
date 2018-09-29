@@ -9,8 +9,8 @@
 import Foundation
 import LibTessSwift
 
-public struct UIColor {
-    static var white = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+public struct Color {
+    static var white = Color(red: 1, green: 1, blue: 1, alpha: 1)
     
     var red: CGFloat
     var green: CGFloat
@@ -19,18 +19,18 @@ public struct UIColor {
 }
 
 public struct PolygonPoint: CustomStringConvertible {
-    public var X: CGFloat, Y: CGFloat, Z: CGFloat
-    public var Color: UIColor
+    public var x: CGFloat, y: CGFloat, z: CGFloat
+    public var color: Color
     
-    init(X: CGFloat, Y: CGFloat, Z: CGFloat, Color: UIColor) {
-        self.X = X
-        self.Y = Y
-        self.Z = Z
-        self.Color = Color
+    init(x: CGFloat, y: CGFloat, z: CGFloat, color: Color) {
+        self.x = x
+        self.y = y
+        self.z = z
+        self.color = color
     }
     
     public var description: String {
-        return "\(X), \(Y), \(Z)"
+        return "\(x), \(y), \(z)"
     }
 }
 
@@ -38,7 +38,7 @@ public class Polygon {
     
     var points: [PolygonPoint] = []
     
-    public var Orientation: ContourOrientation = ContourOrientation.original
+    public var orientation: ContourOrientation = ContourOrientation.original
 
     public init() {
         
@@ -46,44 +46,44 @@ public class Polygon {
     
     public init<S: Sequence>(_ s: S, orientation: ContourOrientation = .original) where S.Iterator.Element == PolygonPoint {
         points = Array(s)
-        Orientation = orientation
+        self.orientation = orientation
     }
 }
 
-fileprivate extension UIColor {
+fileprivate extension Color {
     
-    static func fromRGBA(red: Int, green: Int, blue: Int, alpha: Int = 255) -> UIColor {
+    static func fromRGBA(red: Int, green: Int, blue: Int, alpha: Int = 255) -> Color {
         let rf = CGFloat(red) / 255
         let gf = CGFloat(green) / 255
         let bf = CGFloat(blue) / 255
         let af = CGFloat(alpha) / 255
         
-        return UIColor(red: rf, green: gf, blue: bf, alpha: af)
+        return Color(red: rf, green: gf, blue: bf, alpha: af)
     }
 }
 
 public class PolygonSet {
     var polygons: [Polygon] = []
-    public var HasColors = false
+    public var hasColors = false
 }
 
 public class DataLoader {
     public class Asset {
-        public var Name: String
-        public var Path: URL
-        public var Polygons: PolygonSet?
+        public var name: String
+        public var path: URL
+        public var polygon: PolygonSet?
         
-        init(Name: String, Path: URL) {
-            self.Name = Name
-            self.Path = Path
+        init(name: String, path: URL) {
+            self.name = name
+            self.path = path
         }
     }
     
-    public static func LoadDat(reader: StreamLineReader) throws -> PolygonSet {
+    public static func LoadDat(reader: FileReader) throws -> PolygonSet {
         var points: [PolygonPoint] = []
         let polys = PolygonSet()
         
-        var currentColor = UIColor.white
+        var currentColor = Color.white
         var currentOrientation = ContourOrientation.original
         
         let separation = CharacterSet.init(charactersIn: " ,\t")
@@ -123,14 +123,14 @@ public class DataLoader {
                     
                     // rgb
                     if rgba.count == 4, let r = Int(rgba[1]), let g = Int(rgba[2]), let b = Int(rgba[3]) {
-                        currentColor = UIColor.fromRGBA(red: r, green: g, blue: b)
-                        polys.HasColors = true
+                        currentColor = Color.fromRGBA(red: r, green: g, blue: b)
+                        polys.hasColors = true
                     }
                     
                     // rgba
                     if rgba.count == 5, let r = Int(rgba[1]), let g = Int(rgba[2]), let b = Int(rgba[3]), let a = Int(rgba[4]) {
-                        currentColor = UIColor.fromRGBA(red: r, green: g, blue: b, alpha: a)
-                        polys.HasColors = true
+                        currentColor = Color.fromRGBA(red: r, green: g, blue: b, alpha: a)
+                        polys.hasColors = true
                     }
                 }
             } else {
@@ -149,7 +149,7 @@ public class DataLoader {
                         z = CGFloat(value)
                     }
                     
-                    points.append(PolygonPoint(X: x, Y: y, Z: z, Color: currentColor))
+                    points.append(PolygonPoint(x: x, y: y, z: z, color: currentColor))
                 } else {
                     throw DataError.invalidInputData
                 }
@@ -158,7 +158,7 @@ public class DataLoader {
         
         if (points.count > 0) {
             let p = Polygon(points)
-            p.Orientation = currentOrientation
+            p.orientation = currentOrientation
             polys.polygons.append(p)
         }
         
@@ -167,7 +167,7 @@ public class DataLoader {
     
     var _assets: [String: Asset] = [:]
     
-    public var AssetNames: [String] {
+    public var assetNames: [String] {
         get {
             return Array(_assets.keys)
         }
@@ -191,19 +191,19 @@ public class DataLoader {
             let name = path.lastPathComponent
             let fileName = name.components(separatedBy: ".").first ?? ""
             
-            _assets[fileName] = Asset(Name: fileName, Path: path)
+            _assets[fileName] = Asset(name: fileName, path: path)
         }
     }
     
-    public func GetAsset(name: String) throws -> Asset? {
+    public func getAsset(name: String) throws -> Asset? {
         guard let asset = _assets[name] else {
             return nil
         }
         
-        if asset.Polygons == nil {
-            let reader = try DDUnbufferedFileReader(fileUrl: asset.Path)
+        if asset.polygon == nil {
+            let reader = try FileReader(fileUrl: asset.path)
             
-            asset.Polygons = try DataLoader.LoadDat(reader: reader)
+            asset.polygon = try DataLoader.LoadDat(reader: reader)
         }
         
         return asset

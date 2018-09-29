@@ -79,7 +79,7 @@ internal class MeshUtils {
         internal var _n: Int = 0
         internal var _marked = false, _inside = false
 
-        internal var VertsCount: Int {
+        internal var vertsCount: Int {
             var n = 0
             var eCur = _anEdge
             repeat {
@@ -122,7 +122,7 @@ internal class MeshUtils {
         internal var _Dnext: Edge! { get { return _Rprev?._Sym } set { _Rprev?._Sym = newValue } }
         internal var _Rnext: Edge! { get { return _Oprev?._Sym } set { _Oprev?._Sym = newValue } }
         
-        internal static func EnsureFirst(e: inout Edge) {
+        internal static func ensureFirst(e: inout Edge) {
             if e == e._pair?._eSym {
                 e = e._Sym
             }
@@ -134,13 +134,13 @@ internal class MeshUtils {
     }
     
     /// <summary>
-    /// Splice( a, b ) is best described by the Guibas/Stolfi paper or the
+    /// splice( a, b ) is best described by the Guibas/Stolfi paper or the
     /// CS348a notes (see Mesh.cs). Basically it modifies the mesh so that
     /// a->Onext and b->Onext are exchanged. This can have various effects
     /// depending on whether a and b belong to different face or vertex rings.
-    /// For more explanation see Mesh.Splice().
+    /// For more explanation see Mesh.splice().
     /// </summary>
-    public static func Splice(_ a: Edge, _ b: Edge) {
+    public static func splice(_ a: Edge, _ b: Edge) {
         let aOnext = a._Onext
         let bOnext = b._Onext
         
@@ -153,7 +153,7 @@ internal class MeshUtils {
     /// <summary>
     /// Return signed area of face.
     /// </summary>
-    public static func FaceArea(_ f: Face) -> Real {
+    public static func faceArea(_ f: Face) -> Real {
         var area: Real = 0
         
         var e = f._anEdge!
@@ -184,7 +184,7 @@ extension UnsafeMutablePointer where Pointee == MeshUtils._Face {
     }
     
     var VertsCount: Int {
-        return pointee.VertsCount
+        return pointee.vertsCount
     }
     
     var _n: Int {

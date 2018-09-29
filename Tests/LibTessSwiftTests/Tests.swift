@@ -7,23 +7,23 @@ class Tests: XCTestCase {
     static var _loader: DataLoader = try! DataLoader()
     
     public struct TestCaseData: CustomStringConvertible {
-        public var AssetName: String
-        public var AssetURL: URL
-        public var Winding: WindingRule
-        public var ElementSize: Int
+        public var assetName: String
+        public var assetURL: URL
+        public var winding: WindingRule
+        public var elementSize: Int
         
         public var description: String {
-            return "\(Winding), \(AssetName), \(AssetURL), \(ElementSize)"
+            return "\(winding), \(assetName), \(assetURL), \(elementSize)"
         }
     }
 
     public class TestData {
-        public var ElementSize: Int
-        public var Indices: [Int]
+        public var elementSize: Int
+        public var indices: [Int]
         
         init(indices: [Int], elementSize: Int) {
-            self.Indices = indices
-            self.ElementSize = elementSize
+            self.indices = indices
+            self.elementSize = elementSize
         }
     }
     
@@ -102,13 +102,13 @@ class Tests: XCTestCase {
         var indices: [Int] = []
         let expectedIndices = [ 0, 1, 2 ]
         
-        let reader = DDStreamReader.fromString(data)
+        let reader = FileReader(string: data)
         
         let pset = try DataLoader.LoadDat(reader: reader)
         let tess = Tess()
         
         // Call once
-        PolyConvert.ToTess(pset: pset, tess: tess)
+        PolyConvert.toTess(pset: pset, tess: tess)
         tess.tessellate(windingRule: .evenOdd, elementType: .polygons, polySize: 3)
         
         for i in 0..<tess.elementCount {
@@ -121,7 +121,7 @@ class Tests: XCTestCase {
         XCTAssertEqual(expectedIndices, indices)
 
         // Call twice
-        PolyConvert.ToTess(pset: pset, tess: tess)
+        PolyConvert.toTess(pset: pset, tess: tess)
         tess.tessellate(windingRule: .evenOdd, elementType: .polygons, polySize: 3)
 
         indices.removeAll()
@@ -140,46 +140,46 @@ class Tests: XCTestCase {
         // Multi-task the test
         let queue = OperationQueue()
         
-        for data in GetTestCaseData() {
+        for data in getTestCaseData() {
             queue.addOperation {
                 autoreleasepool {
                     do {
-                        let pset = try Tests._loader.GetAsset(name: data.AssetName)!.Polygons!
+                        let pset = try Tests._loader.getAsset(name: data.assetName)!.polygon!
                         let tess = Tess()
-                        PolyConvert.ToTess(pset: pset, tess: tess)
-                        tess.tessellate(windingRule: data.Winding,
+                        PolyConvert.toTess(pset: pset, tess: tess)
+                        tess.tessellate(windingRule: data.winding,
                                         elementType: .polygons,
-                                        polySize: data.ElementSize)
+                                        polySize: data.elementSize)
                         
                         let resourceUrl =
-                            data.AssetURL
+                            data.assetURL
                                 .deletingPathExtension()
                                 .appendingPathExtension("testdat")
                         
-                        let reader = try DDUnbufferedFileReader(fileUrl: resourceUrl)
+                        let reader = try FileReader(fileUrl: resourceUrl)
                         
-                        guard let testData = self.ParseTestData(data.Winding, data.ElementSize, reader) else {
-                            XCTFail("Unexpected empty data for test result for \(data.AssetName)")
+                        guard let testData = self.parseTestData(data.winding, data.elementSize, reader) else {
+                            XCTFail("Unexpected empty data for test result for \(data.assetName)")
                             return
                         }
                         
-                        XCTAssertEqual(testData.ElementSize, data.ElementSize)
+                        XCTAssertEqual(testData.elementSize, data.elementSize)
                         
                         var indices: [Int] = []
                         
                         for i in 0..<tess.elementCount {
-                            for j in 0..<data.ElementSize {
-                                let index = tess.elements[i * data.ElementSize + j]
+                            for j in 0..<data.elementSize {
+                                let index = tess.elements[i * data.elementSize + j]
                                 indices.append(index)
                             }
                         }
                         
-                        if(testData.Indices != indices) {
-                            XCTFail("Failed test: winding: \(data.Winding.rawValue) file: \(data.AssetName) element size: \(data.ElementSize)")
-                            print(testData.Indices, indices)
+                        if(testData.indices != indices) {
+                            XCTFail("Failed test: winding: \(data.winding.rawValue) file: \(data.assetName) element size: \(data.elementSize)")
+                            print(testData.indices, indices)
                         }
                     } catch {
-                        XCTFail("Failed test: winding: \(data.Winding.rawValue) file: \(data.AssetName) element size: \(data.ElementSize) - caught unexpected error \(error)")
+                        XCTFail("Failed test: winding: \(data.winding.rawValue) file: \(data.assetName) element size: \(data.elementSize) - caught unexpected error \(error)")
                     }
                 }
             }
@@ -197,7 +197,7 @@ class Tests: XCTestCase {
         waitForExpectations(timeout: 200, handler: nil)
     }
     
-    func GetTestCaseData() -> [TestCaseData] {
+    func getTestCaseData() -> [TestCaseData] {
         var data: [TestCaseData] = []
         
         let windings: [WindingRule] = [
@@ -209,22 +209,25 @@ class Tests: XCTestCase {
         ]
         
         for winding in windings {
-            for name in Tests._loader.AssetNames {
+            for name in Tests._loader.assetNames {
                 guard let asset = Tests._loader._assets[name] else {
                     continue
                 }
                 
-                data.append(TestCaseData(AssetName: name,
-                                         AssetURL: asset.Path,
-                                         Winding: winding,
-                                         ElementSize: 3))
+                data.append(TestCaseData(assetName: name,
+                                         assetURL: asset.path,
+                                         winding: winding,
+                                         elementSize: 3))
             }
         }
         
         return data
     }
     
-    public func ParseTestData(_ winding: WindingRule, _ elementSize: Int, _ reader: StreamLineReader) -> TestData? {
+    public func parseTestData(_ winding: WindingRule,
+                              _ elementSize: Int,
+                              _ reader: FileReader) -> TestData? {
+        
         var lines: [String] = []
         
         var found = false
@@ -277,12 +280,12 @@ class Tests: XCTestCase {
     }
     
     func setupTess(withString string: String) throws -> Tess {
-        let reader = DDStreamReader.fromString(string)
+        let reader = FileReader(string: string)
         
         let pset = try DataLoader.LoadDat(reader: reader)
         let tess = Tess()
         
-        PolyConvert.ToTess(pset: pset, tess: tess)
+        PolyConvert.toTess(pset: pset, tess: tess)
         
         return tess
     }
