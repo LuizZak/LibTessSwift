@@ -27,31 +27,15 @@ internal final class Mesh {
         
         v._next = v
         v._prev = v
-        v._anEdge = nil
         
         f._next = f
         f._prev = f
-        f._anEdge = nil
-        f._marked = false
-        f._inside = false
         
         e._next = e
         e._Sym = eSym
-        e._Onext = nil
-        e._Lnext = nil
-        e._Org = nil
-        e._Lface = nil
-        e._winding = 0
-        e._activeRegion = nil
 
         eSym._next = eSym
         eSym._Sym = e
-        eSym._Onext = nil
-        eSym._Lnext = nil
-        eSym._Org = nil
-        eSym._Lface = nil
-        eSym._winding = 0
-        eSym._activeRegion = nil
     }
     
     deinit {

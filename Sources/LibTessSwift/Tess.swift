@@ -54,7 +54,7 @@ public struct ContourVertex: CustomStringConvertible {
 
 public typealias CombineCallback = (_ position: Vector3, _ data: [Any?], _ weights: [Real]) -> Any?
 
-public class Tess {
+public final class Tess {
     internal var _mesh: Mesh!
     internal var _normal: Vector3
     internal var _sUnit: Vector3 = .zero
