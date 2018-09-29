@@ -70,15 +70,10 @@ public class PolygonSet {
 public class DataLoader {
     public class Asset {
         public var Name: String
-        public var Path: String
+        public var Path: URL
         public var Polygons: PolygonSet?
         
-        init() {
-            Name = ""
-            Path = ""
-        }
-        
-        init(Name: String, Path: String) {
+        init(Name: String, Path: URL) {
             self.Name = Name
             self.Path = Path
         }
@@ -178,13 +173,22 @@ public class DataLoader {
         }
     }
 
-    public init() {
+    public init() throws {
         
-        let bundle = Bundle(for: type(of: self))
-        let paths = bundle.paths(forResourcesOfType: ".dat", inDirectory: nil)
+        // TODO: This is kinda nasty, but it's the only way to get the files we
+        // need until SwiftPM gets a resources story in place
+        // (see https://lists.swift.org/pipermail/swift-build-dev/Week-of-Mon-20161114/000742.html)
+        let path = (#file as NSString).deletingLastPathComponent
+        
+        let paths = try FileManager
+            .default
+            .contentsOfDirectory(at: URL(fileURLWithPath: path),
+                                 includingPropertiesForKeys: nil,
+                                 options: .skipsSubdirectoryDescendants)
+            .filter { $0.pathExtension == "dat" }
         
         for path in paths {
-            let name = (path as NSString).lastPathComponent
+            let name = path.lastPathComponent
             let fileName = name.components(separatedBy: ".").first ?? ""
             
             _assets[fileName] = Asset(Name: fileName, Path: path)
@@ -196,8 +200,8 @@ public class DataLoader {
             return nil
         }
         
-        if(asset.Polygons == nil) {
-            let reader = try DDUnbufferedFileReader(fileUrl: URL(fileURLWithPath: asset.Path))
+        if asset.Polygons == nil {
+            let reader = try DDUnbufferedFileReader(fileUrl: asset.Path)
             
             asset.Polygons = try DataLoader.LoadDat(reader: reader)
         }
