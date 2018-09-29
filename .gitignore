@@ -31,4 +31,6 @@ Carthage
 # `pod install` in .travis.yml
 #
 # Pods/
+
 .build/
+*.xcodeproj/
