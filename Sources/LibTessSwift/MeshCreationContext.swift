@@ -9,38 +9,28 @@
 /// Caches and manages information that is used during mesh generation
 internal final class MeshCreationContext {
     
-    private var _poolFaces = Pool<MeshUtils.Face>()
-    private var _poolEdges = Pool<MeshUtils.Edge>()
-    private var _poolVertices = Pool<MeshUtils.Vertex>()
+    private var _poolFaces = Pool<MeshUtils._Face>()
+    private var _poolEdges = Pool<MeshUtils._Edge>()
+    private var _poolVertices = Pool<MeshUtils._Vertex>()
     
     deinit {
         free()
     }
     
     func free() {
-        for created in _poolFaces.totalCreated {
-            created.Reset()
-        }
-        for created in _poolEdges.totalCreated {
-            created.Reset()
-        }
-        for created in _poolVertices.totalCreated {
-            created.Reset()
-        }
-        
-        _poolFaces.reset()
-        _poolEdges.reset()
-        _poolVertices.reset()
+        _poolFaces.free()
+        _poolEdges.free()
+        _poolVertices.free()
     }
     
-    func createFace() -> MeshUtils.Face {
+    func createFace() -> Face {
         return _poolFaces.pull()
     }
-    func resetFace(_ face: MeshUtils.Face) {
+    func resetFace(_ face: Face) {
         _poolFaces.repool(face)
     }
     
-    func createEdgePair() -> (pair: MeshUtils.EdgePair, e: MeshUtils.Edge, eSym: MeshUtils.Edge) {
+    func createEdgePair() -> (pair: MeshUtils.EdgePair, e: Edge, eSym: Edge) {
         let e = createEdge()
         let eSym = createEdge()
         
@@ -53,17 +43,17 @@ internal final class MeshCreationContext {
         return (pair, e, eSym)
     }
     
-    func createEdge() -> MeshUtils.Edge {
+    func createEdge() -> Edge {
         return _poolEdges.pull()
     }
-    func resetEdge(_ edge: MeshUtils.Edge) {
+    func resetEdge(_ edge: Edge) {
         _poolEdges.repool(edge)
     }
     
-    func createVertex() -> MeshUtils.Vertex {
+    func createVertex() -> Vertex {
         return _poolVertices.pull()
     }
-    func resetVertex(_ vertex: MeshUtils.Vertex) {
+    func resetVertex(_ vertex: Vertex) {
         _poolVertices.repool(vertex)
     }
     
@@ -72,21 +62,21 @@ internal final class MeshCreationContext {
     /// No vertex or face structures are allocated, but these must be assigned
     /// before the current edge operation is completed.
     /// </summary>
-    public func MakeEdge(_ eNext: MeshUtils.Edge) -> MeshUtils.Edge {
+    public func MakeEdge(_ eNext: Edge) -> Edge {
         var eNext = eNext
         
         let (_, e, eSym) = createEdgePair()
         
         // Make sure eNext points to the first edge of the edge pair
-        MeshUtils.Edge.EnsureFirst(e: &eNext)
+        MeshUtils._Edge.EnsureFirst(e: &eNext)
         
         // Insert in circular doubly-linked list before eNext.
         // Note that the prev pointer is stored in Sym->next.
-        let ePrev = eNext._Sym?._next
+        let ePrev = eNext._Sym._next
         eSym._next = ePrev
-        ePrev?._Sym?._next = e
+        ePrev?._Sym._next = e
         e._next = eNext
-        eNext._Sym?._next = eSym
+        eNext._Sym._next = eSym
         
         e._Sym = eSym
         e._Onext = e
@@ -114,7 +104,7 @@ internal final class MeshCreationContext {
     /// the new vertex *before* vNext so that algorithms which walk the vertex
     /// list will not see the newly created vertices.
     /// </summary>
-    public func MakeVertex(_ eOrig: MeshUtils.Edge, _ vNext: MeshUtils.Vertex) {
+    public func MakeVertex(_ eOrig: Edge, _ vNext: Vertex) {
         let vNew = createVertex()
         
         // insert in circular doubly-linked list before vNext
@@ -128,11 +118,11 @@ internal final class MeshCreationContext {
         // leave coords, s, t undefined
         
         // fix other edges on this vertex loop
-        var e: MeshUtils.Edge? = eOrig
+        var e: Edge? = eOrig
         repeat {
             e?._Org = vNew
             e = e?._Onext
-        } while (e !== eOrig)
+        } while (e != eOrig)
     }
     
     /// <summary>
@@ -142,7 +132,7 @@ internal final class MeshCreationContext {
     /// the new face *before* fNext so that algorithms which walk the face
     /// list will not see the newly created faces.
     /// </summary>
-    public func MakeFace(_ eOrig: MeshUtils.Edge, _ fNext: MeshUtils.Face) {
+    public func MakeFace(_ eOrig: Edge, _ fNext: Face) {
         let fNew = createFace()
         
         // insert in circular doubly-linked list before fNext
@@ -161,27 +151,27 @@ internal final class MeshCreationContext {
         
         // fix other edges on this face loop
         
-        unowned(unsafe) var edp = eOrig
+        var edp = eOrig
         repeat {
             edp._Lface = fNew
             edp = edp._Lnext
-        } while (edp !== eOrig)
+        } while (edp != eOrig)
     }
     
     /// <summary>
     /// KillEdge( eDel ) destroys an edge (the half-edges eDel and eDel->Sym),
     /// and removes from the global edge list.
     /// </summary>
-    public func KillEdge(_ eDel: MeshUtils.Edge) {
+    public func KillEdge(_ eDel: Edge) {
         // Half-edges are allocated in pairs, see EdgePair above
         var eDel = eDel
-        MeshUtils.Edge.EnsureFirst(e: &eDel)
+        MeshUtils._Edge.EnsureFirst(e: &eDel)
         
         // delete from circular doubly-linked list
         let eNext = eDel._next
-        let ePrev = eDel._Sym?._next
-        eNext?._Sym?._next = ePrev
-        ePrev?._Sym?._next = eNext
+        let ePrev = eDel._Sym._next
+        eNext?._Sym._next = ePrev
+        ePrev?._Sym._next = eNext
         
         eDel._pair = nil
         
@@ -192,15 +182,15 @@ internal final class MeshCreationContext {
     /// KillVertex( vDel ) destroys a vertex and removes it from the global
     /// vertex list. It updates the vertex loop to point to a given new vertex.
     /// </summary>
-    public func KillVertex(_ vDel: MeshUtils.Vertex, _ newOrg: MeshUtils.Vertex?) {
+    public func KillVertex(_ vDel: Vertex, _ newOrg: Vertex?) {
         let eStart = vDel._anEdge
         
         // change the origin of all affected edges
-        var e: MeshUtils.Edge? = eStart
+        var e: Edge? = eStart
         repeat {
             e?._Org = newOrg
             e = e?._Onext
-        } while (e !== eStart)
+        } while (e != eStart)
         
         // delete from circular doubly-linked list
         let vPrev = vDel._prev
@@ -215,15 +205,15 @@ internal final class MeshCreationContext {
     /// KillFace( fDel ) destroys a face and removes it from the global face
     /// list. It updates the face loop to point to a given new face.
     /// </summary>
-    public func KillFace(_ fDel: MeshUtils.Face, _ newLFace: MeshUtils.Face?) {
+    public func KillFace(_ fDel: Face, _ newLFace: Face?) {
         let eStart = fDel._anEdge
         
         // change the left face of all affected edges
-        var e: MeshUtils.Edge? = eStart
+        var e: Edge? = eStart
         repeat {
-            e?._Lface = newLFace
+            e?._Lface = newLFace ?? nil
             e = e?._Lnext
-        } while (e !== eStart)
+        } while (e != eStart)
         
         // delete from circular doubly-linked list
         let fPrev = fDel._prev

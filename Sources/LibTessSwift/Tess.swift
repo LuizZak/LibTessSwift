@@ -48,7 +48,7 @@ public struct ContourVertex: CustomStringConvertible {
     }
     
     public var description: String {
-        return "\(position), \(String(describing: data))"
+        return "\(position), \(data as Any)"
     }
 }
 
@@ -68,10 +68,10 @@ public class Tess {
     internal var _windingRule: WindingRule
 
     internal var _dict: Dict<ActiveRegion>!
-    internal var _pq: PriorityQueue<MeshUtils.Vertex>!
-    internal var _event: MeshUtils.Vertex!
+    internal var _pq: PriorityQueue<Vertex>!
+    internal var _event: Vertex!
     
-    internal var _regionsPool = Pool<ActiveRegion>()
+    internal var _regionsPool = Pool<_ActiveRegion>()
 
     internal var _combineCallback: CombineCallback?
 
@@ -120,12 +120,6 @@ public class Tess {
     deinit {
         _mesh = nil
         
-        for created in _regionsPool.totalCreated {
-            created._eUp = nil
-            created._nodeUp?.Key = nil
-            created._nodeUp = nil
-        }
-        
         _regionsPool.reset()
     }
     
@@ -133,9 +127,9 @@ public class Tess {
         var v = _mesh._vHead._next!
 
         var minVal: [Real] = [ v._coords.x, v._coords.y, v._coords.z ]
-        var minVert: ContiguousArray<MeshUtils.Vertex> = [ v, v, v ]
+        var minVert: ContiguousArray<Vertex> = [ v, v, v ]
         var maxVal: [Real] = [ v._coords.x, v._coords.y, v._coords.z ]
-        var maxVert: ContiguousArray<MeshUtils.Vertex> = [ v, v, v ]
+        var maxVert: ContiguousArray<Vertex> = [ v, v, v ]
         
         func subMinMax(_ index: Int) -> Real {
             return maxVal[index] - minVal[index]
@@ -318,32 +312,32 @@ public class Tess {
     /// to the fan is a simple orientation test.  By making the fan as large
     /// as possible, we restore the invariant (check it yourself).
     /// </summary>
-    private func tessellateMonoRegion(_ face: MeshUtils.Face) {
+    private func tessellateMonoRegion(_ face: Face) {
         // All edges are oriented CCW around the boundary of the region.
         // First, find the half-edge whose origin vertex is rightmost.
         // Since the sweep goes from left to right, face->anEdge should
         // be close to the edge we want.
         var up = face._anEdge!
-        assert(up._Lnext !== up && up._Lnext._Lnext !== up)
+        assert(up._Lnext != up && up._Lnext._Lnext != up)
         
         while (Geom.VertLeq(up._Dst!, up._Org!)) { up = up._Lprev! }
         while (Geom.VertLeq(up._Org!, up._Dst!)) { up = up._Lnext }
         
         var lo = up._Lprev!
         
-        while (up._Lnext !== lo) {
+        while (up._Lnext != lo) {
             if (Geom.VertLeq(up._Dst, lo._Org)) {
                 // up.Dst is on the left. It is safe to form triangles from lo.Org.
                 // The EdgeGoesLeft test guarantees progress even when some triangles
                 // are CW, given that the upper and lower chains are truly monotone.
-                while (lo._Lnext !== up && (Geom.EdgeGoesLeft(lo._Lnext)
+                while (lo._Lnext != up && (Geom.EdgeGoesLeft(lo._Lnext)
                     || Geom.EdgeSign(lo._Org, lo._Dst, lo._Lnext._Dst) <= 0.0)) {
                     lo = _mesh.Connect(lo._Lnext, lo)._Sym
                 }
                 lo = lo._Lprev
             } else {
                 // lo.Org is on the left.  We can make CCW triangles from up.Dst.
-                while (lo._Lnext !== up && (Geom.EdgeGoesRight(up._Lprev)
+                while (lo._Lnext != up && (Geom.EdgeGoesRight(up._Lprev)
                     || Geom.EdgeSign(up._Dst, up._Org, up._Lprev._Org) >= 0.0)) {
                     up = _mesh.Connect(up, up._Lprev)._Sym
                 }
@@ -353,8 +347,8 @@ public class Tess {
         
         // Now lo.Org == up.Dst == the leftmost vertex.  The remaining region
         // can be tessellated in a fan from this leftmost vertex.
-        assert(lo._Lnext !== up)
-        while (lo._Lnext._Lnext !== up) {
+        assert(lo._Lnext != up)
+        while (lo._Lnext._Lnext != up) {
             lo = _mesh.Connect(lo._Lnext, lo)._Sym
         }
     }
@@ -414,7 +408,7 @@ public class Tess {
         }
     }
     
-    private func getNeighbourFace(_ edge: MeshUtils.Edge) -> Int {
+    private func getNeighbourFace(_ edge: Edge) -> Int {
         if (edge._Rface == nil) {
             return MeshUtils.Undef
         }
@@ -466,7 +460,7 @@ public class Tess {
                 }
                 faceVerts += 1
                 edge = edge._Lnext
-            } while (edge !== f._anEdge)
+            } while (edge != f._anEdge)
             
             assert(faceVerts <= polySize)
             
@@ -514,7 +508,7 @@ public class Tess {
                 elementIndex += 1
                 faceVerts += 1
                 edge = edge._Lnext
-            } while (edge !== f._anEdge)
+            } while (edge != f._anEdge)
             // Fill unused.
             for _ in faceVerts..<polySize {
                 _elements[elementIndex] = MeshUtils.Undef
@@ -528,7 +522,7 @@ public class Tess {
                     _elements[elementIndex] = getNeighbourFace(edge)
                     elementIndex += 1
                     edge = edge._Lnext
-                } while (edge !== f._anEdge)
+                } while (edge != f._anEdge)
                 
                 // Fill unused.
                 for _ in faceVerts..<polySize {
@@ -556,7 +550,7 @@ public class Tess {
             repeat {
                 _vertexCount += 1
                 edge = edge._Lnext
-            } while (edge !== start)
+            } while (edge != start)
             
             _elementCount += 1
         }
@@ -583,7 +577,7 @@ public class Tess {
                 vertIndex += 1
                 vertCount += 1
                 edge = edge._Lnext
-            } while (edge !== start)
+            } while (edge != start)
             
             _elements[elementIndex] = startVert
             elementIndex += 1
@@ -623,7 +617,7 @@ public class Tess {
             reverse = (forceOrientation == ContourOrientation.clockwise && area < 0.0) || (forceOrientation == ContourOrientation.counterClockwise && area > 0.0)
         }
 
-        var e: MeshUtils.Edge! = nil
+        var e: Edge! = nil
         for i in 0..<vertices.count {
             if (e == nil) {
                 e = _mesh.MakeEdge()
@@ -693,8 +687,7 @@ public class Tess {
             outputPolymesh(elementType, polySize)
         }
         
-        mesh.OnFree()
-        mesh.Reset()
+        mesh.free()
         
         _mesh = nil
     }

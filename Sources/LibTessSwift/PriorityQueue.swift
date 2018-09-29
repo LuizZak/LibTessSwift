@@ -20,7 +20,7 @@ fileprivate class StackItem {
     }
 }
 
-internal class PriorityQueue<TValue> where TValue: AnyObject {
+internal class PriorityQueue<TValue> {
     private var _leq: PriorityHeap<TValue>.LessOrEqual
     private var _heap: PriorityHeap<TValue>
     private var _keys: ContiguousArray<TValue?>
@@ -78,7 +78,7 @@ internal class PriorityQueue<TValue> where TValue: AnyObject {
                 piv = _order[i]
                 
                 if(p != i) {
-                    swap(&_order[i], &_order[p])
+                    _order.swapAt(i, p)
                 }
                 
                 i = p - 1
@@ -92,12 +92,12 @@ internal class PriorityQueue<TValue> where TValue: AnyObject {
                     } while (!_leq(keyAt(index: piv), keyForOrderAt(index: j)))
                     
                     if(i != j) {
-                        swap(&_order[i], &_order[j])
+                        _order.swapAt(i, j)
                     }
                 } while (i < j)
                 
                 if(i != j) {
-                    swap(&_order[i], &_order[j])
+                    _order.swapAt(i, j)
                 }
                 
                 if (i - p < r - j) {

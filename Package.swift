@@ -1,10 +1,11 @@
-// swift-tools-version:3.1
+// swift-tools-version:4.2
 
 import PackageDescription
 
 let package = Package(
     name: "LibTessSwift",
     targets: [
-        Target(name: "LibTessSwift")
+        .target(name: "LibTessSwift"),
+        .testTarget(name: "LibTessSwiftTests", dependencies: ["LibTessSwift"])
     ]
 )

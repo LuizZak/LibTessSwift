@@ -20,7 +20,7 @@ internal struct PQHandle {
     }
 }
 
-fileprivate class HandleElem<TValue> where TValue: AnyObject {
+fileprivate class HandleElem<TValue> {
     internal var _key: TValue?
     internal var _node: Int
     
@@ -35,12 +35,12 @@ fileprivate class HandleElem<TValue> where TValue: AnyObject {
     }
 }
 
-internal class PriorityHeap<TValue> where TValue : AnyObject {
+internal class PriorityHeap<TValue> {
     public typealias LessOrEqual = (_ lhs: TValue?, _ rhs: TValue?) -> Bool
     
     private var _leq: LessOrEqual
     private var _nodes: [Int]
-    private var _handles: ContiguousArray<HandleElem<TValue>?>
+    private var _handles: Array<HandleElem<TValue>?>
     private var _size: Int = 0, _max: Int = 0
     private var _freeList = 0
     private var _initialized = false
@@ -51,7 +51,7 @@ internal class PriorityHeap<TValue> where TValue : AnyObject {
         _leq = leq
         
         _nodes = Array(repeating: 0, count: initialSize + 1)
-        _handles = ContiguousArray(repeating: nil, count: initialSize + 1)
+        _handles = Array(repeating: nil, count: initialSize + 1)
 
         _size = 0
         _max = initialSize

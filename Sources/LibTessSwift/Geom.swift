@@ -22,13 +22,13 @@ internal class Geom {
         }
     }
 
-    public static func VertCCW(_ u: MeshUtils.Vertex, _ v: MeshUtils.Vertex, _ w: MeshUtils.Vertex) -> Bool {
+    public static func VertCCW(_ u: Vertex, _ v: Vertex, _ w: Vertex) -> Bool {
         return (u._s * (v._t - w._t) + v._s * (w._t - u._t) + w._s * (u._t - v._t)) >= 0.0
     }
-    public static func VertEq(_ lhs: MeshUtils.Vertex, _ rhs: MeshUtils.Vertex) -> Bool {
+    public static func VertEq(_ lhs: Vertex, _ rhs: Vertex) -> Bool {
         return lhs._s == rhs._s && lhs._t == rhs._t
     }
-    public static func VertLeq(_ lhs: MeshUtils.Vertex, _ rhs: MeshUtils.Vertex) -> Bool {
+    public static func VertLeq(_ lhs: Vertex, _ rhs: Vertex) -> Bool {
         return (lhs._s < rhs._s) || (lhs._s == rhs._s && lhs._t <= rhs._t)
     }
 
@@ -43,7 +43,7 @@ internal class Geom {
     /// let r be the negated result (this evaluates (uw)(v->s)), then
     /// r is guaranteed to satisfy MIN(u->t,w->t) <= r <= MAX(u->t,w->t).
     /// </summary>
-    public static func EdgeEval(_ u: MeshUtils.Vertex, _ v: MeshUtils.Vertex, _ w: MeshUtils.Vertex) -> Real {
+    public static func EdgeEval(_ u: Vertex, _ v: Vertex, _ w: Vertex) -> Real {
         assert(VertLeq(u, v) && VertLeq(v, w))
         
         let gapL: Real = v._s - u._s as Real
@@ -74,41 +74,41 @@ internal class Geom {
     /// is cheaper to evaluate. Returns > 0, == 0 , or < 0
     /// as v is above, on, or below the edge uw.
     /// </summary>
-    public static func EdgeSign(_ u: MeshUtils.Vertex, _ v: MeshUtils.Vertex, _ w: MeshUtils.Vertex) -> Real {
+    public static func EdgeSign(_ u: Vertex, _ v: Vertex, _ w: Vertex) -> Real {
         assert(VertLeq(u, v) && VertLeq(v, w))
 
-        let gapL = v._s - u._s as Real
-        let gapR = w._s - v._s as Real
+        let gapL = v._s - u._s
+        let gapR = w._s - v._s
         
-        if (gapL + gapR > 0.0) {
-            let t1 = (v._t - w._t) * gapL as Real
-            let t2 = (v._t - u._t) * gapR as Real
+        if gapL + gapR > 0.0 {
+            let t1 = (v._t - w._t) * gapL
+            let t2 = (v._t - u._t) * gapR
             return t1 + t2
         }
         /* vertical line */
         return 0
     }
 
-    public static func TransLeq(_ lhs: MeshUtils.Vertex, _ rhs: MeshUtils.Vertex) -> Bool {
+    public static func TransLeq(_ lhs: Vertex, _ rhs: Vertex) -> Bool {
         return (lhs._t < rhs._t) || (lhs._t == rhs._t && lhs._s <= rhs._s)
     }
 
-    public static func TransEval(_ u: MeshUtils.Vertex, _ v: MeshUtils.Vertex, _ w: MeshUtils.Vertex) -> Real {
+    public static func TransEval(_ u: Vertex, _ v: Vertex, _ w: Vertex) -> Real {
         assert(TransLeq(u, v) && TransLeq(v, w))
         
-        let gapL = (v._t - u._t) as Real
-        let gapR = (w._t - v._t) as Real
+        let gapL = (v._t - u._t)
+        let gapR = (w._t - v._t)
 
-        if (gapL + gapR > 0.0) {
-            if (gapL < gapR) {
-                let k = (gapL / (gapL + gapR)) as Real
-                let s1 = (v._s - u._s) as Real
-                let s2 = (u._s - w._s) as Real
+        if gapL + gapR > 0.0 {
+            if gapL < gapR {
+                let k = gapL / (gapL + gapR)
+                let s1 = v._s - u._s
+                let s2 = u._s - w._s
                 return s1 + s2 * k
             } else {
-                let k = (gapR / (gapL + gapR)) as Real
-                let s1 = (v._s - w._s) as Real
-                let s2 = (w._s - u._s) as Real
+                let k = gapR / (gapL + gapR)
+                let s1 = v._s - w._s
+                let s2 = w._s - u._s
                 return s1 + s2 * k
             }
         }
@@ -116,7 +116,7 @@ internal class Geom {
         return 0
     }
 
-    public static func TransSign(_ u: MeshUtils.Vertex, _ v: MeshUtils.Vertex, _ w: MeshUtils.Vertex) -> Real {
+    public static func TransSign(_ u: Vertex, _ v: Vertex, _ w: Vertex) -> Real {
         assert(TransLeq(u, v) && TransLeq(v, w))
         
         let gapL = v._t - u._t
@@ -131,23 +131,23 @@ internal class Geom {
         return 0
     }
 
-    public static func EdgeGoesLeft(_ e: MeshUtils.Edge) -> Bool {
+    public static func EdgeGoesLeft(_ e: Edge) -> Bool {
         return VertLeq(e._Dst!, e._Org!)
     }
 
-    public static func EdgeGoesRight(_ e: MeshUtils.Edge) -> Bool {
+    public static func EdgeGoesRight(_ e: Edge) -> Bool {
         return VertLeq(e._Org!, e._Dst!)
     }
 
-    public static func VertL1dist(u: MeshUtils.Vertex, v: MeshUtils.Vertex) -> Real {
+    public static func VertL1dist(u: Vertex, v: Vertex) -> Real {
         let s = abs(u._s - v._s) as Real
         let t = abs(u._t - v._t) as Real
         return s + t
     }
 
-    public static func AddWinding(_ eDst: MeshUtils.Edge, _ eSrc: MeshUtils.Edge) {
+    public static func AddWinding(_ eDst: Edge, _ eSrc: Edge) {
         eDst._winding += eSrc._winding
-        eDst._Sym!._winding += eSrc._Sym!._winding
+        eDst._Sym._winding += eSrc._Sym._winding
     }
 
     public static func Interpolate(_ a: Real, _ x: Real, _ b: Real, _ y: Real) -> Real {
@@ -170,7 +170,7 @@ internal class Geom {
     /// The computed point is guaranteed to lie in the intersection of the
     /// bounding rectangles defined by each edge.
     /// </summary>
-    public static func EdgeIntersect(o1: MeshUtils.Vertex, d1: MeshUtils.Vertex, o2: MeshUtils.Vertex, d2: MeshUtils.Vertex, v: MeshUtils.Vertex) {
+    public static func EdgeIntersect(o1: Vertex, d1: Vertex, o2: Vertex, d2: Vertex, v: Vertex) {
         var o1 = o1
         var d1 = d1
         var o2 = o2

@@ -20,7 +20,10 @@ internal class Pool<Element> where Element: EmptyInitializable {
     }
     
     func free() {
-        for pointer in pool {
+        for (i, pointer) in pool.enumerated() {
+            if !freeIndices.contains(i) {
+                pointer.deinitialize(count: 1)
+            }
             pointer.deallocate()
         }
         
