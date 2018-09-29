@@ -216,8 +216,6 @@
 		OBJ_22 /* DataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataLoader.swift; sourceTree = "<group>"; };
 		OBJ_23 /* PolyConvert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolyConvert.swift; sourceTree = "<group>"; };
 		OBJ_24 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
-		OBJ_25 /* LibTessSwift */ = {isa = PBXFileReference; lastKnownFileType = folder; path = LibTessSwift; sourceTree = SOURCE_ROOT; };
-		OBJ_26 /* Example */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Example; sourceTree = SOURCE_ROOT; };
 		OBJ_6 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		OBJ_9 /* Dict.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dict.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -320,8 +318,6 @@
 				OBJ_6 /* Package.swift */,
 				OBJ_7 /* Sources */,
 				OBJ_19 /* Tests */,
-				OBJ_25 /* LibTessSwift */,
-				OBJ_26 /* Example */,
 				OBJ_27 /* Products */,
 			);
 			name = "";
