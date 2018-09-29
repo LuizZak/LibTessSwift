@@ -10,7 +10,7 @@ typealias ActiveRegion = UnsafeMutablePointer<Tess._ActiveRegion>
 
 extension UnsafeMutablePointer where Pointee == Tess._ActiveRegion {
     var _eUp: Edge! { get { return pointee._eUp } nonmutating set { pointee._eUp = newValue } }
-    var _nodeUp: _Node<ActiveRegion>! { get { return pointee._nodeUp } nonmutating set { pointee._nodeUp = newValue } }
+    var _nodeUp: Node<ActiveRegion>! { get { return pointee._nodeUp } nonmutating set { pointee._nodeUp = newValue } }
     var _windingNumber: Int { get { return pointee._windingNumber } nonmutating set { pointee._windingNumber = newValue } }
     var _inside: Bool { get { return pointee._inside } nonmutating set { pointee._inside = newValue } }
     var _sentinel: Bool { get { return pointee._sentinel } nonmutating set { pointee._sentinel = newValue } }
@@ -22,7 +22,7 @@ extension Tess {
     
     internal struct _ActiveRegion: EmptyInitializable {
         internal var _eUp: Edge!
-        internal var _nodeUp: _Node<ActiveRegion>!
+        internal var _nodeUp: Node<ActiveRegion>!
         internal var _windingNumber: Int = 0
         internal var _inside: Bool = false, _sentinel: Bool = false, _dirty: Bool = false, _fixUpperEdge: Bool = false
     }
@@ -1102,31 +1102,29 @@ extension Tess {
         var vNext: Vertex?
         
         while let v = _pq.ExtractMin() {
-            autoreleasepool {
-                while (true) {
-                    vNext = _pq.Minimum()
-                    if (vNext == nil || !Geom.VertEq(vNext!, v)) {
-                        break
-                    }
-                    
-                    // Merge together all vertices at exactly the same location.
-                    // This is more efficient than processing them one at a time,
-                    // simplifies the code (see ConnectLeftDegenerate), and is also
-                    // important for correct handling of certain degenerate cases.
-                    // For example, suppose there are two identical edges A and B
-                    // that belong to different contours (so without this code they would
-                    // be processed by separate sweep events). Suppose another edge C
-                    // crosses A and B from above. When A is processed, we split it
-                    // at its intersection point with C. However this also splits C,
-                    // so when we insert B we may compute a slightly different
-                    // intersection point. This might leave two edges with a small
-                    // gap between them. This kind of error is especially obvious
-                    // when using boundary extraction (BoundaryOnly).
-                    vNext = _pq.ExtractMin()
-                    SpliceMergeVertices(v._anEdge, vNext!._anEdge)
+            while (true) {
+                vNext = _pq.Minimum()
+                if (vNext == nil || !Geom.VertEq(vNext!, v)) {
+                    break
                 }
-                SweepEvent(v)
+                
+                // Merge together all vertices at exactly the same location.
+                // This is more efficient than processing them one at a time,
+                // simplifies the code (see ConnectLeftDegenerate), and is also
+                // important for correct handling of certain degenerate cases.
+                // For example, suppose there are two identical edges A and B
+                // that belong to different contours (so without this code they would
+                // be processed by separate sweep events). Suppose another edge C
+                // crosses A and B from above. When A is processed, we split it
+                // at its intersection point with C. However this also splits C,
+                // so when we insert B we may compute a slightly different
+                // intersection point. This might leave two edges with a small
+                // gap between them. This kind of error is especially obvious
+                // when using boundary extraction (BoundaryOnly).
+                vNext = _pq.ExtractMin()
+                SpliceMergeVertices(v._anEdge, vNext!._anEdge)
             }
+            SweepEvent(v)
         }
 
         DoneEdgeDict()

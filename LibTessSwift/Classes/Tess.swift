@@ -84,7 +84,7 @@ public class Tess {
     
     public var SUnitX: Real = 1
     public var SUnitY: Real = 0
-#if DOUBLE
+#if arch(x86_64) || arch(arm64)
     public var SentinelCoord: Real = 4e150
 #else
     public var SentinelCoord: Real = 4e30
@@ -120,7 +120,7 @@ public class Tess {
     deinit {
         _mesh = nil
         
-        _regionsPool.reset()
+        _regionsPool.free()
     }
     
     private func computeNormal(norm: inout Vector3) {

@@ -48,7 +48,7 @@ public extension Vector3 {
 /// Describes an object that can be chained with other instances of itself
 /// indefinitely. This also supports looped links that point circularly.
 internal protocol Linked {
-    var _next: UnsafeMutablePointer<Self>! { get }
+    var _next: UnsafeMutablePointer<Self>? { get }
 }
 
 internal class MeshUtils {
@@ -57,7 +57,7 @@ internal class MeshUtils {
     
     public final class _Vertex: Linked, EmptyInitializable {
         internal var _prev: Vertex!
-        internal var _next: Vertex!
+        internal var _next: Vertex?
         internal var _anEdge: Edge!
 
         internal var _coords: Vector3 = .zero
@@ -73,7 +73,7 @@ internal class MeshUtils {
 
     public struct _Face: Linked, EmptyInitializable {
         internal var _prev: Face!
-        internal var _next: Face!
+        internal var _next: Face?
         internal var _anEdge: Edge!
         
         internal var _n: Int = 0
@@ -84,7 +84,7 @@ internal class MeshUtils {
             var eCur = _anEdge
             repeat {
                 n += 1
-                eCur = eCur?.pointee._Lnext
+                eCur = eCur?._Lnext
             } while eCur != _anEdge
             return n
         }
@@ -103,16 +103,8 @@ internal class MeshUtils {
         public static var pool: Array<MeshUtils._Edge> = []
         
         internal var _pair: EdgePair?
-        internal var _next: Edge!
-        private var __Sym: Edge?
-        internal var _Sym: Edge! {
-            get {
-                return __Sym
-            }
-            set {
-                __Sym = newValue
-            }
-        }
+        internal var _next: Edge?
+        internal var _Sym: Edge!
         internal var _Onext: Edge!
         internal var _Lnext: Edge!
         internal var _Org: Vertex!
@@ -120,19 +112,19 @@ internal class MeshUtils {
         internal var _activeRegion: ActiveRegion!
         internal var _winding: Int = 0
 
-        internal var _Rface: Face! { get { return _Sym.pointee._Lface } set { _Sym.pointee._Lface = newValue } }
-        internal var _Dst: Vertex! { get { return _Sym.pointee._Org }  set { _Sym.pointee._Org = newValue } }
+        internal var _Rface: Face! { get { return _Sym._Lface } set { _Sym._Lface = newValue } }
+        internal var _Dst: Vertex! { get { return _Sym._Org }  set { _Sym._Org = newValue } }
 
-        internal var _Oprev: Edge! { get { return _Sym.pointee._Lnext } set { _Sym.pointee._Lnext = newValue } }
-        internal var _Lprev: Edge! { get { return _Onext.pointee._Sym } set { _Onext.pointee._Sym = newValue } }
-        internal var _Dprev: Edge! { get { return _Lnext.pointee._Sym } set { _Lnext.pointee._Sym = newValue } }
-        internal var _Rprev: Edge! { get { return _Sym.pointee._Onext } set { _Sym.pointee._Onext = newValue } }
-        internal var _Dnext: Edge! { get { return _Rprev?.pointee._Sym } set { _Rprev?.pointee._Sym = newValue } }
-        internal var _Rnext: Edge! { get { return _Oprev?.pointee._Sym } set { _Oprev?.pointee._Sym = newValue } }
+        internal var _Oprev: Edge! { get { return _Sym._Lnext } set { _Sym._Lnext = newValue } }
+        internal var _Lprev: Edge! { get { return _Onext._Sym } set { _Onext._Sym = newValue } }
+        internal var _Dprev: Edge! { get { return _Lnext._Sym } set { _Lnext._Sym = newValue } }
+        internal var _Rprev: Edge! { get { return _Sym._Onext } set { _Sym._Onext = newValue } }
+        internal var _Dnext: Edge! { get { return _Rprev?._Sym } set { _Rprev?._Sym = newValue } }
+        internal var _Rnext: Edge! { get { return _Oprev?._Sym } set { _Oprev?._Sym = newValue } }
         
         internal static func EnsureFirst(e: inout Edge) {
-            if (e == e.pointee._pair?._eSym) {
-                e = e.pointee._Sym
+            if e == e._pair?._eSym {
+                e = e._Sym
             }
         }
         
@@ -149,11 +141,11 @@ internal class MeshUtils {
     /// For more explanation see Mesh.Splice().
     /// </summary>
     public static func Splice(_ a: Edge, _ b: Edge) {
-        let aOnext = a.pointee._Onext
-        let bOnext = b.pointee._Onext
+        let aOnext = a._Onext
+        let bOnext = b._Onext
         
-        aOnext?.pointee._Sym.pointee._Lnext = b
-        bOnext?.pointee._Sym.pointee._Lnext = a
+        aOnext?._Sym._Lnext = b
+        bOnext?._Sym._Lnext = a
         a._Onext = bOnext
         b._Onext = aOnext
     }
@@ -163,11 +155,12 @@ internal class MeshUtils {
     /// </summary>
     public static func FaceArea(_ f: Face) -> Real {
         var area: Real = 0
+        
         var e = f._anEdge!
         repeat {
             area += (e._Org._s - e._Dst._s) * (e._Org._t + e._Dst._t)
             e = e._Lnext
-        } while (e != f._anEdge)
+        } while e != f._anEdge
         return area
     }
 }

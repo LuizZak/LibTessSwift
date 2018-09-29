@@ -14,8 +14,7 @@ internal class Pool<Element> where Element: EmptyInitializable {
     private var freeIndices: Set<Int> = []
     private var indices: [UnsafeMutablePointer<Element>: Int] = [:]
     
-    /// Resets the contents of this pool
-    func reset() {
+    deinit {
         free()
     }
     
@@ -55,21 +54,23 @@ internal class Pool<Element> where Element: EmptyInitializable {
         let pointer = UnsafeMutablePointer<Element>.allocate(capacity: 1)
         pointer.initialize(to: Element())
         defer {
-            pointer.deinitialize()
+            pointer.deinitialize(count: 1)
             pointer.deallocate()
         }
 
         return try closure(pointer)
     }
     
-    /// Repools a value for later retrieval with .pull()
+    /// Repools a value for later retrieval with `.pull()`
+    ///
+    /// - precondition: `v` was a pointer pulled from this Pool with `Pool.pull()`
     func repool(_ v: UnsafeMutablePointer<Element>) {
         if let index = indices[v] {
             freeIndices.insert(index)
         } else {
-            assertionFailure("Tried repooling pointer that was not pulled from this pool")
+            preconditionFailure("Tried repooling pointer that was not pulled from this pool")
         }
         
-        v.deinitialize()
+        v.deinitialize(count: 1)
     }
 }

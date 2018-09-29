@@ -61,21 +61,6 @@ internal final class Mesh {
     public func free() {
         _context.free()
     }
-
-    public func Reset() {
-        _vHead = _context.createVertex()
-        _fHead = _context.createFace()
-        _eHead = _context.createEdge()
-        _eHeadSym = nil
-    }
-
-    public func OnFree() {
-        forEachFace(with: _context.resetFace)
-        forEachVertex(with: _context.resetVertex)
-        forEachEdge(with: _context.resetEdge)
-        
-        Reset()
-    }
     
     /// Loops all the faces of this mesh with a given closure.
     /// Looping is safe to modify the face's _next pointer, so long as it does

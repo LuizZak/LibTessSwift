@@ -6,14 +6,14 @@
 //  Copyright © 2017 Luiz Fernando Silva. All rights reserved.
 //
 
-typealias _Node<T> = UnsafeMutablePointer<Node<T>>
+typealias Node<T> = UnsafeMutablePointer<_Node<T>>
 
-internal struct Node<TValue>: Linked {
+internal struct _Node<TValue>: Linked {
     var Key: TValue?
-    var Prev: UnsafeMutablePointer<Node>?
-    var Next: UnsafeMutablePointer<Node>?
+    var Prev: Node<TValue>?
+    var Next: Node<TValue>?
     
-    var _next: UnsafeMutablePointer<Node>! {
+    var _next: Node<TValue>? {
         return Next
     }
     
@@ -30,43 +30,42 @@ internal final class Dict<TValue> {
     typealias LessOrEqual = (_ lhs: TValue, _ rhs: TValue) -> Bool
     
     private var _leq: LessOrEqual
-    var _head: _Node<TValue>
+    var _head: Node<TValue>
     
     public init(leq: @escaping LessOrEqual) {
         _leq = leq
         
         _head = UnsafeMutablePointer.allocate(capacity: 1)
-        _head.initialize(to: Node<TValue>())
+        _head.initialize(to: _Node<TValue>())
         _head.pointee.Prev = _head
         _head.pointee.Next = _head
     }
     
     deinit {
-        // Dismount references to allow ARC to do its job
         _head.loop { node in
             if node.pointee.Prev != _head {
-                node.pointee.Prev?.deinitialize()
+                node.pointee.Prev?.deinitialize(count: 1)
                 node.pointee.Prev?.deallocate()
             }
             node.pointee.Next = nil
         }
-        _head.deinitialize()
+        _head.deinitialize(count: 1)
         _head.deallocate()
     }
     
-    public func Insert(key: TValue) -> _Node<TValue> {
+    public func Insert(key: TValue) -> Node<TValue> {
         return InsertBefore(node: _head, key: key)
     }
     
-    public func InsertBefore(node: _Node<TValue>, key: TValue) -> _Node<TValue> {
+    public func InsertBefore(node: Node<TValue>, key: TValue) -> Node<TValue> {
         var node = node
         
         repeat {
             node = node.pointee.Prev!
         } while (node.pointee.Key != nil && !_leq(node.pointee.Key!, key))
         
-        let newNode = UnsafeMutablePointer<Node<TValue>>.allocate(capacity: 1)
-        newNode.initialize(to: Node<TValue>())
+        let newNode = UnsafeMutablePointer<_Node<TValue>>.allocate(capacity: 1)
+        newNode.initialize(to: _Node<TValue>())
         newNode.pointee.Key = key
         newNode.pointee.Next = node.pointee.Next
         node.pointee.Next?.pointee.Prev = newNode
@@ -76,7 +75,7 @@ internal final class Dict<TValue> {
         return newNode
     }
     
-    public func Find(key: TValue) -> _Node<TValue> {
+    public func Find(key: TValue) -> Node<TValue> {
         var node = _head
         repeat {
             node = node.pointee.Next!
@@ -84,14 +83,14 @@ internal final class Dict<TValue> {
         return node
     }
     
-    public func Min() -> _Node<TValue>? {
+    public func Min() -> Node<TValue>? {
         return _head.pointee.Next
     }
     
-    public func Remove(node: _Node<TValue>) {
+    public func Remove(node: Node<TValue>) {
         node.pointee.Next?.pointee.Prev = node.pointee.Prev
         node.pointee.Prev?.pointee.Next = node.pointee.Next
-        
+        node.deinitialize(count: 1)
         node.deallocate()
     }
 }
