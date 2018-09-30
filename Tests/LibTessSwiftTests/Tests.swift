@@ -196,6 +196,9 @@ class Tests: XCTestCase {
         
         waitForExpectations(timeout: 200, handler: nil)
     }
+}
+
+extension Tests {
     
     func getTestCaseData() -> [TestCaseData] {
         var data: [TestCaseData] = []

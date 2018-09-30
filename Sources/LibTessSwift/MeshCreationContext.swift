@@ -153,9 +153,9 @@ internal final class MeshCreationContext {
         
         var edp = eOrig
         repeat {
-            edp._Lface = fNew
-            edp = edp._Lnext
-        } while (edp != eOrig)
+            edp.pointee._Lface = fNew
+            edp = edp.pointee._Lnext.unsafelyUnwrapped
+        } while edp != eOrig
     }
     
     /// <summary>
@@ -206,14 +206,14 @@ internal final class MeshCreationContext {
     /// list. It updates the face loop to point to a given new face.
     /// </summary>
     public func killFace(_ fDel: Face, _ newLFace: Face?) {
-        let eStart = fDel._anEdge
+        let eStart = fDel._anEdge!
         
         // change the left face of all affected edges
-        var e: Edge? = eStart
+        var e: Edge = eStart
         repeat {
-            e?._Lface = newLFace ?? nil
-            e = e?._Lnext
-        } while (e != eStart)
+            e.pointee._Lface = newLFace
+            e = e.pointee._Lnext.unsafelyUnwrapped
+        } while e != eStart
         
         // delete from circular doubly-linked list
         let fPrev = fDel._prev
