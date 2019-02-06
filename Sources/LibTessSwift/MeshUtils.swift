@@ -15,25 +15,55 @@ public protocol EmptyInitializable {
 
 #if arch(x86_64) || arch(arm64)
 public typealias Real = Double
-public typealias Vector3 = double3
-
-public extension Vector3 {
-    public static let zero = double3()
-    
-    public static func longAxis(v: inout Vector3) -> Int {
-        var i = 0
-        if abs(v.y) > abs(v.x) { i = 1 }
-        if abs(v.z) > abs(i == 0 ? v.x : v.y) { i = 2 }
-        
-        return i
-    }
-}
 #else
 public typealias Real = Float
-public typealias Vector3 = float3
+#endif
 
-public extension Vector3 {
-    public static let zero = float3()
+public struct Vector3 {
+    public static let zero = Vector3()
+    
+    public subscript(_ i: Int) -> Real {
+        get {
+            switch i {
+            case 0:
+                return x
+            case 1:
+                return y
+            case 2:
+                return z
+            default:
+                fatalError("Invalid subscription index \(i)")
+            }
+        }
+        set {
+            switch i {
+            case 0:
+                x = newValue
+            case 1:
+                y = newValue
+            case 2:
+                z = newValue
+            default:
+                fatalError("Invalid subscription index \(i)")
+            }
+        }
+    }
+    
+    public var x: Real
+    public var y: Real
+    public var z: Real
+    
+    public init(x: Real, y: Real, z: Real) {
+        self.x = x
+        self.y = y
+        self.z = z
+    }
+    
+    public init() {
+        self.x = 0
+        self.y = 0
+        self.z = 0
+    }
     
     public static func longAxis(v: inout Vector3) -> Int {
         var i = 0
@@ -42,8 +72,19 @@ public extension Vector3 {
         
         return i
     }
+    
+    public static func - (lhs: Vector3, rhs: Vector3) -> Vector3 {
+        return Vector3(x: lhs.x - rhs.x, y: lhs.y - rhs.y, z: lhs.z - rhs.z)
+    }
+    
+    public static prefix func - (value: Vector3) -> Vector3 {
+        return Vector3(x: -value.x, y: -value.y, z: -value.z)
+    }
 }
-#endif
+
+public func dot(_ lhs: Vector3, _ rhs: Vector3) -> Real {
+    return lhs.x * rhs.x + lhs.y * rhs.y + lhs.z * rhs.z
+}
 
 /// Describes an object that can be chained with other instances of itself
 /// indefinitely. This also supports looped links that point circularly.
@@ -55,7 +96,7 @@ internal class MeshUtils {
     
     public static let Undef: Int = ~0
     
-    public final class _Vertex: Linked, EmptyInitializable {
+    public struct _Vertex: Linked, EmptyInitializable {
         internal var _prev: Vertex!
         internal var _next: Vertex?
         internal var _anEdge: Edge!
@@ -99,7 +140,7 @@ internal class MeshUtils {
         internal var _eSym: Edge?
     }
 
-    public final class _Edge: Linked, EmptyInitializable {
+    public struct _Edge: Linked, EmptyInitializable {
         public static var pool: Array<MeshUtils._Edge> = []
         
         internal var _pair: EdgePair?
@@ -253,7 +294,6 @@ extension UnsafeMutablePointer where Pointee == MeshUtils._Edge {
     internal var _Rprev: Edge! { get { return pointee._Rprev } nonmutating set { pointee._Rprev = newValue } }
     internal var _Dnext: Edge! { get { return pointee._Dnext } nonmutating set { pointee._Dnext = newValue } }
     internal var _Rnext: Edge! { get { return pointee._Rnext } nonmutating set { pointee._Rnext = newValue } }
-    
 }
 
 extension UnsafeMutablePointer where Pointee == MeshUtils._Vertex {

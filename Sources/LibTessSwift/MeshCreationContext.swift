@@ -99,10 +99,10 @@ internal final class MeshCreationContext {
     
     /// <summary>
     /// makeVertex( eOrig, vNext ) attaches a new vertex and makes it the
-    /// origin of all edges in the vertex loop to which eOrig belongs. "vNext" gives
-    /// a place to insert the new vertex in the global vertex list. We insert
-    /// the new vertex *before* vNext so that algorithms which walk the vertex
-    /// list will not see the newly created vertices.
+    /// origin of all edges in the vertex loop to which eOrig belongs. "vNext"
+    /// gives a place to insert the new vertex in the global vertex list. We
+    /// insert the new vertex *before* vNext so that algorithms which walk the
+    /// vertex list will not see the newly created vertices.
     /// </summary>
     public func makeVertex(_ eOrig: Edge, _ vNext: Vertex) {
         let vNew = createVertex()
@@ -126,11 +126,11 @@ internal final class MeshCreationContext {
     }
     
     /// <summary>
-    /// makeFace( eOrig, fNext ) attaches a new face and makes it the left
-    /// face of all edges in the face loop to which eOrig belongs. "fNext" gives
-    /// a place to insert the new face in the global face list. We insert
-    /// the new face *before* fNext so that algorithms which walk the face
-    /// list will not see the newly created faces.
+    /// makeFace( eOrig, fNext ) attaches a new face and makes it the left face
+    /// of all edges in the face loop to which eOrig belongs. "fNext" gives a
+    /// place to insert the new face in the global face list. We insert the new
+    /// face *before* fNext so that algorithms which walk the face list will not
+    /// see the newly created faces.
     /// </summary>
     public func makeFace(_ eOrig: Edge, _ fNext: Face) {
         let fNew = createFace()
