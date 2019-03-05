@@ -8,6 +8,7 @@
 
 /// Handy pooler
 internal class Pool<Element> where Element: EmptyInitializable {
+    private let emptyElement = Element()
     
     /// Inner pool of objects
     private var pool: Array<UnsafeMutablePointer<Element>> = []
@@ -31,16 +32,16 @@ internal class Pool<Element> where Element: EmptyInitializable {
         indices.removeAll()
     }
     
-    /// Pulls a new instance from this pool, creating it if necessary.
+    /// Pulls a new instance from this pool, creating it, if necessary.
     func pull() -> UnsafeMutablePointer<Element> {
         if let free = freeIndices.popFirst() {
-            pool[free].initialize(to: Element())
+            pool[free].initialize(to: emptyElement)
             
             return pool[free]
         }
         
         let pointer = UnsafeMutablePointer<Element>.allocate(capacity: 1)
-        pointer.initialize(to: Element())
+        pointer.initialize(to: emptyElement)
         indices[pointer] = pool.count
         pool.append(pointer)
         
@@ -52,10 +53,9 @@ internal class Pool<Element> where Element: EmptyInitializable {
     /// programming error and should not be done.
     func withTemporary<U>(execute closure: (UnsafeMutablePointer<Element>) throws -> (U)) rethrows -> U {
         let pointer = UnsafeMutablePointer<Element>.allocate(capacity: 1)
-        pointer.initialize(to: Element())
+        pointer.initialize(to: emptyElement)
         defer {
-            pointer.deinitialize(count: 1)
-            pointer.deallocate()
+            pointer.deinitialize(count: 1).deallocate()
         }
 
         return try closure(pointer)
