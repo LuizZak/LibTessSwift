@@ -122,7 +122,7 @@ public class DataLoader {
                 let tokens = tokenizer.allTokens().filter { $0.tokenType != .comma }
                 
                 if tokens.contains(where: { $0.tokenType != .integer }) {
-                    throw DataError.invalidInputData
+                    throw DataError.invalidInputData(message: "Expected 3 or 4 integer values for color values")
                 }
                 
                 if tokens.count == 3 {
@@ -141,7 +141,7 @@ public class DataLoader {
                     currentColor = Color.fromRGBA(red: r, green: g, blue: b, alpha: a)
                     polys.hasColors = true
                 } else {
-                    throw DataError.invalidInputData
+                    throw DataError.invalidInputData(message: "Expected 3 or 4 color values, found \(tokens.count)")
                 }
             } else {
                 var x: CGFloat = 0, y: CGFloat = 0, z: CGFloat = 0
@@ -159,7 +159,7 @@ public class DataLoader {
                         )
                     }
                 
-                if (xyz.count != 0) {
+                if xyz.count != 0 {
                     if xyz.count > 0 {
                         x = CGFloat(xyz[0])
                     }
@@ -172,7 +172,7 @@ public class DataLoader {
                     
                     points.append(PolygonPoint(x: x, y: y, z: z, color: currentColor))
                 } else {
-                    throw DataError.invalidInputData
+                    throw DataError.invalidInputData(message: "Expected to find at least one floating-point for xyz coordinates")
                 }
             }
         }
@@ -231,7 +231,7 @@ public class DataLoader {
     }
     
     enum DataError: Error {
-        case invalidInputData
+        case invalidInputData(message: String)
     }
 }
 

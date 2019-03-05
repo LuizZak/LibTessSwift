@@ -5,7 +5,7 @@ import PackageDescription
 let package = Package(
     name: "LibTessSwift",
     dependencies: [
-        Package.Dependency.package(url: "https://github.com/LuizZak/MiniLexer", from: "0.7.2")
+        Package.Dependency.package(url: "https://github.com/LuizZak/MiniLexer", .branch("swift5.0"))
     ],
     targets: [
         .target(name: "LibTessSwift"),
