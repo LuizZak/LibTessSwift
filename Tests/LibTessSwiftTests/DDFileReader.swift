@@ -25,16 +25,7 @@ public final class FileReader {
     }
     
     init(fileUrl: URL) throws {
-        let fileHandle = try FileHandle(forReadingFrom: fileUrl)
-        defer {
-            fileHandle.closeFile()
-        }
-        
-        if let string = String(data: fileHandle.readDataToEndOfFile(), encoding: .utf8) {
-            fileContents = string
-        } else {
-            throw StreamReaderError.couldNotLoad
-        }
+        fileContents = try String(contentsOf: fileUrl, encoding: .utf8)
         
         lines = fileContents.components(separatedBy: "\n")
     }
