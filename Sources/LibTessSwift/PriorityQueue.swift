@@ -29,11 +29,11 @@ internal class PriorityQueue<TValue> {
     private var _size = 0, _max = 0
     private var _initialized = false
     
-    public var Empty: Bool {
+    var Empty: Bool {
         return _size == 0 && _heap.Empty
     }
     
-    public init(_ initialSize: Int, _ leq: @escaping PriorityHeap<TValue>.LessOrEqual) {
+    init(_ initialSize: Int, _ leq: @escaping PriorityHeap<TValue>.LessOrEqual) {
         _leq = leq
         _heap = PriorityHeap<TValue>(initialSize, leq)
         
@@ -48,7 +48,7 @@ internal class PriorityQueue<TValue> {
         
     }
     
-    public func initialize() {
+    func initialize() {
         
         var stack = [StackItem]()
         var i: Int = 0, j: Int, piv: Int = 0
@@ -141,7 +141,7 @@ internal class PriorityQueue<TValue> {
         _heap.initialize()
     }
     
-    public func insert(_ value: TValue) -> PQHandle {
+    func insert(_ value: TValue) -> PQHandle {
         if (_initialized) {
             return _heap.insert(value)
         }
@@ -161,7 +161,7 @@ internal class PriorityQueue<TValue> {
         return PQHandle(handle: -(curr + 1))
     }
 
-    public func extractMin() -> TValue? {
+    func extractMin() -> TValue? {
         assert(_initialized)
         if (_size == 0) {
             return _heap.extractMin()
@@ -182,7 +182,7 @@ internal class PriorityQueue<TValue> {
         return sortMin
     }
 
-    public func minimum() -> TValue? {
+    func minimum() -> TValue? {
         assert(_initialized)
         
         if (_size == 0) {
@@ -201,7 +201,7 @@ internal class PriorityQueue<TValue> {
         return sortMin
     }
 
-    public func remove(_ handle: PQHandle) {
+    func remove(_ handle: PQHandle) {
         assert(_initialized)
         
         var curr = handle._handle

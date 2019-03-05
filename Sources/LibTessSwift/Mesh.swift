@@ -42,28 +42,28 @@ internal final class Mesh {
         free()
     }
     
-    public func free() {
+    func free() {
         _context.free()
     }
     
     /// Loops all the faces of this mesh with a given closure.
     /// Looping is safe to modify the face's _next pointer, so long as it does
     /// not modify the next's.
-    public func forEachFace(with closure: (Face) throws -> Void) rethrows {
+    func forEachFace(with closure: (Face) throws -> Void) rethrows {
         try _fHead._next?.loop(while: { $0 != _fHead }, with: closure)
     }
     
     /// Loops all the vertices of this mesh with a given closure.
     /// Looping is safe to modify the vertex's _next pointer, so long as it does
     /// not modify the next's.
-    public func forEachVertex(with closure: (Vertex) throws -> Void) rethrows {
+    func forEachVertex(with closure: (Vertex) throws -> Void) rethrows {
         try _vHead._next?.loop(while: { $0 != _vHead }, with: closure)
     }
     
     /// Loops all the edges of this mesh with a given closure.
     /// Looping is safe to modify the vertex's _next pointer, so long as it does
     /// not modify the next's.
-    public func forEachEdge(with closure: (Edge) throws -> Void) rethrows {
+    func forEachEdge(with closure: (Edge) throws -> Void) rethrows {
         try _eHead._next?.loop(while: { $0 != _eHead }, with: closure)
     }
     
@@ -71,7 +71,7 @@ internal final class Mesh {
     /// Creates one edge, two vertices and a loop (face).
     /// The loop consists of the two new half-edges.
     /// </summary>
-    public func makeEdge() -> Edge {
+    func makeEdge() -> Edge {
         let e = _context.MakeEdge(_eHead)
         
         _context.makeVertex(e, _vHead)
@@ -105,7 +105,7 @@ internal final class Mesh {
     /// If eDst == eOrg->Onext, the new vertex will have a single edge.
     /// If eDst == eOrg->Oprev, the old vertex will have a single edge.
     /// </summary>
-    public func splice(_ eOrg: Edge, _ eDst: Edge) {
+    func splice(_ eOrg: Edge, _ eDst: Edge) {
         if (eOrg == eDst) {
             return
         }
@@ -147,7 +147,7 @@ internal final class Mesh {
     /// the newly created loop will contain eDel->Dst. If the deletion of eDel
     /// would create isolated vertices, those are deleted as well.
     /// </summary>
-    public func delete(_ eDel: Edge) {
+    func delete(_ eDel: Edge) {
         let eDelSym = eDel._Sym!
         
         // First step: disconnect the origin vertex eDel->Org.  We make all
@@ -197,7 +197,7 @@ internal final class Mesh {
     /// eOrg and eNew will have the same left face.
     /// </summary>
     @discardableResult
-    public func addEdgeVertex(_ eOrg: Edge) -> Edge {
+    func addEdgeVertex(_ eOrg: Edge) -> Edge {
         let eNew = _context.MakeEdge(eOrg)
         let eNewSym = eNew._Sym!
 
@@ -219,7 +219,7 @@ internal final class Mesh {
     /// eOrg and eNew will have the same left face.
     /// </summary>
     @discardableResult
-    public func splitEdge(_ eOrg: Edge) -> Edge {
+    func splitEdge(_ eOrg: Edge) -> Edge {
         let eTmp = addEdgeVertex(eOrg)
         let eNew = eTmp._Sym!
 
@@ -248,7 +248,7 @@ internal final class Mesh {
     /// If (eOrg->Lnext->Lnext == eDst), the old face is reduced to two edges.
     /// </summary>
     @discardableResult
-    public func connect(_ eOrg: Edge, _ eDst: Edge) -> Edge {
+    func connect(_ eOrg: Edge, _ eDst: Edge) -> Edge {
         let eNew = _context.MakeEdge(eOrg)
         let eNewSym = eNew._Sym!
 
@@ -287,7 +287,7 @@ internal final class Mesh {
     /// An entire mesh can be deleted by zapping its faces, one at a time,
     /// in any order. Zapped faces cannot be used in further mesh operations!
     /// </summary>
-    public func zapFace(_ fZap: Face) {
+    func zapFace(_ fZap: Face) {
         let eStart = fZap._anEdge!
 
         // walk around face, deleting edges whose right face is also nil
@@ -331,7 +331,7 @@ internal final class Mesh {
         _context.resetFace(fZap)
     }
 
-    public func mergeConvexFaces(maxVertsPerFace: Int) {
+    func mergeConvexFaces(maxVertsPerFace: Int) {
         forEachFace { f in
             // Skip faces which are outside the result
             if (!f._inside) {
@@ -374,7 +374,7 @@ internal final class Mesh {
         }
     }
     
-    public func check() {
+    func check() {
         // Loops backwards across edges, faces and vertices of this mesh, make
         // sure everything is tidy and correctly set.
         var e: Edge

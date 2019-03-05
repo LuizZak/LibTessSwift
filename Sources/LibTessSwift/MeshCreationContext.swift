@@ -62,7 +62,7 @@ internal final class MeshCreationContext {
     /// No vertex or face structures are allocated, but these must be assigned
     /// before the current edge operation is completed.
     /// </summary>
-    public func MakeEdge(_ eNext: Edge) -> Edge {
+    func MakeEdge(_ eNext: Edge) -> Edge {
         var eNext = eNext
         
         let (_, e, eSym) = createEdgePair()
@@ -104,7 +104,7 @@ internal final class MeshCreationContext {
     /// insert the new vertex *before* vNext so that algorithms which walk the
     /// vertex list will not see the newly created vertices.
     /// </summary>
-    public func makeVertex(_ eOrig: Edge, _ vNext: Vertex) {
+    func makeVertex(_ eOrig: Edge, _ vNext: Vertex) {
         let vNew = createVertex()
         
         // insert in circular doubly-linked list before vNext
@@ -132,7 +132,7 @@ internal final class MeshCreationContext {
     /// face *before* fNext so that algorithms which walk the face list will not
     /// see the newly created faces.
     /// </summary>
-    public func makeFace(_ eOrig: Edge, _ fNext: Face) {
+    func makeFace(_ eOrig: Edge, _ fNext: Face) {
         let fNew = createFace()
         
         // insert in circular doubly-linked list before fNext
@@ -162,7 +162,7 @@ internal final class MeshCreationContext {
     /// killEdge( eDel ) destroys an edge (the half-edges eDel and eDel->Sym),
     /// and removes from the global edge list.
     /// </summary>
-    public func killEdge(_ eDel: Edge) {
+    func killEdge(_ eDel: Edge) {
         // Half-edges are allocated in pairs, see EdgePair above
         var eDel = eDel
         MeshUtils._Edge.ensureFirst(e: &eDel)
@@ -182,7 +182,7 @@ internal final class MeshCreationContext {
     /// killVertex( vDel ) destroys a vertex and removes it from the global
     /// vertex list. It updates the vertex loop to point to a given new vertex.
     /// </summary>
-    public func killVertex(_ vDel: Vertex, _ newOrg: Vertex?) {
+    func killVertex(_ vDel: Vertex, _ newOrg: Vertex?) {
         let eStart = vDel._anEdge
         
         // change the origin of all affected edges
@@ -205,7 +205,7 @@ internal final class MeshCreationContext {
     /// killFace( fDel ) destroys a face and removes it from the global face
     /// list. It updates the face loop to point to a given new face.
     /// </summary>
-    public func killFace(_ fDel: Face, _ newLFace: Face?) {
+    func killFace(_ fDel: Face, _ newLFace: Face?) {
         let eStart = fDel._anEdge!
         
         // change the left face of all affected edges

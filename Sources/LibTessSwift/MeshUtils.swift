@@ -94,9 +94,9 @@ internal protocol Linked {
 
 internal class MeshUtils {
     
-    public static let Undef: Int = ~0
+    static let Undef: Int = ~0
     
-    public struct _Vertex: Linked, EmptyInitializable {
+    struct _Vertex: Linked, EmptyInitializable {
         internal var _prev: Vertex!
         internal var _next: Vertex?
         internal var _anEdge: Edge!
@@ -112,7 +112,7 @@ internal class MeshUtils {
         }
     }
 
-    public struct _Face: Linked, EmptyInitializable {
+    struct _Face: Linked, EmptyInitializable {
         internal var _prev: Face!
         internal var _next: Face?
         internal var _anEdge: Edge!
@@ -135,13 +135,13 @@ internal class MeshUtils {
         }
     }
 
-    public struct EdgePair {
+    struct EdgePair {
         internal var _e: Edge?
         internal var _eSym: Edge?
     }
 
-    public struct _Edge: Linked, EmptyInitializable {
-        public static var pool: Array<MeshUtils._Edge> = []
+    struct _Edge: Linked, EmptyInitializable {
+        static var pool: Array<MeshUtils._Edge> = []
         
         internal var _pair: EdgePair?
         internal var _next: Edge?
@@ -169,7 +169,7 @@ internal class MeshUtils {
             }
         }
         
-        public init() {
+        init() {
             
         }
     }
@@ -181,7 +181,7 @@ internal class MeshUtils {
     /// depending on whether a and b belong to different face or vertex rings.
     /// For more explanation see Mesh.splice().
     /// </summary>
-    public static func splice(_ a: Edge, _ b: Edge) {
+    static func splice(_ a: Edge, _ b: Edge) {
         let aOnext = a._Onext
         let bOnext = b._Onext
         
@@ -194,7 +194,7 @@ internal class MeshUtils {
     /// <summary>
     /// Return signed area of face.
     /// </summary>
-    public static func faceArea(_ f: Face) -> Real {
+    static func faceArea(_ f: Face) -> Real {
         var area: Real = 0
         
         var e = f._anEdge!
@@ -206,10 +206,12 @@ internal class MeshUtils {
     }
 }
 
+// Pointers of primitives
 typealias Face = UnsafeMutablePointer<MeshUtils._Face>
 typealias Edge = UnsafeMutablePointer<MeshUtils._Edge>
 typealias Vertex = UnsafeMutablePointer<MeshUtils._Vertex>
 
+// Shortcuts for pointers of primitives
 extension UnsafeMutablePointer where Pointee == MeshUtils._Face {
     var _prev: Face! {
         get { return pointee._prev }

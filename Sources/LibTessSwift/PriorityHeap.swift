@@ -7,7 +7,7 @@
 //
 
 internal struct PQHandle {
-    public static let Invalid: Int = 0x0fffffff
+    static let Invalid: Int = 0x0fffffff
     
     internal var _handle: Int
     
@@ -36,7 +36,7 @@ fileprivate class HandleElem<TValue> {
 }
 
 internal class PriorityHeap<TValue> {
-    public typealias LessOrEqual = (_ lhs: TValue?, _ rhs: TValue?) -> Bool
+    typealias LessOrEqual = (_ lhs: TValue?, _ rhs: TValue?) -> Bool
     
     private var _leq: LessOrEqual
     private var _nodes: [Int]
@@ -45,9 +45,9 @@ internal class PriorityHeap<TValue> {
     private var _freeList = 0
     private var _initialized = false
     
-    public var Empty: Bool { get { return _size == 0 } }
+    var Empty: Bool { get { return _size == 0 } }
     
-    public init(_ initialSize: Int, _ leq: @escaping LessOrEqual) {
+    init(_ initialSize: Int, _ leq: @escaping LessOrEqual) {
         _leq = leq
         
         _nodes = Array(repeating: 0, count: initialSize + 1)
@@ -111,7 +111,7 @@ internal class PriorityHeap<TValue> {
         }
     }
     
-    public func initialize() {
+    func initialize() {
         var i = _size
         while i >= 1 {
             defer { i -= 1 }
@@ -120,7 +120,7 @@ internal class PriorityHeap<TValue> {
         _initialized = true
     }
     
-    public func insert(_ value: TValue) -> PQHandle {
+    func insert(_ value: TValue) -> PQHandle {
         let curr = _size + 1
         _size += 1
         if ((curr * 2) > _max) {
@@ -160,7 +160,7 @@ internal class PriorityHeap<TValue> {
         return PQHandle(handle: free)
     }
 
-    public func extractMin() -> TValue? {
+    func extractMin() -> TValue? {
         assert(_initialized)
         
         let hMin = _nodes[1]
@@ -185,12 +185,12 @@ internal class PriorityHeap<TValue> {
         return min
     }
 
-    public func minimum() -> TValue? {
+    func minimum() -> TValue? {
         assert(_initialized)
         return _handles[_nodes[1]]!._key
     }
 
-    public func remove(_ handle: PQHandle) {
+    func remove(_ handle: PQHandle) {
         assert(_initialized)
         
         let hCurr = handle._handle

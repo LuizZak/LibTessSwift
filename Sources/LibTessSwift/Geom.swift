@@ -7,7 +7,7 @@
 //
 
 internal class Geom {
-    public static func isWindingInside(_ rule: WindingRule, _ n: Int) -> Bool {
+    static func isWindingInside(_ rule: WindingRule, _ n: Int) -> Bool {
         switch (rule) {
             case WindingRule.evenOdd:
                 return (n & 1) == 1
@@ -22,13 +22,13 @@ internal class Geom {
         }
     }
 
-    public static func vertCCW(_ u: Vertex, _ v: Vertex, _ w: Vertex) -> Bool {
+    static func vertCCW(_ u: Vertex, _ v: Vertex, _ w: Vertex) -> Bool {
         return (u._s * (v._t - w._t) + v._s * (w._t - u._t) + w._s * (u._t - v._t)) >= 0.0
     }
-    public static func vertEq(_ lhs: Vertex, _ rhs: Vertex) -> Bool {
+    static func vertEq(_ lhs: Vertex, _ rhs: Vertex) -> Bool {
         return lhs._s == rhs._s && lhs._t == rhs._t
     }
-    public static func vertLeq(_ lhs: Vertex, _ rhs: Vertex) -> Bool {
+    static func vertLeq(_ lhs: Vertex, _ rhs: Vertex) -> Bool {
         return (lhs._s < rhs._s) || (lhs._s == rhs._s && lhs._t <= rhs._t)
     }
 
@@ -43,7 +43,7 @@ internal class Geom {
     /// let r be the negated result (this evaluates (uw)(v->s)), then
     /// r is guaranteed to satisfy MIN(u->t,w->t) <= r <= MAX(u->t,w->t).
     /// </summary>
-    public static func edgeEval(_ u: Vertex, _ v: Vertex, _ w: Vertex) -> Real {
+    static func edgeEval(_ u: Vertex, _ v: Vertex, _ w: Vertex) -> Real {
         assert(vertLeq(u, v) && vertLeq(v, w))
         
         let gapL: Real = v._s - u._s as Real
@@ -74,7 +74,7 @@ internal class Geom {
     /// is cheaper to evaluate. Returns > 0, == 0 , or < 0
     /// as v is above, on, or below the edge uw.
     /// </summary>
-    public static func edgeSign(_ u: Vertex, _ v: Vertex, _ w: Vertex) -> Real {
+    static func edgeSign(_ u: Vertex, _ v: Vertex, _ w: Vertex) -> Real {
         assert(vertLeq(u, v) && vertLeq(v, w))
 
         let gapL = v._s - u._s
@@ -89,11 +89,11 @@ internal class Geom {
         return 0
     }
 
-    public static func transLeq(_ lhs: Vertex, _ rhs: Vertex) -> Bool {
+    static func transLeq(_ lhs: Vertex, _ rhs: Vertex) -> Bool {
         return (lhs._t < rhs._t) || (lhs._t == rhs._t && lhs._s <= rhs._s)
     }
 
-    public static func transEval(_ u: Vertex, _ v: Vertex, _ w: Vertex) -> Real {
+    static func transEval(_ u: Vertex, _ v: Vertex, _ w: Vertex) -> Real {
         assert(transLeq(u, v) && transLeq(v, w))
         
         let gapL = (v._t - u._t)
@@ -116,7 +116,7 @@ internal class Geom {
         return 0
     }
 
-    public static func transSign(_ u: Vertex, _ v: Vertex, _ w: Vertex) -> Real {
+    static func transSign(_ u: Vertex, _ v: Vertex, _ w: Vertex) -> Real {
         assert(transLeq(u, v) && transLeq(v, w))
         
         let gapL = v._t - u._t
@@ -131,26 +131,26 @@ internal class Geom {
         return 0
     }
 
-    public static func edgeGoesLeft(_ e: Edge) -> Bool {
+    static func edgeGoesLeft(_ e: Edge) -> Bool {
         return vertLeq(e._Dst!, e._Org!)
     }
 
-    public static func edgeGoesRight(_ e: Edge) -> Bool {
+    static func edgeGoesRight(_ e: Edge) -> Bool {
         return vertLeq(e._Org!, e._Dst!)
     }
 
-    public static func VertL1dist(u: Vertex, v: Vertex) -> Real {
+    static func VertL1dist(u: Vertex, v: Vertex) -> Real {
         let s = abs(u._s - v._s) as Real
         let t = abs(u._t - v._t) as Real
         return s + t
     }
 
-    public static func addWinding(_ eDst: Edge, _ eSrc: Edge) {
+    static func addWinding(_ eDst: Edge, _ eSrc: Edge) {
         eDst._winding += eSrc._winding
         eDst._Sym._winding += eSrc._Sym._winding
     }
 
-    public static func interpolate(_ a: Real, _ x: Real, _ b: Real, _ y: Real) -> Real {
+    static func interpolate(_ a: Real, _ x: Real, _ b: Real, _ y: Real) -> Real {
         var a = a
         var b = b
         if (a < 0.0) {
@@ -170,7 +170,7 @@ internal class Geom {
     /// The computed point is guaranteed to lie in the intersection of the
     /// bounding rectangles defined by each edge.
     /// </summary>
-    public static func edgeIntersect(o1: Vertex, d1: Vertex, o2: Vertex, d2: Vertex, v: Vertex) {
+    static func edgeIntersect(o1: Vertex, d1: Vertex, o2: Vertex, d2: Vertex, v: Vertex) {
         var o1 = o1
         var d1 = d1
         var o2 = o2

@@ -32,7 +32,7 @@ internal final class Dict<TValue> {
     private var _leq: LessOrEqual
     var _head: Node<TValue>
     
-    public init(leq: @escaping LessOrEqual) {
+    init(leq: @escaping LessOrEqual) {
         _leq = leq
         
         _head = UnsafeMutablePointer.allocate(capacity: 1)
@@ -44,20 +44,18 @@ internal final class Dict<TValue> {
     deinit {
         _head.loop { node in
             if node.pointee.Prev != _head {
-                node.pointee.Prev?.deinitialize(count: 1)
-                node.pointee.Prev?.deallocate()
+                node.pointee.Prev?.deinitialize(count: 1).deallocate()
             }
             node.pointee.Next = nil
         }
-        _head.deinitialize(count: 1)
-        _head.deallocate()
+        _head.deinitialize(count: 1).deallocate()
     }
     
-    public func insert(key: TValue) -> Node<TValue> {
+    func insert(key: TValue) -> Node<TValue> {
         return insertBefore(node: _head, key: key)
     }
     
-    public func insertBefore(node: Node<TValue>, key: TValue) -> Node<TValue> {
+    func insertBefore(node: Node<TValue>, key: TValue) -> Node<TValue> {
         var node = node
         
         repeat {
@@ -75,22 +73,21 @@ internal final class Dict<TValue> {
         return newNode
     }
     
-    public func find(key: TValue) -> Node<TValue> {
+    func find(key: TValue) -> Node<TValue> {
         var node = _head
         repeat {
             node = node.pointee.Next!
-        } while (node.pointee.Key != nil && !_leq(key, node.pointee.Key!))
+        } while node.pointee.Key != nil && !_leq(key, node.pointee.Key!)
         return node
     }
     
-    public func min() -> Node<TValue>? {
+    func min() -> Node<TValue>? {
         return _head.pointee.Next
     }
     
-    public func remove(node: Node<TValue>) {
+    func remove(node: Node<TValue>) {
         node.pointee.Next?.pointee.Prev = node.pointee.Prev
         node.pointee.Prev?.pointee.Next = node.pointee.Next
-        node.deinitialize(count: 1)
-        node.deallocate()
+        node.deinitialize(count: 1).deallocate()
     }
 }
