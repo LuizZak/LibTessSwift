@@ -1037,7 +1037,7 @@ extension Tess {
         // Make sure there is enough space for sentinels.
         vertexCount += 8
         
-        _pq = PriorityQueue<Vertex>(vertexCount,  { Geom.vertLeq($0!, $1!) })
+        _pq = PriorityQueue<Vertex>(vertexCount, Geom.vertLeq)
         
         _mesh.forEachVertex { v in
             v._pqHandle = _pq.insert(v)

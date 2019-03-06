@@ -23,13 +23,13 @@ internal class Geom {
     }
 
     static func vertCCW(_ u: Vertex, _ v: Vertex, _ w: Vertex) -> Bool {
-        return (u._s * (v._t - w._t) + v._s * (w._t - u._t) + w._s * (u._t - v._t)) >= 0.0
+        return u._s * (v._t - w._t) + v._s * (w._t - u._t) + w._s * (u._t - v._t) >= 0.0
     }
     static func vertEq(_ lhs: Vertex, _ rhs: Vertex) -> Bool {
         return lhs._s == rhs._s && lhs._t == rhs._t
     }
     static func vertLeq(_ lhs: Vertex, _ rhs: Vertex) -> Bool {
-        return (lhs._s < rhs._s) || (lhs._s == rhs._s && lhs._t <= rhs._t)
+        return lhs._s < rhs._s || (lhs._s == rhs._s && lhs._t <= rhs._t)
     }
 
     /// <summary>
@@ -46,8 +46,8 @@ internal class Geom {
     static func edgeEval(_ u: Vertex, _ v: Vertex, _ w: Vertex) -> Real {
         assert(vertLeq(u, v) && vertLeq(v, w))
         
-        let gapL: Real = v._s - u._s as Real
-        let gapR: Real = w._s - v._s as Real
+        let gapL: Real = v._s - u._s
+        let gapR: Real = w._s - v._s
         
         /* vertical line */
         if (gapL + gapR <= 0.0) {
@@ -55,15 +55,15 @@ internal class Geom {
         }
         
         if (gapL < gapR) {
-            let k = gapL / (gapL + gapR) as Real
-            let t1 = v._t - u._t as Real
-            let t2 = u._t - w._t as Real
+            let k = gapL / (gapL + gapR)
+            let t1 = v._t - u._t
+            let t2 = u._t - w._t
             
             return t1 + t2 * k
         } else {
-            let k = gapR / (gapL + gapR) as Real
-            let t1 = v._t - w._t as Real
-            let t2 = w._t - u._t as Real
+            let k = gapR / (gapL + gapR)
+            let t1 = v._t - w._t
+            let t2 = w._t - u._t
             
             return t1 + t2 * k
         }
@@ -96,8 +96,8 @@ internal class Geom {
     static func transEval(_ u: Vertex, _ v: Vertex, _ w: Vertex) -> Real {
         assert(transLeq(u, v) && transLeq(v, w))
         
-        let gapL = (v._t - u._t)
-        let gapR = (w._t - v._t)
+        let gapL = v._t - u._t
+        let gapR = w._t - v._t
 
         if gapL + gapR > 0.0 {
             if gapL < gapR {
@@ -122,7 +122,7 @@ internal class Geom {
         let gapL = v._t - u._t
         let gapR = w._t - v._t
         
-        if (gapL + gapR > 0.0) {
+        if gapL + gapR > 0.0 {
             let s1 = ((v._s - w._s) * gapL) as Real
             let s2 = ((v._s - u._s) * gapR) as Real
             return s1 + s2
@@ -153,10 +153,10 @@ internal class Geom {
     static func interpolate(_ a: Real, _ x: Real, _ b: Real, _ y: Real) -> Real {
         var a = a
         var b = b
-        if (a < 0.0) {
+        if a < 0.0 {
             a = 0.0
         }
-        if (b < 0.0) {
+        if b < 0.0 {
             b = 0.0
         }
         
@@ -182,14 +182,14 @@ internal class Geom {
         // and interpolate the intersection s-value from these.  Then repeat
         // using the transLeq ordering to find the intersection t-value.
         
-        if (!vertLeq(o1, d1)) { swap(&o1, &d1) }
-        if (!vertLeq(o2, d2)) { swap(&o2, &d2) }
-        if (!vertLeq(o1, o2)) { swap(&o1, &o2); swap(&d1, &d2) }
+        if !vertLeq(o1, d1) { swap(&o1, &d1) }
+        if !vertLeq(o2, d2) { swap(&o2, &d2) }
+        if !vertLeq(o1, o2) { swap(&o1, &o2); swap(&d1, &d2) }
 
-        if (!vertLeq(o2, d1)) {
+        if !vertLeq(o2, d1) {
             // Technically, no intersection -- do our best
             v._s = (o2._s + d1._s) / 2.0
-        } else if (vertLeq(d1, d2)) {
+        } else if vertLeq(d1, d2) {
             // Interpolate between o2 and d1
             var z1 = edgeEval(o1, o2, d1)
             var z2 = edgeEval(o2, d1, d2)
@@ -211,14 +211,14 @@ internal class Geom {
 
         // Now repeat the process for t
 
-        if (!transLeq(o1, d1)) { swap(&o1, &d1) }
-        if (!transLeq(o2, d2)) { swap(&o2, &d2) }
-        if (!transLeq(o1, o2)) { swap(&o1, &o2); swap(&d1, &d2) }
+        if !transLeq(o1, d1) { swap(&o1, &d1) }
+        if !transLeq(o2, d2) { swap(&o2, &d2) }
+        if !transLeq(o1, o2) { swap(&o1, &o2); swap(&d1, &d2) }
         
-        if (!transLeq(o2, d1)) {
+        if !transLeq(o2, d1) {
             // Technically, no intersection -- do our best
             v._t = (o2._t + d1._t) / 2.0
-        } else if (transLeq(d1, d2)) {
+        } else if transLeq(d1, d2) {
             // Interpolate between o2 and d1
             var z1 = transEval(o1, o2, d1)
             var z2 = transEval(o2, d1, d2)

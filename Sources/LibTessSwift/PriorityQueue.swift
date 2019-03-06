@@ -6,18 +6,9 @@
 //  Copyright © 2017 Luiz Fernando Silva. All rights reserved.
 //
 
-fileprivate class StackItem {
-    var p = 0
-    var r = 0
-    
-    init() {
-        
-    }
-    
-    init(p: Int, r: Int) {
-        self.p = p
-        self.r = r
-    }
+fileprivate struct StackItem {
+    var p: Int
+    var r: Int
 }
 
 internal class PriorityQueue<TValue> {
@@ -67,17 +58,17 @@ internal class PriorityQueue<TValue> {
         }
         
         stack.append(StackItem(p: p, r: r))
-        while (stack.count > 0) {
+        while stack.count > 0 {
             let top = stack.removeLast()
             p = top.p
             r = top.r
             
-            while (r > p + 10) {
+            while r > p + 10 {
                 seed = seed &* 1539415821 &+ 1
                 i = p + Int(seed % UInt32(r - p + 1))
                 piv = _order[i]
                 
-                if(p != i) {
+                if p != i {
                     _order.swapAt(i, p)
                 }
                 
@@ -86,21 +77,21 @@ internal class PriorityQueue<TValue> {
                 repeat {
                     repeat {
                         i += 1
-                    } while (!_leq(keyForOrderAt(index: i), keyAt(index: piv)))
+                    } while !_leq(keyForOrderAt(index: i)!, keyAt(index: piv)!)
                     repeat {
                         j -= 1
-                    } while (!_leq(keyAt(index: piv), keyForOrderAt(index: j)))
+                    } while !_leq(keyAt(index: piv)!, keyForOrderAt(index: j)!)
                     
-                    if(i != j) {
+                    if i != j {
                         _order.swapAt(i, j)
                     }
-                } while (i < j)
+                } while i < j
                 
-                if(i != j) {
+                if i != j {
                     _order.swapAt(i, j)
                 }
                 
-                if (i - p < r - j) {
+                if i - p < r - j {
                     stack.append(StackItem(p: j + 1, r: r))
                     r = i - 1
                 } else {
@@ -110,12 +101,12 @@ internal class PriorityQueue<TValue> {
             }
             
             i = p + 1
-            while(i <= r) {
+            while i <= r {
                 piv = _order[i]
                 
                 j = i
                 
-                while j > p && !_leq(keyAt(index: piv), keyForOrderAt(index: j - 1)) {
+                while j > p && !_leq(keyAt(index: piv)!, keyForOrderAt(index: j - 1)!) {
                     _order[j] = _order[j - 1]
                     j -= 1
                 }
@@ -131,7 +122,7 @@ internal class PriorityQueue<TValue> {
         i = p
         
         while i < r {
-            assert(_leq(_keys[_order[i + 1]], _keys[_order[i]]), "Wrong sort")
+            assert(_leq(_keys[_order[i + 1]]!, _keys[_order[i]]!), "Wrong sort")
             i += 1
         }
 #endif
@@ -142,13 +133,13 @@ internal class PriorityQueue<TValue> {
     }
     
     func insert(_ value: TValue) -> PQHandle {
-        if (_initialized) {
+        if _initialized {
             return _heap.insert(value)
         }
 
         let curr = _size
         _size += 1
-        if (_size >= _max) {
+        if _size >= _max {
             _max <<= 1
             
             let diffK = _keys.count - _max + 1
@@ -163,21 +154,21 @@ internal class PriorityQueue<TValue> {
 
     func extractMin() -> TValue? {
         assert(_initialized)
-        if (_size == 0) {
+        if _size == 0 {
             return _heap.extractMin()
         }
         
         let sortMin = lastKey()
-        if (!_heap.Empty) {
+        if !_heap.Empty {
             let heapMin = _heap.minimum()
-            if (_leq(heapMin, sortMin)) {
+            if _leq(heapMin!, sortMin!) {
                 return _heap.extractMin()
             }
         }
         
         repeat {
             _size -= 1
-        } while (_size > 0 && lastKey() == nil)
+        } while _size > 0 && lastKey() == nil
         
         return sortMin
     }
@@ -185,15 +176,15 @@ internal class PriorityQueue<TValue> {
     func minimum() -> TValue? {
         assert(_initialized)
         
-        if (_size == 0) {
+        if _size == 0 {
             return _heap.minimum()
         }
         
         let sortMin = lastKey()
         
-        if (!_heap.Empty) {
+        if !_heap.Empty {
             let heapMin = _heap.minimum()
-            if (_leq(heapMin, sortMin)) {
+            if _leq(heapMin!, sortMin!) {
                 return heapMin
             }
         }
@@ -205,7 +196,7 @@ internal class PriorityQueue<TValue> {
         assert(_initialized)
         
         var curr = handle._handle
-        if (curr >= 0) {
+        if curr >= 0 {
             _heap.remove(handle)
             return
         }
@@ -214,7 +205,7 @@ internal class PriorityQueue<TValue> {
         assert(curr < _max && keyAt(index: curr) != nil)
         
         _keys[curr] = nil
-        while (_size > 0 && lastKey() == nil) {
+        while _size > 0 && lastKey() == nil {
             _size -= 1
         }
     }

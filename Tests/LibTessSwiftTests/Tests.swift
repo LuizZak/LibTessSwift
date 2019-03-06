@@ -6,30 +6,9 @@ class Tests: XCTestCase {
     
     static var _loader: DataLoader = try! DataLoader()
     
-    public struct TestCaseData: CustomStringConvertible {
-        public var assetName: String
-        public var assetURL: URL
-        public var winding: WindingRule
-        public var elementSize: Int
-        
-        public var description: String {
-            return "\(winding), \(assetName), \(assetURL), \(elementSize)"
-        }
-    }
-
-    public class TestData {
-        public var elementSize: Int
-        public var indices: [Int]
-        
-        init(indices: [Int], elementSize: Int) {
-            self.indices = indices
-            self.elementSize = elementSize
-        }
-    }
+    var OutputTestData = false
     
-    public var OutputTestData = false
-    
-    public func testTesselate_WithSingleTriangle_ProducesSameTriangle() throws {
+    func testTesselate_WithSingleTriangle_ProducesSameTriangle() throws {
         let data = "0,0,0\n0,1,0\n1,1,0"
         var indices: [Int] = []
         let expectedIndices = [0, 1, 2]
@@ -49,7 +28,7 @@ class Tests: XCTestCase {
     }
     
     // From https://github.com/memononen/libtess2/issues/14
-    public func testTesselate_WithThinQuad_DoesNotCrash() throws {
+    func testTesselate_WithThinQuad_DoesNotCrash() throws {
         let data = "9.5,7.5,-0.5\n9.5,2,-0.5\n9.5,2,-0.4999999701976776123\n9.5,7.5,-0.4999999701976776123"
         
         let tess = try setupTess(withString: data)
@@ -59,7 +38,7 @@ class Tests: XCTestCase {
     
     
     // From https://github.com/speps/LibTessDotNet/issues/1
-    public func testTesselate_WithIssue1Quad_ReturnsSameResultAsLibtess2() throws {
+    func testTesselate_WithIssue1Quad_ReturnsSameResultAsLibtess2() throws {
         let data = "50,50\n300,50\n300,200\n50,200"
         var indices: [Int] = []
         let expectedIndices = [ 0, 1, 2, 1, 0, 3 ]
@@ -79,7 +58,7 @@ class Tests: XCTestCase {
     }
     
     // From https://github.com/speps/LibTessDotNet/issues/1
-    public func testTesselate_WithNoEmptyPolygonsTrue_RemovesEmptyPolygons() throws {
+    func testTesselate_WithNoEmptyPolygonsTrue_RemovesEmptyPolygons() throws {
         let data = "2,0,4\n2,0,2\n4,0,2\n4,0,0\n0,0,0\n0,0,4"
         var indices: [Int] = []
         let expectedIndices = [ 0, 1, 2, 2, 3, 4, 3, 1, 5 ]
@@ -97,7 +76,7 @@ class Tests: XCTestCase {
         XCTAssertEqual(expectedIndices, indices)
     }
     
-    public func testTesselate_CalledTwiceOnSameInstance_DoesNotCrash() throws {
+    func testTesselate_CalledTwiceOnSameInstance_DoesNotCrash() throws {
         let data = "0,0,0\n0,1,0\n1,1,0"
         var indices: [Int] = []
         let expectedIndices = [ 0, 1, 2 ]
@@ -135,51 +114,39 @@ class Tests: XCTestCase {
         XCTAssertEqual(expectedIndices, indices)
     }
     
-    public func testTessellate_WithAssets_ReturnsExpectedTriangulation() {
+    func testTessellate_WithAssets_ReturnsExpectedTriangulation() throws {
+        
+        let fixtures = try getTestCaseFixtures()
         
         // Multi-task the test
         let queue = OperationQueue()
         
-        for data in getTestCaseData() {
+        for fixture in fixtures {
             queue.addOperation {
                 autoreleasepool {
-                    do {
-                        let pset = try Tests._loader.getAsset(name: data.assetName)!.polygon!
-                        let tess = Tess()
-                        PolyConvert.toTess(pset: pset, tess: tess)
-                        tess.tessellate(windingRule: data.winding,
-                                        elementType: .polygons,
-                                        polySize: data.elementSize)
-                        
-                        let resourceUrl =
-                            data.assetURL
-                                .deletingPathExtension()
-                                .appendingPathExtension("testdat")
-                        
-                        let reader = try FileReader(fileUrl: resourceUrl)
-                        
-                        guard let testData = self.parseTestData(data.winding, data.elementSize, reader) else {
-                            XCTFail("Unexpected empty data for test result for \(data.assetName)")
-                            return
+                    let testCase = fixture.testCase
+                    let testData = fixture.testData
+                    
+                    let tess = Tess()
+                    PolyConvert.toTess(pset: fixture.polygon, tess: tess)
+                    tess.tessellate(windingRule: testCase.winding,
+                                    elementType: .polygons,
+                                    polySize: testCase.elementSize)
+                    
+                    XCTAssertEqual(testData.elementSize, testCase.elementSize)
+                    
+                    var indices: [Int] = []
+                    
+                    for i in 0..<tess.elementCount {
+                        for j in 0..<testCase.elementSize {
+                            let index = tess.elements[i * testCase.elementSize + j]
+                            indices.append(index)
                         }
-                        
-                        XCTAssertEqual(testData.elementSize, data.elementSize)
-                        
-                        var indices: [Int] = []
-                        
-                        for i in 0..<tess.elementCount {
-                            for j in 0..<data.elementSize {
-                                let index = tess.elements[i * data.elementSize + j]
-                                indices.append(index)
-                            }
-                        }
-                        
-                        if(testData.indices != indices) {
-                            XCTFail("Failed test: winding: \(data.winding.rawValue) file: \(data.assetName) element size: \(data.elementSize)")
-                            print(testData.indices, indices)
-                        }
-                    } catch {
-                        XCTFail("Failed test: winding: \(data.winding.rawValue) file: \(data.assetName) element size: \(data.elementSize) - caught unexpected error \(error)")
+                    }
+                    
+                    if testData.indices != indices {
+                        XCTFail("Failed test: winding: \(testCase.winding.rawValue) file: \(testCase.assetName) element size: \(testCase.elementSize)")
+                        print(testData.indices, indices)
                     }
                 }
             }
@@ -198,10 +165,30 @@ class Tests: XCTestCase {
     }
 }
 
+// MARK: - Test fixture loading
 extension Tests {
     
-    func getTestCaseData() -> [TestCaseData] {
-        var data: [TestCaseData] = []
+    func getTestCaseFixtures() throws -> [TestFixture] {
+        return try getTestCaseData().map { testCase in
+            let pset = try Tests._loader.getAsset(name: testCase.assetName)!.polygon!
+            
+            let resourceUrl =
+                testCase.assetURL
+                    .deletingPathExtension()
+                    .appendingPathExtension("testdat")
+            
+            let reader = try FileReader(fileUrl: resourceUrl)
+            
+            guard let testData = parseTestData(testCase.winding, testCase.elementSize, reader) else {
+                throw TestError.failedToLoadFixture(name: testCase.assetName)
+            }
+            
+            return TestFixture(testCase: testCase, polygon: pset, testData: testData)
+        }
+    }
+    
+    func getTestCaseData() -> [TestCase] {
+        var data: [TestCase] = []
         
         let windings: [WindingRule] = [
             .evenOdd,
@@ -217,7 +204,7 @@ extension Tests {
                     continue
                 }
                 
-                data.append(TestCaseData(assetName: name,
+                data.append(TestCase(assetName: name,
                                          assetURL: asset.path,
                                          winding: winding,
                                          elementSize: 3))
@@ -227,9 +214,7 @@ extension Tests {
         return data
     }
     
-    public func parseTestData(_ winding: WindingRule,
-                              _ elementSize: Int,
-                              _ reader: FileReader) -> TestData? {
+    func parseTestData(_ winding: WindingRule, _ elementSize: Int, _ reader: FileReader) -> TestCaseData? {
         
         var lines: [String] = []
         
@@ -277,7 +262,7 @@ extension Tests {
             }
         }
         if (found) {
-            return TestData(indices: indices, elementSize: elementSize)
+            return TestCaseData(indices: indices, elementSize: elementSize)
         }
         return nil
     }
@@ -291,5 +276,39 @@ extension Tests {
         PolyConvert.toTess(pset: pset, tess: tess)
         
         return tess
+    }
+}
+
+// MARK: - Structures
+extension Tests {
+    enum TestError: Error {
+        case failedToLoadFixture(name: String)
+    }
+    
+    struct TestFixture {
+        var testCase: TestCase
+        var polygon: PolygonSet
+        var testData: Tests.TestCaseData
+    }
+    
+    struct TestCase: CustomStringConvertible {
+        var assetName: String
+        var assetURL: URL
+        var winding: WindingRule
+        var elementSize: Int
+        
+        var description: String {
+            return "\(winding), \(assetName), \(assetURL), \(elementSize)"
+        }
+    }
+    
+    class TestCaseData {
+        var elementSize: Int
+        var indices: [Int]
+        
+        init(indices: [Int], elementSize: Int) {
+            self.indices = indices
+            self.elementSize = elementSize
+        }
     }
 }
