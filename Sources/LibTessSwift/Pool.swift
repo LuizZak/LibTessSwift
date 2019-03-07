@@ -32,6 +32,19 @@ internal class Pool<Element> where Element: EmptyInitializable {
         indices.removeAll()
     }
     
+    /// Resets all pooled objects to their initial values.
+    /// This invalidates all pointer that are currently by any object outside this
+    /// pool.
+    func reset() {
+        for (i, pointer) in pool.enumerated() {
+            if !freeIndices.contains(i) {
+                pointer.deinitialize(count: 1)
+            }
+        }
+        
+        freeIndices = Set(0..<pool.count)
+    }
+    
     /// Pulls a new instance from this pool, creating it, if necessary.
     func pull() -> UnsafeMutablePointer<Element> {
         if let free = freeIndices.popFirst() {

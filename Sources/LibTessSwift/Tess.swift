@@ -55,7 +55,7 @@ public struct ContourVertex: CustomStringConvertible {
 public typealias CombineCallback = (_ position: Vector3, _ data: [Any?], _ weights: [Real]) -> Any?
 
 public final class Tess {
-    internal var _mesh: Mesh!
+    internal var mesh: Mesh!
     internal var _normal: Vector3
     internal var _sUnit: Vector3 = .zero
     internal var _tUnit: Vector3 = .zero
@@ -65,12 +65,13 @@ public final class Tess {
     internal var _bmaxX: Real
     internal var _bmaxY: Real
 
-    internal var _windingRule: WindingRule
+    internal var windingRule: WindingRule
 
     internal var _dict: Dict<ActiveRegion>!
     internal var _pq: PriorityQueue<Vertex>!
     internal var _event: Vertex!
     
+    internal var _meshCreationContext = MeshCreationContext()
     internal var _regionsPool = Pool<_ActiveRegion>()
 
     internal var _combineCallback: CombineCallback?
@@ -108,8 +109,8 @@ public final class Tess {
         _bmaxX = 0
         _bmaxY = 0
 
-        _windingRule = WindingRule.evenOdd
-        _mesh = nil
+        windingRule = WindingRule.evenOdd
+        mesh = nil
         
         _vertices = nil
         _vertexCount = 0
@@ -118,46 +119,47 @@ public final class Tess {
     }
     
     deinit {
-        _mesh = nil
+        mesh = nil
         
         _regionsPool.free()
+        _meshCreationContext.free()
     }
     
     private func computeNormal(norm: inout Vector3) {
-        var v = _mesh._vHead._next!
+        var v = mesh._vHead.next!
 
-        var minVal: [Real] = [ v._coords.x, v._coords.y, v._coords.z ]
+        var minVal: [Real] = [ v.coords.x, v.coords.y, v.coords.z ]
         var minVert: ContiguousArray<Vertex> = [ v, v, v ]
-        var maxVal: [Real] = [ v._coords.x, v._coords.y, v._coords.z ]
+        var maxVal: [Real] = [ v.coords.x, v.coords.y, v.coords.z ]
         var maxVert: ContiguousArray<Vertex> = [ v, v, v ]
         
         func subMinMax(_ index: Int) -> Real {
             return maxVal[index] - minVal[index]
         }
         
-        _mesh.forEachVertex { v in
-            if (v._coords.x < minVal[0]) {
-                minVal[0] = v._coords.x
+        mesh.forEachVertex { v in
+            if (v.coords.x < minVal[0]) {
+                minVal[0] = v.coords.x
                 minVert[0] = v
             }
-            if (v._coords.y < minVal[1]) {
-                minVal[1] = v._coords.y
+            if (v.coords.y < minVal[1]) {
+                minVal[1] = v.coords.y
                 minVert[1] = v
             }
-            if (v._coords.z < minVal[2]) {
-                minVal[2] = v._coords.z
+            if (v.coords.z < minVal[2]) {
+                minVal[2] = v.coords.z
                 minVert[2] = v }
             
-            if (v._coords.x > maxVal[0]) {
-                maxVal[0] = v._coords.x
+            if (v.coords.x > maxVal[0]) {
+                maxVal[0] = v.coords.x
                 maxVert[0] = v
             }
-            if (v._coords.y > maxVal[1]) {
-                maxVal[1] = v._coords.y
+            if (v.coords.y > maxVal[1]) {
+                maxVal[1] = v.coords.y
                 maxVert[1] = v
             }
-            if (v._coords.z > maxVal[2]) {
-                maxVal[2] = v._coords.z
+            if (v.coords.z > maxVal[2]) {
+                maxVal[2] = v.coords.z
                 maxVert[2] = v
             }
         }
@@ -187,11 +189,11 @@ public final class Tess {
         let v2 = maxVert[i]
         
         var tNorm: Vector3 = .zero
-        var d1 = v1._coords - v2._coords
+        var d1 = v1.coords - v2.coords
         
-        _mesh.forEachVertex { v in
+        mesh.forEachVertex { v in
             
-            let d2 = v._coords - v2._coords
+            let d2 = v.coords - v2.coords
             
             tNorm.x = d1.y * d2.z - d1.z * d2.y
             tNorm.y = d1.z * d2.x - d1.x * d2.z
@@ -217,8 +219,8 @@ public final class Tess {
         // so that the the sum of the signed areas of all contours is non-negative.
         var area: Real = 0.0
         
-        _mesh.forEachFace { f in
-            if (f._anEdge!._winding <= 0) {
+        mesh.forEachFace { f in
+            if (f.anEdge!.winding <= 0) {
                 return
             }
             area += MeshUtils.faceArea(f)
@@ -226,8 +228,8 @@ public final class Tess {
         
         if (area < 0.0) {
             // Reverse the orientation by flipping all the t-coordinates
-            _mesh.forEachVertex { v in
-                v._t = -v._t
+            mesh.forEachVertex { v in
+                v.t = -v.t
             }
             
             _tUnit = -_tUnit
@@ -255,9 +257,9 @@ public final class Tess {
         _tUnit[(i + 2) % 3] = norm[i] > 0.0 ? SUnitX : -SUnitX
 
         // Project the vertices onto the sweep plane
-        _mesh.forEachVertex { v in
-            v._s = dot(v._coords, _sUnit)
-            v._t = dot(v._coords, _tUnit)
+        mesh.forEachVertex { v in
+            v.s = dot(v.coords, _sUnit)
+            v.t = dot(v.coords, _tUnit)
         }
         
         if (computedNormal) {
@@ -267,19 +269,19 @@ public final class Tess {
         // Compute ST bounds.
         var first = true
         
-        _mesh.forEachVertex { v in
+        mesh.forEachVertex { v in
             if (first) {
-                _bmaxX = v._s
-                _bminX = v._s
+                _bmaxX = v.s
+                _bminX = v.s
                 
-                _bmaxY = v._t
-                _bminY = v._t
+                _bmaxY = v.t
+                _bminY = v.t
                 first = false
             } else {
-                if (v._s < _bminX) { _bminX = v._s }
-                if (v._s > _bmaxX) { _bmaxX = v._s }
-                if (v._t < _bminY) { _bminY = v._t }
-                if (v._t > _bmaxY) { _bmaxY = v._t }
+                if (v.s < _bminX) { _bminX = v.s }
+                if (v.s > _bmaxX) { _bmaxX = v.s }
+                if (v.t < _bminY) { _bminY = v.t }
+                if (v.t > _bmaxY) { _bmaxY = v.t }
             }
         }
     }
@@ -317,39 +319,39 @@ public final class Tess {
         // First, find the half-edge whose origin vertex is rightmost.
         // Since the sweep goes from left to right, face->anEdge should
         // be close to the edge we want.
-        var up = face._anEdge!
-        assert(up._Lnext != up && up._Lnext._Lnext != up)
+        var up = face.anEdge!
+        assert(up.Lnext != up && up.Lnext.Lnext != up)
         
-        while (Geom.vertLeq(up._Dst!, up._Org!)) { up = up._Lprev! }
-        while (Geom.vertLeq(up._Org!, up._Dst!)) { up = up._Lnext }
+        while (Geom.vertLeq(up.Dst!, up.Org!)) { up = up.Lprev! }
+        while (Geom.vertLeq(up.Org!, up.Dst!)) { up = up.Lnext }
         
-        var lo = up._Lprev!
+        var lo = up.Lprev!
         
-        while (up._Lnext != lo) {
-            if (Geom.vertLeq(up._Dst, lo._Org)) {
+        while (up.Lnext != lo) {
+            if (Geom.vertLeq(up.Dst, lo.Org)) {
                 // up.Dst is on the left. It is safe to form triangles from lo.Org.
                 // The edgeGoesLeft test guarantees progress even when some triangles
                 // are CW, given that the upper and lower chains are truly monotone.
-                while (lo._Lnext != up && (Geom.edgeGoesLeft(lo._Lnext)
-                    || Geom.edgeSign(lo._Org, lo._Dst, lo._Lnext._Dst) <= 0.0)) {
-                    lo = _mesh.connect(lo._Lnext, lo)._Sym
+                while (lo.Lnext != up && (Geom.edgeGoesLeft(lo.Lnext)
+                    || Geom.edgeSign(lo.Org, lo.Dst, lo.Lnext.Dst) <= 0.0)) {
+                    lo = mesh.connect(lo.Lnext, lo).Sym
                 }
-                lo = lo._Lprev
+                lo = lo.Lprev
             } else {
                 // lo.Org is on the left.  We can make CCW triangles from up.Dst.
-                while (lo._Lnext != up && (Geom.edgeGoesRight(up._Lprev)
-                    || Geom.edgeSign(up._Dst, up._Org, up._Lprev._Org) >= 0.0)) {
-                    up = _mesh.connect(up, up._Lprev)._Sym
+                while (lo.Lnext != up && (Geom.edgeGoesRight(up.Lprev)
+                    || Geom.edgeSign(up.Dst, up.Org, up.Lprev.Org) >= 0.0)) {
+                    up = mesh.connect(up, up.Lprev).Sym
                 }
-                up = up._Lnext
+                up = up.Lnext
             }
         }
         
         // Now lo.Org == up.Dst == the leftmost vertex.  The remaining region
         // can be tessellated in a fan from this leftmost vertex.
-        assert(lo._Lnext != up)
-        while (lo._Lnext._Lnext != up) {
-            lo = _mesh.connect(lo._Lnext, lo)._Sym
+        assert(lo.Lnext != up)
+        while (lo.Lnext.Lnext != up) {
+            lo = mesh.connect(lo.Lnext, lo).Sym
         }
     }
 
@@ -359,8 +361,8 @@ public final class Tess {
     /// must be monotone.
     /// </summary>
     private func tessellateInterior() {
-        _mesh.forEachFace { f in
-            if (f._inside) {
+        mesh.forEachFace { f in
+            if (f.inside) {
                 tessellateMonoRegion(f)
             }
         }
@@ -373,9 +375,9 @@ public final class Tess {
     /// mesh so that exterior loops are not represented in the data structure.
     /// </summary>
     private func discardExterior() {
-        _mesh.forEachFace { f in
-            if(!f._inside) {
-                _mesh.zapFace(f)
+        mesh.forEachFace { f in
+            if(!f.inside) {
+                mesh.zapFace(f)
             }
         }
     }
@@ -391,31 +393,31 @@ public final class Tess {
     /// </summary>
     private func setWindingNumber(_ value: Int, _ keepOnlyBoundary: Bool) {
         
-        _mesh.forEachEdge { e in
-            if (e._Rface._inside != e._Lface._inside) {
+        mesh.forEachEdge { e in
+            if (e.Rface.inside != e.Lface.inside) {
                 
                 /* This is a boundary edge (one side is interior, one is exterior). */
-                e._winding = (e._Lface._inside) ? value : -value
+                e.winding = (e.Lface.inside) ? value : -value
             } else {
                 
                 /* Both regions are interior, or both are exterior. */
                 if (!keepOnlyBoundary) {
-                    e._winding = 0
+                    e.winding = 0
                 } else {
-                    _mesh.delete(e)
+                    mesh.delete(e)
                 }
             }
         }
     }
     
     private func getNeighbourFace(_ edge: Edge) -> Int {
-        if (edge._Rface == nil) {
+        if (edge.Rface == nil) {
             return MeshUtils.Undef
         }
-        if (!edge._Rface!._inside) {
+        if (!edge.Rface!.inside) {
             return MeshUtils.Undef
         }
-        return edge._Rface!._n
+        return edge.Rface!.n
     }
     
     private func outputPolymesh(_ elementType: ElementType, _ polySize: Int) {
@@ -430,18 +432,18 @@ public final class Tess {
         // Assume that the input data is triangles now.
         // Try to merge as many polygons as possible
         if (polySize > 3) {
-            _mesh.mergeConvexFaces(maxVertsPerFace: polySize)
+            mesh.mergeConvexFaces(maxVertsPerFace: polySize)
         }
 
         // Mark unused
-        _mesh.forEachVertex { v in
-            v._n = MeshUtils.Undef
+        mesh.forEachVertex { v in
+            v.n = MeshUtils.Undef
         }
         
         // Create unique IDs for all vertices and faces.
-        _mesh.forEachFace { f in
-            f._n = MeshUtils.Undef
-            if (!f._inside) { return }
+        mesh.forEachFace { f in
+            f.n = MeshUtils.Undef
+            if (!f.inside) { return }
             
             if (noEmptyPolygons) {
                 let area = MeshUtils.faceArea(f)
@@ -450,21 +452,21 @@ public final class Tess {
                 }
             }
             
-            var edge = f._anEdge!
+            var edge = f.anEdge!
             faceVerts = 0
             repeat {
-                let v = edge._Org!
-                if (v._n == MeshUtils.Undef) {
-                    v._n = maxVertexCount
+                let v = edge.Org!
+                if (v.n == MeshUtils.Undef) {
+                    v.n = maxVertexCount
                     maxVertexCount += 1
                 }
                 faceVerts += 1
-                edge = edge._Lnext
-            } while (edge != f._anEdge)
+                edge = edge.Lnext
+            } while (edge != f.anEdge)
             
             assert(faceVerts <= polySize)
             
-            f._n = maxFaceCount
+            f.n = maxFaceCount
             maxFaceCount += 1
         }
 
@@ -478,19 +480,19 @@ public final class Tess {
         _vertices = Array(repeating: ContourVertex(Position: .zero, Data: nil), count: _vertexCount)
 
         // Output vertices.
-        _mesh.forEachVertex { v in
-            if (v._n != MeshUtils.Undef) {
+        mesh.forEachVertex { v in
+            if (v.n != MeshUtils.Undef) {
                 // Store coordinate
-                _vertices[v._n].position = v._coords
-                _vertices[v._n].data = v._data
+                _vertices[v.n].position = v.coords
+                _vertices[v.n].data = v.data
             }
         }
         
         // Output indices.
         var elementIndex = 0
         
-        _mesh.forEachFace { f in
-            if (!f._inside) { return }
+        mesh.forEachFace { f in
+            if (!f.inside) { return }
             
             if (noEmptyPolygons) {
                 let area = MeshUtils.faceArea(f)
@@ -500,15 +502,15 @@ public final class Tess {
             }
             
             // Store polygon
-            var edge = f._anEdge!
+            var edge = f.anEdge!
             faceVerts = 0
             repeat {
-                let v = edge._Org!
-                _elements[elementIndex] = v._n
+                let v = edge.Org!
+                _elements[elementIndex] = v.n
                 elementIndex += 1
                 faceVerts += 1
-                edge = edge._Lnext
-            } while (edge != f._anEdge)
+                edge = edge.Lnext
+            } while (edge != f.anEdge)
             // Fill unused.
             for _ in faceVerts..<polySize {
                 _elements[elementIndex] = MeshUtils.Undef
@@ -517,12 +519,12 @@ public final class Tess {
             
             // Store polygon connectivity
             if (elementType == ElementType.connectedPolygons) {
-                edge = f._anEdge!
+                edge = f.anEdge!
                 repeat {
                     _elements[elementIndex] = getNeighbourFace(edge)
                     elementIndex += 1
-                    edge = edge._Lnext
-                } while (edge != f._anEdge)
+                    edge = edge.Lnext
+                } while (edge != f.anEdge)
                 
                 // Fill unused.
                 for _ in faceVerts..<polySize {
@@ -540,16 +542,16 @@ public final class Tess {
         _vertexCount = 0
         _elementCount = 0
         
-        _mesh.forEachFace { f in
-            if (!f._inside) {
+        mesh.forEachFace { f in
+            if (!f.inside) {
                 return
             }
             
-            let start = f._anEdge!
-            var edge = f._anEdge!
+            let start = f.anEdge!
+            var edge = f.anEdge!
             repeat {
                 _vertexCount += 1
-                edge = edge._Lnext
+                edge = edge.Lnext
             } while (edge != start)
             
             _elementCount += 1
@@ -563,20 +565,20 @@ public final class Tess {
         
         startVert = 0
         
-        _mesh.forEachFace { f in
-            if (!f._inside) {
+        mesh.forEachFace { f in
+            if (!f.inside) {
                 return
             }
             
             vertCount = 0
-            let start = f._anEdge!
-            var edge = f._anEdge!
+            let start = f.anEdge!
+            var edge = f.anEdge!
             repeat {
-                _vertices[vertIndex].position = edge._Org._coords
-                _vertices[vertIndex].data = edge._Org._data
+                _vertices[vertIndex].position = edge.Org.coords
+                _vertices[vertIndex].data = edge.Org.data
                 vertIndex += 1
                 vertCount += 1
-                edge = edge._Lnext
+                edge = edge.Lnext
             } while (edge != start)
             
             _elements[elementIndex] = startVert
@@ -607,8 +609,8 @@ public final class Tess {
     }
 
     public func addContour(_ vertices: [ContourVertex], _ forceOrientation: ContourOrientation) {
-        if (_mesh == nil) {
-            _mesh = Mesh()
+        if mesh == nil {
+            mesh = Mesh(context: _meshCreationContext)
         }
 
         var reverse = false
@@ -620,26 +622,26 @@ public final class Tess {
         var e: Edge! = nil
         for i in 0..<vertices.count {
             if (e == nil) {
-                e = _mesh.makeEdge()
-                _mesh.splice(e, e._Sym)
+                e = mesh.makeEdge()
+                mesh.splice(e, e.Sym)
             } else {
                 // Create a new vertex and edge which immediately follow e
                 // in the ordering around the left face.
-                _=_mesh.splitEdge(e)
-                e = e._Lnext
+                _=mesh.splitEdge(e)
+                e = e.Lnext
             }
             
             let index = reverse ? vertices.count - 1 - i : i
             // The new vertex is now e._Org.
-            e._Org._coords = vertices[index].position
-            e._Org._data = vertices[index].data
+            e.Org.coords = vertices[index].position
+            e.Org.data = vertices[index].data
 
             // The winding of an edge says how the winding number changes as we
             // cross from the edge's right face to its left face.  We add the
             // vertices in such an order that a CCW contour will add +1 to
             // the winding number of the region inside the contour.
-            e._winding = 1
-            e._Sym._winding = -1
+            e.winding = 1
+            e.Sym.winding = -1
         }
     }
     
@@ -652,10 +654,10 @@ public final class Tess {
         _vertices = nil
         _elements = nil
 
-        _windingRule = windingRule
+        self.windingRule = windingRule
         _combineCallback = combineCallback
 
-        guard let mesh = _mesh else {
+        guard let mesh = mesh else {
             return
         }
 
@@ -688,7 +690,7 @@ public final class Tess {
         }
         
         mesh.free()
-        
-        _mesh = nil
+        self.mesh = nil
+        _meshCreationContext.reset()
     }
 }

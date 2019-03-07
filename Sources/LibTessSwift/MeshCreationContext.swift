@@ -11,7 +11,7 @@ internal final class MeshCreationContext {
     
     private var _poolFaces = Pool<MeshUtils._Face>()
     private var _poolEdges = Pool<MeshUtils._Edge>()
-    private var _poolVertices = Pool<MeshUtils._Vertex>()
+    private var _poolVerts = Pool<MeshUtils._Vertex>()
     
     deinit {
         free()
@@ -20,7 +20,13 @@ internal final class MeshCreationContext {
     func free() {
         _poolFaces.free()
         _poolEdges.free()
-        _poolVertices.free()
+        _poolVerts.free()
+    }
+    
+    func reset() {
+        _poolFaces.reset()
+        _poolEdges.reset()
+        _poolVerts.reset()
     }
     
     func createFace() -> Face {
@@ -36,9 +42,9 @@ internal final class MeshCreationContext {
         
         var pair = MeshUtils.EdgePair()
         pair._e = e
-        pair._e?._pair = pair
+        pair._e?.pair = pair
         pair._eSym = eSym
-        pair._eSym?._pair = pair
+        pair._eSym?.pair = pair
         
         return (pair, e, eSym)
     }
@@ -51,10 +57,10 @@ internal final class MeshCreationContext {
     }
     
     func createVertex() -> Vertex {
-        return _poolVertices.pull()
+        return _poolVerts.pull()
     }
     func resetVertex(_ vertex: Vertex) {
-        _poolVertices.repool(vertex)
+        _poolVerts.repool(vertex)
     }
     
     /// <summary>
@@ -62,7 +68,7 @@ internal final class MeshCreationContext {
     /// No vertex or face structures are allocated, but these must be assigned
     /// before the current edge operation is completed.
     /// </summary>
-    func MakeEdge(_ eNext: Edge) -> Edge {
+    func makeEdge(_ eNext: Edge) -> Edge {
         var eNext = eNext
         
         let (_, e, eSym) = createEdgePair()
@@ -72,27 +78,27 @@ internal final class MeshCreationContext {
         
         // Insert in circular doubly-linked list before eNext.
         // Note that the prev pointer is stored in Sym->next.
-        let ePrev = eNext._Sym._next
-        eSym._next = ePrev
-        ePrev?._Sym._next = e
-        e._next = eNext
-        eNext._Sym._next = eSym
+        let ePrev = eNext.Sym.next
+        eSym.next = ePrev
+        ePrev?.Sym.next = e
+        e.next = eNext
+        eNext.Sym.next = eSym
         
-        e._Sym = eSym
-        e._Onext = e
-        e._Lnext = eSym
-        e._Org = nil
-        e._Lface = nil
-        e._winding = 0
-        e._activeRegion = nil
+        e.Sym = eSym
+        e.Onext = e
+        e.Lnext = eSym
+        e.Org = nil
+        e.Lface = nil
+        e.winding = 0
+        e.activeRegion = nil
         
-        eSym._Sym = e
-        eSym._Onext = eSym
-        eSym._Lnext = e
-        eSym._Org = nil
-        eSym._Lface = nil
-        eSym._winding = 0
-        eSym._activeRegion = nil
+        eSym.Sym = e
+        eSym.Onext = eSym
+        eSym.Lnext = e
+        eSym.Org = nil
+        eSym.Lface = nil
+        eSym.winding = 0
+        eSym.activeRegion = nil
         
         return e
     }
@@ -108,20 +114,20 @@ internal final class MeshCreationContext {
         let vNew = createVertex()
         
         // insert in circular doubly-linked list before vNext
-        let vPrev = vNext._prev
-        vNew._prev = vPrev
-        vPrev?._next = vNew
-        vNew._next = vNext
-        vNext._prev = vNew
+        let vPrev = vNext.prev
+        vNew.prev = vPrev
+        vPrev?.next = vNew
+        vNew.next = vNext
+        vNext.prev = vNew
         
-        vNew._anEdge = eOrig
+        vNew.anEdge = eOrig
         // leave coords, s, t undefined
         
         // fix other edges on this vertex loop
         var e: Edge? = eOrig
         repeat {
-            e?._Org = vNew
-            e = e?._Onext
+            e?.Org = vNew
+            e = e?.Onext
         } while (e != eOrig)
     }
     
@@ -136,25 +142,25 @@ internal final class MeshCreationContext {
         let fNew = createFace()
         
         // insert in circular doubly-linked list before fNext
-        let fPrev = fNext._prev
-        fNew._prev = fPrev
-        fPrev?._next = fNew
-        fNew._next = fNext
-        fNext._prev = fNew
+        let fPrev = fNext.prev
+        fNew.prev = fPrev
+        fPrev?.next = fNew
+        fNew.next = fNext
+        fNext.prev = fNew
         
-        fNew._anEdge = eOrig
-        fNew._marked = false
+        fNew.anEdge = eOrig
+        fNew.marked = false
         
         // The new face is marked "inside" if the old one was. This is a
         // convenience for the common case where a face has been split in two.
-        fNew._inside = fNext._inside
+        fNew.inside = fNext.inside
         
         // fix other edges on this face loop
         
         var edp = eOrig
         repeat {
-            edp.pointee._Lface = fNew
-            edp = edp.pointee._Lnext.unsafelyUnwrapped
+            edp.Lface = fNew
+            edp = edp.Lnext.unsafelyUnwrapped
         } while edp != eOrig
     }
     
@@ -168,12 +174,12 @@ internal final class MeshCreationContext {
         MeshUtils._Edge.ensureFirst(e: &eDel)
         
         // delete from circular doubly-linked list
-        let eNext = eDel._next
-        let ePrev = eDel._Sym._next
-        eNext?._Sym._next = ePrev
-        ePrev?._Sym._next = eNext
+        let eNext = eDel.next
+        let ePrev = eDel.Sym.next
+        eNext?.Sym.next = ePrev
+        ePrev?.Sym.next = eNext
         
-        eDel._pair = nil
+        eDel.pair = nil
         
         resetEdge(eDel)
     }
@@ -183,20 +189,20 @@ internal final class MeshCreationContext {
     /// vertex list. It updates the vertex loop to point to a given new vertex.
     /// </summary>
     func killVertex(_ vDel: Vertex, _ newOrg: Vertex?) {
-        let eStart = vDel._anEdge
+        let eStart = vDel.anEdge
         
         // change the origin of all affected edges
         var e: Edge? = eStart
         repeat {
-            e?._Org = newOrg
-            e = e?._Onext
+            e?.Org = newOrg
+            e = e?.Onext
         } while (e != eStart)
         
         // delete from circular doubly-linked list
-        let vPrev = vDel._prev
-        let vNext = vDel._next
-        vNext?._prev = vPrev
-        vPrev?._next = vNext
+        let vPrev = vDel.prev
+        let vNext = vDel.next
+        vNext?.prev = vPrev
+        vPrev?.next = vNext
         
         resetVertex(vDel)
     }
@@ -206,7 +212,7 @@ internal final class MeshCreationContext {
     /// list. It updates the face loop to point to a given new face.
     /// </summary>
     func killFace(_ fDel: Face, _ newLFace: Face?) {
-        let eStart = fDel._anEdge!
+        let eStart = fDel.anEdge!
         
         // change the left face of all affected edges
         var e: Edge = eStart
@@ -216,10 +222,10 @@ internal final class MeshCreationContext {
         } while e != eStart
         
         // delete from circular doubly-linked list
-        let fPrev = fDel._prev
-        let fNext = fDel._next
-        fNext?._prev = fPrev
-        fPrev?._next = fNext
+        let fPrev = fDel.prev
+        let fNext = fDel.next
+        fNext?.prev = fPrev
+        fPrev?.next = fNext
         
         resetFace(fDel)
     }

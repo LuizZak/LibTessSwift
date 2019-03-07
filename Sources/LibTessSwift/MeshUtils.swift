@@ -125,7 +125,7 @@ internal class MeshUtils {
             var eCur = _anEdge
             repeat {
                 n += 1
-                eCur = eCur?._Lnext
+                eCur = eCur?.Lnext
             } while eCur != _anEdge
             return n
         }
@@ -141,8 +141,6 @@ internal class MeshUtils {
     }
 
     struct _Edge: Linked, EmptyInitializable {
-        static var pool: Array<MeshUtils._Edge> = []
-        
         internal var _pair: EdgePair?
         internal var _next: Edge?
         internal var _Sym: Edge!
@@ -153,19 +151,19 @@ internal class MeshUtils {
         internal var _activeRegion: ActiveRegion!
         internal var _winding: Int = 0
 
-        internal var _Rface: Face! { get { return _Sym._Lface } set { _Sym._Lface = newValue } }
-        internal var _Dst: Vertex! { get { return _Sym._Org }  set { _Sym._Org = newValue } }
+        internal var _Rface: Face! { get { return _Sym.Lface } set { _Sym.Lface = newValue } }
+        internal var _Dst: Vertex! { get { return _Sym.Org }  set { _Sym.Org = newValue } }
 
-        internal var _Oprev: Edge! { get { return _Sym._Lnext } set { _Sym._Lnext = newValue } }
-        internal var _Lprev: Edge! { get { return _Onext._Sym } set { _Onext._Sym = newValue } }
-        internal var _Dprev: Edge! { get { return _Lnext._Sym } set { _Lnext._Sym = newValue } }
-        internal var _Rprev: Edge! { get { return _Sym._Onext } set { _Sym._Onext = newValue } }
-        internal var _Dnext: Edge! { get { return _Rprev?._Sym } set { _Rprev?._Sym = newValue } }
-        internal var _Rnext: Edge! { get { return _Oprev?._Sym } set { _Oprev?._Sym = newValue } }
+        internal var _Oprev: Edge! { get { return _Sym.Lnext } set { _Sym.Lnext = newValue } }
+        internal var _Lprev: Edge! { get { return _Onext.Sym } set { _Onext.Sym = newValue } }
+        internal var _Dprev: Edge! { get { return _Lnext.Sym } set { _Lnext.Sym = newValue } }
+        internal var _Rprev: Edge! { get { return _Sym.Onext } set { _Sym.Onext = newValue } }
+        internal var _Dnext: Edge! { get { return _Rprev?.Sym } set { _Rprev?.Sym = newValue } }
+        internal var _Rnext: Edge! { get { return _Oprev?.Sym } set { _Oprev?.Sym = newValue } }
         
         internal static func ensureFirst(e: inout Edge) {
-            if e == e._pair?._eSym {
-                e = e._Sym
+            if e == e.pair?._eSym {
+                e = e.Sym
             }
         }
         
@@ -182,13 +180,13 @@ internal class MeshUtils {
     /// For more explanation see Mesh.splice().
     /// </summary>
     static func splice(_ a: Edge, _ b: Edge) {
-        let aOnext = a._Onext
-        let bOnext = b._Onext
+        let aOnext = a.Onext
+        let bOnext = b.Onext
         
-        aOnext?._Sym._Lnext = b
-        bOnext?._Sym._Lnext = a
-        a._Onext = bOnext
-        b._Onext = aOnext
+        aOnext?.Sym.Lnext = b
+        bOnext?.Sym.Lnext = a
+        a.Onext = bOnext
+        b.Onext = aOnext
     }
     
     /// <summary>
@@ -197,11 +195,11 @@ internal class MeshUtils {
     static func faceArea(_ f: Face) -> Real {
         var area: Real = 0
         
-        var e = f._anEdge!
+        var e = f.anEdge!
         repeat {
-            area += (e._Org._s - e._Dst._s) * (e._Org._t + e._Dst._t)
-            e = e._Lnext
-        } while e != f._anEdge
+            area += (e.Org.s - e.Dst.s) * (e.Org.t + e.Dst.t)
+            e = e.Lnext
+        } while e != f.anEdge
         return area
     }
 }
@@ -213,15 +211,15 @@ typealias Vertex = UnsafeMutablePointer<MeshUtils._Vertex>
 
 // Shortcuts for pointers of primitives
 extension UnsafeMutablePointer where Pointee == MeshUtils._Face {
-    var _prev: Face! {
+    var prev: Face! {
         get { return pointee._prev }
         nonmutating set { pointee._prev = newValue }
     }
-    var _next: Face! {
+    var next: Face! {
         get { return pointee._next }
         nonmutating set { pointee._next = newValue }
     }
-    var _anEdge: Edge! {
+    var anEdge: Edge! {
         get { return pointee._anEdge }
         nonmutating set { pointee._anEdge = newValue }
     }
@@ -230,31 +228,31 @@ extension UnsafeMutablePointer where Pointee == MeshUtils._Face {
         return pointee.vertsCount
     }
     
-    var _n: Int {
+    var n: Int {
         get { return pointee._n }
         nonmutating set { pointee._n = newValue }
     }
     
-    var _marked: Bool {
+    var marked: Bool {
         get { return pointee._marked }
         nonmutating set { pointee._marked = newValue }
     }
-    var _inside: Bool {
+    var inside: Bool {
         get { return pointee._inside }
         nonmutating set { pointee._inside = newValue }
     }
 }
 
 extension UnsafeMutablePointer where Pointee == MeshUtils._Edge {
-    internal var _pair: MeshUtils.EdgePair? {
+    internal var pair: MeshUtils.EdgePair? {
         get { return pointee._pair }
         nonmutating set { return pointee._pair = newValue }
     }
-    internal var _next: Edge! {
+    internal var next: Edge! {
         get { return pointee._next }
         nonmutating set { pointee._next = newValue }
     }
-    internal var _Sym: Edge! {
+    internal var Sym: Edge! {
         get {
             return pointee._Sym
         }
@@ -262,52 +260,52 @@ extension UnsafeMutablePointer where Pointee == MeshUtils._Edge {
             pointee._Sym = newValue
         }
     }
-    internal var _Onext: Edge! {
+    internal var Onext: Edge! {
         get { return pointee._Onext }
         nonmutating set { pointee._Onext = newValue }
     }
-    internal var _Lnext: Edge! {
+    internal var Lnext: Edge! {
         get { return pointee._Lnext }
         nonmutating set { pointee._Lnext = newValue }
     }
-    internal var _Org: Vertex! {
+    internal var Org: Vertex! {
         get { return pointee._Org }
         nonmutating set { pointee._Org = newValue }
     }
-    internal var _Lface: Face! {
+    internal var Lface: Face! {
         get { return pointee._Lface }
         nonmutating set { pointee._Lface = newValue }
     }
-    internal var _winding: Int {
+    internal var winding: Int {
         get { return pointee._winding }
         nonmutating set { pointee._winding = newValue }
     }
-    internal var _activeRegion: ActiveRegion! {
+    internal var activeRegion: ActiveRegion! {
         get { return pointee._activeRegion }
         nonmutating set { pointee._activeRegion = newValue }
     }
     
-    internal var _Rface: Face! { get { return pointee._Rface } nonmutating set { pointee._Rface = newValue } }
-    internal var _Dst: Vertex! { get { return pointee._Dst } nonmutating set { pointee._Dst = newValue } }
+    internal var Rface: Face! { get { return pointee._Rface } nonmutating set { pointee._Rface = newValue } }
+    internal var Dst: Vertex! { get { return pointee._Dst } nonmutating set { pointee._Dst = newValue } }
     
-    internal var _Oprev: Edge! { get { return pointee._Oprev } nonmutating set { pointee._Oprev = newValue } }
-    internal var _Lprev: Edge! { get { return pointee._Lprev } nonmutating set { pointee._Lprev = newValue } }
-    internal var _Dprev: Edge! { get { return pointee._Dprev } nonmutating set { pointee._Dprev = newValue } }
-    internal var _Rprev: Edge! { get { return pointee._Rprev } nonmutating set { pointee._Rprev = newValue } }
-    internal var _Dnext: Edge! { get { return pointee._Dnext } nonmutating set { pointee._Dnext = newValue } }
-    internal var _Rnext: Edge! { get { return pointee._Rnext } nonmutating set { pointee._Rnext = newValue } }
+    internal var Oprev: Edge! { get { return pointee._Oprev } nonmutating set { pointee._Oprev = newValue } }
+    internal var Lprev: Edge! { get { return pointee._Lprev } nonmutating set { pointee._Lprev = newValue } }
+    internal var Dprev: Edge! { get { return pointee._Dprev } nonmutating set { pointee._Dprev = newValue } }
+    internal var Rprev: Edge! { get { return pointee._Rprev } nonmutating set { pointee._Rprev = newValue } }
+    internal var Dnext: Edge! { get { return pointee._Dnext } nonmutating set { pointee._Dnext = newValue } }
+    internal var Rnext: Edge! { get { return pointee._Rnext } nonmutating set { pointee._Rnext = newValue } }
 }
 
 extension UnsafeMutablePointer where Pointee == MeshUtils._Vertex {
-    var _prev: Vertex! { get { return pointee._prev } nonmutating set { pointee._prev = newValue } }
-    var _next: Vertex! { get { return pointee._next } nonmutating set { pointee._next = newValue } }
-    var _anEdge: Edge! { get { return pointee._anEdge } nonmutating set { pointee._anEdge = newValue } }
-    var _coords: Vector3 { get { return pointee._coords } nonmutating set { pointee._coords = newValue } }
-    var _s: Real { get { return pointee._s } nonmutating set { pointee._s = newValue } }
-    var _t: Real { get { return pointee._t } nonmutating set { pointee._t = newValue } }
-    var _pqHandle: PQHandle { get { return pointee._pqHandle } nonmutating set { pointee._pqHandle = newValue } }
-    var _n: Int { get { return pointee._n } nonmutating set { pointee._n = newValue } }
-    var _data: Any? { get { return pointee._data } nonmutating set { pointee._data = newValue } }
+    var prev: Vertex! { get { return pointee._prev } nonmutating set { pointee._prev = newValue } }
+    var next: Vertex! { get { return pointee._next } nonmutating set { pointee._next = newValue } }
+    var anEdge: Edge! { get { return pointee._anEdge } nonmutating set { pointee._anEdge = newValue } }
+    var coords: Vector3 { get { return pointee._coords } nonmutating set { pointee._coords = newValue } }
+    var s: Real { get { return pointee._s } nonmutating set { pointee._s = newValue } }
+    var t: Real { get { return pointee._t } nonmutating set { pointee._t = newValue } }
+    var pqHandle: PQHandle { get { return pointee._pqHandle } nonmutating set { pointee._pqHandle = newValue } }
+    var n: Int { get { return pointee._n } nonmutating set { pointee._n = newValue } }
+    var data: Any? { get { return pointee._data } nonmutating set { pointee._data = newValue } }
 }
 
 extension UnsafeMutablePointer where Pointee: Linked {

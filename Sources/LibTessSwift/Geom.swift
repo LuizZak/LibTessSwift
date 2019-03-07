@@ -9,27 +9,27 @@
 internal class Geom {
     static func isWindingInside(_ rule: WindingRule, _ n: Int) -> Bool {
         switch (rule) {
-            case WindingRule.evenOdd:
+            case .evenOdd:
                 return (n & 1) == 1
-            case WindingRule.nonZero:
+            case .nonZero:
                 return n != 0
-            case WindingRule.positive:
+            case .positive:
                 return n > 0
-            case WindingRule.negative:
+            case .negative:
                 return n < 0
-            case WindingRule.absGeqTwo:
+            case .absGeqTwo:
                 return n >= 2 || n <= -2
         }
     }
 
     static func vertCCW(_ u: Vertex, _ v: Vertex, _ w: Vertex) -> Bool {
-        return u._s * (v._t - w._t) + v._s * (w._t - u._t) + w._s * (u._t - v._t) >= 0.0
+        return u.s * (v.t - w.t) + v.s * (w.t - u.t) + w.s * (u.t - v.t) >= 0.0
     }
     static func vertEq(_ lhs: Vertex, _ rhs: Vertex) -> Bool {
-        return lhs._s == rhs._s && lhs._t == rhs._t
+        return lhs.s == rhs.s && lhs.t == rhs.t
     }
     static func vertLeq(_ lhs: Vertex, _ rhs: Vertex) -> Bool {
-        return lhs._s < rhs._s || (lhs._s == rhs._s && lhs._t <= rhs._t)
+        return lhs.s < rhs.s || (lhs.s == rhs.s && lhs.t <= rhs.t)
     }
 
     /// <summary>
@@ -46,8 +46,8 @@ internal class Geom {
     static func edgeEval(_ u: Vertex, _ v: Vertex, _ w: Vertex) -> Real {
         assert(vertLeq(u, v) && vertLeq(v, w))
         
-        let gapL: Real = v._s - u._s
-        let gapR: Real = w._s - v._s
+        let gapL: Real = v.s - u.s
+        let gapR: Real = w.s - v.s
         
         /* vertical line */
         if (gapL + gapR <= 0.0) {
@@ -56,14 +56,14 @@ internal class Geom {
         
         if (gapL < gapR) {
             let k = gapL / (gapL + gapR)
-            let t1 = v._t - u._t
-            let t2 = u._t - w._t
+            let t1 = v.t - u.t
+            let t2 = u.t - w.t
             
             return t1 + t2 * k
         } else {
             let k = gapR / (gapL + gapR)
-            let t1 = v._t - w._t
-            let t2 = w._t - u._t
+            let t1 = v.t - w.t
+            let t2 = w.t - u.t
             
             return t1 + t2 * k
         }
@@ -77,12 +77,12 @@ internal class Geom {
     static func edgeSign(_ u: Vertex, _ v: Vertex, _ w: Vertex) -> Real {
         assert(vertLeq(u, v) && vertLeq(v, w))
 
-        let gapL = v._s - u._s
-        let gapR = w._s - v._s
+        let gapL = v.s - u.s
+        let gapR = w.s - v.s
         
         if gapL + gapR > 0.0 {
-            let t1 = (v._t - w._t) * gapL
-            let t2 = (v._t - u._t) * gapR
+            let t1 = (v.t - w.t) * gapL
+            let t2 = (v.t - u.t) * gapR
             return t1 + t2
         }
         /* vertical line */
@@ -90,25 +90,25 @@ internal class Geom {
     }
 
     static func transLeq(_ lhs: Vertex, _ rhs: Vertex) -> Bool {
-        return (lhs._t < rhs._t) || (lhs._t == rhs._t && lhs._s <= rhs._s)
+        return (lhs.t < rhs.t) || (lhs.t == rhs.t && lhs.s <= rhs.s)
     }
 
     static func transEval(_ u: Vertex, _ v: Vertex, _ w: Vertex) -> Real {
         assert(transLeq(u, v) && transLeq(v, w))
         
-        let gapL = v._t - u._t
-        let gapR = w._t - v._t
+        let gapL = v.t - u.t
+        let gapR = w.t - v.t
 
         if gapL + gapR > 0.0 {
             if gapL < gapR {
                 let k = gapL / (gapL + gapR)
-                let s1 = v._s - u._s
-                let s2 = u._s - w._s
+                let s1 = v.s - u.s
+                let s2 = u.s - w.s
                 return s1 + s2 * k
             } else {
                 let k = gapR / (gapL + gapR)
-                let s1 = v._s - w._s
-                let s2 = w._s - u._s
+                let s1 = v.s - w.s
+                let s2 = w.s - u.s
                 return s1 + s2 * k
             }
         }
@@ -119,12 +119,12 @@ internal class Geom {
     static func transSign(_ u: Vertex, _ v: Vertex, _ w: Vertex) -> Real {
         assert(transLeq(u, v) && transLeq(v, w))
         
-        let gapL = v._t - u._t
-        let gapR = w._t - v._t
+        let gapL = v.t - u.t
+        let gapR = w.t - v.t
         
         if gapL + gapR > 0.0 {
-            let s1 = ((v._s - w._s) * gapL) as Real
-            let s2 = ((v._s - u._s) * gapR) as Real
+            let s1 = ((v.s - w.s) * gapL) as Real
+            let s2 = ((v.s - u.s) * gapR) as Real
             return s1 + s2
         }
         /* vertical line */
@@ -132,22 +132,22 @@ internal class Geom {
     }
 
     static func edgeGoesLeft(_ e: Edge) -> Bool {
-        return vertLeq(e._Dst!, e._Org!)
+        return vertLeq(e.Dst!, e.Org!)
     }
 
     static func edgeGoesRight(_ e: Edge) -> Bool {
-        return vertLeq(e._Org!, e._Dst!)
+        return vertLeq(e.Org!, e.Dst!)
     }
 
     static func VertL1dist(u: Vertex, v: Vertex) -> Real {
-        let s = abs(u._s - v._s) as Real
-        let t = abs(u._t - v._t) as Real
+        let s = abs(u.s - v.s) as Real
+        let t = abs(u.t - v.t) as Real
         return s + t
     }
 
     static func addWinding(_ eDst: Edge, _ eSrc: Edge) {
-        eDst._winding += eSrc._winding
-        eDst._Sym._winding += eSrc._Sym._winding
+        eDst.winding += eSrc.winding
+        eDst.Sym.winding += eSrc.Sym.winding
     }
 
     static func interpolate(_ a: Real, _ x: Real, _ b: Real, _ y: Real) -> Real {
@@ -188,7 +188,7 @@ internal class Geom {
 
         if !vertLeq(o2, d1) {
             // Technically, no intersection -- do our best
-            v._s = (o2._s + d1._s) / 2.0
+            v.s = (o2.s + d1.s) / 2.0
         } else if vertLeq(d1, d2) {
             // Interpolate between o2 and d1
             var z1 = edgeEval(o1, o2, d1)
@@ -197,7 +197,7 @@ internal class Geom {
                 z1 = -z1
                 z2 = -z2
             }
-            v._s = interpolate(z1, o2._s, z2, d1._s)
+            v.s = interpolate(z1, o2.s, z2, d1.s)
         } else {
             // Interpolate between o2 and d2
             var z1 = edgeSign(o1, o2, d1)
@@ -206,7 +206,7 @@ internal class Geom {
                 z1 = -z1
                 z2 = -z2
             }
-            v._s = interpolate(z1, o2._s, z2, d2._s)
+            v.s = interpolate(z1, o2.s, z2, d2.s)
         }
 
         // Now repeat the process for t
@@ -217,7 +217,7 @@ internal class Geom {
         
         if !transLeq(o2, d1) {
             // Technically, no intersection -- do our best
-            v._t = (o2._t + d1._t) / 2.0
+            v.t = (o2.t + d1.t) / 2.0
         } else if transLeq(d1, d2) {
             // Interpolate between o2 and d1
             var z1 = transEval(o1, o2, d1)
@@ -226,7 +226,7 @@ internal class Geom {
                 z1 = -z1
                 z2 = -z2
             }
-            v._t = interpolate(z1, o2._t, z2, d1._t)
+            v.t = interpolate(z1, o2.t, z2, d1.t)
         } else {
             // Interpolate between o2 and d2
             var z1 = transSign(o1, o2, d1)
@@ -235,7 +235,7 @@ internal class Geom {
                 z1 = -z1
                 z2 = -z2
             }
-            v._t = interpolate(z1, o2._t, z2, d2._t)
+            v.t = interpolate(z1, o2.t, z2, d2.t)
         }
     }
 }
