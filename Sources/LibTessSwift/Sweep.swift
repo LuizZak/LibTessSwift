@@ -69,7 +69,7 @@ extension Tess {
             }
             return Geom.edgeSign(e2_Dst, event, e2_Org) <= 0.0
         }
-        if (e2_Dst == event) {
+        if e2_Dst == event {
             return Geom.edgeSign(e1_Dst, event, e1_Org) >= 0.0
         }
 
@@ -81,7 +81,7 @@ extension Tess {
 
     
     private func deleteRegion(_ reg: ActiveRegion) {
-        if (reg.fixUpperEdge) {
+        if reg.fixUpperEdge {
             // It was created with zero winding number, so it better be
             // deleted with zero winding number (ie. it better not get merged
             // with a real edge).
@@ -119,7 +119,7 @@ extension Tess {
 
         // If the edge above was a temporary edge introduced by connectRightVertex,
         // now is the time to fix it.
-        if (reg.fixUpperEdge) {
+        if reg.fixUpperEdge {
             let e = mesh.connect(regionBelow(reg).eUp.Sym, reg.eUp.Lnext)
             fixUpperEdge(reg, e)
             reg = regionAbove(reg)!
@@ -199,12 +199,12 @@ extension Tess {
         var regPrev = regFirst
         var ePrev = regFirst.eUp!
         
-        while (regPrev != regLast) {
+        while regPrev != regLast {
             regPrev.fixUpperEdge = false	// placement was OK
             let reg = regionBelow(regPrev)!
             var e = reg.eUp!
-            if (e.Org != ePrev.Org) {
-                if (!reg.fixUpperEdge) {
+            if e.Org != ePrev.Org {
+                if !reg.fixUpperEdge {
                     // Remove the last left-going edge.  Even though there are no further
                     // edges in the dictionary with this origin, there may be further
                     // such edges in the mesh (if we are adding left edges to a vertex
@@ -220,7 +220,7 @@ extension Tess {
             }
 
             // Relink edges so that ePrev.Onext == e
-            if (ePrev.Onext != e) {
+            if ePrev.Onext != e {
                 mesh.splice(e.Oprev, e)
                 mesh.splice(ePrev, e)
             }
@@ -257,19 +257,19 @@ extension Tess {
         // Walk *all* right-going edges from e.Org, in the dictionary order,
         // updating the winding numbers of each region, and re-linking the mesh
         // edges to match the dictionary ordering (if necessary).
-        if (eTopLeft == nil) {
+        if eTopLeft == nil {
             eTopLeft = regionBelow(regUp)?.eUp.Rprev
         }
 
         var regPrev = regUp
         var reg = regionBelow(regPrev)
         var ePrev = eTopLeft!
-        while (true) {
+        while true {
             reg = regionBelow(regPrev)
             e = reg!.eUp.Sym
-            if (e.Org != ePrev.Org) { break }
+            if e.Org != ePrev.Org { break }
             
-            if (e.Onext != ePrev) {
+            if e.Onext != ePrev {
                 // Unlink e from its current position, and relink below ePrev
                 mesh.splice(e.Oprev, e)
                 mesh.splice(ePrev.Oprev, e)
@@ -281,7 +281,7 @@ extension Tess {
             // Check for two outgoing edges with same slope -- process these
             // before any intersection tests (see example in tessComputeInterior).
             regPrev.dirty = true
-            if (!firstTime && checkForRightSplice(regPrev)) {
+            if !firstTime && checkForRightSplice(regPrev) {
                 Geom.addWinding(e, ePrev)
                 deleteRegion(regPrev)
                 mesh.delete(ePrev)
@@ -293,7 +293,7 @@ extension Tess {
         regPrev.dirty = true
         assert(regPrev.windingNumber - e.winding == reg!.windingNumber)
         
-        if (cleanUp) {
+        if cleanUp {
             // Check for intersections between newly adjacent edges.
             walkDirtyRegions(regPrev)
         }
@@ -379,25 +379,25 @@ extension Tess {
         let eUp = regUp.eUp!
         let eLo = regLo.eUp!
 
-        if (Geom.vertLeq(eUp.Org, eLo.Org)) {
-            if (Geom.edgeSign(eLo.Dst, eUp.Org, eLo.Org) > 0.0) {
+        if Geom.vertLeq(eUp.Org, eLo.Org) {
+            if Geom.edgeSign(eLo.Dst, eUp.Org, eLo.Org) > 0.0 {
                 return false
             }
 
             // eUp.Org appears to be below eLo
-            if (!Geom.vertEq(eUp.Org, eLo.Org)) {
+            if !Geom.vertEq(eUp.Org, eLo.Org) {
                 // Splice eUp._Org into eLo
                 mesh.splitEdge(eLo.Sym)
                 mesh.splice(eUp, eLo.Oprev)
                 regUp.dirty = true
                 regLo.dirty = true
-            } else if (eUp.Org != eLo.Org) {
+            } else if eUp.Org != eLo.Org {
                 // merge the two vertices, discarding eUp.Org
                 _pq.remove(eUp.Org.pqHandle)
                 spliceMergeVertices(eLo.Oprev, eUp)
             }
         } else {
-            if (Geom.edgeSign(eUp.Dst, eLo.Org, eUp.Org) < 0.0) {
+            if Geom.edgeSign(eUp.Dst, eLo.Org, eUp.Org) < 0.0 {
                 return false
             }
 
@@ -435,8 +435,8 @@ extension Tess {
 
         assert(!Geom.vertEq(eUp.Dst, eLo.Dst))
 
-        if (Geom.vertLeq(eUp.Dst, eLo.Dst)) {
-            if (Geom.edgeSign(eUp.Dst, eLo.Dst, eUp.Org) < 0.0) {
+        if Geom.vertLeq(eUp.Dst, eLo.Dst) {
+            if Geom.edgeSign(eUp.Dst, eLo.Dst, eUp.Org) < 0.0 {
                 return false
             }
 
@@ -447,7 +447,7 @@ extension Tess {
             mesh.splice(eLo.Sym, e)
             e.Lface.inside = regUp.inside
         } else {
-            if (Geom.edgeSign(eLo.Dst, eUp.Dst, eLo.Org) > 0.0) {
+            if Geom.edgeSign(eLo.Dst, eUp.Dst, eLo.Org) > 0.0 {
                 return false
             }
 
@@ -499,12 +499,12 @@ extension Tess {
             return false
         }
 
-        if (Geom.vertLeq(orgUp, orgLo)) {
-            if (Geom.edgeSign( dstLo, orgUp, orgLo ) > 0.0) {
+        if Geom.vertLeq(orgUp, orgLo) {
+            if Geom.edgeSign( dstLo, orgUp, orgLo ) > 0.0 {
                 return false
             }
         } else {
-            if (Geom.edgeSign( dstUp, orgLo, orgUp ) < 0.0) {
+            if Geom.edgeSign( dstUp, orgLo, orgUp ) < 0.0 {
                 return false
             }
         }
@@ -518,7 +518,7 @@ extension Tess {
         assert(min(dstLo.s, dstUp.s) <= isect.s)
         assert(isect.s <= max(orgLo.s, orgUp.s))
 
-        if (Geom.vertLeq(isect, _event)) {
+        if Geom.vertLeq(isect, _event) {
             // The intersection point lies slightly to the left of the sweep line,
             // so move it until it''s slightly to the right of the sweep line.
             // (If we had perfect numerical precision, this would never happen
@@ -533,12 +533,12 @@ extension Tess {
         // (If you have the test program, try running test54.d with the
         // "X zoom" option turned on).
         let orgMin = Geom.vertLeq(orgUp, orgLo) ? orgUp : orgLo
-        if (Geom.vertLeq(orgMin, isect)) {
+        if Geom.vertLeq(orgMin, isect) {
             isect.s = orgMin.s
             isect.t = orgMin.t
         }
 
-        if (Geom.vertEq(isect, orgUp) || Geom.vertEq(isect, orgLo)) {
+        if Geom.vertEq(isect, orgUp) || Geom.vertEq(isect, orgLo) {
             // Easy case -- intersection at one of the right endpoints
             checkForRightSplice(regUp)
             return false
@@ -551,7 +551,7 @@ extension Tess {
             // Very unusual -- the new upper or lower edge would pass on the
             // wrong side of the sweep event, or through it. This can happen
             // due to very small numerical errors in the intersection calculation.
-            if (dstLo == _event) {
+            if dstLo == _event {
                 // Splice dstLo into eUp, and process the new region(s)
                 mesh.splitEdge(eUp.Sym)
                 mesh.splice(eLo.Sym, eUp)
@@ -576,14 +576,14 @@ extension Tess {
             // Special case: called from connectRightVertex. If either
             // edge passes on the wrong side of tess._event, split it
             // (and wait for connectRightVertex to splice it appropriately).
-            if (Geom.edgeSign( dstUp, _event, isect ) >= 0.0) {
+            if Geom.edgeSign( dstUp, _event, isect ) >= 0.0 {
                 regionAbove(regUp).dirty = true
                 regUp.dirty = true
                 mesh.splitEdge(eUp.Sym)
                 eUp.Org.s = _event.s
                 eUp.Org.t = _event.t
             }
-            if (Geom.edgeSign(dstLo, _event, isect) <= 0.0) {
+            if Geom.edgeSign(dstLo, _event, isect) <= 0.0 {
                 regUp.dirty = true
                 regLo.dirty = true
                 mesh.splitEdge(eLo.Sym)
@@ -607,7 +607,7 @@ extension Tess {
         eUp.Org.s = isect.s
         eUp.Org.t = isect.t
         eUp.Org.pqHandle = _pq.insert(eUp.Org)
-        if (eUp.Org.pqHandle._handle == PQHandle.Invalid) {
+        if eUp.Org.pqHandle._handle == PQHandle.Invalid {
             // TODO: Use a proper throw here
             fatalError("PQHandle should not be invalid")
             //throw new InvalidOperationException("PQHandle should not be invalid")
@@ -633,13 +633,13 @@ extension Tess {
         var regLo = regionBelow(regUp)!
         var eUp: Edge, eLo: Edge
 
-        while (true) {
+        while true {
             // Find the lowest dirty region (we walk from the bottom up).
-            while (regLo.dirty) {
+            while regLo.dirty {
                 regUp = regLo
                 regLo = regionBelow(regLo)
             }
-            if (!regUp.dirty) {
+            if !regUp.dirty {
                 regLo = regUp
                 regUp = regionAbove( regUp )
                 if(regUp == nil || !regUp.dirty) {
@@ -651,14 +651,14 @@ extension Tess {
             eUp = regUp.eUp
             eLo = regLo.eUp
             
-            if (eUp.Dst != eLo.Dst) {
+            if eUp.Dst != eLo.Dst {
                 // Check that the edge ordering is obeyed at the Dst vertices.
-                if (checkForLeftSplice(regUp)) {
+                if checkForLeftSplice(regUp) {
 
                     // If the upper or lower edge was marked fixUpperEdge, then
                     // we no longer need it (since these edges are needed only for
                     // vertices which otherwise have no right-going edges).
-                    if (regLo.fixUpperEdge) {
+                    if regLo.fixUpperEdge {
                         deleteRegion(regLo)
                         mesh.delete(eLo)
                         regLo = regionBelow(regUp)
@@ -672,7 +672,7 @@ extension Tess {
                 }
             }
             
-            if (eUp.Org != eLo.Org) {
+            if eUp.Org != eLo.Org {
                 if(
                     eUp.Dst != eLo.Dst
                     && !regUp.fixUpperEdge && !regLo.fixUpperEdge
@@ -685,7 +685,7 @@ extension Tess {
                     // case it might splice one of these edges into tess.event, and
                     // violate the invariant that fixable edges are the only right-going
                     // edge from their associated vertex).
-                    if (checkForIntersect(regUp)) {
+                    if checkForIntersect(regUp) {
                         // walkDirtyRegions() was called recursively; we're done
                         return
                     }
@@ -695,7 +695,7 @@ extension Tess {
                     checkForRightSplice(regUp)
                 }
             }
-            if (eUp.Org == eLo.Org && eUp.Dst == eLo.Dst) {
+            if eUp.Org == eLo.Org && eUp.Dst == eLo.Dst {
                 // A degenerate loop consisting of only two edges -- delete it.
                 Geom.addWinding(eLo, eUp)
                 deleteRegion(regUp)
@@ -745,25 +745,25 @@ extension Tess {
         let eLo = regLo.eUp!
         var degenerate = false
 
-        if (eUp.Dst != eLo.Dst) {
+        if eUp.Dst != eLo.Dst {
             checkForIntersect(regUp)
         }
 
         // Possible new degeneracies: upper or lower edge of regUp may pass
         // through vEvent, or may coincide with new intersection vertex
-        if (Geom.vertEq(eUp.Org, _event)) {
+        if Geom.vertEq(eUp.Org, _event) {
             mesh.splice(eTopLeft.Oprev, eUp)
             regUp = topLeftRegion(regUp)!
             eTopLeft = regionBelow(regUp).eUp
             finishLeftRegions(regionBelow(regUp), regLo)
             degenerate = true
         }
-        if (Geom.vertEq(eLo.Org, _event)) {
+        if Geom.vertEq(eLo.Org, _event) {
             mesh.splice(eBottomLeft, eLo.Oprev)
             eBottomLeft = finishLeftRegions(regLo, nil)
             degenerate = true
         }
-        if (degenerate) {
+        if degenerate {
             addRightEdges(regUp, eBottomLeft.Onext, eTopLeft, eTopLeft, cleanUp: true)
             return
         }
@@ -771,7 +771,7 @@ extension Tess {
         // Non-degenerate situation -- need to add a temporary, fixable edge.
         // Connect to the closer of eLo.Org, eUp.Org.
         var eNew: Edge
-        if (Geom.vertLeq(eLo.Org, eUp.Org)) {
+        if Geom.vertLeq(eLo.Org, eUp.Org) {
             eNew = eLo.Oprev
         } else {
             eNew = eUp
@@ -792,7 +792,7 @@ extension Tess {
     /// </summary>
     private func connectLeftDegenerate(_ regUp: ActiveRegion, _ vEvent: Vertex) {
         let e = regUp.eUp!
-        if (Geom.vertEq(e.Org, vEvent)) {
+        if Geom.vertEq(e.Org, vEvent) {
             // e.Org is an unprocessed vertex - just combine them, and wait
             // for e.Org to be pulled from the queue
             // C# : in the C version, there is a flag but it was never implemented
@@ -803,10 +803,10 @@ extension Tess {
             //throw new InvalidOperationException("Vertices should have been merged before")
         }
 
-        if (!Geom.vertEq(e.Dst, vEvent)) {
+        if !Geom.vertEq(e.Dst, vEvent) {
             // General case -- splice vEvent into edge e which passes through it
             mesh.splitEdge(e.Sym)
-            if (regUp.fixUpperEdge) {
+            if regUp.fixUpperEdge {
                 // This edge was fixable -- delete unused portion of original edge
                 mesh.delete(e.Onext)
                 regUp.fixUpperEdge = false
@@ -854,7 +854,7 @@ extension Tess {
         let eLo = regLo.eUp!
         
         // Try merging with U or L first
-        if (Geom.edgeSign(eUp.Dst, vEvent, eUp.Org) == 0.0) {
+        if Geom.edgeSign(eUp.Dst, vEvent, eUp.Org) == 0.0 {
             connectLeftDegenerate(regUp, vEvent)
             return
         }
@@ -863,14 +863,14 @@ extension Tess {
         // e._Dst is the vertex that we will connect to vEvent.
         let reg = Geom.vertLeq(eLo.Dst, eUp.Dst) ? regUp : regLo
 
-        if (regUp.inside || reg.fixUpperEdge) {
+        if regUp.inside || reg.fixUpperEdge {
             var eNew: Edge
-            if (reg == regUp) {
+            if reg == regUp {
                 eNew = mesh.connect(vEvent.anEdge.Sym, eUp.Lnext)
             } else {
                 eNew = mesh.connect(eLo.Dnext, vEvent.anEdge).Sym
             }
-            if (reg.fixUpperEdge) {
+            if reg.fixUpperEdge {
                 fixUpperEdge(reg, eNew)
             } else {
                 computeWinding(addRegionBelow(regUp, eNew))
@@ -894,9 +894,9 @@ extension Tess {
         // already in the dictionary. In this case we don't need to waste
         // time searching for the location to insert new edges.
         var e = vEvent.anEdge!
-        while (e.activeRegion == nil) {
+        while e.activeRegion == nil {
             e = e.Onext
-            if (e == vEvent.anEdge) {
+            if e == vEvent.anEdge {
                 // All edges go right -- not incident to any processed edges
                 connectLeftVertex(vEvent)
                 return
@@ -918,7 +918,7 @@ extension Tess {
         // involves adding the edges to the dictionary, and creating the
         // associated "active regions" which record information about the
         // regions between adjacent dictionary edges.
-        if (eBottomLeft.Onext == eTopLeft) {
+        if eBottomLeft.Onext == eTopLeft {
             // No right-going edges -- add a temporary "fixable" edge
             connectRightVertex(regUp, eBottomLeft)
         } else {
@@ -969,7 +969,7 @@ extension Tess {
             // At the end of all processing, the dictionary should contain
             // only the two sentinel edges, plus at most one "fixable" edge
             // created by connectRightVertex().
-            if (!reg.sentinel) {
+            if !reg.sentinel {
                 assert(reg.fixUpperEdge)
                 fixedEdges += 1
                 assert(fixedEdges == 1)
@@ -998,7 +998,7 @@ extension Tess {
             eNext = e.next
             eLnext = e.Lnext
 
-            if (Geom.vertEq(e.Org, e.Dst) && e.Lnext.Lnext != e) {
+            if Geom.vertEq(e.Org, e.Dst) && e.Lnext.Lnext != e {
                 // Zero-length edge, contour has at least 3 edges
 
                 spliceMergeVertices(eLnext, e)	// deletes e.Org
@@ -1006,16 +1006,16 @@ extension Tess {
                 e = eLnext
                 eLnext = e.Lnext // Can't use _mesh.forEachEdge due to this reassignment
             }
-            if (eLnext.Lnext == e) {
+            if eLnext.Lnext == e {
                 // Degenerate contour (one or two edges)
 
-                if (eLnext != e) {
-                    if (eLnext == eNext || eLnext == eNext.Sym) {
+                if eLnext != e {
+                    if eLnext == eNext || eLnext == eNext.Sym {
                         eNext = eNext.next
                     }
                     mesh.delete(eLnext)
                 }
-                if (e == eNext || e == eNext.Sym) {
+                if e == eNext || e == eNext.Sym {
                     eNext = eNext.next
                 }
                 mesh.delete(e)
@@ -1041,7 +1041,7 @@ extension Tess {
         
         mesh.forEachVertex { v in
             v.pqHandle = _pq.insert(v)
-            if (v.pqHandle._handle == PQHandle.Invalid) {
+            if v.pqHandle._handle == PQHandle.Invalid {
                 // TODO: Throw a proper error here
                 fatalError("PQHandle should not be invalid")
                 //throw new InvalidOperationException("PQHandle should not be invalid")
@@ -1073,7 +1073,7 @@ extension Tess {
             let e = f.anEdge!
             assert(e.Lnext != e)
             
-            if (e.Lnext.Lnext == e) {
+            if e.Lnext.Lnext == e {
                 // A face with only two edges
                 Geom.addWinding(e.Onext, e)
                 mesh.delete(e)
@@ -1102,9 +1102,9 @@ extension Tess {
         var vNext: Vertex?
         
         while let v = _pq.extractMin() {
-            while (true) {
+            while true {
                 vNext = _pq.minimum()
-                if (vNext == nil || !Geom.vertEq(vNext!, v)) {
+                if vNext == nil || !Geom.vertEq(vNext!, v) {
                     break
                 }
                 

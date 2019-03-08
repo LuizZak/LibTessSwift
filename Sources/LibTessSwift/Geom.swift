@@ -50,11 +50,11 @@ internal class Geom {
         let gapR: Real = w.s - v.s
         
         /* vertical line */
-        if (gapL + gapR <= 0.0) {
+        if gapL + gapR <= 0.0 {
             return 0
         }
         
-        if (gapL < gapR) {
+        if gapL < gapR {
             let k = gapL / (gapL + gapR)
             let t1 = v.t - u.t
             let t2 = u.t - w.t
@@ -160,9 +160,9 @@ internal class Geom {
             b = 0.0
         }
         
-        return ((a <= b) ? ((b == 0.0) ? ((x+y) / 2.0)
+        return (a <= b) ? ((b == 0.0) ? ((x+y) / 2.0)
                 : (x + (y-x) * (a/(a+b))))
-                : (y + (x-y) * (b/(a+b))))
+                : (y + (x-y) * (b/(a+b)))
     }
     
     /// <summary>
@@ -193,7 +193,7 @@ internal class Geom {
             // Interpolate between o2 and d1
             var z1 = edgeEval(o1, o2, d1)
             var z2 = edgeEval(o2, d1, d2)
-            if (z1 + z2 < 0.0) {
+            if z1 + z2 < 0.0 {
                 z1 = -z1
                 z2 = -z2
             }
@@ -202,7 +202,7 @@ internal class Geom {
             // Interpolate between o2 and d2
             var z1 = edgeSign(o1, o2, d1)
             var z2 = -edgeSign(o1, d2, d1)
-            if (z1 + z2 < 0.0) {
+            if z1 + z2 < 0.0 {
                 z1 = -z1
                 z2 = -z2
             }
@@ -222,7 +222,7 @@ internal class Geom {
             // Interpolate between o2 and d1
             var z1 = transEval(o1, o2, d1)
             var z2 = transEval(o2, d1, d2)
-            if (z1 + z2 < 0.0) {
+            if z1 + z2 < 0.0 {
                 z1 = -z1
                 z2 = -z2
             }
@@ -231,7 +231,7 @@ internal class Geom {
             // Interpolate between o2 and d2
             var z1 = transSign(o1, o2, d1)
             var z2 = -transSign(o1, d2, d1)
-            if (z1 + z2 < 0.0) {
+            if z1 + z2 < 0.0 {
                 z1 = -z1
                 z2 = -z2
             }

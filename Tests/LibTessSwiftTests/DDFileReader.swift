@@ -8,10 +8,6 @@
 
 import Foundation
 
-public enum StreamReaderError: Error {
-    case couldNotLoad
-}
-
 /// File reader fit for reading from files with a high capacity output.
 /// Provides no buffering of data (i.e. cannot peek).
 public final class FileReader {
