@@ -14,29 +14,21 @@ fileprivate struct StackItem {
 internal class PriorityQueue<TValue> {
     private var _leq: PriorityHeap<TValue>.LessOrEqual
     private var _heap: PriorityHeap<TValue>
-    private var _keys: ContiguousArray<TValue?>
+    private var _keys: [TValue?]
     private var _order: [Int] = []
     
     private var _size = 0, _max = 0
     private var _initialized = false
     
-    var Empty: Bool {
-        return _size == 0 && _heap.Empty
-    }
-    
     init(_ initialSize: Int, _ leq: @escaping PriorityHeap<TValue>.LessOrEqual) {
         _leq = leq
         _heap = PriorityHeap<TValue>(initialSize, leq)
         
-        _keys = ContiguousArray<TValue?>(repeating: nil, count: initialSize)
+        _keys = Array(repeating: nil, count: initialSize)
         
         _size = 0
         _max = initialSize
         _initialized = false
-    }
-    
-    deinit {
-        
     }
     
     func initialize() {
@@ -143,7 +135,7 @@ internal class PriorityQueue<TValue> {
             _max <<= 1
             
             let diffK = _keys.count - _max + 1
-            let subK = ContiguousArray<TValue?>(repeating: nil, count: diffK)
+            let subK = [TValue?](repeating: nil, count: diffK)
             
             _keys.append(contentsOf: subK)
         }
@@ -159,7 +151,7 @@ internal class PriorityQueue<TValue> {
         }
         
         let sortMin = lastKey()
-        if !_heap.Empty {
+        if !_heap.isEmpty {
             let heapMin = _heap.minimum()
             if _leq(heapMin!, sortMin!) {
                 return _heap.extractMin()
@@ -182,7 +174,7 @@ internal class PriorityQueue<TValue> {
         
         let sortMin = lastKey()
         
-        if !_heap.Empty {
+        if !_heap.isEmpty {
             let heapMin = _heap.minimum()
             if _leq(heapMin!, sortMin!) {
                 return heapMin
@@ -195,7 +187,7 @@ internal class PriorityQueue<TValue> {
     func remove(_ handle: PQHandle) {
         assert(_initialized)
         
-        var curr = handle._handle
+        var curr = handle.handle
         if curr >= 0 {
             _heap.remove(handle)
             return

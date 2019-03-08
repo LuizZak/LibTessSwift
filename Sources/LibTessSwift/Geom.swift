@@ -147,7 +147,7 @@ internal class Geom {
 
     static func addWinding(_ eDst: Edge, _ eSrc: Edge) {
         eDst.winding += eSrc.winding
-        eDst.Sym.winding += eSrc.Sym.winding
+        eDst.sym.winding += eSrc.sym.winding
     }
 
     static func interpolate(_ a: Real, _ x: Real, _ b: Real, _ y: Real) -> Real {

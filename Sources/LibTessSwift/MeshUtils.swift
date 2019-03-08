@@ -143,7 +143,7 @@ internal class MeshUtils {
     struct _Edge: Linked, EmptyInitializable {
         internal var _pair: EdgePair?
         internal var _next: Edge?
-        internal var _Sym: Edge!
+        internal var _sym: Edge!
         internal var _Onext: Edge!
         internal var _Lnext: Edge!
         internal var _Org: Vertex!
@@ -151,19 +151,19 @@ internal class MeshUtils {
         internal var _activeRegion: ActiveRegion!
         internal var _winding: Int = 0
 
-        internal var _Rface: Face! { get { return _Sym.Lface } set { _Sym.Lface = newValue } }
-        internal var _Dst: Vertex! { get { return _Sym.Org }  set { _Sym.Org = newValue } }
+        internal var _Rface: Face! { get { return _sym.Lface } set { _sym.Lface = newValue } }
+        internal var _Dst: Vertex! { get { return _sym.Org }  set { _sym.Org = newValue } }
 
-        internal var _Oprev: Edge! { get { return _Sym.Lnext } set { _Sym.Lnext = newValue } }
-        internal var _Lprev: Edge! { get { return _Onext.Sym } set { _Onext.Sym = newValue } }
-        internal var _Dprev: Edge! { get { return _Lnext.Sym } set { _Lnext.Sym = newValue } }
-        internal var _Rprev: Edge! { get { return _Sym.Onext } set { _Sym.Onext = newValue } }
-        internal var _Dnext: Edge! { get { return _Rprev?.Sym } set { _Rprev?.Sym = newValue } }
-        internal var _Rnext: Edge! { get { return _Oprev?.Sym } set { _Oprev?.Sym = newValue } }
+        internal var _Oprev: Edge! { get { return _sym.Lnext } set { _sym.Lnext = newValue } }
+        internal var _Lprev: Edge! { get { return _Onext.sym } set { _Onext.sym = newValue } }
+        internal var _Dprev: Edge! { get { return _Lnext.sym } set { _Lnext.sym = newValue } }
+        internal var _Rprev: Edge! { get { return _sym.Onext } set { _sym.Onext = newValue } }
+        internal var _Dnext: Edge! { get { return _Rprev?.sym } set { _Rprev?.sym = newValue } }
+        internal var _Rnext: Edge! { get { return _Oprev?.sym } set { _Oprev?.sym = newValue } }
         
         internal static func ensureFirst(e: inout Edge) {
             if e == e.pair?._eSym {
-                e = e.Sym
+                e = e.sym
             }
         }
         
@@ -183,8 +183,8 @@ internal class MeshUtils {
         let aOnext = a.Onext
         let bOnext = b.Onext
         
-        aOnext?.Sym.Lnext = b
-        bOnext?.Sym.Lnext = a
+        aOnext?.sym.Lnext = b
+        bOnext?.sym.Lnext = a
         a.Onext = bOnext
         b.Onext = aOnext
     }
@@ -252,12 +252,12 @@ extension UnsafeMutablePointer where Pointee == MeshUtils._Edge {
         get { return pointee._next }
         nonmutating set { pointee._next = newValue }
     }
-    internal var Sym: Edge! {
+    internal var sym: Edge! {
         get {
-            return pointee._Sym
+            return pointee._sym
         }
         nonmutating set {
-            pointee._Sym = newValue
+            pointee._sym = newValue
         }
     }
     internal var Onext: Edge! {
@@ -318,20 +318,18 @@ extension UnsafeMutablePointer where Pointee: Linked {
     func loop(while check: (_ element: UnsafeMutablePointer) throws -> Bool,
               with closure: (_ element: UnsafeMutablePointer) throws -> (Void)) rethrows {
         
-        var current: UnsafeMutablePointer<Pointee>! = self
+        var current = self
         var next: UnsafeMutablePointer<Pointee>?
         repeat {
-            guard let n = current else {
+            next = current.pointee._next
+            try closure(current)
+            
+            if let next = next {
+                current = next
+            } else {
                 break
             }
-            
-            defer {
-                current = next
-            }
-            
-            next = n.pointee._next
-            try closure(n)
-        } while try current != nil && check(current)
+        } while try check(current)
     }
     
     /// Iterates over each element, starting from this instance, until

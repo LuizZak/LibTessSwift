@@ -334,14 +334,14 @@ public final class Tess {
                 // are CW, given that the upper and lower chains are truly monotone.
                 while lo.Lnext != up && (Geom.edgeGoesLeft(lo.Lnext)
                     || Geom.edgeSign(lo.Org, lo.Dst, lo.Lnext.Dst) <= 0.0) {
-                    lo = mesh.connect(lo.Lnext, lo).Sym
+                    lo = mesh.connect(lo.Lnext, lo).sym
                 }
                 lo = lo.Lprev
             } else {
                 // lo.Org is on the left.  We can make CCW triangles from up.Dst.
                 while lo.Lnext != up && (Geom.edgeGoesRight(up.Lprev)
                     || Geom.edgeSign(up.Dst, up.Org, up.Lprev.Org) >= 0.0) {
-                    up = mesh.connect(up, up.Lprev).Sym
+                    up = mesh.connect(up, up.Lprev).sym
                 }
                 up = up.Lnext
             }
@@ -351,7 +351,7 @@ public final class Tess {
         // can be tessellated in a fan from this leftmost vertex.
         assert(lo.Lnext != up)
         while lo.Lnext.Lnext != up {
-            lo = mesh.connect(lo.Lnext, lo).Sym
+            lo = mesh.connect(lo.Lnext, lo).sym
         }
     }
 
@@ -623,7 +623,7 @@ public final class Tess {
         for i in 0..<vertices.count {
             if e == nil {
                 e = mesh.makeEdge()
-                mesh.splice(e, e.Sym)
+                mesh.splice(e, e.sym)
             } else {
                 // Create a new vertex and edge which immediately follow e
                 // in the ordering around the left face.
@@ -641,7 +641,7 @@ public final class Tess {
             // vertices in such an order that a CCW contour will add +1 to
             // the winding number of the region inside the contour.
             e.winding = 1
-            e.Sym.winding = -1
+            e.sym.winding = -1
         }
     }
     

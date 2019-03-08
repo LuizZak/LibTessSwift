@@ -34,10 +34,10 @@ internal final class Mesh {
         f.prev = f
         
         e.next = e
-        e.Sym = eSym
+        e.sym = eSym
 
         eSym.next = eSym
-        eSym.Sym = e
+        eSym.sym = e
     }
     
     deinit {
@@ -77,7 +77,7 @@ internal final class Mesh {
         let e = _context.makeEdge(_eHead)
         
         _context.makeVertex(e, _vHead)
-        _context.makeVertex(e.Sym, _vHead)
+        _context.makeVertex(e.sym, _vHead)
         _context.makeFace(e, _fHead)
     
         return e
@@ -150,7 +150,7 @@ internal final class Mesh {
     /// would create isolated vertices, those are deleted as well.
     /// </summary>
     func delete(_ eDel: Edge) {
-        let eDelSym = eDel.Sym!
+        let eDelSym = eDel.sym!
         
         // First step: disconnect the origin vertex eDel->Org.  We make all
         // changes to get a consistent mesh in this "intermediate" state.
@@ -201,7 +201,7 @@ internal final class Mesh {
     @discardableResult
     func addEdgeVertex(_ eOrg: Edge) -> Edge {
         let eNew = _context.makeEdge(eOrg)
-        let eNewSym = eNew.Sym!
+        let eNewSym = eNew.sym!
 
         // Connect the new edge appropriately
         MeshUtils.splice(eNew, eOrg.Lnext)
@@ -223,18 +223,18 @@ internal final class Mesh {
     @discardableResult
     func splitEdge(_ eOrg: Edge) -> Edge {
         let eTmp = addEdgeVertex(eOrg)
-        let eNew = eTmp.Sym!
+        let eNew = eTmp.sym!
 
         // Disconnect eOrg from eOrg->Dst and connect it to eNew->Org
-        MeshUtils.splice(eOrg.Sym, eOrg.Sym.Oprev)
-        MeshUtils.splice(eOrg.Sym, eNew)
+        MeshUtils.splice(eOrg.sym, eOrg.sym.Oprev)
+        MeshUtils.splice(eOrg.sym, eNew)
 
         // Set the vertex and face information
         eOrg.Dst = eNew.Org
-        eNew.Dst.anEdge = eNew.Sym // may have pointed to eOrg->Sym
+        eNew.Dst.anEdge = eNew.sym // may have pointed to eOrg->Sym
         eNew.Rface = eOrg.Rface
         eNew.winding = eOrg.winding // copy old winding information
-        eNew.Sym.winding = eOrg.Sym.winding
+        eNew.sym.winding = eOrg.sym.winding
 
         return eNew
     }
@@ -252,7 +252,7 @@ internal final class Mesh {
     @discardableResult
     func connect(_ eOrg: Edge, _ eDst: Edge) -> Edge {
         let eNew = _context.makeEdge(eOrg)
-        let eNewSym = eNew.Sym!
+        let eNewSym = eNew.sym!
 
         var joiningLoops = false
         if eDst.Lface != eOrg.Lface {
@@ -313,7 +313,7 @@ internal final class Mesh {
                 e.Org!.anEdge = e.Onext
                 MeshUtils.splice(e, e.Oprev)
             }
-            eSym = e.Sym
+            eSym = e.sym
             if eSym.Onext == eSym {
                 _context.killVertex(eSym.Org!, nil)
             } else {
@@ -351,7 +351,7 @@ internal final class Mesh {
                     eCur = eNext
                 }
                 
-                let eSym: Edge! = eCur.Sym
+                let eSym: Edge! = eCur.sym
                 
                 if eSym != nil && eSym.Lface != nil && eSym.Lface.inside {
                     // Try to merge the neighbour faces if the resulting polygons
@@ -394,10 +394,10 @@ internal final class Mesh {
             
             e = f.anEdge
             repeat {
-                assert(e.Sym != e)
-                assert(e.Sym.Sym == e)
-                assert(e.Lnext.Onext.Sym == e)
-                assert(e.Onext.Sym.Lnext == e)
+                assert(e.sym != e)
+                assert(e.sym.sym == e)
+                assert(e.Lnext.Onext.sym == e)
+                assert(e.Onext.sym.Lnext == e)
                 assert(e.Lface == f)
                 e = e.Lnext
             } while (e != f.anEdge)
@@ -421,10 +421,10 @@ internal final class Mesh {
             assert(v.prev == vPrev)
             e = v.anEdge
             repeat {
-                assert(e.Sym != e)
-                assert(e.Sym.Sym == e)
-                assert(e.Lnext.Onext.Sym == e)
-                assert(e.Onext.Sym.Lnext == e)
+                assert(e.sym != e)
+                assert(e.sym.sym == e)
+                assert(e.Lnext.Onext.sym == e)
+                assert(e.Onext.sym.Lnext == e)
                 assert(e.Org == v)
                 e = e.Onext
             } while (e != v.anEdge)
@@ -445,20 +445,20 @@ internal final class Mesh {
             
             e = ePrev.next
             
-            assert(e.Sym.next == ePrev.Sym)
-            assert(e.Sym != e)
-            assert(e.Sym.Sym == e)
+            assert(e.sym.next == ePrev.sym)
+            assert(e.sym != e)
+            assert(e.sym.sym == e)
             assert(e.Org != nil)
             assert(e.Dst != nil)
-            assert(e.Lnext.Onext.Sym == e)
-            assert(e.Onext.Sym.Lnext == e)
+            assert(e.Lnext.Onext.sym == e)
+            assert(e.Onext.sym.Lnext == e)
         }
         
         e = ePrev.next
         
-        assert(e.Sym.next == ePrev.Sym)
-        assert(e.Sym == _eHeadSym)
-        assert(e.Sym.Sym == e)
+        assert(e.sym.next == ePrev.sym)
+        assert(e.sym == _eHeadSym)
+        assert(e.sym.sym == e)
         assert(e.Org == nil)
         assert(e.Dst == nil)
         assert(e.Lface == nil)

@@ -9,14 +9,14 @@
 internal struct PQHandle {
     static let Invalid: Int = 0x0fffffff
     
-    internal var _handle: Int
+    internal var handle: Int
     
     init() {
-        _handle = 0
+        handle = 0
     }
     
     init(handle: Int) {
-        _handle = handle
+        self.handle = handle
     }
 }
 
@@ -25,12 +25,14 @@ internal class PriorityHeap<TValue> {
     
     private var _leq: LessOrEqual
     private var _nodes: [Int]
-    private var _handles: Array<HandleElem?>
+    private var _handles: [HandleElem?]
     private var _size: Int = 0, _max: Int = 0
     private var _freeList = 0
     private var _initialized = false
     
-    var Empty: Bool { get { return _size == 0 } }
+    var isEmpty: Bool {
+        return _size == 0
+    }
     
     init(_ initialSize: Int, _ leq: @escaping LessOrEqual) {
         _leq = leq
@@ -114,8 +116,8 @@ internal class PriorityHeap<TValue> {
             let diffN = _nodes.count - _max + 1
             let diffH = _handles.count - _max + 1
             
-            let subN: [Int] = Array(repeating: 0, count: diffN)
-            let subH = ContiguousArray<HandleElem?>(repeating: nil, count: diffH)
+            let subN = [Int](repeating: 0, count: diffN)
+            let subH = [HandleElem?](repeating: nil, count: diffH)
             
             _nodes.append(contentsOf: subN)
             _handles.append(contentsOf: subH)
@@ -133,7 +135,7 @@ internal class PriorityHeap<TValue> {
         if _handles[free] == nil {
             _handles[free] = HandleElem(key: value, node: curr)
         } else {
-            withHandleEmen(atIndex: free) { handle in
+            withHandleElem(atIndex: free) { handle in
                 handle!._node = curr
                 handle!._key = value
             }
@@ -156,11 +158,11 @@ internal class PriorityHeap<TValue> {
         if _size > 0 {
             _nodes[1] = _nodes[_size]
             
-            withHandleEmen(fromNode: 1) { handle in
+            withHandleElem(fromNode: 1) { handle in
                 handle!._node = 1
             }
             
-            withHandleEmen(atIndex: hMin) { handle in
+            withHandleElem(atIndex: hMin) { handle in
                 handle!._key = nil
                 handle!._node = _freeList
             }
@@ -184,13 +186,14 @@ internal class PriorityHeap<TValue> {
     func remove(_ handle: PQHandle) {
         assert(_initialized)
         
-        let hCurr = handle._handle
-        assert(hCurr >= 1 && hCurr <= _max && handleElemKey(atIndex: hCurr) != nil)
+        let hCurr = handle.handle
+        assert(hCurr >= 1 && hCurr <= _max
+            && handleElemKey(atIndex: hCurr) != nil)
         
         let curr = handleElem(atIndex: hCurr)!._node
         _nodes[curr] = _nodes[_size]
         
-        withHandleEmen(fromNode: curr) { handle in
+        withHandleElem(fromNode: curr) { handle in
             handle!._node = curr
         }
         
@@ -206,7 +209,7 @@ internal class PriorityHeap<TValue> {
             }
         }
         
-        withHandleEmen(atIndex: hCurr) { handle in
+        withHandleElem(atIndex: hCurr) { handle in
             handle!._key = nil
             handle!._node = _freeList
         }
@@ -222,11 +225,11 @@ internal class PriorityHeap<TValue> {
         return handleElem(atIndex: index)?._key
     }
     
-    private func withHandleEmen(atIndex index: Int, do closure: (inout HandleElem?) -> Void) {
+    private func withHandleElem(atIndex index: Int, do closure: (inout HandleElem?) -> Void) {
         closure(&_handles[index])
     }
     
-    private func withHandleEmen(fromNode index: Int, do closure: (inout HandleElem?) -> Void) {
+    private func withHandleElem(fromNode index: Int, do closure: (inout HandleElem?) -> Void) {
         closure(&_handles[_nodes[index]])
     }
     

@@ -120,7 +120,7 @@ extension Tess {
         // If the edge above was a temporary edge introduced by connectRightVertex,
         // now is the time to fix it.
         if reg.fixUpperEdge {
-            let e = mesh.connect(regionBelow(reg).eUp.Sym, reg.eUp.Lnext)
+            let e = mesh.connect(regionBelow(reg).eUp.sym, reg.eUp.Lnext)
             fixUpperEdge(reg, e)
             reg = regionAbove(reg)!
         }
@@ -215,7 +215,7 @@ extension Tess {
                 }
                 // If the edge below was a temporary edge introduced by
                 // connectRightVertex, now is the time to fix it.
-                e = mesh.connect(ePrev.Lprev, e.Sym)
+                e = mesh.connect(ePrev.Lprev, e.sym)
                 fixUpperEdge(reg, e)
             }
 
@@ -250,7 +250,7 @@ extension Tess {
         
         repeat {
             assert(Geom.vertLeq(e.Org, e.Dst))
-            _=addRegionBelow(regUp, e.Sym)
+            _=addRegionBelow(regUp, e.sym)
             e = e.Onext
         } while (e != eLast)
         
@@ -266,7 +266,7 @@ extension Tess {
         var ePrev = eTopLeft!
         while true {
             reg = regionBelow(regPrev)
-            e = reg!.eUp.Sym
+            e = reg!.eUp.sym
             if e.Org != ePrev.Org { break }
             
             if e.Onext != ePrev {
@@ -387,7 +387,7 @@ extension Tess {
             // eUp.Org appears to be below eLo
             if !Geom.vertEq(eUp.Org, eLo.Org) {
                 // Splice eUp._Org into eLo
-                mesh.splitEdge(eLo.Sym)
+                mesh.splitEdge(eLo.sym)
                 mesh.splice(eUp, eLo.Oprev)
                 regUp.dirty = true
                 regLo.dirty = true
@@ -404,7 +404,7 @@ extension Tess {
             // eLo.Org appears to be above eUp, so splice eLo.Org into eUp
             regionAbove(regUp).dirty = true
             regUp.dirty = true
-            mesh.splitEdge(eUp.Sym)
+            mesh.splitEdge(eUp.sym)
             mesh.splice(eLo.Oprev, eUp)
         }
         return true
@@ -444,7 +444,7 @@ extension Tess {
             regionAbove(regUp).dirty = true
             regUp.dirty = true
             let e = mesh.splitEdge(eUp)
-            mesh.splice(eLo.Sym, e)
+            mesh.splice(eLo.sym, e)
             e.Lface.inside = regUp.inside
         } else {
             if Geom.edgeSign(eLo.Dst, eUp.Dst, eLo.Org) > 0.0 {
@@ -455,7 +455,7 @@ extension Tess {
             regUp.dirty = true
             regLo.dirty = true
             let e = mesh.splitEdge(eLo)
-            mesh.splice(eUp.Lnext, eLo.Sym)
+            mesh.splice(eUp.Lnext, eLo.sym)
             e.Rface.inside = regUp.inside
         }
         return true
@@ -553,8 +553,8 @@ extension Tess {
             // due to very small numerical errors in the intersection calculation.
             if dstLo == _event {
                 // Splice dstLo into eUp, and process the new region(s)
-                mesh.splitEdge(eUp.Sym)
-                mesh.splice(eLo.Sym, eUp)
+                mesh.splitEdge(eUp.sym)
+                mesh.splice(eLo.sym, eUp)
                 regUp = topLeftRegion(regUp)
                 eUp = regionBelow(regUp).eUp
                 finishLeftRegions(regionBelow(regUp), regLo)
@@ -563,7 +563,7 @@ extension Tess {
             }
             if( dstUp == _event ) {
                 /* Splice dstUp into eLo, and process the new region(s) */
-                mesh.splitEdge(eLo.Sym)
+                mesh.splitEdge(eLo.sym)
                 mesh.splice(eUp.Lnext, eLo.Oprev)
                 regLo = regUp
                 regUp = topRightRegion(regUp)
@@ -579,14 +579,14 @@ extension Tess {
             if Geom.edgeSign( dstUp, _event, isect ) >= 0.0 {
                 regionAbove(regUp).dirty = true
                 regUp.dirty = true
-                mesh.splitEdge(eUp.Sym)
+                mesh.splitEdge(eUp.sym)
                 eUp.Org.s = _event.s
                 eUp.Org.t = _event.t
             }
             if Geom.edgeSign(dstLo, _event, isect) <= 0.0 {
                 regUp.dirty = true
                 regLo.dirty = true
-                mesh.splitEdge(eLo.Sym)
+                mesh.splitEdge(eLo.sym)
                 eLo.Org.s = _event.s
                 eLo.Org.t = _event.t
             }
@@ -601,13 +601,13 @@ extension Tess {
         // the new face.  We expect the faces in the processed part of
         // the mesh (ie. eUp._Lface) to be smaller than the faces in the
         // unprocessed original contours (which will be eLo._Oprev._Lface).
-        mesh.splitEdge(eUp.Sym)
-        mesh.splitEdge(eLo.Sym)
+        mesh.splitEdge(eUp.sym)
+        mesh.splitEdge(eLo.sym)
         mesh.splice(eLo.Oprev, eUp)
         eUp.Org.s = isect.s
         eUp.Org.t = isect.t
         eUp.Org.pqHandle = _pq.insert(eUp.Org)
-        if eUp.Org.pqHandle._handle == PQHandle.Invalid {
+        if eUp.Org.pqHandle.handle == PQHandle.Invalid {
             // TODO: Use a proper throw here
             fatalError("PQHandle should not be invalid")
             //throw new InvalidOperationException("PQHandle should not be invalid")
@@ -781,7 +781,7 @@ extension Tess {
         // Prevent cleanup, otherwise eNew might disappear before we've even
         // had a chance to mark it as a temporary edge.
         addRightEdges(regUp, eNew, eNew.Onext, eNew.Onext, cleanUp: false)
-        eNew.Sym.activeRegion.fixUpperEdge = true
+        eNew.sym.activeRegion.fixUpperEdge = true
         walkDirtyRegions(regUp)
     }
 
@@ -805,7 +805,7 @@ extension Tess {
 
         if !Geom.vertEq(e.Dst, vEvent) {
             // General case -- splice vEvent into edge e which passes through it
-            mesh.splitEdge(e.Sym)
+            mesh.splitEdge(e.sym)
             if regUp.fixUpperEdge {
                 // This edge was fixable -- delete unused portion of original edge
                 mesh.delete(e.Onext)
@@ -841,7 +841,7 @@ extension Tess {
         
         // Get a pointer to the active region containing vEvent
         let regUp = _regionsPool.withTemporary { tmp -> ActiveRegion in
-            tmp.eUp = vEvent.anEdge.Sym
+            tmp.eUp = vEvent.anEdge.sym
             
             return _dict.find(key: tmp).pointee.Key!
         }
@@ -866,9 +866,9 @@ extension Tess {
         if regUp.inside || reg.fixUpperEdge {
             var eNew: Edge
             if reg == regUp {
-                eNew = mesh.connect(vEvent.anEdge.Sym, eUp.Lnext)
+                eNew = mesh.connect(vEvent.anEdge.sym, eUp.Lnext)
             } else {
-                eNew = mesh.connect(eLo.Dnext, vEvent.anEdge).Sym
+                eNew = mesh.connect(eLo.Dnext, vEvent.anEdge).sym
             }
             if reg.fixUpperEdge {
                 fixUpperEdge(reg, eNew)
@@ -1010,12 +1010,12 @@ extension Tess {
                 // Degenerate contour (one or two edges)
 
                 if eLnext != e {
-                    if eLnext == eNext || eLnext == eNext.Sym {
+                    if eLnext == eNext || eLnext == eNext.sym {
                         eNext = eNext.next
                     }
                     mesh.delete(eLnext)
                 }
-                if e == eNext || e == eNext.Sym {
+                if e == eNext || e == eNext.sym {
                     eNext = eNext.next
                 }
                 mesh.delete(e)
@@ -1041,7 +1041,7 @@ extension Tess {
         
         mesh.forEachVertex { v in
             v.pqHandle = _pq.insert(v)
-            if v.pqHandle._handle == PQHandle.Invalid {
+            if v.pqHandle.handle == PQHandle.Invalid {
                 // TODO: Throw a proper error here
                 fatalError("PQHandle should not be invalid")
                 //throw new InvalidOperationException("PQHandle should not be invalid")

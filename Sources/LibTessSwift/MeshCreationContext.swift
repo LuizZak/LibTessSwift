@@ -78,13 +78,13 @@ internal final class MeshCreationContext {
         
         // Insert in circular doubly-linked list before eNext.
         // Note that the prev pointer is stored in Sym->next.
-        let ePrev = eNext.Sym.next
+        let ePrev = eNext.sym.next
         eSym.next = ePrev
-        ePrev?.Sym.next = e
+        ePrev?.sym.next = e
         e.next = eNext
-        eNext.Sym.next = eSym
+        eNext.sym.next = eSym
         
-        e.Sym = eSym
+        e.sym = eSym
         e.Onext = e
         e.Lnext = eSym
         e.Org = nil
@@ -92,7 +92,7 @@ internal final class MeshCreationContext {
         e.winding = 0
         e.activeRegion = nil
         
-        eSym.Sym = e
+        eSym.sym = e
         eSym.Onext = eSym
         eSym.Lnext = e
         eSym.Org = nil
@@ -175,9 +175,9 @@ internal final class MeshCreationContext {
         
         // delete from circular doubly-linked list
         let eNext = eDel.next
-        let ePrev = eDel.Sym.next
-        eNext?.Sym.next = ePrev
-        ePrev?.Sym.next = eNext
+        let ePrev = eDel.sym.next
+        eNext?.sym.next = ePrev
+        ePrev?.sym.next = eNext
         
         eDel.pair = nil
         
