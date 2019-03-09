@@ -1,6 +1,6 @@
 //
 //  Mesh.swift
-//  Squishy2048
+//  LibTessSwift
 //
 //  Created by Luiz Fernando Silva on 26/02/17.
 //  Copyright © 2017 Luiz Fernando Silva. All rights reserved.
@@ -40,33 +40,22 @@ internal final class Mesh {
         eSym.sym = e
     }
     
-    deinit {
-        free()
+    /// Returns an iterator that, when traversed, visits each face in this mesh
+    /// in sequence.
+    func makeFaceIterator() -> AnyIterator<Face> {
+        return _fHead.makeIteratorDroppingFirst()
     }
     
-    func free() {
-        // Do nothing, for now; mesh context is cleaned by clients of this class.
+    /// Returns an iterator that, when traversed, visits each vertex in this mesh
+    /// in sequence.
+    func makeVertexIterator() -> AnyIterator<Vertex> {
+        return _vHead.makeIteratorDroppingFirst()
     }
     
-    /// Loops all the faces of this mesh with a given closure.
-    /// Looping is safe to modify the face's _next pointer, so long as it does
-    /// not modify the next's.
-    func forEachFace(with closure: (Face) throws -> Void) rethrows {
-        try _fHead.next?.loop(while: { $0 != _fHead }, with: closure)
-    }
-    
-    /// Loops all the vertices of this mesh with a given closure.
-    /// Looping is safe to modify the vertex's _next pointer, so long as it does
-    /// not modify the next's.
-    func forEachVertex(with closure: (Vertex) throws -> Void) rethrows {
-        try _vHead.next?.loop(while: { $0 != _vHead }, with: closure)
-    }
-    
-    /// Loops all the edges of this mesh with a given closure.
-    /// Looping is safe to modify the vertex's _next pointer, so long as it does
-    /// not modify the next's.
-    func forEachEdge(with closure: (Edge) throws -> Void) rethrows {
-        try _eHead.next?.loop(while: { $0 != _eHead }, with: closure)
+    /// Returns an iterator that, when traversed, visits each edge in this mesh
+    /// in sequence.
+    func makeEdgeIterator() -> AnyIterator<Edge> {
+        return _eHead.makeIteratorDroppingFirst()
     }
     
     /// <summary>
@@ -322,7 +311,7 @@ internal final class Mesh {
                 MeshUtils.splice(eSym, eSym.Oprev)
             }
             _context.killEdge(e)
-        } while (e != eStart)
+        } while e != eStart
 
         /* delete from circular doubly-linked list */
         let fPrev = fZap.prev
@@ -334,10 +323,10 @@ internal final class Mesh {
     }
 
     func mergeConvexFaces(maxVertsPerFace: Int) {
-        forEachFace { f in
+        for f in makeFaceIterator() {
             // Skip faces which are outside the result
             if !f.inside {
-                return
+                continue
             }
             
             var eCur: Edge! = f.anEdge!
@@ -384,8 +373,7 @@ internal final class Mesh {
         var fPrev = _fHead
         var f = _fHead
         
-        while fPrev.next != _fHead
-        {
+        while fPrev.next != _fHead {
             defer {
                 fPrev = f
             }
@@ -400,7 +388,7 @@ internal final class Mesh {
                 assert(e.Onext.sym.Lnext == e)
                 assert(e.Lface == f)
                 e = e.Lnext
-            } while (e != f.anEdge)
+            } while e != f.anEdge
         }
         
         f = fPrev.next
@@ -410,8 +398,7 @@ internal final class Mesh {
         var vPrev = _vHead
         var v = _vHead
         
-        while vPrev.next != _vHead
-        {
+        while vPrev.next != _vHead {
             defer {
                 vPrev = v
             }
@@ -427,7 +414,7 @@ internal final class Mesh {
                 assert(e.Onext.sym.Lnext == e)
                 assert(e.Org == v)
                 e = e.Onext
-            } while (e != v.anEdge)
+            } while e != v.anEdge
         }
         
         v = vPrev.next
@@ -437,8 +424,7 @@ internal final class Mesh {
         var ePrev = _eHead
         e = _eHead
         
-        while ePrev.next != _eHead
-        {
+        while ePrev.next != _eHead {
             defer {
                 ePrev = e
             }

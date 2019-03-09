@@ -1,6 +1,6 @@
 //
 //  Dict.swift
-//  Squishy2048
+//  LibTessSwift
 //
 //  Created by Luiz Fernando Silva on 26/02/17.
 //  Copyright © 2017 Luiz Fernando Silva. All rights reserved.
@@ -9,12 +9,12 @@
 typealias Node<T> = UnsafeMutablePointer<_Node<T>>
 
 internal struct _Node<TValue>: Linked {
-    var Key: TValue?
-    var Prev: Node<TValue>?
-    var Next: Node<TValue>?
+    var key: TValue?
+    var prev: Node<TValue>?
+    var next: Node<TValue>?
     
     var _next: Node<TValue>? {
-        return Next
+        return next
     }
     
     init() {
@@ -22,7 +22,7 @@ internal struct _Node<TValue>: Linked {
     }
     
     init(Key: TValue) {
-        self.Key = Key
+        self.key = Key
     }
 }
 
@@ -37,16 +37,16 @@ internal final class Dict<TValue> {
         
         _head = UnsafeMutablePointer.allocate(capacity: 1)
         _head.initialize(to: _Node<TValue>())
-        _head.pointee.Prev = _head
-        _head.pointee.Next = _head
+        _head.pointee.prev = _head
+        _head.pointee.next = _head
     }
     
     deinit {
         _head.loop { node in
-            if node.pointee.Prev != _head {
-                node.pointee.Prev?.deinitialize(count: 1).deallocate()
+            if node.pointee.prev != _head {
+                node.pointee.prev?.deinitialize(count: 1).deallocate()
             }
-            node.pointee.Next = nil
+            node.pointee.next = nil
         }
         _head.deinitialize(count: 1).deallocate()
     }
@@ -59,16 +59,16 @@ internal final class Dict<TValue> {
         var node = node
         
         repeat {
-            node = node.pointee.Prev!
-        } while (node.pointee.Key != nil && !_leq(node.pointee.Key!, key))
+            node = node.pointee.prev!
+        } while node.pointee.key != nil && !_leq(node.pointee.key!, key)
         
         let newNode = UnsafeMutablePointer<_Node<TValue>>.allocate(capacity: 1)
         newNode.initialize(to: _Node<TValue>())
-        newNode.pointee.Key = key
-        newNode.pointee.Next = node.pointee.Next
-        node.pointee.Next?.pointee.Prev = newNode
-        newNode.pointee.Prev = node
-        node.pointee.Next = newNode
+        newNode.pointee.key = key
+        newNode.pointee.next = node.pointee.next
+        node.pointee.next?.pointee.prev = newNode
+        newNode.pointee.prev = node
+        node.pointee.next = newNode
         
         return newNode
     }
@@ -76,18 +76,18 @@ internal final class Dict<TValue> {
     func find(key: TValue) -> Node<TValue> {
         var node = _head
         repeat {
-            node = node.pointee.Next!
-        } while node.pointee.Key != nil && !_leq(key, node.pointee.Key!)
+            node = node.pointee.next!
+        } while node.pointee.key != nil && !_leq(key, node.pointee.key!)
         return node
     }
     
     func min() -> Node<TValue>? {
-        return _head.pointee.Next
+        return _head.pointee.next
     }
     
     func remove(node: Node<TValue>) {
-        node.pointee.Next?.pointee.Prev = node.pointee.Prev
-        node.pointee.Prev?.pointee.Next = node.pointee.Next
+        node.pointee.next?.pointee.prev = node.pointee.prev
+        node.pointee.prev?.pointee.next = node.pointee.next
         node.deinitialize(count: 1).deallocate()
     }
 }

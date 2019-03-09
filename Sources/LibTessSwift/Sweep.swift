@@ -1,6 +1,6 @@
 //
 //  Sweep.swift
-//  Squishy2048
+//  LibTessSwift
 //
 //  Created by Luiz Fernando Silva on 27/02/17.
 //  Copyright © 2017 Luiz Fernando Silva. All rights reserved.
@@ -28,11 +28,11 @@ extension Tess {
     }
 
     private func regionBelow(_ reg: ActiveRegion) -> ActiveRegion! {
-        return reg.nodeUp.pointee.Prev?.pointee.Key
+        return reg.nodeUp.pointee.prev?.pointee.key
     }
 
     private func regionAbove(_ reg: ActiveRegion) -> ActiveRegion! {
-        return reg.nodeUp.pointee.Next?.pointee.Key
+        return reg.nodeUp.pointee.next?.pointee.key
     }
     
     
@@ -115,7 +115,7 @@ extension Tess {
         // Find the region above the uppermost edge with the same origin
         repeat {
             reg = regionAbove(reg)!
-        } while (reg.eUp.Org == org)
+        } while reg.eUp.Org == org
 
         // If the edge above was a temporary edge introduced by connectRightVertex,
         // now is the time to fix it.
@@ -135,7 +135,7 @@ extension Tess {
         // Find the region above the uppermost edge with the same destination
         repeat {
             reg = regionAbove(reg)!
-        } while (reg.eUp.Dst == dst)
+        } while reg.eUp.Dst == dst
 
         return reg
     }
@@ -252,7 +252,7 @@ extension Tess {
             assert(Geom.vertLeq(e.Org, e.Dst))
             _=addRegionBelow(regUp, e.sym)
             e = e.Onext
-        } while (e != eLast)
+        } while e != eLast
         
         // Walk *all* right-going edges from e.Org, in the dictionary order,
         // updating the winding numbers of each region, and re-linking the mesh
@@ -843,7 +843,7 @@ extension Tess {
         let regUp = _regionsPool.withTemporary { tmp -> ActiveRegion in
             tmp.eUp = vEvent.anEdge.sym
             
-            return _dict.find(key: tmp).pointee.Key!
+            return _dict.find(key: tmp).pointee.key!
         }
         
         guard let regLo = regionBelow(regUp) else {
@@ -965,7 +965,7 @@ extension Tess {
     private func doneEdgeDict() {
         var fixedEdges = 0
 
-        while let reg = _dict.min()?.pointee.Key {
+        while let reg = _dict.min()?.pointee.key {
             // At the end of all processing, the dictionary should contain
             // only the two sentinel edges, plus at most one "fixable" edge
             // created by connectRightVertex().
@@ -987,8 +987,8 @@ extension Tess {
     private func removeDegenerateEdges() {
         var eHead = mesh._eHead, eNext: Edge, eLnext: Edge
         
-        // Can't use _mesh.forEachEdge due to a reassignment of the next edge
-        // to step to
+        // Can't use mesh.makeEdgeIterator() due to a reassignment of the next
+        // edge to iteratem to
         var e = eHead.next!
         while e != eHead {
             defer {
@@ -1030,7 +1030,7 @@ extension Tess {
     private func initPriorityQ() {
         var vertexCount = 0
         
-        mesh.forEachVertex { v in
+        for _ in mesh.makeVertexIterator() {
             vertexCount += 1
         }
         
@@ -1039,7 +1039,7 @@ extension Tess {
         
         _pq = PriorityQueue<Vertex>(vertexCount, Geom.vertLeq)
         
-        mesh.forEachVertex { v in
+        for v in mesh.makeVertexIterator() {
             v.pqHandle = _pq.insert(v)
             if v.pqHandle.handle == PQHandle.Invalid {
                 // TODO: Throw a proper error here
@@ -1069,7 +1069,7 @@ extension Tess {
     /// will sometimes be keeping a pointer to that edge.
     /// </summary>
     private func removeDegenerateFaces() {
-        mesh.forEachFace { f in
+        for f in mesh.makeFaceIterator() {
             let e = f.anEdge!
             assert(e.Lnext != e)
             

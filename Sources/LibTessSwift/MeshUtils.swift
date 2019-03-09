@@ -1,6 +1,6 @@
 //
 //  MeshUtils.swift
-//  Squishy2048
+//  LibTessSwift
 //
 //  Created by Luiz Fernando Silva on 26/02/17.
 //  Copyright © 2017 Luiz Fernando Silva. All rights reserved.
@@ -309,6 +309,30 @@ extension UnsafeMutablePointer where Pointee == MeshUtils._Vertex {
 }
 
 extension UnsafeMutablePointer where Pointee: Linked {
+    
+    /// Returns an iterator that loops through each linked element, starting from
+    /// the next instance linked from this instance, until either the end of the
+    /// linked list, or until it loops back to this very instance (this istance
+    /// does not appear in the final sequence).
+    ///
+    /// This is mostly used to iterate mesh face/index/edge pointers, where the
+    /// first element is the head of the linked list and should be ignored as an
+    /// iterable element.
+    ///
+    /// precondition: `self.pointee._next != nil`
+    func makeIteratorDroppingFirst() -> AnyIterator<UnsafeMutablePointer<Pointee>> {
+        let initial = self
+        var current: UnsafeMutablePointer<Pointee>? = self.pointee._next
+        
+        return AnyIterator {
+            let next = current?.pointee._next
+            defer {
+                current = next == initial ? nil : next
+            }
+            
+            return current
+        }
+    }
     
     /// Loops over each element, starting from this instance, until
     /// either _next is nil, or the check closure returns false.

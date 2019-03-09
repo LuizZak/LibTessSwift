@@ -1,6 +1,6 @@
 //
 //  Tess.swift
-//  Squishy2048
+//  LibTessSwift
 //
 //  Created by Luiz Fernando Silva on 26/02/17.
 //  Copyright © 2017 Luiz Fernando Silva. All rights reserved.
@@ -137,7 +137,7 @@ public final class Tess {
             return maxVal[index] - minVal[index]
         }
         
-        mesh.forEachVertex { v in
+        for v in mesh.makeVertexIterator() {
             if v.coords.x < minVal[0] {
                 minVal[0] = v.coords.x
                 minVert[0] = v
@@ -191,8 +191,7 @@ public final class Tess {
         var tNorm: Vector3 = .zero
         var d1 = v1.coords - v2.coords
         
-        mesh.forEachVertex { v in
-            
+        for v in mesh.makeVertexIterator() {
             let d2 = v.coords - v2.coords
             
             tNorm.x = d1.y * d2.z - d1.z * d2.y
@@ -219,16 +218,16 @@ public final class Tess {
         // so that the the sum of the signed areas of all contours is non-negative.
         var area: Real = 0.0
         
-        mesh.forEachFace { f in
+        for f in mesh.makeFaceIterator() {
             if f.anEdge!.winding <= 0 {
-                return
+                continue
             }
             area += MeshUtils.faceArea(f)
         }
         
         if area < 0.0 {
             // Reverse the orientation by flipping all the t-coordinates
-            mesh.forEachVertex { v in
+            for v in mesh.makeVertexIterator() {
                 v.t = -v.t
             }
             
@@ -257,7 +256,7 @@ public final class Tess {
         _tUnit[(i + 2) % 3] = norm[i] > 0.0 ? SUnitX : -SUnitX
 
         // Project the vertices onto the sweep plane
-        mesh.forEachVertex { v in
+        for v in mesh.makeVertexIterator() {
             v.s = dot(v.coords, _sUnit)
             v.t = dot(v.coords, _tUnit)
         }
@@ -269,7 +268,7 @@ public final class Tess {
         // Compute ST bounds.
         var first = true
         
-        mesh.forEachVertex { v in
+        for v in mesh.makeVertexIterator() {
             if first {
                 _bmaxX = v.s
                 _bminX = v.s
@@ -361,7 +360,7 @@ public final class Tess {
     /// must be monotone.
     /// </summary>
     private func tessellateInterior() {
-        mesh.forEachFace { f in
+        for f in mesh.makeFaceIterator() {
             if f.inside {
                 tessellateMonoRegion(f)
             }
@@ -375,7 +374,7 @@ public final class Tess {
     /// mesh so that exterior loops are not represented in the data structure.
     /// </summary>
     private func discardExterior() {
-        mesh.forEachFace { f in
+        for f in mesh.makeFaceIterator() {
             if !f.inside {
                 mesh.zapFace(f)
             }
@@ -393,7 +392,7 @@ public final class Tess {
     /// </summary>
     private func setWindingNumber(_ value: Int, _ keepOnlyBoundary: Bool) {
         
-        mesh.forEachEdge { e in
+        for e in mesh.makeEdgeIterator() {
             if e.Rface.inside != e.Lface.inside {
                 
                 /* This is a boundary edge (one side is interior, one is exterior). */
@@ -436,19 +435,19 @@ public final class Tess {
         }
 
         // Mark unused
-        mesh.forEachVertex { v in
+        for v in mesh.makeVertexIterator() {
             v.n = MeshUtils.Undef
         }
         
         // Create unique IDs for all vertices and faces.
-        mesh.forEachFace { f in
+        for f in mesh.makeFaceIterator() {
             f.n = MeshUtils.Undef
-            if !f.inside { return }
+            if !f.inside { continue }
             
             if noEmptyPolygons {
                 let area = MeshUtils.faceArea(f)
                 if abs(area) < Real.leastNonzeroMagnitude {
-                    return
+                    continue
                 }
             }
             
@@ -480,7 +479,7 @@ public final class Tess {
         _vertices = Array(repeating: ContourVertex(Position: .zero, Data: nil), count: _vertexCount)
 
         // Output vertices.
-        mesh.forEachVertex { v in
+        for v in mesh.makeVertexIterator() {
             if v.n != MeshUtils.Undef {
                 // Store coordinate
                 _vertices[v.n].position = v.coords
@@ -491,13 +490,13 @@ public final class Tess {
         // Output indices.
         var elementIndex = 0
         
-        mesh.forEachFace { f in
-            if !f.inside { return }
+        for f in mesh.makeFaceIterator() {
+            if !f.inside { continue }
             
             if noEmptyPolygons {
                 let area = MeshUtils.faceArea(f)
                 if abs(area) < Real.leastNonzeroMagnitude {
-                    return
+                    continue
                 }
             }
             
@@ -542,9 +541,9 @@ public final class Tess {
         _vertexCount = 0
         _elementCount = 0
         
-        mesh.forEachFace { f in
+        for f in mesh.makeFaceIterator() {
             if !f.inside {
-                return
+                continue
             }
             
             let start = f.anEdge!
@@ -565,9 +564,9 @@ public final class Tess {
         
         startVert = 0
         
-        mesh.forEachFace { f in
+        for f in mesh.makeFaceIterator() {
             if !f.inside {
-                return
+                continue
             }
             
             vertCount = 0
@@ -689,7 +688,6 @@ public final class Tess {
             outputPolymesh(elementType, polySize)
         }
         
-        mesh.free()
         self.mesh = nil
         _meshCreationContext.reset()
     }

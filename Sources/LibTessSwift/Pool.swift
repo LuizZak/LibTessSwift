@@ -1,6 +1,6 @@
 //
 //  Pool.swift
-//  Pods
+//  LibTessSwift
 //
 //  Created by Luiz Fernando Silva on 28/02/17.
 //

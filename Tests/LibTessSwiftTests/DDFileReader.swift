@@ -1,6 +1,6 @@
 //
 //  DDFileReader.swift
-//  LogParser
+//  LibTessSwift
 //
 //  Created by Luiz Fernando Silva on 10/01/17.
 //  Copyright © 2017 Luiz Fernando Silva. All rights reserved.

@@ -1,9 +1,8 @@
 //
 //  MeshCreationContext.swift
-//  Pods
+//  LibTessSwift
 //
 //  Created by Luiz Fernando Silva on 28/02/17.
-//
 //
 
 /// Caches and manages information that is used during mesh generation
@@ -128,7 +127,7 @@ internal final class MeshCreationContext {
         repeat {
             e?.Org = vNew
             e = e?.Onext
-        } while (e != eOrig)
+        } while e != eOrig
     }
     
     /// <summary>
@@ -196,7 +195,7 @@ internal final class MeshCreationContext {
         repeat {
             e?.Org = newOrg
             e = e?.Onext
-        } while (e != eStart)
+        } while e != eStart
         
         // delete from circular doubly-linked list
         let vPrev = vDel.prev

@@ -1,6 +1,6 @@
 //
 //  PriorityHeap.swift
-//  Squishy2048
+//  LibTessSwift
 //
 //  Created by Luiz Fernando Silva on 27/02/17.
 //  Copyright © 2017 Luiz Fernando Silva. All rights reserved.
