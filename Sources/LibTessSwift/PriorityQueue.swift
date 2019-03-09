@@ -6,6 +6,14 @@
 //  Copyright © 2017 Luiz Fernando Silva. All rights reserved.
 //
 
+#if os(macOS)
+import Darwin.C
+#elseif os(Linux)
+import Glibc
+#else
+#error("Unsupported platform")
+#endif
+
 fileprivate struct StackItem {
     var p: Int
     var r: Int
@@ -15,7 +23,7 @@ internal class PriorityQueue<TValue> {
     private var _leq: PriorityHeap<TValue>.LessOrEqual
     private var _heap: PriorityHeap<TValue>
     private var _keys: [TValue?]
-    private var _order: [Int] = []
+    private var _order: UnsafeMutablePointer<Int>
     
     private var _size = 0, _max = 0
     private var _initialized = false
@@ -29,9 +37,18 @@ internal class PriorityQueue<TValue> {
         _size = 0
         _max = initialSize
         _initialized = false
+        _order = UnsafeMutablePointer.allocate(capacity: 0)
+    }
+    
+    deinit {
+        if _initialized {
+            _order.deinitialize(count: _size + 1)
+        }
+        _order.deallocate()
     }
     
     func initialize() {
+        assert(!_initialized, "Attempting to initialize the same PriorityQueue multiple times")
         
         var stack = [StackItem]()
         var i: Int = 0, j: Int, piv: Int = 0
@@ -40,7 +57,9 @@ internal class PriorityQueue<TValue> {
         var p = 0
         var r = _size - 1
         
-        _order = Array(repeating: 0, count: _size + 1)
+        _order.deallocate()
+        _order = UnsafeMutablePointer.allocate(capacity: _size + 1)
+        memset(UnsafeMutableRawPointer(_order)!, 0, MemoryLayout<Int>.stride * (_size + 1))
         
         while i <= r {
             _order[i] = piv
@@ -61,7 +80,7 @@ internal class PriorityQueue<TValue> {
                 piv = _order[i]
                 
                 if p != i {
-                    _order.swapAt(i, p)
+                    (_order[i], _order[p]) = (_order[p], _order[i])
                 }
                 
                 i = p - 1
@@ -75,12 +94,12 @@ internal class PriorityQueue<TValue> {
                     } while !_leq(keyAt(index: piv)!, keyForOrderAt(index: j)!)
                     
                     if i != j {
-                        _order.swapAt(i, j)
+                        (_order[i], _order[j]) = (_order[j], _order[i])
                     }
                 } while i < j
                 
                 if i != j {
-                    _order.swapAt(i, j)
+                    (_order[i], _order[j]) = (_order[j], _order[i])
                 }
                 
                 if i - p < r - j {
@@ -146,6 +165,7 @@ internal class PriorityQueue<TValue> {
 
     func extractMin() -> TValue? {
         assert(_initialized)
+        
         if _size == 0 {
             return _heap.extractMin()
         }
