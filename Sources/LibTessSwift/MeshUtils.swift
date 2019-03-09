@@ -174,7 +174,7 @@ internal class MeshUtils {
     
     /// <summary>
     /// splice( a, b ) is best described by the Guibas/Stolfi paper or the
-    /// CS348a notes (see Mesh.cs). Basically it modifies the mesh so that
+    /// CS348a notes (see Mesh.swift). Basically it modifies the mesh so that
     /// a->Onext and b->Onext are exchanged. This can have various effects
     /// depending on whether a and b belong to different face or vertex rings.
     /// For more explanation see Mesh.splice().
