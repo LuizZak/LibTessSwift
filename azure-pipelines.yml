@@ -1,0 +1,17 @@
+# Xcode
+# Build, test, and archive an Xcode workspace on macOS.
+# Add steps that install certificates, test, sign, and distribute an app, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/xcode
+
+trigger:
+- master
+
+pool:
+  vmImage: 'macOS-10.13'
+
+steps:
+- bash: 'sudo xcode-select -s $XCODE_8_DEVELOPER_DIR'
+- bash: 'gem install cocoapods'
+- bash: 'pod update --project-directory=Example'
+- bash: "set -o pipefail && xcodebuild test -workspace Example/LibTessSwift.xcworkspace -scheme LibTessSwift-Example -sdk iphonesimulator10.3 ONLY_ACTIVE_ARCH=NO -destination 'platform=iOS Simulator,name=iPad Air 2,OS=10.3.1' | xcpretty"
+- bash: 'pod lib lint'
