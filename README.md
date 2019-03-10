@@ -1,6 +1,6 @@
 # LibTessSwift
 
-[![CI Status](http://img.shields.io/travis/LuizZak/LibTessSwift.svg?style=flat)](https://travis-ci.org/LuizZak/LibTessSwift)
+[![Build Status](https://dev.azure.com/luiz-fs/LibTessSwift/_apis/build/status/LuizZak.LibTessSwift?branchName=master)](https://dev.azure.com/luiz-fs/LibTessSwift/_build/latest?definitionId=1&branchName=master)
 [![Version](https://img.shields.io/cocoapods/v/LibTessSwift.svg?style=flat)](http://cocoapods.org/pods/LibTessSwift)
 [![License](https://img.shields.io/cocoapods/l/LibTessSwift.svg?style=flat)](http://cocoapods.org/pods/LibTessSwift)
 [![Platform](https://img.shields.io/cocoapods/p/LibTessSwift.svg?style=flat)](http://cocoapods.org/pods/LibTessSwift)
