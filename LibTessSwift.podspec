@@ -29,6 +29,7 @@ Based on LibTess2 (https://github.com/memononen/Libtess2), with a nice Swift wra
   s.source           = { :git => 'https://github.com/LuizZak/LibTessSwift.git', :tag => s.version.to_s }
   s.social_media_url = 'https://twitter.com/LuizZak'
 
+  s.swift_version = '3.2'
   s.ios.deployment_target = '8.0'
   s.osx.deployment_target = '10.10'
 
