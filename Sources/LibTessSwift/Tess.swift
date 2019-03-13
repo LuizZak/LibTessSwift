@@ -37,14 +37,14 @@ public struct ContourVertex: CustomStringConvertible {
         data = nil
     }
     
-    public init(Position: Vector3) {
-        self.position = Position
+    public init(position: Vector3) {
+        self.position = position
         self.data = nil
     }
     
-    public init(Position: Vector3, Data: Any?) {
-        self.position = Position
-        self.data = Data
+    public init(position: Vector3, data: Any?) {
+        self.position = position
+        self.data = data
     }
     
     public var description: String {
@@ -476,7 +476,7 @@ public final class Tess {
         _elements = Array(repeating: 0, count: maxFaceCount * polySize)
 
         _vertexCount = maxVertexCount
-        _vertices = Array(repeating: ContourVertex(Position: .zero, Data: nil), count: _vertexCount)
+        _vertices = Array(repeating: ContourVertex(position: .zero, data: nil), count: _vertexCount)
 
         // Output vertices.
         for v in mesh.makeVertexIterator() {
@@ -557,7 +557,7 @@ public final class Tess {
         }
 
         _elements = Array(repeating: 0, count: _elementCount * 2)
-        _vertices = Array(repeating: ContourVertex(Position: .zero, Data: nil), count: _vertexCount)
+        _vertices = Array(repeating: ContourVertex(position: .zero, data: nil), count: _vertexCount)
 
         var vertIndex = 0
         var elementIndex = 0

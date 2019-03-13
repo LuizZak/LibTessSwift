@@ -45,8 +45,8 @@ public class Polygon {
         
     }
     
-    public init<S: Sequence>(_ s: S, orientation: ContourOrientation = .original) where S.Iterator.Element == PolygonPoint {
-        points = Array(s)
+    public init(_ points: [PolygonPoint], orientation: ContourOrientation = .original) {
+        self.points = points
         self.orientation = orientation
     }
 }
@@ -95,8 +95,6 @@ public class DataLoader {
                 continue
             }
             
-            let tokenizer = TokenizerLexer<FullToken<TestDataToken>>(input: line)
-            
             if line.isEmpty {
                 if points.count > 0 {
                     let p = Polygon(points, orientation: currentOrientation)
@@ -106,6 +104,8 @@ public class DataLoader {
                 }
                 continue
             }
+            
+            let tokenizer = TokenizerLexer<FullToken<TestDataToken>>(input: line)
             
             if tokenizer.tokenType(is: .force) {
                 try tokenizer.advance(overTokenType: .force)

@@ -7,8 +7,8 @@ class PolyConvert {
             var v: [ContourVertex] = []
             
             for p in poly.points {
-                let vertex = ContourVertex(Position: Vector3(x: Real(p.x), y: Real(p.y), z: Real(p.z)),
-                                           Data: p.color)
+                let vertex = ContourVertex(position: Vector3(x: Real(p.x), y: Real(p.y), z: Real(p.z)),
+                                           data: p.color)
                 v.append(vertex)
             }
             
