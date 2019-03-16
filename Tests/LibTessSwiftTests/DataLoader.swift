@@ -177,7 +177,7 @@ public class DataLoader {
             }
         }
         
-        if (points.count > 0) {
+        if points.count > 0 {
             let p = Polygon(points)
             p.orientation = currentOrientation
             polys.polygons.append(p)

@@ -47,7 +47,7 @@ func process(polygon: [MyVector]) -> (vertices: [MyVector], indices: [Int])? {
     for i in 0..<tess.elementCount {
         for j in 0..<polySize {
             let index = tess.elements![i * polySize + j]
-            if (index == -1) {
+            if index == -1 {
                 continue
             }
             indices.append(index)

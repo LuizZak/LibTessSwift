@@ -83,12 +83,12 @@ public final class Tess {
     
     public var normal: Vector3 { get { return _normal } set { _normal = newValue } }
     
-    public var SUnitX: Real = 1
-    public var SUnitY: Real = 0
+    public var sUnitX: Real = 1
+    public var sUnitY: Real = 0
 #if arch(x86_64) || arch(arm64)
-    public var SentinelCoord: Real = 4e150
+    public var sentinelCoord: Real = 4e150
 #else
-    public var SentinelCoord: Real = 4e30
+    public var sentinelCoord: Real = 4e30
 #endif
 
     /// <summary>
@@ -248,12 +248,12 @@ public final class Tess {
         let i = Vector3.longAxis(v: &norm)
         
         _sUnit[i] = 0
-        _sUnit[(i + 1) % 3] = SUnitX
-        _sUnit[(i + 2) % 3] = SUnitY
+        _sUnit[(i + 1) % 3] = sUnitX
+        _sUnit[(i + 2) % 3] = sUnitY
 
         _tUnit[i] = 0
-        _tUnit[(i + 1) % 3] = norm[i] > 0.0 ? -SUnitY : SUnitY
-        _tUnit[(i + 2) % 3] = norm[i] > 0.0 ? SUnitX : -SUnitX
+        _tUnit[(i + 1) % 3] = norm[i] > 0.0 ? -sUnitY : sUnitY
+        _tUnit[(i + 2) % 3] = norm[i] > 0.0 ? sUnitX : -sUnitX
 
         // Project the vertices onto the sweep plane
         for v in mesh.makeVertexIterator() {
@@ -277,10 +277,10 @@ public final class Tess {
                 _bminY = v.t
                 first = false
             } else {
-                if (v.s < _bminX) { _bminX = v.s }
-                if (v.s > _bmaxX) { _bmaxX = v.s }
-                if (v.t < _bminY) { _bminY = v.t }
-                if (v.t > _bmaxY) { _bmaxY = v.t }
+                if v.s < _bminX { _bminX = v.s }
+                if v.s > _bmaxX { _bmaxX = v.s }
+                if v.t < _bminY { _bminY = v.t }
+                if v.t > _bmaxY { _bmaxY = v.t }
             }
         }
     }
@@ -470,7 +470,7 @@ public final class Tess {
         }
 
         _elementCount = maxFaceCount
-        if elementType == ElementType.connectedPolygons {
+        if elementType == .connectedPolygons {
             maxFaceCount *= 2
         }
         _elements = Array(repeating: 0, count: maxFaceCount * polySize)
@@ -517,7 +517,7 @@ public final class Tess {
             }
             
             // Store polygon connectivity
-            if elementType == ElementType.connectedPolygons {
+            if elementType == .connectedPolygons {
                 edge = f.anEdge!
                 repeat {
                     _elements[elementIndex] = getNeighbourFace(edge)
@@ -557,7 +557,8 @@ public final class Tess {
         }
 
         _elements = Array(repeating: 0, count: _elementCount * 2)
-        _vertices = Array(repeating: ContourVertex(position: .zero, data: nil), count: _vertexCount)
+        _vertices = Array(repeating: ContourVertex(position: .zero, data: nil),
+                          count: _vertexCount)
 
         var vertIndex = 0
         var elementIndex = 0
@@ -604,7 +605,7 @@ public final class Tess {
     }
 
     public func addContour(_ vertices: [ContourVertex]) {
-        addContour(vertices, ContourOrientation.original)
+        addContour(vertices, .original)
     }
 
     public func addContour(_ vertices: [ContourVertex], _ forceOrientation: ContourOrientation) {
@@ -613,9 +614,10 @@ public final class Tess {
         }
 
         var reverse = false
-        if forceOrientation != ContourOrientation.original {
+        if forceOrientation != .original {
             let area = signedArea(vertices)
-            reverse = (forceOrientation == ContourOrientation.clockwise && area < 0.0) || (forceOrientation == ContourOrientation.counterClockwise && area > 0.0)
+            reverse = (forceOrientation == .clockwise && area < 0.0)
+                || (forceOrientation == .counterClockwise && area > 0.0)
         }
 
         var e: Edge! = nil
@@ -674,7 +676,7 @@ public final class Tess {
         // If the user wants only the boundary contours, we throw away all edges
         // except those which separate the interior from the exterior.
         // Otherwise we tessellate all the regions marked "inside".
-        if elementType == ElementType.boundaryContours {
+        if elementType == .boundaryContours {
             setWindingNumber(1, true)
         } else {
             tessellateInterior()
@@ -682,7 +684,7 @@ public final class Tess {
         
         mesh.check()
         
-        if elementType == ElementType.boundaryContours {
+        if elementType == .boundaryContours {
             outputContours()
         } else {
             outputPolymesh(elementType, polySize)

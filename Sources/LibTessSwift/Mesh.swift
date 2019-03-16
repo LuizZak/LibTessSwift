@@ -349,8 +349,8 @@ internal final class Mesh {
                     let symNv = eSym.Lface.VertsCount
                     if (curNv + symNv - 2) <= maxVertsPerFace {
                         // Merge if the resulting poly is convex.
-                        if (Geom.vertCCW(eCur.Lprev!.Org!, eCur.Org!, eSym.Lnext.Lnext.Org!) &&
-                            Geom.vertCCW(eSym.Lprev!.Org!, eSym.Org!, eCur.Lnext.Lnext.Org!)) {
+                        if Geom.vertCCW(eCur.Lprev!.Org!, eCur.Org!, eSym.Lnext.Lnext.Org!) &&
+                            Geom.vertCCW(eSym.Lprev!.Org!, eSym.Org!, eCur.Lnext.Lnext.Org!) {
                             eNext = eSym.Lnext
                             delete(eSym)
                             eCur = nil

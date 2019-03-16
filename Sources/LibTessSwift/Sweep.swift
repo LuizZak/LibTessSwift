@@ -544,10 +544,10 @@ extension Tess {
             return false
         }
 
-        if (   (!Geom.vertEq(dstUp, _event)
+        if  (!Geom.vertEq(dstUp, _event)
             && Geom.edgeSign(dstUp, _event, isect) >= 0.0)
             || (!Geom.vertEq(dstLo, _event)
-            && Geom.edgeSign(dstLo, _event, isect) <= 0.0)) {
+            && Geom.edgeSign(dstLo, _event, isect) <= 0.0) {
             // Very unusual -- the new upper or lower edge would pass on the
             // wrong side of the sweep event, or through it. This can happen
             // due to very small numerical errors in the intersection calculation.
@@ -958,8 +958,8 @@ extension Tess {
     private func initEdgeDict() {
         _dict = Dict<ActiveRegion>(leq: edgeLeq)
 
-        addSentinel(-SentinelCoord, SentinelCoord, -SentinelCoord)
-        addSentinel(-SentinelCoord, SentinelCoord, +SentinelCoord)
+        addSentinel(-sentinelCoord, sentinelCoord, -sentinelCoord)
+        addSentinel(-sentinelCoord, sentinelCoord, +sentinelCoord)
     }
 
     private func doneEdgeDict() {

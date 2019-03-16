@@ -228,25 +228,25 @@ extension Tests {
                 }
                 
                 line = line.trimmingCharacters(in: .whitespacesAndNewlines)
-                if (found && line.isEmpty) {
+                if found && line.isEmpty {
                     return true
                 }
-                if (found) {
+                if found {
                     lines.append(line)
                 }
                 let parts = line.components(separatedBy: " ")
-                if(parts.count < 2) {
+                if parts.count < 2 {
                     return false
                 }
                 
-                if (parts.first == winding.rawValue && Int(parts.last!) == elementSize) {
+                if parts.first == winding.rawValue && Int(parts.last!) == elementSize {
                     found = true
                 }
                 
                 return false
             }
             
-            if(breakOut) {
+            if breakOut {
                 break
             }
         }
@@ -254,14 +254,14 @@ extension Tests {
         var indices: [Int] = []
         for line in lines {
             let parts = line.components(separatedBy: " ")
-            if (parts.count != elementSize) {
+            if parts.count != elementSize {
                 continue
             }
             for part in parts {
                 indices.append(Int(part)!)
             }
         }
-        if (found) {
+        if found {
             return TestCaseData(indices: indices, elementSize: elementSize)
         }
         return nil
