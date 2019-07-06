@@ -146,7 +146,7 @@ public class DataLoader {
             } else {
                 var x: CGFloat = 0, y: CGFloat = 0, z: CGFloat = 0
                 
-                var xyz = try tokenizer.allTokens()
+                let xyz = try tokenizer.allTokens()
                     .filter { $0.tokenType != .comma }
                     .map { token -> CGFloat in
                         if let double = Double(token.value.trimmingCharacters(in: .whitespacesAndNewlines)) {
@@ -328,7 +328,7 @@ private enum TestDataToken: TokenProtocol {
                 return .integer
             }
             
-            backtracker.backtrack()
+            backtracker.backtrack(lexer: lexer)
         }
         
         if TestDataToken.floatGrammar.passes(in: lexer) {
