@@ -1,0 +1,4 @@
+module libtess2 {
+    umbrella "/Users/luizfernandosilva/Documents/Projetos/LibTessSwift/Sources/libtess2/include"
+    export *
+}

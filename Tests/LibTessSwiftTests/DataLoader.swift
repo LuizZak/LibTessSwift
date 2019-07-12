@@ -13,10 +13,10 @@ import MiniLexer
 public struct Color {
     static var white = Color(red: 1, green: 1, blue: 1, alpha: 1)
     
-    var red: CGFloat
-    var green: CGFloat
-    var blue: CGFloat
-    var alpha: CGFloat
+    var red: Float
+    var green: Float
+    var blue: Float
+    var alpha: Float
 }
 
 public struct PolygonPoint: CustomStringConvertible {
@@ -54,10 +54,10 @@ public class Polygon {
 fileprivate extension Color {
     
     static func fromRGBA(red: Int, green: Int, blue: Int, alpha: Int = 255) -> Color {
-        let rf = CGFloat(red) / 255
-        let gf = CGFloat(green) / 255
-        let bf = CGFloat(blue) / 255
-        let af = CGFloat(alpha) / 255
+        let rf = Float(red) / 255
+        let gf = Float(green) / 255
+        let bf = Float(blue) / 255
+        let af = Float(alpha) / 255
         
         return Color(red: rf, green: gf, blue: bf, alpha: af)
     }
