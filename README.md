@@ -1,9 +1,6 @@
 # LibTessSwift
 
 [![Build Status](https://dev.azure.com/luiz-fs/LibTessSwift/_apis/build/status/LuizZak.LibTessSwift?branchName=master)](https://dev.azure.com/luiz-fs/LibTessSwift/_build/latest?definitionId=1&branchName=master)
-[![Version](https://img.shields.io/cocoapods/v/LibTessSwift.svg?style=flat)](http://cocoapods.org/pods/LibTessSwift)
-[![License](https://img.shields.io/cocoapods/l/LibTessSwift.svg?style=flat)](http://cocoapods.org/pods/LibTessSwift)
-[![Platform](https://img.shields.io/cocoapods/p/LibTessSwift.svg?style=flat)](http://cocoapods.org/pods/LibTessSwift)
 
 A Swift wrapper on top of [Libtess2](https://github.com/memononen/Libtess2) for polygon triangulation.
 
@@ -73,21 +70,14 @@ guard let (verts, indices) = try process(myVerts) else {
 MyRenderer.drawPolygon(verts: verts, indices: indices)
 ```
 
-## Example
-
-(note: I plan on adding a propper sample app later)
-
-To run the example project, clone the repo, and run `pod install` from the Example directory first.
-
 ## Requirements
 
 ## Installation
 
-LibTessSwift is available through [CocoaPods](http://cocoapods.org). To install
-it, simply add the following line to your Podfile:
+LibTessSwift is available as a [Swift Package Manager](https://swift.org/package-manager/):
 
 ```ruby
-pod "LibTessSwift"
+.package(url: "https://github.com/LuizZak/LibTessSwift.git", .exact("0.8.0"))
 ```
 
 ## Author
