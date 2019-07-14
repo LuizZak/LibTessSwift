@@ -26,8 +26,7 @@ func stdFree(userData: UnsafeMutableRawPointer?, ptr: UnsafeMutableRawPointer) {
 }
 
 struct MemPool {
-    var buf: UnsafeMutablePointer<UInt8>
-    var cap: Int
+    var buffer: UnsafeMutableBufferPointer<UInt8>
     var size: Int
 }
 
@@ -39,17 +38,16 @@ func poolAlloc(userData: UnsafeMutableRawPointer?, size: Int) -> UnsafeMutableRa
     
     let pool = userData.assumingMemoryBound(to: MemPool.self)
     
-    let size = (size+0x7) & ~0x7;
+    let size = (size+0x7) & ~0x7
     
-    if (pool.pointee.size + size < pool.pointee.cap)
-    {
-        let ptr = pool.pointee.buf + pool.pointee.size;
+    if pool.pointee.size + size < pool.pointee.buffer.count {
+        let ptr = pool.pointee.buffer.baseAddress! + pool.pointee.size
         pool.pointee.size += size
         
         return UnsafeMutableRawPointer(ptr)
     }
     
-    print("out of mem: \(pool.pointee.size + size) < \(pool.pointee.cap)!\n")
+    print("out of mem: \(pool.pointee.size + size) < \(pool.pointee.buffer.count)!\n")
     
     return nil
 }

@@ -240,7 +240,7 @@ public class DataLoader {
     }
 }
 
-private enum TestDataToken: TokenProtocol {
+enum TestDataToken: TokenProtocol {
     /// Grammar for floating point numbers.
     ///
     /// Format grammar representation:

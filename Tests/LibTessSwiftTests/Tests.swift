@@ -1,6 +1,7 @@
 import Foundation
 import XCTest
 import LibTessSwift
+import MiniLexer
 
 class Tests: XCTestCase {
     
@@ -233,36 +234,28 @@ extension Tests {
                               _ reader: FileReader) -> TestData? {
         
         var lines: [String] = []
-        
         var found = false
         
         while true {
-            
             let breakOut: Bool = autoreleasepool {
-                guard var line = reader.readLine() else {
+                guard let line = reader.readLine() else {
                     return true
                 }
                 
-                line = line.trimmingCharacters(in: .whitespacesAndNewlines)
-                if (found && line.isEmpty) {
+                if found && line.isEmpty {
                     return true
                 }
-                if (found) {
+                if found {
                     lines.append(line)
                 }
-                let parts = line.components(separatedBy: " ")
-                if(parts.count < 2) {
-                    return false
-                }
-                
-                if (parts.first == winding.description && Int(parts.last!) == elementSize) {
+                if line == "\(winding.description) \(elementSize)" {
                     found = true
                 }
                 
                 return false
             }
             
-            if(breakOut) {
+            if breakOut {
                 break
             }
         }
@@ -270,14 +263,14 @@ extension Tests {
         var indices: [Int] = []
         for line in lines {
             let parts = line.components(separatedBy: " ")
-            if (parts.count != elementSize) {
+            if parts.count != elementSize {
                 continue
             }
             for part in parts {
                 indices.append(Int(part)!)
             }
         }
-        if (found) {
+        if found {
             return TestData(indices: indices, elementSize: elementSize)
         }
         return nil

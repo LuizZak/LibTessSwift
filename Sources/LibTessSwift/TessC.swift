@@ -8,7 +8,7 @@
 
 import libtess2
 
-public enum WindingRule: Int, CustomStringConvertible {
+public enum WindingRule: Int, CustomStringConvertible, CaseIterable {
     case evenOdd
     case nonZero
     case positive
@@ -52,7 +52,7 @@ open class TessC {
     var memoryPool: MemPool?
     /// Pointer to raw memory buffer used for memory pool - nil, if not using 
     /// memory pooling.
-    var mem: UnsafeMutablePointer<UInt8>?
+    var poolBuffer: UnsafeMutablePointer<UInt8>?
     /// Allocator - nil, if not using memory pooling.
     var ma: TESSalloc?
     
@@ -116,23 +116,24 @@ open class TessC {
     /// of the pool.
     /// This can be usefull for cases of constrained memory usage, and reduces
     /// overhead of repeated malloc/free calls
-    public init?(usePooling: Bool = false, poolSize: Int = 1024 * 1024 * 10) {
-        if(usePooling) {
-            mem = malloc(poolSize).assumingMemoryBound(to: UInt8.self)
+    public init?(usePooling: Bool = true, poolSize: Int = 1024 * 1024 * 10) {
+        if usePooling {
+            poolBuffer = malloc(poolSize).assumingMemoryBound(to: UInt8.self)
+            let bufferPtr = UnsafeMutableBufferPointer(start: poolBuffer, count: poolSize)
             
-            memoryPool = MemPool(buf: mem!, cap: poolSize, size: 0)
+            memoryPool = MemPool(buffer: bufferPtr, size: 0)
             
-            ma = TESSalloc(memalloc: { poolAlloc(userData: $0, size: $1) },
+            ma = TESSalloc(memalloc: poolAlloc,
                            memrealloc: nil,
-                           memfree: { poolFree(userData: $0, ptr: $1) },
-                           userData: &memoryPool!, meshEdgeBucketSize: 0,
+                           memfree: poolFree,
+                           userData: &memoryPool, meshEdgeBucketSize: 0,
                            meshVertexBucketSize: 0, meshFaceBucketSize: 0,
                            dictNodeBucketSize: 0, regionBucketSize: 0,
                            extraVertices: 256)
             
             guard let tess = Tesselator.create(allocator: &ma!) else {
                 // Free memory
-                free(mem!)
+                free(poolBuffer!)
                 
                 // Tesselator failed to initialize
                 print("Failed to initialize tesselator")
@@ -154,7 +155,7 @@ open class TessC {
     deinit {
         // Free tesselator
         _tess.pointee.destroy()
-        if let mem = mem {
+        if let mem = poolBuffer {
             free(mem)
         }
     }
