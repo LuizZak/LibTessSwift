@@ -1,5 +1,5 @@
 //
-//  DDFileReader.swift
+//  FileReader.swift
 //  LogParser
 //
 //  Created by Luiz Fernando Silva on 10/01/17.
@@ -8,13 +8,13 @@
 
 import Foundation
 
-public enum StreamReaderError: Error {
+enum StreamReaderError: Error {
     case couldNotLoad
 }
 
 /// File reader fit for reading from files with a high capacity output.
 /// Provides no buffering of data (i.e. cannot peek).
-public final class FileReader {
+final class FileReader {
     
     var fileContents: String
     var lines: [String]

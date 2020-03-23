@@ -10,50 +10,15 @@ import Foundation
 import LibTessSwift
 import MiniLexer
 
-public struct Color {
+struct Color {
     static var white = Color(red: 1, green: 1, blue: 1, alpha: 1)
     
     var red: Float
     var green: Float
     var blue: Float
     var alpha: Float
-}
-
-public struct PolygonPoint: CustomStringConvertible {
-    public var x: Float, y: Float, z: Float
-    public var color: Color
     
-    init(x: Float, y: Float, z: Float, color: Color) {
-        self.x = x
-        self.y = y
-        self.z = z
-        self.color = color
-    }
-    
-    public var description: String {
-        return "\(x), \(y), \(z)"
-    }
-}
-
-public class Polygon {
-    
-    var points: [PolygonPoint] = []
-    
-    public var orientation: ContourOrientation = ContourOrientation.original
-
-    public init() {
-        
-    }
-    
-    public init<S: Sequence>(_ s: S, orientation: ContourOrientation = .original) where S.Iterator.Element == PolygonPoint {
-        points = Array(s)
-        self.orientation = orientation
-    }
-}
-
-fileprivate extension Color {
-    
-    static func fromRGBA(red: Int, green: Int, blue: Int, alpha: Int = 255) -> Color {
+    fileprivate static func fromRGBA(red: Int, green: Int, blue: Int, alpha: Int = 255) -> Color {
         let rf = Float(red) / 255
         let gf = Float(green) / 255
         let bf = Float(blue) / 255
@@ -63,16 +28,46 @@ fileprivate extension Color {
     }
 }
 
-public class PolygonSet {
-    var polygons: [Polygon] = []
-    public var hasColors = false
+struct PolygonPoint: CustomStringConvertible {
+    var x: Float, y: Float, z: Float
+    var color: Color
+    
+    init(x: Float, y: Float, z: Float, color: Color) {
+        self.x = x
+        self.y = y
+        self.z = z
+        self.color = color
+    }
+    
+    var description: String {
+        return "\(x), \(y), \(z)"
+    }
 }
 
-public class DataLoader {
-    public class Asset {
-        public var name: String
-        public var path: URL
-        public var polygon: PolygonSet?
+class Polygon {
+    var points: [PolygonPoint] = []
+    var orientation: ContourOrientation = ContourOrientation.original
+    
+    init() {
+        
+    }
+    
+    init<S: Sequence>(_ s: S, orientation: ContourOrientation = .original) where S.Iterator.Element == PolygonPoint {
+        points = Array(s)
+        self.orientation = orientation
+    }
+}
+
+class PolygonSet {
+    var polygons: [Polygon] = []
+    var hasColors = false
+}
+
+class DataLoader {
+    class Asset {
+        var name: String
+        var path: URL
+        var polygon: PolygonSet?
         
         init(name: String, path: URL) {
             self.name = name
@@ -80,7 +75,7 @@ public class DataLoader {
         }
     }
     
-    public static func LoadDat(reader: FileReader) throws -> PolygonSet {
+    static func loadData(reader: FileReader) throws -> PolygonSet {
         var points: [PolygonPoint] = []
         let polys = PolygonSet()
         
@@ -126,7 +121,7 @@ public class DataLoader {
                 
                 let tokens = tokenizer.allTokens().filter { $0.tokenType != .comma }
                 
-                if tokens.contains(where: { $0.tokenType != .integer }) {
+                guard tokens.allSatisfy({ $0.tokenType == .integer }) else {
                     throw DataError.invalidInputData
                 }
                 
@@ -191,15 +186,15 @@ public class DataLoader {
         return polys
     }
     
-    var _assets: [String: Asset] = [:]
+    var assets: [String: Asset] = [:]
     
-    public var assetNames: [String] {
+    var assetNames: [String] {
         get {
-            return Array(_assets.keys)
+            return Array(assets.keys)
         }
     }
 
-    public init() throws {
+    init() throws {
         
         // TODO: This is kinda nasty, but it's the only way to get the files we
         // need until SwiftPM gets a resources story in place
@@ -217,19 +212,19 @@ public class DataLoader {
             let name = path.lastPathComponent
             let fileName = name.components(separatedBy: ".").first ?? ""
             
-            _assets[fileName] = Asset(name: fileName, path: path)
+            assets[fileName] = Asset(name: fileName, path: path)
         }
     }
     
-    public func getAsset(name: String) throws -> Asset? {
-        guard let asset = _assets[name] else {
+    func getAsset(name: String) throws -> Asset? {
+        guard let asset = assets[name] else {
             return nil
         }
         
         if asset.polygon == nil {
             let reader = try FileReader(fileUrl: asset.path)
             
-            asset.polygon = try DataLoader.LoadDat(reader: reader)
+            asset.polygon = try DataLoader.loadData(reader: reader)
         }
         
         return asset

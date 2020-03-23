@@ -105,11 +105,11 @@ class Tests: XCTestCase {
         
         let reader = FileReader(string: data)
         
-        let pset = try DataLoader.LoadDat(reader: reader)
+        let pset = try DataLoader.loadData(reader: reader)
         let tess = TessC()!
         
         // Call once
-        PolyConvert.ToTessC(pset: pset, tess: tess)
+        PolyConvert.toTessC(pset: pset, tess: tess)
         try tess.tessellate(windingRule: .evenOdd, elementType: .polygons, polySize: 3)
         
         for i in 0..<tess.elementCount {
@@ -122,7 +122,7 @@ class Tests: XCTestCase {
         XCTAssertEqual(expectedIndices, indices)
 
         // Call twice
-        PolyConvert.ToTessC(pset: pset, tess: tess)
+        PolyConvert.toTessC(pset: pset, tess: tess)
         try tess.tessellate(windingRule: .evenOdd, elementType: .polygons, polySize: 3)
 
         indices.removeAll()
@@ -148,7 +148,7 @@ class Tests: XCTestCase {
                     do {
                         let pset = try Tests._loader.getAsset(name: data.assetName)!.polygon!
                         let tess = TessC()!
-                        PolyConvert.ToTessC(pset: pset, tess: tess)
+                        PolyConvert.toTessC(pset: pset, tess: tess)
                         try! tess.tessellate(windingRule: data.winding,
                                              elementType: .polygons,
                                              polySize: data.elementSize)
@@ -215,7 +215,7 @@ extension Tests {
         
         for winding in windings {
             for name in Tests._loader.assetNames {
-                guard let asset = Tests._loader._assets[name] else {
+                guard let asset = Tests._loader.assets[name] else {
                     continue
                 }
                 
@@ -279,10 +279,10 @@ extension Tests {
     func setupTess(withString string: String) throws -> TessC {
         let reader = FileReader(string: string)
         
-        let pset = try DataLoader.LoadDat(reader: reader)
+        let pset = try DataLoader.loadData(reader: reader)
         let tess = TessC()!
         
-        PolyConvert.ToTessC(pset: pset, tess: tess)
+        PolyConvert.toTessC(pset: pset, tess: tess)
         
         return tess
     }
