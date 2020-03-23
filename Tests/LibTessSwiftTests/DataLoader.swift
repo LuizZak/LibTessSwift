@@ -95,7 +95,7 @@ class DataLoader {
                 continue
             }
             
-            let tokenizer = TokenizerLexer<FullToken<TestDataToken>>(input: line)
+            let lexer = Lexer(input: line)
             
             if line.isEmpty {
                 if points.count > 0 {
@@ -107,36 +107,35 @@ class DataLoader {
                 continue
             }
             
-            if tokenizer.tokenType(is: .force) {
-                try tokenizer.advance(overTokenType: .force)
-                if tokenizer.tokenType(is: .cw) {
-                    try tokenizer.advance(overTokenType: .cw)
+            if lexer.advanceIf(equals: "force") {
+                lexer.skipWhitespace()
+                
+                if lexer.checkNext(matches: "cw") {
                     currentOrientation = .clockwise
                 } else {
-                    try tokenizer.advance(overTokenType: .ccw)
                     currentOrientation = .counterClockwise
                 }
-            } else if tokenizer.tokenType(is: .color) {
-                try tokenizer.advance(overTokenType: .color)
+            } else if lexer.advanceIf(equals: "color") {
+                lexer.skipWhitespace()
                 
-                let tokens = tokenizer.allTokens().filter { $0.tokenType != .comma }
-                
-                guard tokens.allSatisfy({ $0.tokenType == .integer }) else {
-                    throw DataError.invalidInputData
+                var integers: [Int] = []
+                while !lexer.isEof() {
+                    try integers.append(lexer.lexInt())
+                    lexer.skipComma()
                 }
                 
-                if tokens.count == 3 {
-                    let r = Int(tokens[0].value)!
-                    let g = Int(tokens[1].value)!
-                    let b = Int(tokens[2].value)!
+                if integers.count == 3 {
+                    let r = integers[0]
+                    let g = integers[1]
+                    let b = integers[2]
                     
                     currentColor = Color.fromRGBA(red: r, green: g, blue: b)
                     polys.hasColors = true
-                } else if tokens.count == 4 {
-                    let r = Int(tokens[0].value)!
-                    let g = Int(tokens[1].value)!
-                    let b = Int(tokens[2].value)!
-                    let a = Int(tokens[3].value)!
+                } else if integers.count == 4 {
+                    let r = integers[0]
+                    let g = integers[1]
+                    let b = integers[2]
+                    let a = integers[3]
                     
                     currentColor = Color.fromRGBA(red: r, green: g, blue: b, alpha: a)
                     polys.hasColors = true
@@ -146,38 +145,27 @@ class DataLoader {
             } else {
                 var x: Float = 0, y: Float = 0, z: Float = 0
                 
-                let xyz = try tokenizer.allTokens()
-                    .filter { $0.tokenType != .comma }
-                    .map { token -> Float in
-                        if let value = Float(token.value.trimmingCharacters(in: .whitespacesAndNewlines)) {
-                            return value
-                        }
-                        
-                        throw LexerError.syntaxError(
-                            token.range?.lowerBound ?? tokenizer.lexer.inputIndex,
-                            "Expected floating-point value, received \(token.value)"
-                        )
-                    }
-                
-                if (xyz.count != 0) {
-                    if xyz.count > 0 {
-                        x = Float(xyz[0])
-                    }
-                    if xyz.count > 1 {
-                        y = Float(xyz[1])
-                    }
-                    if xyz.count > 2 {
-                        z = Float(xyz[2])
-                    }
-                    
-                    points.append(PolygonPoint(x: x, y: y, z: z, color: currentColor))
-                } else {
+                if lexer.isEof() {
                     throw DataError.invalidInputData
                 }
+                
+                x = try lexer.lexFloat()
+                lexer.skipComma()
+                
+                if !lexer.isEof() {
+                    y = try lexer.lexFloat()
+                    lexer.skipComma()
+                    
+                    if !lexer.isEof() {
+                        z = try lexer.lexFloat()
+                    }
+                }
+                
+                points.append(PolygonPoint(x: x, y: y, z: z, color: currentColor))
             }
         }
         
-        if (points.count > 0) {
+        if !points.isEmpty {
             let p = Polygon(points)
             p.orientation = currentOrientation
             polys.polygons.append(p)
@@ -235,106 +223,93 @@ class DataLoader {
     }
 }
 
-enum TestDataToken: TokenProtocol {
-    /// Grammar for floating point numbers.
+extension Lexer {
+    func skipComma() {
+        skipWhitespace()
+        advance(while: { $0 == "," })
+        skipWhitespace()
+    }
+    
+    /// Attempts to lex an integer literal from the current point in the text
+    /// stream
     ///
-    /// Format grammar representation:
+    /// Former grammar representation:
+    ///
+    /// ```
+    /// integer-grammar:
+    ///     '-'? [0-9]+
+    /// ```
+    func lexInt() throws -> Int {
+        let range = startRange()
+        
+        // '-'?
+        if try peek() == "-" {
+            try advance()
+        }
+        
+        // [0-9]+
+        try advance(validatingCurrent: Lexer.isDigit)
+        while try !isEof() && Lexer.isDigit(peek()) {
+            try advance()
+        }
+        
+        guard let int = Int(range.string()) else {
+            throw syntaxError("Expected integer value")
+        }
+        
+        return int
+    }
+    
+    /// Attempts to lex a floating point literal from the current point in the
+    /// text stream
+    ///
+    /// Former grammar representation:
     ///
     /// ```
     /// float-grammar:
     ///     '-'? [0-9]+ ('.' [0-9]+)? (('E' | 'e') '-'? [0-9]+)?
     /// ```
-    fileprivate static let floatGrammar: GrammarRule =
-            ["-"]
-            + GrammarRule.digit+
-            + ["." + GrammarRule.digit+]
-            + [("E" | "e") + ["-"] + GrammarRule.digit+]
-    
-    case eof
-    case comma
-    case force
-    case color
-    case cw
-    case ccw
-    case integer
-    case float
-    
-    static var eofToken: TestDataToken = .eof
-    
-    var tokenString: String {
-        switch self {
-        case .eof:
-            return ""
-        case .comma:
-            return ","
-        case .force:
-            return "force"
-        case .color:
-            return "color"
-        case .cw:
-            return "cw"
-        case .ccw:
-            return "ccw"
-        case .integer:
-            return "<integer>"
-        case .float:
-            return "<float>"
-        }
-    }
-    
-    func length(in lexer: Lexer) -> Int {
-        switch self {
-        case .eof:
-            return 0
-        case .comma:
-            return 1
-        case .cw:
-            return 2
-        case .ccw:
-            return 3
-        case .force, .color:
-            return 5
-        case .integer:
-            return (GrammarRule.digit+).maximumLength(in: lexer) ?? 0
-        case .float:
-            return TestDataToken.floatGrammar.maximumLength(in: lexer) ?? 0
-        }
-    }
-    
-    static func tokenType(at lexer: Lexer) -> TestDataToken? {
+    func lexFloat() throws -> Float {
+        let range = startRange()
         
-        if lexer.checkNext(matches: ",") {
-            return .comma
+        // '-'?
+        if try peek() == "-" {
+            try advance()
         }
         
-        if lexer.checkNext(matches: "force") {
-            return .force
-        }
-        if lexer.checkNext(matches: "color") {
-            return .color
-        }
-        if lexer.checkNext(matches: "cw") {
-            return .cw
-        }
-        if lexer.checkNext(matches: "ccw") {
-            return .ccw
+        // [0-9]+
+        try advance(validatingCurrent: Lexer.isDigit)
+        while try !isEof() && Lexer.isDigit(peek()) {
+            try advance()
         }
         
-        if lexer.safeNextCharPasses(with: Lexer.isDigit) {
-            let backtracker = lexer.backtracker()
-            lexer.advance(while: Lexer.isDigit)
+        // ('.' [0-9]+)?
+        if try !isEof() && peek() == "." {
+            try advance()
+            try advance(validatingCurrent: Lexer.isDigit)
+            while try !isEof() && Lexer.isDigit(peek()) {
+                try advance()
+            }
+        }
+        
+        // (('E' | 'e') '-'? [0-9]+)?
+        if try !isEof() && (peek() == "e" || peek() == "E") {
+            try advance()
             
-            if !lexer.safeIsNextChar(equalTo: ".") {
-                return .integer
+            if try peek() == "-" {
+                try advance()
             }
             
-            backtracker.backtrack(lexer: lexer)
+            try advance(validatingCurrent: Lexer.isDigit)
+            while try !isEof() && Lexer.isDigit(peek()) {
+                try advance()
+            }
         }
         
-        if TestDataToken.floatGrammar.passes(in: lexer) {
-            return .float
+        guard let float = Float(range.string()) else {
+            throw syntaxError("Expected floating point value")
         }
         
-        return .eof
+        return float
     }
 }

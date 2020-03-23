@@ -1,7 +1,6 @@
 import Foundation
 import XCTest
 import LibTessSwift
-import MiniLexer
 
 class Tests: XCTestCase {
     
@@ -260,6 +259,10 @@ extension Tests {
             }
         }
         
+        if !found {
+            return nil
+        }
+        
         var indices: [Int] = []
         for line in lines {
             let parts = line.components(separatedBy: " ")
@@ -270,10 +273,8 @@ extension Tests {
                 indices.append(Int(part)!)
             }
         }
-        if found {
-            return TestData(indices: indices, elementSize: elementSize)
-        }
-        return nil
+        
+        return TestData(indices: indices, elementSize: elementSize)
     }
     
     func setupTess(withString string: String) throws -> TessC {
