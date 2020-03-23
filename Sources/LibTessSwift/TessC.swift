@@ -49,7 +49,7 @@ open class TessC {
     /// Memory pooler - simple struct that is used as `userData` by the `TESSalloc`
     /// methods.
     /// Nil, if not using memory pooling.
-    var memoryPool: MemPool?
+    var memoryPool: UnsafeMutablePointer<MemPool>?
     /// Pointer to raw memory buffer used for memory pool - nil, if not using 
     /// memory pooling.
     var poolBuffer: UnsafeMutablePointer<UInt8>?
@@ -121,12 +121,13 @@ open class TessC {
             poolBuffer = malloc(poolSize).assumingMemoryBound(to: UInt8.self)
             let bufferPtr = UnsafeMutableBufferPointer(start: poolBuffer, count: poolSize)
             
-            memoryPool = MemPool(buffer: bufferPtr, size: 0)
+            memoryPool = .allocate(capacity: 1)
+            memoryPool?.pointee = MemPool(buffer: bufferPtr, size: 0)
             
             ma = TESSalloc(memalloc: poolAlloc,
                            memrealloc: nil,
                            memfree: poolFree,
-                           userData: &memoryPool, meshEdgeBucketSize: 0,
+                           userData: memoryPool, meshEdgeBucketSize: 0,
                            meshVertexBucketSize: 0, meshFaceBucketSize: 0,
                            dictNodeBucketSize: 0, regionBucketSize: 0,
                            extraVertices: 256)
@@ -157,6 +158,9 @@ open class TessC {
         _tess.pointee.destroy()
         if let mem = poolBuffer {
             free(mem)
+        }
+        if let memoryPool = memoryPool {
+            memoryPool.deallocate()
         }
     }
     
