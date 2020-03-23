@@ -82,20 +82,20 @@ class DataLoader {
         var currentColor = Color.white
         var currentOrientation = ContourOrientation.original
         
-        while var line = reader.readLine() {
-            line = line.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        
+        let trimCharacterSet = CharacterSet
+            .whitespacesAndNewlines
             // Deal with a weird zero-width space character in input files which
             // I cannot remove directly from those files.
-            while line.first == "\u{FEFF}" {
-                line = String(line.dropFirst())
-            }
+            .union(CharacterSet(charactersIn: "\u{FEFF}"))
+        
+        while var line = reader.readLine() {
+            line = line.trimmingCharacters(in: trimCharacterSet)
             
             // Comment
             if line.hasPrefix("//") || line.hasPrefix("#") || line.hasPrefix(";") {
                 continue
             }
-            
-            let lexer = Lexer(input: line)
             
             if line.isEmpty {
                 if points.count > 0 {
@@ -106,6 +106,8 @@ class DataLoader {
                 }
                 continue
             }
+            
+            let lexer = Lexer(input: line)
             
             if lexer.advanceIf(equals: "force") {
                 lexer.skipWhitespace()
