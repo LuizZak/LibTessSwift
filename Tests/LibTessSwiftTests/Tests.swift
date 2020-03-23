@@ -142,7 +142,7 @@ class Tests: XCTestCase {
         let queue = OperationQueue()
         queue.maxConcurrentOperationCount = 1
         
-        for data in getTestCaseData() {
+        for data in Tests.getTestCaseData() {
             queue.addOperation {
                 autoreleasepool {
                     do {
@@ -160,7 +160,7 @@ class Tests: XCTestCase {
                         
                         let reader = try FileReader(fileUrl: resourceUrl)
                         
-                        guard let testData = self.parseTestData(data.winding, data.elementSize, reader) else {
+                        guard let testData = Tests.parseTestData(data.winding, data.elementSize, reader) else {
                             XCTFail("Unexpected empty data for test result for \(data.assetName)")
                             return
                         }
@@ -202,7 +202,7 @@ class Tests: XCTestCase {
 
 extension Tests {
     
-    func getTestCaseData() -> [TestCaseData] {
+    static func getTestCaseData() -> [TestCaseData] {
         var data: [TestCaseData] = []
         
         let windings: [WindingRule] = [
@@ -229,9 +229,9 @@ extension Tests {
         return data
     }
     
-    public func parseTestData(_ winding: WindingRule,
-                              _ elementSize: Int,
-                              _ reader: FileReader) -> TestData? {
+    public static func parseTestData(_ winding: WindingRule,
+                                     _ elementSize: Int,
+                                     _ reader: FileReader) -> TestData? {
         
         var lines: [String] = []
         var found = false
