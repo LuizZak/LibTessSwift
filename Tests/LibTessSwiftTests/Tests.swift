@@ -1,6 +1,7 @@
 import Foundation
 import XCTest
 import LibTessSwift
+import MiniLexer
 
 class Tests: XCTestCase {
     
@@ -263,13 +264,21 @@ extension Tests {
         }
         
         var indices: [Int] = []
+        indices.reserveCapacity(lines.count * elementSize)
         for line in lines {
-            let parts = line.components(separatedBy: " ")
+            let lexer = Lexer(input: line)
+            
+            var parts: [Int] = []
+            while !lexer.isEof() {
+                parts.append(try! lexer.lexInt())
+                lexer.skipWhitespace()
+            }
+            
             if parts.count != elementSize {
                 continue
             }
             for part in parts {
-                indices.append(Int(part)!)
+                indices.append(part)
             }
         }
         

@@ -255,11 +255,16 @@ extension Lexer {
             try advance()
         }
         
-        guard let int = Int(range.string()) else {
-            throw syntaxError("Expected integer value")
+        let string = range.string()
+        return try string.withCString { pointer -> Int in
+            let result = atol(pointer)
+            
+            if errno != 0 {
+                throw syntaxError("Expected integer value")
+            }
+            
+            return result
         }
-        
-        return int
     }
     
     /// Attempts to lex a floating point literal from the current point in the
