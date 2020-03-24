@@ -139,7 +139,6 @@ class Tests: XCTestCase {
         
         // Multi-task the test
         let queue = OperationQueue()
-        queue.maxConcurrentOperationCount = 1
         
         for data in Tests.getTestCaseData() {
             queue.addOperation {
