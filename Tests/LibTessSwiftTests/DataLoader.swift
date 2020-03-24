@@ -257,6 +257,8 @@ extension Lexer {
         
         let string = range.string()
         return try string.withCString { pointer -> Int in
+            errno = 0
+            
             let result = atol(pointer)
             
             if errno != 0 {
